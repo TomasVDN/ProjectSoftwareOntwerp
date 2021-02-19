@@ -25,8 +25,10 @@ public class Main {
     	        String data = scan.nextLine();
     	        handleLine(data);
     	      }
+    	      
     	      MyCanvasWindow window = new MyCanvasWindow(textToDisplay);
     	      window.main(null);
+    	      
     	      scan.close();
     	    } catch (FileNotFoundException e) {
     	      System.out.println("An error occurred.");
