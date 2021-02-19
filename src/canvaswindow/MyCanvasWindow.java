@@ -9,13 +9,14 @@ import java.awt.Graphics;
  */
 public class MyCanvasWindow extends CanvasWindow {
 	
-	String text = "Example Text";
+	static String text;
 	Font font = new Font(Font.DIALOG, Font.PLAIN, 40);
 	FontMetrics metrics;
 	int textWidth;
 	
-	public MyCanvasWindow() {
+	public MyCanvasWindow(String textToDisplay) {
 		super("My Canvas Window");
+		text = textToDisplay;
 	}
 	
 	@Override
@@ -38,7 +39,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	
 	public static void main(String[] args) {
 	    java.awt.EventQueue.invokeLater(() -> {             
-	        new MyCanvasWindow().show();  
+	        new MyCanvasWindow(text).show();  
 	    });                                                 
 	}
 
