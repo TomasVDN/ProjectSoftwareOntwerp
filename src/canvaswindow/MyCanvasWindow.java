@@ -12,6 +12,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	Text test;
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 	
+	//TODO test must be given from input file
 	public MyCanvasWindow(String title) {
 		super(title);
 		test = new Text(25, 25, 10, 10, "Test");
