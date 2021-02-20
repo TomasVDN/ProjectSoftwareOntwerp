@@ -1,35 +1,32 @@
 package canvaswindow;
 
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
-/**
- * This is an example of how you can use class CanvasWindow.
- */
+import htmlElement.GUIElement;
+import htmlElement.Text;
+
+
 public class MyCanvasWindow extends CanvasWindow {
 	
-	static String text;
-	Font font = new Font(Font.DIALOG, Font.PLAIN, 40);
-	FontMetrics metrics;
-	int textWidth;
+	Text test;
+	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 	
-	public MyCanvasWindow(String textToDisplay) {
-		super("My Canvas Window");
-		text = textToDisplay;
+	//TODO test must be given from input file
+	public MyCanvasWindow(String title) {
+		super(title);
+		test = new Text(25, 25, 10, 10, "Test");
+		elements.add(test);
 	}
 	
 	@Override
 	protected void handleShown() {
-		metrics = getFontMetrics(font);
-		textWidth = metrics.stringWidth(text);
 		repaint();
 	}
 	
 	@Override
 	protected void paint(Graphics g) {
-		g.setFont(font);
-		g.drawString(text, (getWidth() - textWidth) / 2, (getHeight() - metrics.getHeight()) / 2 + metrics.getLeading() + metrics.getAscent());
+		elements.forEach((n) -> n.paint(g));
 	}
 	
 	@Override
@@ -37,10 +34,14 @@ public class MyCanvasWindow extends CanvasWindow {
 		repaint();
 	}
 	
-	public static void main(String[] args) {
-	    java.awt.EventQueue.invokeLater(() -> {             
-	        new MyCanvasWindow(text).show();  
-	    });                                                 
+	@Override
+	public void handleKeyEvent(int id, int keyCode, char keyChar){
+		
+	}
+	
+	@Override
+	public void handleMouseEvent(int id, int x, int y, int clickCount){
+		
 	}
 
 }
