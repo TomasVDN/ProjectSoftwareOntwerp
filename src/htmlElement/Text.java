@@ -1,8 +1,6 @@
 package htmlElement;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.Shape;
 
 public class Text extends GUIElement{
 	

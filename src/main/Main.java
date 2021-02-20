@@ -1,4 +1,4 @@
-import java.io.*;
+package main;
 import canvaswindow.MyCanvasWindow;
 
 public class Main {

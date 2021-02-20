@@ -3,20 +3,25 @@ package canvaswindow;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import browsrhtml.HtmlLexer.TokenType;
 import htmlElement.GUIElement;
 import htmlElement.Text;
+import main.InputReader;
 
 
 public class MyCanvasWindow extends CanvasWindow {
 	
-	Text test;
+	private InputReader fileReader;
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 	
 	//TODO test must be given from input file
 	public MyCanvasWindow(String title) {
 		super(title);
-		test = new Text(25, 25, 10, 10, "Test");
-		elements.add(test);
+		fileReader = new InputReader(this);
+	}
+	
+	public InputReader getReader() {
+		return this.fileReader;
 	}
 	
 	@Override
@@ -42,6 +47,11 @@ public class MyCanvasWindow extends CanvasWindow {
 	@Override
 	public void handleMouseEvent(int id, int x, int y, int clickCount){
 		
+	}
+	
+	public void addTextElement(String textToAdd) {
+		Text text = new Text(25, 25, 10, 10, textToAdd);
+		elements.add(text);
 	}
 
 }
