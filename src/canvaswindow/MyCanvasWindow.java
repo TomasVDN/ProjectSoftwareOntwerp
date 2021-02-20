@@ -18,6 +18,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	public MyCanvasWindow(String title) {
 		super(title);
 		fileReader = new InputReader(this);
+		fileReader.readFile("src/input.txt");
 	}
 	
 	public InputReader getReader() {
@@ -49,9 +50,21 @@ public class MyCanvasWindow extends CanvasWindow {
 		
 	}
 	
+	//TODO remove this utterly disgusting variable
+	private int increment = 0;
+	
 	public void addTextElement(String textToAdd) {
-		Text text = new Text(25, 25, 10, 10, textToAdd);
+		Text text = new Text(40, 40 + this.increment * 40, 10, 10, textToAdd);
 		elements.add(text);
+		setIncrement(getIncrement() + 1);
+	}
+
+	public int getIncrement() {
+		return increment;
+	}
+
+	public void setIncrement(int increment) {
+		this.increment = increment;
 	}
 
 }

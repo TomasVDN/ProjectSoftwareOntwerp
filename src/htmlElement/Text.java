@@ -1,5 +1,6 @@
 package htmlElement;
 
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class Text extends GUIElement{
@@ -21,6 +22,7 @@ public class Text extends GUIElement{
 	
 	@Override
 	public void paint(Graphics g) {
+		g.setFont(new Font(Font.DIALOG, Font.PLAIN, 40));
 		g.drawString(getText(), getLeftX(), getLowerY());
 	}
 
