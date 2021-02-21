@@ -22,7 +22,7 @@ public class InputReader {
 		String textToDisplay = "";
 		
 		try {
-    	    File file = new File("src/input.txt");
+    	    File file = new File(path);
     	    Scanner scan = new Scanner(file);
     	    
     	    while (scan.hasNextLine()) {
