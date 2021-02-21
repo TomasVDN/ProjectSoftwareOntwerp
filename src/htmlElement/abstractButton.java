@@ -5,12 +5,12 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-public abstract class abstractButton extends Box {
+public abstract class abstractButton extends GUIElement  {
 
 
 	
 	//text en button kleur variabelen
-	    private Color buttonColor =  Color.BLUE;
+		private Box box;
 	    private Text text;
 		
 	    /**
@@ -22,7 +22,9 @@ public abstract class abstractButton extends Box {
 	     * @param text - text van de button
 	     */
 		public abstractButton(int x, int y, int size, Color color, String textButton){
-			super(x, y, size, size,color);
+			super(x, y, size, size);
+			Box box = new Box(x, y, y, size, color);
+			this.setBox(box);
 			setWidth((3*textButton.length()/4) * 40);
 			setHeight(size);	
 			int textX = getLeftX() + (getWidth() - metrics.stringWidth(textButton)) / 2;
@@ -31,7 +33,14 @@ public abstract class abstractButton extends Box {
 		    this.setText(textGuiButton);
 		}
 		
-
+		public void setBox(Box newBox) {
+			this.box = newBox;
+		}
+		
+		public Box getBox() {
+			return this.box;
+		}
+		
 		
 		/**
 		 * Set de text van de button
@@ -85,7 +94,7 @@ public abstract class abstractButton extends Box {
 		 */
 		@Override
 		public void paint(Graphics g) {
-			this.paintBox(g);
+			this.getBox().paintBox(g);
 			this.getText().paintText(g);
 		}
 

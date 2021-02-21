@@ -90,7 +90,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	@Override
 	public void handleKeyEvent(int id, int keyCode, char keyChar){
 		textBoxes.forEach((n) -> {
-			n.handleKeyBoardEvent(id, keyChar);
+			n.handleKeyBoardEvent(id,keyCode, keyChar);
 		});
 		this.repaint();
 	}

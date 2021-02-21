@@ -63,6 +63,9 @@ public class TextBox extends GUIElement{
 	public void handleMouseEvent(int id, int x, int y) {
 		if (id == MouseEvent.MOUSE_CLICKED) {
 			if (this.checkCoordinates(x, y)) {
+				if(this.isActive()) {
+					
+				}
 				this.setActive(true);
 				this.getBox().setColor(Color.gray);
 			} else {
@@ -74,19 +77,28 @@ public class TextBox extends GUIElement{
 		}
 	}
 	
-	public void handleKeyBoardEvent(int id, char keyChar) {
+	public void handleKeyBoardEvent(int id,int keyCode, char keyChar) {
 		if (this.isActive()) {
 			if (id == KeyEvent.KEY_PRESSED) {
-				if (keyChar == KeyEvent.VK_BACK_SPACE) {
-					int textLength = this.getTextValue().length();
-					if (textLength > 0) {
-						this.setTextValue(getTextValue().substring(0, textLength - 1));
-					}
-				} else {
-					this.setTextValue(this.getTextValue() + keyChar);
+				switch (keyChar) {
+					case (KeyEvent.VK_BACK_SPACE):
+						backSpace();
+						break;
+					default:
+						if(keyCode != 16) { // Dit zorgt ervoor dat shift niet herkend wordt.
+							this.setTextValue(this.getTextValue() + keyChar);
+						}
 				}
 			}
 		}
+	}
+	
+	private void backSpace() {
+		int textLength = this.getTextValue().length();
+		if (textLength > 0) {
+			this.setTextValue(getTextValue().substring(0, textLength - 1));
+		}
+
 	}
 
 
