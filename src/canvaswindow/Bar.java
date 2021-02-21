@@ -1,5 +1,7 @@
 package canvaswindow;
 
+import java.awt.Graphics;
+
 public class Bar {
 	
 	/**
