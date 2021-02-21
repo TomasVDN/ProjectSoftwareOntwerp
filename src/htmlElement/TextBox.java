@@ -79,7 +79,7 @@ public class TextBox extends GUIElement{
 			if (id == KeyEvent.KEY_PRESSED) {
 				if (keyChar == KeyEvent.VK_BACK_SPACE) {
 					int textLength = this.getTextValue().length();
-					if (textLength > 0) {
+					if (textLength > 0) { // if text is not empty
 						this.setTextValue(getTextValue().substring(0, textLength - 1));
 					}
 				} else {
