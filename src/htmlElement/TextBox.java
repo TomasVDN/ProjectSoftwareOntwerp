@@ -10,9 +10,9 @@ import java.awt.event.MouseEvent;
 public class TextBox extends GUIElement{
 
 	public TextBox(int x, int y, int w, int h) {
-		super(x, y, w, h);
+		super(x, y, w,  h + (h/4));
 		Color color = Color.white;
-		this.setBox(new Box(x, y, w, h, color));
+		this.setBox(new Box(x, y, w, h + (h/4), color));
 		Text text = Text.constructText("input text: ", x, y, h);
 		this.setText(text);
 		// TODO Auto-generated constructor stub
@@ -80,14 +80,13 @@ public class TextBox extends GUIElement{
 	public void handleKeyBoardEvent(int id,int keyCode, char keyChar) {
 		if (this.isActive()) {
 			if (id == KeyEvent.KEY_PRESSED) {
-				switch (keyChar) {
-					case (KeyEvent.VK_BACK_SPACE):
-						backSpace();
-						break;
-					default:
-						if(keyCode != 16) { // Dit zorgt ervoor dat shift niet herkend wordt.
-							this.setTextValue(this.getTextValue() + keyChar);
-						}
+				if (keyChar == KeyEvent.VK_BACK_SPACE) {
+					int textLength = this.getTextValue().length();
+					if (textLength > 0) { // if text is not empty
+						this.setTextValue(getTextValue().substring(0, textLength - 1));
+					}
+				} else if (keyChar != KeyEvent.CHAR_UNDEFINED) {
+					this.setTextValue(this.getTextValue() + keyChar);
 				}
 			}
 		}
