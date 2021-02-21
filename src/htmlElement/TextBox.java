@@ -11,16 +11,16 @@ public class TextBox extends GUIElement{
 
 	public TextBox(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		Color color = Color.gray;
+		Color color = Color.white;
 		this.setBox(new Box(x, y, w, h, color));
-		Text text = Text.constructText("Text", x, y, metrics);
+		Text text = Text.constructText("input text: ", x, y, h);
 		this.setText(text);
 		// TODO Auto-generated constructor stub
 	}
 	
 	private Text text;
 	private Box box;
-	private boolean isActive; 
+	private boolean isActive;
 	
 	public void setBox(Box newBox) {
 		this.box = newBox;
@@ -64,10 +64,10 @@ public class TextBox extends GUIElement{
 		if (id == MouseEvent.MOUSE_CLICKED) {
 			if (this.checkCoordinates(x, y)) {
 				this.setActive(true);
-				this.getBox().setColor(Color.blue);
+				this.getBox().setColor(Color.gray);
 			} else {
 				this.setActive(false);
-				this.getBox().setColor(Color.red);
+				this.getBox().setColor(Color.white);
 				
 			}
 			
