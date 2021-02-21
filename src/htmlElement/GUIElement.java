@@ -38,11 +38,11 @@ public abstract class GUIElement {
 	}
 
 	public int getUpperY() {
-		return this.yPos + this.height;
+		return this.yPos;
 	}
 	
 	public int getLowerY() {
-		return this.yPos;
+		return this.yPos + this.height;
 	}
 	
 	public void setWidth(int width) {

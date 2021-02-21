@@ -3,6 +3,7 @@ package canvaswindow;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent; // geen idee als deze import mag
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import browsrhtml.HtmlLexer.TokenType;
 import htmlElement.Button;
@@ -20,12 +21,41 @@ public class MyCanvasWindow extends CanvasWindow {
 	//TODO test must be given from input file
 	public MyCanvasWindow(String title) {
 		super(title);
-		fileReader = new InputReader(this);
+		/*fileReader = new InputReader(this);
 		fileReader.readFile("src/input.txt");
 		Button button = new Button(40, 40 * 12, 40, "Click me");
 		elements.add(button);
-		buttons.add(button);
+		buttons.add(button);*/
 
+	}
+	/**
+	 * adds the given element to the element list
+	 * @param elem
+	 */
+	public void addElement(GUIElement elem) {
+		elements.add(elem);
+	}
+	
+	/**
+	 * removes the first of the given element from the element list
+	 * @param elem
+	 */
+	public void removeElement(GUIElement elem) {
+		Boolean found = false;
+		int i =0;
+		while (!found && i<elements.size()) {
+			if(elements.get(i)== elem) {
+				elements.remove(i);
+				found=true;
+			}
+		}
+	}
+	
+	/**
+	 * removes all elements in list
+	 */
+	public void clearElements() {
+		elements.clear();
 	}
 	
 	public InputReader getReader() {

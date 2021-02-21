@@ -2,15 +2,18 @@ package canvaswindow;
 
 import java.awt.Graphics;
 
-public class Bar {
+import htmlElement.Button;
+import htmlElement.abstractButton;
+
+public class Bar  {
 	
 	/**
 	 * Constructor of a bar
 	 * @param position
 	 * 	given x and y coordinates
 	 */
-	public Bar(double[] position) {
-		
+	public Bar(int x, int y, int width,int heigth, String text){
+		//super(x, y, width, heigth,text);
 	}
 	
 	

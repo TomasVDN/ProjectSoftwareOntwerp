@@ -26,6 +26,11 @@ public class Button extends GUIElement{
 		setText(text);
 	}
 	
+	public Button(int x, int y, int width,int heigth, String text){
+		super(x, y, width, heigth);	
+		setText(text);
+	}
+	
 	/**
 	 * Set de text van de button
 	 * @param text

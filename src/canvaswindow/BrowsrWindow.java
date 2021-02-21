@@ -8,12 +8,12 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 
-public class Window extends CanvasWindow {
+public class BrowsrWindow extends CanvasWindow {
 
 	/*
 	 * Constructor of window
 	 */
-	public Window(String title) {
+	public BrowsrWindow(String title) {
 		super(title);
 		
 	}
@@ -51,7 +51,7 @@ public class Window extends CanvasWindow {
 	
 	public static void main(String[] args) {
 	    java.awt.EventQueue.invokeLater(() -> {             
-	    	new Window("My Canvas Window").show(); 
+	    	new BrowsrWindow("My Canvas Window").show(); 
 	    });                                                 
 	}
 	
