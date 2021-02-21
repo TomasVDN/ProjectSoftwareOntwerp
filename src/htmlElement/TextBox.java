@@ -77,7 +77,14 @@ public class TextBox extends GUIElement{
 	public void handleKeyBoardEvent(int id, char keyChar) {
 		if (this.isActive()) {
 			if (id == KeyEvent.KEY_PRESSED) {
-				this.setTextValue(this.getTextValue() + keyChar);
+				if (keyChar == KeyEvent.VK_BACK_SPACE) {
+					int textLength = this.getTextValue().length();
+					if (textLength > 0) {
+						this.setTextValue(getTextValue().substring(0, textLength - 1));
+					}
+				} else {
+					this.setTextValue(this.getTextValue() + keyChar);
+				}
 			}
 		}
 	}
