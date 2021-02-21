@@ -11,7 +11,7 @@ public class Main {
 	      java.awt.EventQueue.invokeLater(() -> {
 	         MyCanvasWindow window = new MyCanvasWindow("Browsr");
 	         //GUIElement box = new Box(20, 200, 100, 100,Color.red);
-	         TextBox textBox = new TextBox(20, 200, 100, 100);
+	         TextBox textBox = new TextBox(1, 1, 580, 20);
 	         window.addTextBox(textBox);
 	         window.addElement(textBox);
 	         window.show();
