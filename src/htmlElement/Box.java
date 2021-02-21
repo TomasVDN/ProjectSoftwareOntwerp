@@ -10,7 +10,7 @@ import java.awt.Graphics;
  */
 public class Box extends GUIElement {
 
-	public Box(int x, int y, int w, int h,Color color) {
+	public Box(int x, int y, int w, int h, Color color) {
 		super(x, y, w, h);
 		this.setColor(color);
 	}
@@ -35,9 +35,9 @@ public class Box extends GUIElement {
 
 	public void paintBox(Graphics g) {
 		g.setColor(this.getColor());
-		g.fillRect(this.getLeftX(), this.getRightX(), this.getWidth(), this.getHeight());
+		g.fillRect(this.getLeftX(), this.getUpperY(), this.getWidth(), this.getHeight());
 		g.setColor(Color.BLACK);
-		g.drawRect(this.getLeftX(), this.getRightX(), this.getWidth(), this.getHeight());
+		g.drawRect(this.getLeftX(), this.getUpperY(), this.getWidth(), this.getHeight());
 	}
 
 }

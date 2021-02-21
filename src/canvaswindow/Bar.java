@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import htmlElement.Button;
 import htmlElement.abstractButton;
 
-public class Bar  {
+public class Bar {
 	
 	/**
 	 * Constructor of a bar

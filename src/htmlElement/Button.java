@@ -46,19 +46,7 @@ public class Button extends GUIElement{
 	public String getText() {
 		return this.text;
 	}
-	/**
-	 * Checkt of er een event zich op de button bevindt
-	 * @param x - x coordinaat van event
-	 * @param y - y coordinaat van event
-	 * @return
-	 */
-	public boolean checkCoordinates(int x, int y) {
-		if ((getLeftX() <= x && getRightX() >= x) && (getLowerY() <= y && getUpperY() >= y)) {
-			return true;
-		} else {
-			return false;
-		}	
-	}
+
 
 	/**
 	 * Deze functie tekent de button

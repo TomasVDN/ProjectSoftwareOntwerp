@@ -9,6 +9,7 @@ import browsrhtml.HtmlLexer.TokenType;
 import htmlElement.Button;
 import htmlElement.GUIElement;
 import htmlElement.Text;
+import htmlElement.TextBox;
 import main.InputReader;
 
 
@@ -17,6 +18,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	private InputReader fileReader;
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 	private ArrayList<Button> buttons = new ArrayList<Button>();
+	private ArrayList<TextBox> textBoxes = new ArrayList<TextBox>();
 	
 	//TODO test must be given from input file
 	public MyCanvasWindow(String title) {
@@ -58,6 +60,14 @@ public class MyCanvasWindow extends CanvasWindow {
 		elements.clear();
 	}
 	
+	/**
+	 * adds the given element to the element list
+	 * @param elem
+	 */
+	public void addTextBox(TextBox textBox) {
+		textBoxes.add(textBox);
+	}
+	
 	public InputReader getReader() {
 		return this.fileReader;
 	}
@@ -79,7 +89,10 @@ public class MyCanvasWindow extends CanvasWindow {
 	
 	@Override
 	public void handleKeyEvent(int id, int keyCode, char keyChar){
-
+		textBoxes.forEach((n) -> {
+			n.handleKeyBoardEvent(id, keyChar);
+		});
+		this.repaint();
 	}
 	
 	/**
@@ -99,6 +112,12 @@ public class MyCanvasWindow extends CanvasWindow {
 				repaint(); //opnieuw het scherm drawen
 			}
 		});
+		
+		textBoxes.forEach((n) -> {
+			n.handleMouseEvent(id, x, y);
+			
+		});
+		this.repaint();
 	}
 	
 	//TODO remove this utterly disgusting variable

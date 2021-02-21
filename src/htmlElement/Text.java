@@ -22,9 +22,9 @@ public class Text extends GUIElement{
 	 * @return
 	 */
 	public static Text constructText(String string,int x, int y,FontMetrics metrics) {
-	    int textWidth = metrics.stringWidth(string);
-	    int textHeigth =metrics.getHeight();
-	    return  new Text(x, y, textWidth, textHeigth, string);
+	    //int textWidth = metrics.stringWidth(string);
+	    //int textHeigth =metrics.getHeight();
+	    return  new Text(x, y, 40, 40, string);
 	}
 	
 	
