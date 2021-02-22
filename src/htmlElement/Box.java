@@ -3,6 +3,8 @@ package htmlElement;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import canvaswindow.MyCanvasWindow;
+
 /**
  * Test klasse voor GUI uit te testen
  * @author kobe
@@ -10,8 +12,8 @@ import java.awt.Graphics;
  */
 public class Box extends GUIElement {
 
-	public Box(int x, int y, int w, int h, Color color) {
-		super(x, y, w, h);
+	public Box(int x, int y, int w, int h, Color color, MyCanvasWindow window) {
+		super(x, y, w, h, window);
 		this.setColor(color);
 	}
 	

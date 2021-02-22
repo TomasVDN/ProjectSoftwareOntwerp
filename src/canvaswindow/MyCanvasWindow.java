@@ -20,14 +20,19 @@ public class MyCanvasWindow extends CanvasWindow {
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private ArrayList<TextBox> textBoxes = new ArrayList<TextBox>();
 	
+	private TextBox bar;
+	
 	//TODO test must be given from input file
 	public MyCanvasWindow(String title) {
 		super(title);
 		fileReader = new InputReader(this);
-		fileReader.readFile("src/input.txt");
 		/*Button button = new Button(40, 40 * 12, 40, "Click me");
 		elements.add(button);
 		buttons.add(button);*/
+		 TextBox textBox = new TextBox(1, 1, 580, 20, this);
+         this.addTextBox(textBox);
+         this.addElement(textBox);
+         bar = textBox;
 
 	}
 	/**
@@ -130,7 +135,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	private int increment = 0;
 	
 	public void addTextElement(String textToAdd) {
-		Text text = new Text(40, 40 + this.increment * 40, 10, 10, textToAdd);
+		Text text = new Text(40, 40 + this.increment * 40, 10, 10, textToAdd, this);
 		elements.add(text);
 		setIncrement(getIncrement() + 1);
 	}
@@ -141,6 +146,25 @@ public class MyCanvasWindow extends CanvasWindow {
 
 	public void setIncrement(int increment) {
 		this.increment = increment;
+	}
+	
+	/**
+	 * Method used to open a new page. Expects a path (TODO change to url).
+	 * 
+	 * @param path - path to the page to open
+	 */
+	public void readFile(String path) {
+		this.clearWindow();
+		fileReader.readFile(path);
+	}
+	
+	/**
+	 * Clears the entire window and respawns the bar.
+	 */
+	public void clearWindow() {
+		elements = new ArrayList<GUIElement>();
+		elements.add(bar);
+		setIncrement(0);
 	}
 
 }

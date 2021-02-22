@@ -4,21 +4,25 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+import canvaswindow.MyCanvasWindow;
+
 public abstract class GUIElement {
 	
 	private int xPos;
 	private int yPos;
 	private int width;
 	private int height;
+	private MyCanvasWindow window;
 	
 	Font font = new Font(Font.DIALOG, Font.PLAIN, 30);
 	FontMetrics metrics;
 	
-	public GUIElement(int x, int y, int w, int h){
+	public GUIElement(int x, int y, int w, int h, MyCanvasWindow window){
 		this.xPos = x;
 		this.yPos = y;
 		this.width = w;
 		this.height = h;
+		this.window = window;
 	}
 	
 	/**
@@ -111,6 +115,20 @@ public abstract class GUIElement {
 		return this.height;
 	}
 	
+	/**
+	 * @return the window
+	 */
+	public MyCanvasWindow getWindow() {
+		return window;
+	}
+
+	/**
+	 * @param window - the window to set
+	 */
+	public void setWindow(MyCanvasWindow window) {
+		this.window = window;
+	}
+
 	public abstract void paint(Graphics g);
 	
 	/**

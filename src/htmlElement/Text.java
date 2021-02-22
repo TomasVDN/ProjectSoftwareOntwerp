@@ -4,18 +4,20 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+import canvaswindow.MyCanvasWindow;
+
 public class Text extends GUIElement{
 	
 	private String text;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 
-	public Text(int x, int y, int w, int h, String text){
-		super(x, y, w, h);
+	public Text(int x, int y, int w, int h, String text, MyCanvasWindow window){
+		super(x, y, w, h, window);
 		this.setText(text);
 	}
 	
-	public Text(int x, int y, int w, int h, String text, Font font){
-		super(x, y, w, h);
+	public Text(int x, int y, int w, int h, String text, Font font, MyCanvasWindow window){
+		super(x, y, w, h, window);
 		this.setText(text);
 		this.font = font; 
 	}
@@ -28,8 +30,8 @@ public class Text extends GUIElement{
 	 * @param metrics
 	 * @return
 	 */
-	public static Text constructText(String string,int x, int y, FontMetrics metrics) {
-	    return new Text(x, y, 0, 5, string, new Font(Font.DIALOG, Font.PLAIN, 20));
+	public static Text constructText(String string,int x, int y, FontMetrics metrics, MyCanvasWindow window) {
+	    return new Text(x, y, 0, 5, string, new Font(Font.DIALOG, Font.PLAIN, 20), window);
 	}
 	
 	/**
@@ -40,10 +42,10 @@ public class Text extends GUIElement{
 	 * @param metrics
 	 * @return
 	 */
-	public static Text constructText(String string,int x, int y, int h) {
+	public static Text constructText(String string,int x, int y, int h, MyCanvasWindow window) {
 	    //int textWidth = metrics.stringWidth(string);
 	    //int textHeigth = metrics.getHeight();
-	    return new Text(x, y, 0, h, string, new Font(Font.DIALOG, Font.PLAIN, h));
+	    return new Text(x, y, 0, h, string, new Font(Font.DIALOG, Font.PLAIN, h), window);
 	}
 	
 	
