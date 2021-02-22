@@ -132,10 +132,11 @@ public abstract class GUIElement {
 	public abstract void paint(Graphics g);
 	
 	/**
-	 * Checkt of er een event zich op de button bevindt
-	 * @param x - x coordinaat van event
-	 * @param y - y coordinaat van event
-	 * @return
+	 * Checks if event is on GUIElement
+	 * @param x - x coordinate of event
+	 * @param y - y coordinate of event
+	 * @return 	true if (getLeftX() <= x && getRightX() >= x) && (getUpperY() <= y && getLowerY() >= y)
+	 * 			else false
 	 */
 	public boolean checkCoordinates(int x, int y) {
 		if ((getLeftX() <= x && getRightX() >= x) && (getUpperY() <= y && getLowerY() >= y)) {

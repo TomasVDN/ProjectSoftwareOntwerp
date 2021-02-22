@@ -78,10 +78,6 @@ public class Text extends GUIElement{
 	
 	@Override
 	public void paint(Graphics g) {
-		this.paintText(g);
-	}
-	
-	public void paintText(Graphics g) {
 		g.setFont(this.getFont());
 		g.drawString(getText(), getLeftX(), getLowerY());
 	}

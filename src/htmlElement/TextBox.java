@@ -68,8 +68,8 @@ public class TextBox extends GUIElement{
 	
 	@Override
 	public void paint(Graphics g) {
-		this.getBox().paintBox(g);
-		this.getText().paintText(g);
+		this.getBox().paint(g);
+		this.getText().paint(g);
 	}
 	
 	public void handleMouseEvent(int id, int x, int y) {
@@ -81,45 +81,75 @@ public class TextBox extends GUIElement{
 				this.setActive(true);
 				this.getBox().setColor(Color.gray);
 			} else {
+				if (this.isActive()){
+					this.handleEnter();
+				}
 				this.setActive(false);
 				this.getBox().setColor(Color.white);
-				
 			}
 			
 		}
 	}
 	
+	/**
+	 * If the bar is focused, reroute to the functions of corresponding key code.
+	 * @param id - 
+	 * @param keyCode
+	 * @param keyChar
+	 */
 	public void handleKeyBoardEvent(int id,int keyCode, char keyChar) {
 		if (this.isActive()) {
 			if (id == KeyEvent.KEY_PRESSED) {
-				if (keyChar == KeyEvent.VK_BACK_SPACE) {
-					int textLength = this.getTextValue().length();
-					if (textLength > 0) { // if text is not empty
-						this.setTextValue(getTextValue().substring(0, textLength - 1));
-					}
-				} else if (keyChar == KeyEvent.VK_ENTER) {
-					int textLength = this.getTextValue().length();
-					if (textLength > 0) { // if text is not empty
-						this.getWindow().readFile(getTextValue());
-					}
-				} else if (keyChar == KeyEvent.VK_ESCAPE) {
-					this.setActive(false);
-					this.getBox().setColor(Color.white);
-				} 
-				else if (keyChar != KeyEvent.CHAR_UNDEFINED) {
-					this.setTextValue(this.getTextValue() + keyChar);
+				
+				switch (keyChar) {
+				case KeyEvent.VK_BACK_SPACE:
+					this.handleBackSpace();
+					break;
+				case KeyEvent.VK_ENTER:
+					this.handleEnter();
+					break;
+				case KeyEvent.VK_ESCAPE:
+					this.handleEscape();
+					break;
+				default:
+					 if (keyChar != KeyEvent.CHAR_UNDEFINED) {
+							this.setTextValue(this.getTextValue() + keyChar);
+						}
+					break;
 				}
 			}
 		}
 	}
 	
-	private void backSpace() {
+	/**
+	 * Does the needed actions for the backSpace key.
+	 */
+	private void handleBackSpace() {
 		int textLength = this.getTextValue().length();
-		if (textLength > 0) {
+		if (textLength > 0) { // if text is not empty
 			this.setTextValue(getTextValue().substring(0, textLength - 1));
 		}
-
 	}
+	
+	/**
+	 * Does the needed actions for the enter key.
+	 */
+	private void handleEnter() {
+		int textLength = this.getTextValue().length();
+		if (textLength > 0) { // if text is not empty
+			this.getWindow().readFile(getTextValue());
+		}
+	}
+	
+	/**
+	 * Does the needed actions for the escape key.
+	 */
+	private void handleEscape() {
+		this.setActive(false);
+		this.getBox().setColor(Color.white);
+	}
+	
+	
 
 
 }
