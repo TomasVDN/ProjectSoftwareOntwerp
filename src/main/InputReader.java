@@ -27,8 +27,10 @@ public class InputReader {
     	    
     	    while (scan.hasNextLine()) {
     	    	 String data = scan.nextLine();
-    	    	 handleLine(data);
+    	    	 //handleLine(data);
+    	    	 textToDisplay += data + "\n";
     	     }
+    	    handleLine(textToDisplay);
     	    
     	    scan.close();
     	} catch (FileNotFoundException e) {

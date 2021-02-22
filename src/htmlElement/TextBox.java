@@ -9,19 +9,23 @@ import java.awt.event.MouseEvent;
 
 public class TextBox extends GUIElement{
 
+	private Text text;
+	private Box box;
+	private boolean isActive;
+	
 	public TextBox(int x, int y, int w, int h) {
 		super(x, y, w,  h + (h/4));
 		Color color = Color.white;
 		this.setBox(new Box(x, y, w, h + (h/4), color));
 		Text text = Text.constructText("input text: ", x, y, h);
 		this.setText(text);
-		// TODO Auto-generated constructor stub
 	}
 	
-	private Text text;
-	private Box box;
-	private boolean isActive;
-	
+	/**
+	 * Sets the value box of this class
+	 * 
+	 * @param newBox - new value of this.box
+	 */
 	public void setBox(Box newBox) {
 		this.box = newBox;
 	}
@@ -30,21 +34,27 @@ public class TextBox extends GUIElement{
 		return this.box;
 	}
 	
+	/**
+	 * Sets the value text of this class
+	 * 
+	 * @param newText - new value of this.text
+	 */
+	public void setText(Text newText) {
+		this.text = newText;
+	}
+	
 	public Text getText() {
 		return this.text;
 	}
-	
-	public void setText(Text newText) {
-		this.text = newText;
+
+	public void setTextValue(String newText) {
+		this.text.setText(newText);
 	}
 	
 	public String getTextValue() {
 		return this.text.getText();
 	}
 	
-	public void setTextValue(String newText) {
-		this.text.setText(newText);
-	}
 	
 	public boolean isActive() {
 		return isActive;

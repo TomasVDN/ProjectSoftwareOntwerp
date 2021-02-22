@@ -23,9 +23,9 @@ public class MyCanvasWindow extends CanvasWindow {
 	//TODO test must be given from input file
 	public MyCanvasWindow(String title) {
 		super(title);
-		/*fileReader = new InputReader(this);
+		fileReader = new InputReader(this);
 		fileReader.readFile("src/input.txt");
-		Button button = new Button(40, 40 * 12, 40, "Click me");
+		/*Button button = new Button(40, 40 * 12, 40, "Click me");
 		elements.add(button);
 		buttons.add(button);*/
 
@@ -68,6 +68,11 @@ public class MyCanvasWindow extends CanvasWindow {
 		textBoxes.add(textBox);
 	}
 	
+	/**
+	 * Returns the InputReader of this class
+	 * 
+	 * @return this.fileReader
+	 */
 	public InputReader getReader() {
 		return this.fileReader;
 	}
@@ -96,6 +101,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	}
 	
 	/**
+	 * TODO
 	 * De inhoud van deze functie is tijdelijk. Vooral gemaakt om
 	 * buttons werkend te krijgen
 	 */

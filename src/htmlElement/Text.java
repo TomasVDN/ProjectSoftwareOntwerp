@@ -29,8 +29,6 @@ public class Text extends GUIElement{
 	 * @return
 	 */
 	public static Text constructText(String string,int x, int y, FontMetrics metrics) {
-	    //int textWidth = metrics.stringWidth(string);
-	    //int textHeigth = metrics.getHeight();
 	    return new Text(x, y, 0, 5, string, new Font(Font.DIALOG, Font.PLAIN, 20));
 	}
 	
@@ -49,7 +47,11 @@ public class Text extends GUIElement{
 	}
 	
 	
-
+	/**
+	 * Sets the value text of this class
+	 * 
+	 * @param text - new value of this.text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
@@ -62,7 +64,11 @@ public class Text extends GUIElement{
 		return this.font;
 	}
 	
-	
+	/**
+	 * Sets the value font of this class
+	 * 
+	 * @param newFont - new value of this.font
+	 */
 	public void setFont(Font newFont) {
 		this.font = newFont;
 	}
