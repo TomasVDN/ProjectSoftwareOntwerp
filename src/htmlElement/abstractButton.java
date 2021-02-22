@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+import canvaswindow.MyCanvasWindow;
+
 public abstract class abstractButton extends GUIElement  {
 
 
@@ -21,15 +23,15 @@ public abstract class abstractButton extends GUIElement  {
 	     * @param size - groote van de font
 	     * @param text - text van de button
 	     */
-		public abstractButton(int x, int y, int size, Color color, String textButton){
-			super(x, y, size, size);
-			Box box = new Box(x, y, y, size, color);
+		public abstractButton(int x, int y, int size, Color color, String textButton, MyCanvasWindow window){
+			super(x, y, size, size, window);
+			Box box = new Box(x, y, y, size, color, window);
 			this.setBox(box);
 			setWidth((3*textButton.length()/4) * 40);
 			setHeight(size);	
 			int textX = getLeftX() + (getWidth() - metrics.stringWidth(textButton)) / 2;
 		    int textY = getLowerY() + ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
-		    Text textGuiButton = Text.constructText(textButton,textX, textY,metrics);
+		    Text textGuiButton = Text.constructText(textButton,textX, textY,metrics, window);
 		    this.setText(textGuiButton);
 		}
 		

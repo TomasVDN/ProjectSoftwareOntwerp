@@ -7,17 +7,19 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import canvaswindow.MyCanvasWindow;
+
 public class TextBox extends GUIElement{
 
 	private Text text;
 	private Box box;
 	private boolean isActive;
 	
-	public TextBox(int x, int y, int w, int h) {
-		super(x, y, w,  h + (h/4));
+	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
+		super(x, y, w,  h + (h/4),window);
 		Color color = Color.white;
-		this.setBox(new Box(x, y, w, h + (h/4), color));
-		Text text = Text.constructText("input text: ", x, y, h);
+		this.setBox(new Box(x, y, w, h + (h/4), color, window));
+		Text text = Text.constructText("input text: ", x, y, h, window);
 		this.setText(text);
 	}
 	
@@ -95,7 +97,16 @@ public class TextBox extends GUIElement{
 					if (textLength > 0) { // if text is not empty
 						this.setTextValue(getTextValue().substring(0, textLength - 1));
 					}
-				} else if (keyChar != KeyEvent.CHAR_UNDEFINED) {
+				} else if (keyChar == KeyEvent.VK_ENTER) {
+					int textLength = this.getTextValue().length();
+					if (textLength > 0) { // if text is not empty
+						this.getWindow().readFile(getTextValue());
+					}
+				} else if (keyChar == KeyEvent.VK_ESCAPE) {
+					this.setActive(false);
+					this.getBox().setColor(Color.white);
+				} 
+				else if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 					this.setTextValue(this.getTextValue() + keyChar);
 				}
 			}

@@ -34,7 +34,23 @@ public class InputReader {
     	    
     	    scan.close();
     	} catch (FileNotFoundException e) {
-    		System.out.println("An error occurred.");
+    		File file = new File("src/error.txt");
+    	    Scanner scan;
+			try {
+				scan = new Scanner(file);
+				while (scan.hasNextLine()) {
+	    	    	 String data = scan.nextLine();
+	    	    	 //handleLine(data);
+	    	    	 textToDisplay += data + "\n";
+	    	     }
+			   	   
+	    	    handleLine(textToDisplay);
+	    	    
+	    	    scan.close();
+			} catch (FileNotFoundException e1) {
+				System.out.print("Someone deleted the error file...");
+			}
+ 
     	}
 		
 	}
