@@ -19,18 +19,16 @@ public class InputReader {
 	}
 	
 	public void readFile(String path) {
-		String textToDisplay = "";
 		
+		//TODO URL support && document validator
 		try {
     	    File file = new File(path);
     	    Scanner scan = new Scanner(file);
     	    
     	    while (scan.hasNextLine()) {
     	    	 String data = scan.nextLine();
-    	    	 //handleLine(data);
-    	    	 textToDisplay += data + "\n";
+    	    	 handleLine(data);
     	     }
-    	    handleLine(textToDisplay);
     	    
     	    scan.close();
     	} catch (FileNotFoundException e) {
@@ -40,11 +38,8 @@ public class InputReader {
 				scan = new Scanner(file);
 				while (scan.hasNextLine()) {
 	    	    	 String data = scan.nextLine();
-	    	    	 //handleLine(data);
-	    	    	 textToDisplay += data + "\n";
+	    	    	 handleLine(data);
 	    	     }
-			   	   
-	    	    handleLine(textToDisplay);
 	    	    
 	    	    scan.close();
 			} catch (FileNotFoundException e1) {
