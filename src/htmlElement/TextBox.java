@@ -14,15 +14,15 @@ public class TextBox extends GUIElement{
 	private Text text;
 	private Box box;
 	private boolean isActive;
-	private Box selectedText;
+	private SurroundingTextBox selectedTextBox;
 	
 	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
 		super(x, y, w,  h + (h/4),window);
 		Color color = Color.white;
 		this.setBox(new Box(x, y, w, h + (h/4), color, window));
-		this.setSelectedText(new Box(0, 0, 0, 0, Color.blue, window)); // maakt een selected textbox aan deze gaat initieel leeg zijn
 		Text text = Text.constructText("input text: ", x, y, h, window);
 		this.setText(text);
+		this.setSelectedTextBox(new SurroundingTextBox(0, 0, 0, 0, Color.blue, window,text)); // maakt een selected textbox aan deze gaat initieel leeg zijn
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class TextBox extends GUIElement{
 	@Override
 	public void paint(Graphics g) {
 		this.getBox().paint(g);
-		this.getSelectedText().paint(g);
+		this.getSelectedTextBox().paint(g);
 		this.getText().paint(g);
 	}
 	
@@ -85,17 +85,17 @@ public class TextBox extends GUIElement{
 		if (id == MouseEvent.MOUSE_CLICKED) {
 			if (this.checkCoordinates(x, y)) {
 				if(this.isActive()) {
-					unselectAllText();
+					this.getSelectedTextBox().unselectAllText();
 				}
 				else {
-					selectAllText();
+					this.getSelectedTextBox().selectGivenText(this.getText());
 				}
 				this.setActive(true);
 				this.getBox().setColor(Color.gray);
 			} else {
 				if (this.isActive()){
 					this.handleEnter();
-					this.unselectAllText();
+					this.getSelectedTextBox().unselectAllText();
 				}
 				this.setActive(false);
 				this.getBox().setColor(Color.white);
@@ -116,6 +116,7 @@ public class TextBox extends GUIElement{
 				
 				switch (keyChar) {
 				case KeyEvent.VK_BACK_SPACE:
+					this.getSelectedTextBox().clearSelected();
 					this.handleBackSpace();
 					break;
 				case KeyEvent.VK_ENTER:
@@ -126,6 +127,7 @@ public class TextBox extends GUIElement{
 					break;
 				default:
 					 if (keyChar != KeyEvent.CHAR_UNDEFINED) {
+						 	this.getSelectedTextBox().clearSelected();
 							this.setTextValue(this.getTextValue() + keyChar);
 						}
 					break;
@@ -162,31 +164,15 @@ public class TextBox extends GUIElement{
 		this.getBox().setColor(Color.white);
 	}
 
-	public Box getSelectedText() {
-		return selectedText;
+	public SurroundingTextBox getSelectedTextBox() {
+		return selectedTextBox;
 	}
 
-	public void setSelectedText(Box selectedText) {
-		this.selectedText = selectedText;
+	public void setSelectedTextBox(SurroundingTextBox selectedText) {
+		this.selectedTextBox = selectedText;
 	}
 	
-	/**
-	 * When method is called the blue box of the selected text gets the coordinates and the size of the text
-	 */
-	public void selectAllText() {
-		this.getSelectedText().setX(this.getText().getLeftX());
-		this.getSelectedText().setY(this.getText().getUpperY());
-		this.getSelectedText().setHeight(this.getText().getHeight());
-		this.getSelectedText().setWidth(this.getText().getWidth());
-	}
-	
-	/**
-	 * When method is called the blue box dissapears
-	 */
-	public void unselectAllText() {
-		this.getSelectedText().setHeight(0);
-		this.getSelectedText().setWidth(0);
-	}
+
 
 
 }

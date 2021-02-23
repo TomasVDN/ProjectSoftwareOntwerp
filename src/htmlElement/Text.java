@@ -77,6 +77,10 @@ public class Text extends GUIElement{
 		this.font = newFont;
 	}
 	
+	public void clearText() {
+		this.setText("");
+	}
+	
 	
 	@Override
 	public void paint(Graphics g) {
