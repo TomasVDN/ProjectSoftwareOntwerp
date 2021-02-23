@@ -138,7 +138,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	private int increment = 0;
 	
 	public void addTextElement(String textToAdd) {
-		Text text = new Text(40, 40 + this.increment * 40, 10, 10, textToAdd, this);
+		Text text = new Text(40, 40 + this.increment * 40, 10, 10, textToAdd);
 		elements.add(text);
 		setIncrement(getIncrement() + 1);
 	}

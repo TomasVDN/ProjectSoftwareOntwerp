@@ -15,14 +15,16 @@ public class TextBox extends GUIElement{
 	private Box box;
 	private boolean isActive;
 	private SurroundingTextBox selectedTextBox;
+	private MyCanvasWindow window;
 	
 	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
-		super(x, y, w,  h + (h/4),window);
+		super(x, y, w,  h + (h/4));
 		Color color = Color.white;
-		this.setBox(new Box(x, y, w, h + (h/4), color, window));
-		Text text = Text.constructText("input text: ", x, y, h, window);
+		this.setBox(new Box(x, y, w, h + (h/4), color));
+		Text text = Text.constructText("input text: ", x, y, h);
 		this.setText(text);
-		this.setSelectedTextBox(new SurroundingTextBox(0, 0, 0, 0, Color.blue, window,text)); // maakt een selected textbox aan deze gaat initieel leeg zijn
+		this.setSelectedTextBox(new SurroundingTextBox(0, 0, 0, 0, Color.blue, text)); // maakt een selected textbox aan deze gaat initieel leeg zijn
+		this.window = window;
 	}
 	
 	/**
@@ -172,6 +174,19 @@ public class TextBox extends GUIElement{
 		this.selectedTextBox = selectedText;
 	}
 	
+	/**
+	 * @return the window
+	 */
+	public MyCanvasWindow getWindow() {
+		return window;
+	}
+
+	/**
+	 * @param window - the window to set
+	 */
+	public void setWindow(MyCanvasWindow window) {
+		this.window = window;
+	}
 
 
 

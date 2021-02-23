@@ -14,8 +14,8 @@ public class Box extends GUIElement {
 
 	private Color boxColor;
 	
-	public Box(int x, int y, int w, int h, Color color, MyCanvasWindow window) {
-		super(x, y, w, h, window);
+	public Box(int x, int y, int w, int h, Color color) {
+		super(x, y, w, h);
 		this.setColor(color);
 	}
 		

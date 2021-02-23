@@ -21,15 +21,15 @@ public class Button extends GUIElement{
      * @param size - groote van de font
      * @param text - text van de button
      */
-	public Button(int x, int y, int size, String text, MyCanvasWindow window){
-		super(x, y, size, size, window);
+	public Button(int x, int y, int size, String text){
+		super(x, y, size, size);
 		setWidth((3*text.length()/4) * 40);
 		setHeight(size);	
 		setText(text);
 	}
 	
-	public Button(int x, int y, int width,int heigth, String text, MyCanvasWindow window){
-		super(x, y, width, heigth, window);	
+	public Button(int x, int y, int width,int heigth, String text){
+		super(x, y, width, heigth);	
 		setText(text);
 	}
 	

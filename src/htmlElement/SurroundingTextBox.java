@@ -9,8 +9,8 @@ public class SurroundingTextBox extends Box {
 	private Text text;
 	
 	
-	public SurroundingTextBox(int x, int y, int w, int h, Color color, MyCanvasWindow window, Text newText) {
-		super(x, y, w, h, color, window);
+	public SurroundingTextBox(int x, int y, int w, int h, Color color, Text newText) {
+		super(x, y, w, h, color);
 		this.setText(newText);
 	}
 
