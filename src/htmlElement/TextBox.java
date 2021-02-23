@@ -15,6 +15,7 @@ public class TextBox extends GUIElement{
 	private SurroundingTextBox selectedTextBox;
 	private MyCanvasWindow window;
 	
+	
 	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
 		super(x, y, w,  h + (h/4));
 		Color color = Color.white;
