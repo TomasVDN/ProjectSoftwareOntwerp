@@ -22,6 +22,8 @@ public class Text extends GUIElement{
 		this.font = font; 
 	}
 	
+	
+	
 	/**
 	 * automatically calculate the needed heigth and width to construct a Text object
 	 * @param string
@@ -80,6 +82,14 @@ public class Text extends GUIElement{
 	public void paint(Graphics g) {
 		g.setFont(this.getFont());
 		g.drawString(getText(), getLeftX(), getLowerY());
+	}
+	
+	@Override
+	public void update(Graphics g) {
+		Font textFont= this.getFont();
+		FontMetrics fontMetrics = g.getFontMetrics(textFont);
+		this.setHeight(fontMetrics.getHeight());
+		this.setWidth(fontMetrics.stringWidth(this.getText()));
 	}
 
 }

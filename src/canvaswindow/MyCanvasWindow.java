@@ -89,6 +89,9 @@ public class MyCanvasWindow extends CanvasWindow {
 	
 	@Override
 	protected void paint(Graphics g) {
+		for(int i =0 ; i< this.elements.size();i++) {
+			elements.get(i).update(g);
+		}
 		elements.forEach((n) -> n.paint(g));
 	}
 	

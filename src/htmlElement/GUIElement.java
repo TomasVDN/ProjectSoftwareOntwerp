@@ -13,9 +13,7 @@ public abstract class GUIElement {
 	private int width;
 	private int height;
 	private MyCanvasWindow window;
-	
-	Font font = new Font(Font.DIALOG, Font.PLAIN, 30);
-	FontMetrics metrics;
+
 	
 	public GUIElement(int x, int y, int w, int h, MyCanvasWindow window){
 		this.xPos = x;
@@ -130,6 +128,16 @@ public abstract class GUIElement {
 	}
 
 	public abstract void paint(Graphics g);
+	
+	/**
+	 * Updates all variables with given graphics,
+	 * 
+	 * for example text need a graphics to know the heigth so it should be updated
+	 * @param g
+	 */
+	public void update(Graphics g) {
+		
+	}
 	
 	/**
 	 * Checks if event is on GUIElement
