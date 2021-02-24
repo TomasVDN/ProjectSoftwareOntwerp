@@ -27,7 +27,7 @@ public class TextCursor extends GUIElement {
 		leftText = new Text(x, y, w, h, leftString);
 		rightText = new Text(x, y, w, h, rightString);
 		
-		box = new Box(x, y, (int) Math.ceil(this.getLeftText().getFont().getSize() / 10), this.getLeftText().getFont().getSize(), Color.black);
+		box = new Box(x, y, (int) Math.ceil(this.getFontSize() / 10), this.getFontSize(), Color.black);
 	}
 
 	/**
@@ -59,6 +59,13 @@ public class TextCursor extends GUIElement {
 		this.getRightText().setY(upperYLeftSide);
 		
 		this.getRightText().update(g);
+	}
+	
+	/**
+	 * this method gives back the fontSize
+	 */
+	public int getFontSize() {
+		return this.getLeftText().getFont().getSize();
 	}
 	
 	/**

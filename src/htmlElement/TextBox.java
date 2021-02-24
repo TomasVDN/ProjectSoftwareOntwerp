@@ -19,8 +19,9 @@ public class TextBox extends GUIElement{
 	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
 		super(x, y, w,  h + (h/4));
 		Color color = Color.white;
-		this.setBox(new Box(x, y, w, h + (h/4), color));
 		this.text = new TextCursor(x, y, w, h, "Test", " Test2");
+		int size=this.getTextCursor().getFontSize();
+		this.setBox(new Box(x, y, w, (int) Math.ceil(size*2), color)); //TODO mooie grootte kiezen
 		this.setSelectedTextBox(new SurroundingTextBox(0, 0, 0, 0, Color.blue, this.text.getText())); // maakt een selected textbox aan deze gaat initieel leeg zijn
 		this.window = window;
 	}
