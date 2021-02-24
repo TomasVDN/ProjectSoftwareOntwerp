@@ -22,7 +22,7 @@ public class TextBox extends GUIElement{
 		this.text = new TextCursor(x, y, w, h, "Test", " Test2");
 		int size=this.getTextCursor().getFontSize();
 		this.setBox(new Box(x, y, w, (int) Math.ceil(size*2), color)); //TODO mooie grootte kiezen
-		this.setSelectedTextBox(new SurroundingTextBox(0, 0, 0, 0, Color.blue, this.text.getText())); // maakt een selected textbox aan deze gaat initieel leeg zijn
+		this.setSelectedTextBox(new SurroundingTextBox(0, 0, 0, 0, Color.blue, this.text.getTextFromTextCursor())); // maakt een selected textbox aan deze gaat initieel leeg zijn
 		this.window = window;
 	}
 	
@@ -82,7 +82,7 @@ public class TextBox extends GUIElement{
 					this.getSelectedTextBox().unselectAllText();
 				}
 				else {
-					this.getSelectedTextBox().selectGivenText(this.getTextCursor().getText());
+					this.getSelectedTextBox().selectGivenText(this.getTextCursor().getTextFromTextCursor());
 				}
 				this.setActive(true);
 				this.getBox().setColor(Color.gray);
@@ -198,7 +198,7 @@ public class TextBox extends GUIElement{
 	 * Does the needed actions for the enter key.
 	 */
 	private void handleEnter() {
-		this.getWindow().readFile(this.getTextCursor().getText().getText()); //TODO getText.getText is niet het mooiste ooit
+		this.getWindow().readFile(this.getTextCursor().getTextFromTextCursor().getText()); //TODO getText.getText is niet het mooiste ooit
 	}
 	
 	/**

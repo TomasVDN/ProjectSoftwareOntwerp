@@ -161,7 +161,7 @@ public class TextCursor extends GUIElement {
 	 * This method returns a new Text element containing all the text contained in both Text elements
 	 * @return new Text(this.leftText.getLeftX(), this.leftText.getUpperY(), this.leftText.getWidth() + this.rightText.getWidth(), this.leftText.getHeight(), this.getStringLeftText() + this.getStringRightText())
 	 */
-	public Text getText() {
+	public Text getTextFromTextCursor() {
 		return new Text(this.leftText.getLeftX(), this.leftText.getUpperY(), this.leftText.getWidth() + this.rightText.getWidth(),
 				this.leftText.getHeight(), this.getStringLeftText() + this.getStringRightText());
 	}
