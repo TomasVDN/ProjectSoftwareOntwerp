@@ -1,8 +1,6 @@
 package main;
 import java.io.*;
-
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Scanner; 
 import canvaswindow.MyCanvasWindow;
 
@@ -22,16 +20,15 @@ public class InputReader {
 		
 		//TODO URL support && document validator
 		try {
-    	    File file = new File(path);
-    	    Scanner scan = new Scanner(file);
-    	    
-    	    while (scan.hasNextLine()) {
-    	    	 String data = scan.nextLine();
-    	    	 handleLine(data);
-    	     }
-    	    
-    	    scan.close();
-    	} catch (FileNotFoundException e) {
+			 URL oracle = new URL("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+		     BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
+
+		     String inputLine;
+		     while ((inputLine = in.readLine()) != null) {
+		    	 this.handleLine(inputLine);
+		     }
+		     in.close();
+    	} catch (IOException e) {
     		File file = new File("src/error.txt");
     	    Scanner scan;
 			try {
