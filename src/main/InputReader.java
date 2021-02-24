@@ -20,7 +20,7 @@ public class InputReader {
 		
 		//TODO URL support && document validator
 		try {
-			 URL oracle = new URL("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+			 URL oracle = new URL(path);
 		     BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
 
 		     String inputLine;

@@ -107,7 +107,6 @@ public class TextBox extends GUIElement{
 	public void handleKeyBoardEvent(int id,int keyCode, char keyChar) {
 		if (this.isActive()) {
 			if (id == KeyEvent.KEY_PRESSED) {
-				
 				switch (keyCode) {
 				case 8: //backspace
 					//this.getSelectedTextBox().clearSelected();
@@ -116,7 +115,7 @@ public class TextBox extends GUIElement{
 				case 127: //delete
 					this.handleDelete();
 					break;
-				case 21: //etner
+				case 10: //enter
 					this.handleEnter();
 					break;
 				case 27: //escape
@@ -138,8 +137,13 @@ public class TextBox extends GUIElement{
 					 if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 						 	//this.getSelectedTextBox().clearSelected();
 							this.handleUndefined(keyChar);
-						}
+					}
 					break;
+				}
+			}
+			if (id == KeyEvent.KEY_TYPED) {
+				if (keyChar == "~".charAt(0)) {
+					this.handleUndefined(keyChar);
 				}
 			}
 		}
@@ -188,7 +192,7 @@ public class TextBox extends GUIElement{
 	}
 	
 	/**
-	 * Does the needed actions for the undifined keys.
+	 * Does the needed actions for the undefined keys.
 	 */
 	private void handleUndefined(char keyChar) {
 		this.getTextCursor().addCharachter(keyChar);;
