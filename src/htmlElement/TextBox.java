@@ -134,17 +134,11 @@ public class TextBox extends GUIElement{
 					this.handleEnd();
 					break;
 				default:
-					 if (keyChar != KeyEvent.CHAR_UNDEFINED) {
-						 	//this.getSelectedTextBox().clearSelected();
-							this.handleUndefined(keyChar);
-					}
 					break;
 				}
 			}
 			if (id == KeyEvent.KEY_TYPED) {
-				if (keyChar == "~".charAt(0)) {
-					this.handleUndefined(keyChar);
-				}
+				this.handleUndefined(keyChar);
 			}
 		}
 	}
@@ -203,6 +197,8 @@ public class TextBox extends GUIElement{
 	 */
 	private void handleEnter() {
 		this.getWindow().readFile(this.getTextCursor().getTextFromTextCursor().getText()); //TODO getText.getText is niet het mooiste ooit
+		this.setActive(false);
+		this.getBox().setColor(Color.white);
 	}
 	
 	/**
