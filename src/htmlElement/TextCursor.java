@@ -108,14 +108,18 @@ public class TextCursor extends GUIElement {
 	 * This method handles every action that needs to be done when removing a character on the left of the cursor.
 	 */
 	public void deletePrevious() {
-		this.setLeftText(this.getStringLeftText().substring(0, this.getStringLeftText().length() - 1));
+		if (this.getStringLeftText().length() > 0) { // check if left string is not empty
+			this.setLeftText(this.getStringLeftText().substring(0, this.getStringLeftText().length() - 1));
+		}
 	}
 	
 	/**
 	 * This method handles every action that needs to be done when removing a character on the right of the cursor.
 	 */
 	public void deleteNext() {
-		this.setrightText(this.getStringRightText().substring(1));
+		if (this.getStringRightText().length() > 0) { // check if right string is not empty
+			this.setrightText(this.getStringRightText().substring(1));
+		}
 	}
 	
 	/**
