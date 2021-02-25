@@ -134,12 +134,18 @@ public class TextBox extends GUIElement{
 					this.handleEnd();
 					break;
 				default:
+					this.handleUndefined(keyChar);
 					break;
 				}
 			}
+			/* Dit moet gewoon weg volgens mij.
+			 * Anders wordt bijvoorbeeld backspace als teken bij de string toegevoegd.
+			 */
+			/*
 			if (id == KeyEvent.KEY_TYPED) {
 				this.handleUndefined(keyChar);
 			}
+			*/
 		}
 	}
 	
@@ -151,7 +157,7 @@ public class TextBox extends GUIElement{
 	}
 	
 	/**
-	 * Does the needed actions for the backSpace key.
+	 * Does the needed actions for the delete key.
 	 */
 	private void handleDelete() {
 		this.getTextCursor().deleteNext();
@@ -189,7 +195,7 @@ public class TextBox extends GUIElement{
 	 * Does the needed actions for the undefined keys.
 	 */
 	private void handleUndefined(char keyChar) {
-		this.getTextCursor().addCharachter(keyChar);;
+		this.getTextCursor().addCharachter(keyChar);
 	}
 	
 	/**
