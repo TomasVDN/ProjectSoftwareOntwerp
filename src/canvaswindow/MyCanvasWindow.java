@@ -10,7 +10,7 @@ import htmlElement.Button;
 import htmlElement.GUIElement;
 import htmlElement.Text;
 import htmlElement.TextBox;
-import main.InputReader;
+import inputReader.InputReader;
 
 
 public class MyCanvasWindow extends CanvasWindow {
