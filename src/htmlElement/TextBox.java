@@ -134,18 +134,22 @@ public class TextBox extends GUIElement{
 					this.handleEnd();
 					break;
 				default:
-					this.handleUndefined(keyChar);
+					if (keyChar != KeyEvent.CHAR_UNDEFINED) {
+						// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
+						// deze if statement is er voor bijvoorbeeld bij Steven zijn keyboard niet drie keer tilde te krijgen in de string
+						if (keyChar != '¨' &&  keyChar != '´' &&  keyChar != '`' &&  keyChar != '~') {
+							this.handleUndefined(keyChar);
+						}
+					}
 					break;
 				}
 			}
-			/* Dit moet gewoon weg volgens mij.
-			 * Anders wordt bijvoorbeeld backspace als teken bij de string toegevoegd.
-			 */
-			/*
 			if (id == KeyEvent.KEY_TYPED) {
-				this.handleUndefined(keyChar);
+				// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
+				if (keyChar == '¨' ||  keyChar == '´' ||  keyChar == '`' ||  keyChar == '~') {
+					this.handleUndefined(keyChar);
+				}
 			}
-			*/
 		}
 	}
 	
