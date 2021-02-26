@@ -141,4 +141,13 @@ public class Text extends GUIElement{
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	public void handleMouseEvent(int id, int x, int y, MyCanvasWindow window) {
+		if (id == MouseEvent.MOUSE_CLICKED) {
+			if (this.checkCoordinates(x, y)) {
+				window.readFile(this.getUrl());
+			}
+							
+		}
+	}
 }
