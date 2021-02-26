@@ -22,27 +22,24 @@ public class InputReader {
 	}
 	
 	public void readFile(String path) {
-		
+		//TODO remove this help function (used for testing) 
+		path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
+
 		//deze url => String komt van https://www.tutorialspoint.com/how-to-read-the-contents-of-a-webpage-into-a-string-in-java
 		try {
 			var url = new URL(path);
-	        try (var br = new BufferedReader(new InputStreamReader(url.openStream()))) {
+			var br = new BufferedReader(new InputStreamReader(url.openStream()));
+			String line;
 
-	            String line;
+	        var sb = new StringBuilder();
 
-	            var sb = new StringBuilder();
-
-	            while ((line = br.readLine()) != null) {
-
-	                sb.append(line);
-	                sb.append(System.lineSeparator());
-	            }
-	            
-	            HTMLToLayout toLayout = new HTMLToLayout(sb.substring(0), 20, 40);
-	            toLayout.createListOfHTML().forEach((n) -> {
-	    			window.addElement(n);
-	    		});
+	        while ((line = br.readLine()) != null) {
+	        	sb.append(line);
+	            sb.append(System.lineSeparator());
 	        }
+	        
+	        HTMLToLayout toLayout = new HTMLToLayout(sb.substring(0), 20, 40);
+	        toLayout.createElements();
 
     	} catch (IOException e) {
     		File file = new File("src/error.txt");
@@ -59,10 +56,7 @@ public class InputReader {
 				System.out.print("Someone deleted the error file...");
 			}
  
-    	}
-		
-		System.out.print(input);
-		
+    	}		
 	}
 
 	private void handleLine(String data) {

@@ -13,11 +13,7 @@ public class HTMLToLayout {
 	private String textToDisplay;
 	private int minX, minY;
 	private ArrayList<GUIElement> listOfElements = new ArrayList<GUIElement>();
-	private HtmlLexer lexer;
-	private boolean isTableActive = false;
-	private boolean isTextActive = false;
-	private String text = "";
-	
+	private static HtmlLexer lexer;
 	
 	public HTMLToLayout(String text, int minX, int minY) {
 		this.setTextToDisplay(text);
@@ -75,122 +71,52 @@ public class HTMLToLayout {
 			this.minY = minY;
 		}
 	}
-	
-	/**
-	 * @return the isTableActive
-	 */
-	private boolean isTableActive() {
-		return isTableActive;
-	}
 
 	/**
-	 * @param isTableActive the isTableActive to set
+	 * Adds given element to listOfElements
+	 * @param elementToAdd element to add to listOfElements
 	 */
-	private void setTableActive(boolean isTableActive) {
-		this.isTableActive = isTableActive;
-	}
-
-	/**
-	 * @return the isTextActive
-	 */
-	private boolean isTextActive() {
-		return isTextActive;
-	}
-
-	/**
-	 * @param isTextActive the isTextActive to set
-	 */
-	private void setTextActive(boolean isTextActive) {
-		this.isTextActive = isTextActive;
-	}
-
-	/**
-	 * @return the text
-	 */
-	private String getText() {
-		return text;
-	}
-
-	/**
-	 * @param textToAdd the text to add to this.text
-	 */
-	private void addText(String textToAdd) {
-		this.text = this.text + " " + textToAdd;
-	}
-	
-	/**
-	 * empties this.text
-	 */
-	private void emptyText() {
-		this.text = "";
-	}
-
-	/**
-	 * @return the textToDisplay
-	 */
-	private ArrayList<GUIElement> getListOfElements() {
-		return listOfElements;
-	}
-
-	/**
-	 * @param elementToAdd the GUIElement to add
-	 */
-	private void addToListOfElements(GUIElement elementToAdd) {
+	private void addElementToList(GUIElement elementToAdd) {
 		this.listOfElements.add(elementToAdd);
 	}
 	
 	/**
-	 * Empties the arrayList listOfElements
+	 * Returns the listOfElements of this class
+	 * @return this.listOfElements
 	 */
-	private void emptyListOfElements() {
-		this.listOfElements.clear();;
+	private ArrayList<GUIElement> getListOfElements(){
+		return this.listOfElements;
 	}
 	
-	public ArrayList<GUIElement> createListOfHTML() {
-		this.emptyListOfElements();
-		this.parser();
-		return listOfElements;
-	}
-	
-	private void parser() {
+	public ArrayList<GUIElement> createElements() {
+		
 		while (lexer.getTokenType() != TokenType.END_OF_FILE) {
-			if (this.isTextActive() && lexer.getTokenType() != TokenType.TEXT) {
-				this.setTextActive(false);
-				this.handleEndOfText();
-			}
 			switch (lexer.getTokenType()) {
-			case OPEN_START_TAG:
-				this.handleOpenStartTag();
+			case TEXT:	
+				this.handleText();
 				break;
-			case TEXT:
-				this.setTextActive(true);
-				this.addText(lexer.getTokenValue());
+			case OPEN_START_TAG:
+
 			default:
 				break;
 			}
-         	lexer.eatToken();
-        }
+			
+			lexer.eatToken();			
+		}
+		
+		return this.getListOfElements();
+		
 	}
-	//TODO ik werk hier nog met een increment -> niet dynamisch in functie van font groote
-	private void handleOpenStartTag() {
-		switch (lexer.getTokenValue()) {
-		case "tr":
-			this.addText("\n ");
-			this.setMinY(this.getMinY() + 20);
-			break;
-		case "td":
-			this.addText("     ");
-			break;
-
-		default:
-			break;
+	
+	private void handleText() {
+		String content = "";
+		while (lexer.getTokenType() == TokenType.TEXT) {
+			content += " " + lexer.getTokenValue();
+			lexer.eatToken();
 		}
 	}
 	
-	private void handleEndOfText() {
-		Text textElement = new Text(this.getMinX(), this.getMinY(), 20, 20, this.getTextToDisplay());
-		this.addToListOfElements(textElement);
-		this.emptyText();
+	private void handleHyperlinks() {
+		
 	}
-
 }
