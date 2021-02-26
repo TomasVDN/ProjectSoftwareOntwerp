@@ -1,6 +1,15 @@
 package inputReader;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.image.ImageObserver;
 import java.io.StringReader;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 
 import browsrhtml.HtmlLexer;
@@ -91,32 +100,70 @@ public class HTMLToLayout {
 	public ArrayList<GUIElement> createElements() {
 		
 		while (lexer.getTokenType() != TokenType.END_OF_FILE) {
+			System.out.print(lexer.getTokenType() + "\n");
+			System.out.print(lexer.getTokenValue() + "\n");
+
 			switch (lexer.getTokenType()) {
-			case TEXT:	
-				this.handleText();
+			case TEXT:
+				Text text = new Text(minX, minY, 20, 20, this.handleText());
+				this.addElementToList(text);
 				break;
 			case OPEN_START_TAG:
-
+				this.handleOpenTag();
 			default:
 				break;
 			}
 			
-			lexer.eatToken();			
+			lexer.eatToken();
+			this.setMinY(this.getMinY() + 10);
 		}
 		
 		return this.getListOfElements();
 		
 	}
 	
-	private void handleText() {
+	private String handleText() {
 		String content = "";
 		while (lexer.getTokenType() == TokenType.TEXT) {
 			content += " " + lexer.getTokenValue();
 			lexer.eatToken();
 		}
+		return content;
 	}
 	
-	private void handleHyperlinks() {
+	private String handleUrlExtract() {
+		while (lexer.getTokenType() != TokenType.IDENTIFIER) {
+			lexer.eatToken();
+		}
 		
+		String url = "";
+		if (lexer.getTokenValue() == "href") {
+			lexer.eatToken();
+			lexer.eatToken();
+			if (lexer.getTokenType() == TokenType.QUOTED_STRING) {
+				url = lexer.getTokenValue();
+			}
+		}
+		
+		while (lexer.getTokenType() != TokenType.CLOSE_TAG) {
+			lexer.eatToken();
+		}
+		
+		lexer.eatToken();
+		
+		return url;
+	}
+	
+	private void handleOpenTag() {
+		switch (lexer.getTokenValue()) {
+		case "a":
+			String url = handleUrlExtract();
+			String text = this.handleText();
+			this.addElementToList(new Text(minX, minY, 20, 20, text, url));
+			break;
+
+		default:
+			break;
+		}
 	}
 }
