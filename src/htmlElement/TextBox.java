@@ -17,7 +17,7 @@ public class TextBox extends GUIElement{
 	private MyCanvasWindow window;
 	
 	
-	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
+	public TextBox(int x, int y, int w, int h) {
 		super(x, y, w,  h + (h/4));
 		Color color = Color.white;
 		this.text = new TextCursor(x, y, w, h, "", "");
@@ -139,7 +139,7 @@ public class TextBox extends GUIElement{
 					if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 						// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
 						// deze if statement is er voor bijvoorbeeld bij Steven zijn keyboard niet drie keer tilde te krijgen in de string
-						if (keyChar != 'ï¿½' &&  keyChar != 'ï¿½' &&  keyChar != '`' &&  keyChar != '~') {
+						if (keyChar != '¨' &&  keyChar != '´' &&  keyChar != '`' &&  keyChar != '~') {
 							this.handleUndefined(keyChar);
 						}
 					}
@@ -148,7 +148,7 @@ public class TextBox extends GUIElement{
 			}
 			if (id == KeyEvent.KEY_TYPED) {
 				// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
-				if (keyChar == 'ï¿½' ||  keyChar == 'ï¿½' ||  keyChar == '`' ||  keyChar == '~') {
+				if (keyChar == '¨' ||  keyChar == '´' ||  keyChar == '`' ||  keyChar == '~') {
 					this.handleUndefined(keyChar);
 				}
 			}

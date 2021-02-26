@@ -30,7 +30,7 @@ public class MyCanvasWindow extends CanvasWindow {
 		/*Button button = new Button(40, 40 * 12, 40, "Click me");
 		elements.add(button);
 		buttons.add(button);*/
-		 TextBox textBox = new TextBox(1, 1, 580, 20, this);
+		 TextBox textBox = new SearchBar(this);
          this.addTextBox(textBox);
          this.addElement(textBox);
          bar = textBox;
