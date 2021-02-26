@@ -12,7 +12,6 @@ public class TextBox extends GUIElement{
 	private TextCursor text;
 	private Box box;
 	private boolean isActive;
-	private SurroundingTextBox selectedTextBox;
 	private MyCanvasWindow window;
 	
 	
@@ -22,7 +21,6 @@ public class TextBox extends GUIElement{
 		this.text = new TextCursor(x, y, w, h, "", "");
 		int size=this.getTextCursor().getFontSize();
 		this.setBox(new Box(x, y, w, (int) Math.ceil(size*2), color)); //TODO mooie grootte kiezen
-		this.setSelectedTextBox(new SurroundingTextBox(0, 0, 0, 0, Color.blue, this.text.getTextFromTextCursor())); // maakt een selected textbox aan deze gaat initieel leeg zijn
 		this.window = window;
 	}
 	
@@ -65,7 +63,6 @@ public class TextBox extends GUIElement{
 	@Override
 	public void paint(Graphics g) {
 		this.getBox().paint(g);
-		this.getSelectedTextBox().paint(g);
 		this.getTextCursor().paint(g);
 	}
 	
@@ -79,17 +76,17 @@ public class TextBox extends GUIElement{
 		if (id == MouseEvent.MOUSE_CLICKED) {
 			if (this.checkCoordinates(x, y)) {
 				if(this.isActive()) {
-					this.getSelectedTextBox().unselectAllText();
+					this.getTextCursor().unselectAllText();
 				}
 				else {
-					this.getSelectedTextBox().selectGivenText(this.getTextCursor().getTextFromTextCursor());
+					this.getTextCursor().selectAll();
 				}
 				this.setActive(true);
 				this.getBox().setColor(Color.gray);
 			} else {
 				if (this.isActive()){
 					this.handleEnter();
-					this.getSelectedTextBox().unselectAllText();
+					this.getTextCursor().unselectAllText();
 				}
 				this.setActive(false);
 				this.getBox().setColor(Color.white);
@@ -137,7 +134,7 @@ public class TextBox extends GUIElement{
 					if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 						// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
 						// deze if statement is er voor bijvoorbeeld bij Steven zijn keyboard niet drie keer tilde te krijgen in de string
-						if (keyChar != '¨' &&  keyChar != '´' &&  keyChar != '`' &&  keyChar != '~') {
+						if (keyChar != 'ï¿½' &&  keyChar != 'ï¿½' &&  keyChar != '`' &&  keyChar != '~') {
 							this.handleUndefined(keyChar);
 						}
 					}
@@ -146,7 +143,7 @@ public class TextBox extends GUIElement{
 			}
 			if (id == KeyEvent.KEY_TYPED) {
 				// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
-				if (keyChar == '¨' ||  keyChar == '´' ||  keyChar == '`' ||  keyChar == '~') {
+				if (keyChar == 'ï¿½' ||  keyChar == 'ï¿½' ||  keyChar == '`' ||  keyChar == '~') {
 					this.handleUndefined(keyChar);
 				}
 			}
@@ -219,13 +216,7 @@ public class TextBox extends GUIElement{
 		this.getBox().setColor(Color.white);
 	}
 
-	public SurroundingTextBox getSelectedTextBox() {
-		return selectedTextBox;
-	}
 
-	public void setSelectedTextBox(SurroundingTextBox selectedText) {
-		this.selectedTextBox = selectedText;
-	}
 	
 	/**
 	 * @return the window

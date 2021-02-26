@@ -5,8 +5,15 @@ import java.awt.Graphics;
 
 public class TextCursor extends GUIElement {
 	
+	/*
+	 * TextCursor has 3 text classes, they change throughout the program
+	 * however their order always stay the same starting with leftText, selectedText in the middle
+	 * rigthText at the end. The strings in those classes can be empty however.
+	 */
 	private Text leftText;
+	private Text selectedText;
 	private Text rightText;
+	private SurroundingTextBox selectionBox;
 	private Box box;
 	private boolean textCursorOn;
 
@@ -23,11 +30,11 @@ public class TextCursor extends GUIElement {
 	 */
 	public TextCursor(int x, int y, int w, int h, String leftString,String rightString) {
 		super(x, y, w, h);
-		
-		leftText = new Text(x, y, w, h, leftString);
-		rightText = new Text(x, y, w, h, rightString);
-		
-		box = new Box(x, y, (int) Math.ceil(this.getFontSize() / 10), this.getFontSize(), Color.black);
+		this.setLeftText(new Text(x, y, w, h, leftString));
+		this.setSelectedText(new Text(x, y, w, h, ""));
+		this.setSelectionBox(new SurroundingTextBox(x, y, 0, 0, Color.blue, this.getSelectedText()));
+		this.setRightText(new Text(x, y, w, h, rightString));
+		this.setBox(new Box(x, y, (int) Math.ceil(this.getFontSize() / 10), this.getFontSize(), Color.black));
 	}
 
 	/**
@@ -36,8 +43,9 @@ public class TextCursor extends GUIElement {
 	@Override
 	public void paint(Graphics g) {
 		this.getLeftText().paint(g);
-		this.getRightText().paint(g);
-		
+		this.getSelectionBox().paint(g);
+		this.getSelectedText().paint(g);
+		this.getRightText().paint(g);	
 		if(this.isTextCursorOn()) {
 			this.getBox().paint(g);
 		}
@@ -55,10 +63,19 @@ public class TextCursor extends GUIElement {
 		this.getBox().setX(rightXLeftSide);
 		this.getBox().setY(this.getLeftText().getLowerY() - this.getBox().getHeight());
 		
-		this.getRightText().setX(rightXLeftSide);
-		this.getRightText().setY(upperYLeftSide);
+		this.getSelectedText().setX(rightXLeftSide);
+		this.getSelectedText().setY(upperYLeftSide);
+		
+		this.getSelectedText().update(g);
+		
+		int rightXSelectedSide = this.getSelectedText().getRightX();
+		int upperYSelectedSide = this.getSelectedText().getUpperY();
+		
+		this.getRightText().setX(rightXSelectedSide);
+		this.getRightText().setY(upperYSelectedSide);
 		
 		this.getRightText().update(g);
+		this.getSelectionBox().update(g);
 	}
 	
 	/**
@@ -72,9 +89,10 @@ public class TextCursor extends GUIElement {
 	 * This method handles every action that needs to be done when moving one character to the right.
 	 */
 	public void moveRight() {
+		this.unselectAllText();
 		if (this.getStringRightText().length() != 0) {
-			this.setLeftText(this.getStringLeftText() + this.getStringRightText().charAt(0));
-			this.setrightText(this.getStringRightText().substring(1));
+			this.setLeftTextString(this.getStringLeftText() + this.getStringRightText().charAt(0));
+			this.setRightTextString(this.getStringRightText().substring(1));
 		}		
 	}
 	
@@ -82,9 +100,10 @@ public class TextCursor extends GUIElement {
 	 * This method handles every action that needs to be done when moving one character to the left.
 	 */
 	public void moveLeft() {
+		this.unselectAllText();
 		if (this.getStringLeftText().length() != 0) {
-			this.setrightText(this.getStringLeftText().charAt(this.getStringLeftText().length() - 1) + this.getStringRightText());
-			this.setLeftText(this.getStringLeftText().substring(0, this.getStringLeftText().length() - 1));
+			this.setRightTextString(this.getStringLeftText().charAt(this.getStringLeftText().length() - 1) + this.getStringRightText());
+			this.setLeftTextString(this.getStringLeftText().substring(0, this.getStringLeftText().length() - 1));
 		}
 	}
 	
@@ -92,24 +111,27 @@ public class TextCursor extends GUIElement {
 	 * This method handles every action that needs to be done when moving to the end of the text.
 	 */
 	public void moveToEnd() {
-		this.setLeftText(this.getStringLeftText() + this.getStringRightText());
-		this.setrightText("");
+		this.unselectAllText();
+		this.setLeftTextString(this.getStringLeftText() + this.getStringRightText());
+		this.setRightTextString("");
 	}
 	
 	/**
 	 * This method handles every action that needs to be done when moving to the begin of the text.
 	 */
 	public void moveToBegin() {
-		this.setrightText(this.getStringLeftText() + this.getStringRightText());
-		this.setLeftText("");
+		this.unselectAllText();
+		this.setRightTextString(this.getStringLeftText() + this.getStringRightText());
+		this.setLeftTextString("");
 	}
 	
 	/**
 	 * This method handles every action that needs to be done when removing a character on the left of the cursor.
 	 */
 	public void deletePrevious() {
+		this.clearSelected();
 		if (this.getStringLeftText().length() > 0) { // check if left string is not empty
-			this.setLeftText(this.getStringLeftText().substring(0, this.getStringLeftText().length() - 1));
+			this.setLeftTextString(this.getStringLeftText().substring(0, this.getStringLeftText().length() - 1));
 		}
 	}
 	
@@ -117,8 +139,9 @@ public class TextCursor extends GUIElement {
 	 * This method handles every action that needs to be done when removing a character on the right of the cursor.
 	 */
 	public void deleteNext() {
+		this.clearSelected();
 		if (this.getStringRightText().length() > 0) { // check if right string is not empty
-			this.setrightText(this.getStringRightText().substring(1));
+			this.setRightTextString(this.getStringRightText().substring(1));
 		}
 	}
 	
@@ -126,9 +149,35 @@ public class TextCursor extends GUIElement {
 	 * This method handles every action that needs to be done when adding a character. This always happens on the left of the cursor.
 	 */
 	public void addCharachter(char keyChar) {
-		this.setLeftText(this.getLeftText().getText() + keyChar);
+		this.clearSelected();
+		this.setLeftTextString(this.getLeftText().getText() + keyChar);
 	}
 	
+	//##############################Selection#######################################
+	
+	public void selectAll() {
+		this.setSelectedTextString(this.getStringLeftText() + this.getStringSelectedText() + this.getStringRightText());
+		this.getLeftText().clearText();
+		this.getRightText().clearText();
+	}
+	
+	/**
+	 * When method is called the blue box dissapears
+	 */
+	public void unselectAllText() {
+		this.setRightTextString(this.getStringSelectedText() +this.getStringRightText()); // Voeg string aan rechts toe
+		this.setSelectedTextString("");
+	}
+	
+	/**
+	 * Clears all selected Text
+	 */
+	public void clearSelected() {
+		this.setSelectedTextString("");
+	}
+	
+	
+	//#############################end Selection##################################################
 	/**
 	 * This method returns the text stored in the left Text element.
 	 * @return this.leftText.getText
@@ -141,10 +190,27 @@ public class TextCursor extends GUIElement {
 	 * This method sets the text value of the left Text element.
 	 * @param leftText - the new value of text of the left Text element.
 	 */
-	public void setLeftText(String leftText) {
+	public void setLeftTextString(String leftText) {
 		this.leftText.setText(leftText);;
 	}
 
+	/**
+	 * This method returns the text stored in the left Text element.
+	 * @return this.leftText.getText
+	 */
+	public String getStringSelectedText() {
+		return this.getSelectedText().getText();
+	}
+
+	/**
+	 * This method sets the text value of the left Text element.
+	 * @param leftText - the new value of text of the left Text element.
+	 */
+	public void setSelectedTextString(String newText) {
+		this.getSelectedText().setText(newText);
+	}
+	
+	
 	/**
 	 * This method returns the text stored in the right Text element.
 	 * @return this.leftText.getText
@@ -157,7 +223,7 @@ public class TextCursor extends GUIElement {
 	 * This method sets the text value of the right Text element.
 	 * @param rightText - the new value of text of the right Text element.
 	 */
-	public void setrightText(String rightText) {
+	public void setRightTextString(String rightText) {
 		this.rightText.setText(rightText);
 	}
 
@@ -232,6 +298,22 @@ public class TextCursor extends GUIElement {
 	 */
 	public Box getBox() {
 		return this.box;
+	}
+
+	public Text getSelectedText() {
+		return selectedText;
+	}
+
+	public void setSelectedText(Text selectedText) {
+		this.selectedText = selectedText;
+	}
+
+	public SurroundingTextBox getSelectionBox() {
+		return selectionBox;
+	}
+
+	public void setSelectionBox(SurroundingTextBox selectionBox) {
+		this.selectionBox = selectionBox;
 	}
 	
 
