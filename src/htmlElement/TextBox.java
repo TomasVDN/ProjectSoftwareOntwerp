@@ -25,8 +25,6 @@ public class TextBox extends GUIElement{
 		System.out.println(size);
 		this.setBox(new Box(x, y, w, (int) Math.ceil(size*2), color)); //TODO mooie grootte kiezen
 		//TODO de (int) Math.ceil(size*2) zorgt ervoor dat de hoogte van Box van een TextBox niet overeenkomt met de hoogte van de TextBox
-		//TODO remove window
-		this.window = window;
 	}
 	
 	/**
@@ -139,7 +137,7 @@ public class TextBox extends GUIElement{
 					if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 						// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
 						// deze if statement is er voor bijvoorbeeld bij Steven zijn keyboard niet drie keer tilde te krijgen in de string
-						if (keyChar != '¨' &&  keyChar != '´' &&  keyChar != '`' &&  keyChar != '~') {
+						if (keyChar != 'ï¿½' &&  keyChar != 'ï¿½' &&  keyChar != '`' &&  keyChar != '~') {
 							this.handleUndefined(keyChar);
 						}
 					}
@@ -148,7 +146,7 @@ public class TextBox extends GUIElement{
 			}
 			if (id == KeyEvent.KEY_TYPED) {
 				// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
-				if (keyChar == '¨' ||  keyChar == '´' ||  keyChar == '`' ||  keyChar == '~') {
+				if (keyChar == 'ï¿½' ||  keyChar == 'ï¿½' ||  keyChar == '`' ||  keyChar == '~') {
 					this.handleUndefined(keyChar);
 				}
 			}
