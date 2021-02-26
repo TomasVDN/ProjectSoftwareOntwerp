@@ -21,8 +21,9 @@ public class MyCanvasWindow extends CanvasWindow {
 	private ArrayList<TextBox> textBoxes = new ArrayList<TextBox>();
 	private ArrayList<Text> hyperlinks = new ArrayList<Text>();
 	
-	private TextBox bar;
+	private SearchBar bar;
 	
+
 	//TODO test must be given from input file
 	public MyCanvasWindow(String title) {
 		super(title);
@@ -30,10 +31,11 @@ public class MyCanvasWindow extends CanvasWindow {
 		/*Button button = new Button(40, 40 * 12, 40, "Click me");
 		elements.add(button);
 		buttons.add(button);*/
-		 TextBox textBox = new SearchBar(this);
-         this.addTextBox(textBox);
-         this.addElement(textBox);
-         bar = textBox;
+		SearchBar bar = new SearchBar(this);
+        this.addTextBox(bar);
+        this.addElement(bar);
+        this.setBar(bar);
+        
 	}
 	
 	public int getWidth() {
@@ -186,6 +188,14 @@ public class MyCanvasWindow extends CanvasWindow {
 		elements = new ArrayList<GUIElement>();
 		elements.add(bar);
 		setIncrement(0);
+	}
+	
+	public SearchBar getBar() {
+		return bar;
+	}
+
+	public void setBar(SearchBar bar) {
+		this.bar = bar;
 	}
 
 }
