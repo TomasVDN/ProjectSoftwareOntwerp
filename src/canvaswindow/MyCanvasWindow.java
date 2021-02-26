@@ -53,7 +53,9 @@ public class MyCanvasWindow extends CanvasWindow {
 	public void addElement(GUIElement elem) {
 		elements.add(elem);
 		if (elem instanceof Text) {
-			
+			if (((Text) elem).isHyperlink()) {
+				this.hyperlinks.add((Text) elem);
+			}
 		}
 	}
 	
@@ -143,6 +145,10 @@ public class MyCanvasWindow extends CanvasWindow {
 		
 		textBoxes.forEach((n) -> {
 			n.handleMouseEvent(id, x, y);			
+		});
+		
+		hyperlinks.forEach((n) -> {
+			n.handleMouseEvent(id, x, y, this);			
 		});
 		
 		this.repaint();
