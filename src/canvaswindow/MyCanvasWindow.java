@@ -33,8 +33,16 @@ public class MyCanvasWindow extends CanvasWindow {
          this.addTextBox(textBox);
          this.addElement(textBox);
          bar = textBox;
-
 	}
+	
+	public int getWidth() {
+		return this.width;
+	}
+	
+	public int getHeight() {
+		return this.height;
+	}
+	
 	/**
 	 * adds the given element to the element list
 	 * @param elem

@@ -12,7 +12,7 @@ public class TextBox extends GUIElement{
 	private TextCursor text;
 	private Box box;
 	private boolean isActive;
-	private MyCanvasWindow window;
+
 	
 	
 	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
@@ -20,8 +20,9 @@ public class TextBox extends GUIElement{
 		Color color = Color.white;
 		this.text = new TextCursor(x, y, w, h, "", "");
 		int size=this.getTextCursor().getFontSize();
+		System.out.println(size);
 		this.setBox(new Box(x, y, w, (int) Math.ceil(size*2), color)); //TODO mooie grootte kiezen
-		this.window = window;
+		//TODO de (int) Math.ceil(size*2) zorgt ervoor dat de hoogte van Box van een TextBox niet overeenkomt met de hoogte van de TextBox
 	}
 	
 	/**
@@ -202,10 +203,10 @@ public class TextBox extends GUIElement{
 	/**
 	 * Does the needed actions for the enter key.
 	 */
-	private void handleEnter() {
-		this.getWindow().readFile(this.getTextCursor().getTextFromTextCursor().getText()); //TODO getText.getText is niet het mooiste ooit
-		this.setActive(false);
-		this.getBox().setColor(Color.white);
+	protected void handleEnter() {
+		/*
+		 * Misschien moet er later nog wel iets gedaan worden met andere TextBoxen als er ENTER gedrukt wordt.
+		 */
 	}
 	
 	/**
@@ -214,22 +215,6 @@ public class TextBox extends GUIElement{
 	private void handleEscape() {
 		this.setActive(false);
 		this.getBox().setColor(Color.white);
-	}
-
-
-	
-	/**
-	 * @return the window
-	 */
-	public MyCanvasWindow getWindow() {
-		return window;
-	}
-
-	/**
-	 * @param window - the window to set
-	 */
-	public void setWindow(MyCanvasWindow window) {
-		this.window = window;
 	}
 
 
