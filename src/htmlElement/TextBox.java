@@ -15,7 +15,7 @@ public class TextBox extends GUIElement{
 
 	
 	
-	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
+	public TextBox(int x, int y, int w, int h) {
 		super(x, y, w,  h + (h/4));
 		Color color = Color.white;
 		this.text = new TextCursor(x, y, w, h, "", "");
