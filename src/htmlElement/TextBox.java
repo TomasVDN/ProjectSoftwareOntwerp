@@ -13,6 +13,8 @@ public class TextBox extends GUIElement{
 	private Box box;
 	private boolean isActive;
 
+	//TODO remove window
+	private MyCanvasWindow window;
 	
 	
 	public TextBox(int x, int y, int w, int h) {
@@ -23,6 +25,8 @@ public class TextBox extends GUIElement{
 		System.out.println(size);
 		this.setBox(new Box(x, y, w, (int) Math.ceil(size*2), color)); //TODO mooie grootte kiezen
 		//TODO de (int) Math.ceil(size*2) zorgt ervoor dat de hoogte van Box van een TextBox niet overeenkomt met de hoogte van de TextBox
+		//TODO remove window
+		this.window = window;
 	}
 	
 	/**

@@ -1,12 +1,14 @@
 package inputReader;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import browsrhtml.BrowsrDocumentValidator;
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
 import canvaswindow.MyCanvasWindow;
+import htmlElement.GUIElement;
 
 public class InputReader {
 	
@@ -23,7 +25,7 @@ public class InputReader {
 	
 	public void readFile(String path) {
 		//TODO remove this help function (used for testing) 
-		path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
+//		path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 
 		//deze url => String komt van https://www.tutorialspoint.com/how-to-read-the-contents-of-a-webpage-into-a-string-in-java
 		try {
@@ -39,7 +41,11 @@ public class InputReader {
 	        }
 	        
 	        HTMLToLayout toLayout = new HTMLToLayout(sb.substring(0), 20, 40);
-	        toLayout.createElements();
+	        ArrayList<GUIElement> list = toLayout.createElements();
+	        
+	        list.forEach((n) -> {
+				window.addElement(n);			
+			});
 
     	} catch (IOException e) {
     		File file = new File("src/error.txt");

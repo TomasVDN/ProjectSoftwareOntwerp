@@ -1,8 +1,10 @@
 package htmlElement;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import canvaswindow.MyCanvasWindow;
 
@@ -10,6 +12,8 @@ public class Text extends GUIElement{
 	
 	private String text;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
+	private String url;
+	private boolean isHyperlink = false;
 
 	public Text(int x, int y, int w, int h, String text){
 		super(x, y, w, h);
@@ -20,6 +24,12 @@ public class Text extends GUIElement{
 		super(x, y, w, h);
 		this.setText(text);
 		this.font = font; 
+	}
+	
+	public Text(int x, int y, int w, int h, String text, String url){
+		super(x, y, w, h);
+		this.setText(text);
+		this.setHyperlink(true);
 	}
 	
 	
@@ -84,6 +94,12 @@ public class Text extends GUIElement{
 	
 	@Override
 	public void paint(Graphics g) {
+		//TODO William, dit is kleur hyperlinks
+		if (this.isHyperlink()) {
+			g.setColor(Color.blue);
+		} else {
+			g.setColor(Color.black);
+		}
 		g.setFont(this.getFont());
 		g.drawString(getText(), getLeftX(), getLowerY());
 	}
@@ -96,4 +112,33 @@ public class Text extends GUIElement{
 		this.setWidth(fontMetrics.stringWidth(this.getText()));
 	}
 
+	
+	//TODO William, dit zijn men shit functies voor hyperlink
+	/**
+	 * @return the isHyperlink
+	 */
+	public boolean isHyperlink() {
+		return isHyperlink;
+	}
+
+	/**
+	 * @param isHyperlink the isHyperlink to set
+	 */
+	public void setHyperlink(boolean isHyperlink) {
+		this.isHyperlink = isHyperlink;
+	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

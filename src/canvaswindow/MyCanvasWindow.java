@@ -19,6 +19,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private ArrayList<TextBox> textBoxes = new ArrayList<TextBox>();
+	private ArrayList<Text> hyperlinks = new ArrayList<Text>();
 	
 	private SearchBar bar;
 	
@@ -50,6 +51,9 @@ public class MyCanvasWindow extends CanvasWindow {
 	 */
 	public void addElement(GUIElement elem) {
 		elements.add(elem);
+		if (elem instanceof Text) {
+			
+		}
 	}
 	
 	/**
@@ -137,9 +141,9 @@ public class MyCanvasWindow extends CanvasWindow {
 		});
 		
 		textBoxes.forEach((n) -> {
-			n.handleMouseEvent(id, x, y);
-			
+			n.handleMouseEvent(id, x, y);			
 		});
+		
 		this.repaint();
 	}
 	
