@@ -34,6 +34,7 @@ public class MyCanvasWindow extends CanvasWindow {
 		SearchBar bar = new SearchBar(this);
         this.addTextBox(bar);
         this.addElement(bar);
+        this.setBar(bar);
         
 	}
 	
