@@ -160,6 +160,7 @@ public class HTMLToLayout {
 		case "a":
 			String url = handleUrlExtract();
 			String text = this.handleText();
+			text = text.substring(1);
 			this.addElementToList(new Hyperlink(minX, minY, 20, text, url));
 			break;
 
