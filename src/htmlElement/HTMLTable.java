@@ -34,7 +34,7 @@ public class HTMLTable extends ContentSpan {
 		String table = "TABLE: (";
 		
 		for (HTMLTableRow row: rows) {
-			table += rows.toString() + ",";
+			table += row.toString() + ",";
 		}
 		
 		return table.substring(0, table.length() - 1) + ")";

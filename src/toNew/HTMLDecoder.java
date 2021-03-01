@@ -49,25 +49,27 @@ public class HTMLDecoder {
 	
 	public HTMLHyperlink createHyperlink() {
 		while (lexer.getTokenType() != TokenType.IDENTIFIER) {
-			System.out.print(lexer.getTokenType() + "\n");
-			System.out.print(lexer.getTokenValue() + "\n");
 			lexer.eatToken();
 		}
 		
 		String url = "";
-		if (lexer.getTokenValue() == "href") {
+		if (lexer.getTokenValue().equals("href")) {
 			lexer.eatToken();
 			lexer.eatToken();
 			if (lexer.getTokenType() == TokenType.QUOTED_STRING) {
 				url = lexer.getTokenValue();
+				lexer.eatToken(); // consumes url
 			}
 		}
-		
+		System.out.println(lexer.getTokenType() + "\n");
 		while (eat() != TokenType.CLOSE_TAG) {
+			System.out.println(lexer.getTokenType() + "\n");
 		}
 		
 		HTMLText htmlText = handleText();
-		
+		lexer.eatToken();// consumes endtag
+		lexer.eatToken();
+		System.out.println(lexer.getTokenType() + "\n");
 		return new HTMLHyperlink(url, htmlText);
 	}
 	
