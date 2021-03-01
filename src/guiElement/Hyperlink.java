@@ -1,4 +1,4 @@
-package htmlElement;
+package guiElement;
 
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;

@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
-import htmlElement.GUIElement;
-import htmlElement.Hyperlink;
-import htmlElement.Text;
+import guiElement.GUIElement;
+import guiElement.Hyperlink;
+import guiElement.Text;
 
 public class HTMLToLayout {
 	

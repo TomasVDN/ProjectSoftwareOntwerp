@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import browsrhtml.HtmlLexer.TokenType;
-import htmlElement.Button;
-import htmlElement.GUIElement;
-import htmlElement.Hyperlink;
-import htmlElement.Text;
-import htmlElement.TextBox;
+import guiElement.Button;
+import guiElement.GUIElement;
+import guiElement.Hyperlink;
+import guiElement.Text;
+import guiElement.TextBox;
 import inputReader.InputReader;
 
 

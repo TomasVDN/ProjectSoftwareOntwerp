@@ -1,4 +1,4 @@
-package htmlElement;
+package guiElement;
 
 import java.awt.Color; //geen idee of deze import mag 
 import java.awt.Font; 

@@ -1,4 +1,4 @@
-package htmlElement;
+package guiElement;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
