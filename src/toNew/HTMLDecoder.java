@@ -49,6 +49,8 @@ public class HTMLDecoder {
 	
 	public HTMLHyperlink createHyperlink() {
 		while (lexer.getTokenType() != TokenType.IDENTIFIER) {
+			System.out.print(lexer.getTokenType() + "\n");
+			System.out.print(lexer.getTokenValue() + "\n");
 			lexer.eatToken();
 		}
 		
@@ -101,11 +103,7 @@ public class HTMLDecoder {
 		lexer.eatToken();
 		lexer.eatToken();
 		HTMLTableRow row = new HTMLTableRow();
-		System.out.print(lexer.getTokenType() + "\n");
-		System.out.print(lexer.getTokenValue() + "\n");
-		while ((lexer.getTokenType() != TokenType.OPEN_START_TAG && ! lexer.getTokenValue().equals("tr")) || (lexer.getTokenType() != TokenType.OPEN_END_TAG && ! lexer.getTokenValue().equals("table"))) {
-			System.out.print(lexer.getTokenType() + "\n");
-			System.out.print(lexer.getTokenValue() + "\n");
+		while (! (lexer.getTokenType() == TokenType.OPEN_START_TAG &&  lexer.getTokenValue().equals("tr")) && !(lexer.getTokenType() == TokenType.OPEN_END_TAG &&  lexer.getTokenValue().equals("table"))) {
 			row.addCell(createCell());
 		}
 		return row;
@@ -115,7 +113,7 @@ public class HTMLDecoder {
 		lexer.eatToken(); //consume <table>
 		lexer.eatToken();
 		HTMLTable table = new HTMLTable();
-		while (lexer.getTokenType() != TokenType.OPEN_END_TAG && ! lexer.getTokenValue().equals("table")) {
+		while (!(lexer.getTokenType() == TokenType.OPEN_END_TAG &&  lexer.getTokenValue().equals("table"))) {
 			table.addRow(createRow());
 		}
 		lexer.eatToken(); //remove End tag table
