@@ -39,6 +39,11 @@ public class Box extends GUIElement {
 
 	@Override
 	public void paint(Graphics g) {
+		paintBox(g);
+	}
+
+
+	public void paintBox(Graphics g) {
 		g.setColor(this.getColor());
 		g.fillRect(this.getLeftX(), this.getUpperY(), this.getWidth(), this.getHeight());
 		g.setColor(Color.BLACK);
