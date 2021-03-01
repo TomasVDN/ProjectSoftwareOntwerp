@@ -43,13 +43,14 @@ public class SurroundingTextBox extends Box {
 			this.unselectAllText();
 		}
 	}
-	
+	@Override
 	public void update(Graphics g) {
 		this.setX(this.getText().getLeftX());
 		this.setY(this.getText().getUpperY());
 		this.setHeight(this.getText().getHeight());
 		this.setWidth(this.getText().getWidth());
 	}
+	
 	
 
 	public Text getText() {

@@ -43,8 +43,10 @@ public class TextCursor extends GUIElement {
 	@Override
 	public void paint(Graphics g) {
 		this.getLeftText().paint(g);
-		this.getSelectionBox().paint(g);
-		this.getSelectedText().paint(g);
+		if(this.getStringSelectedText()!="") {
+			this.getSelectionBox().paint(g);
+			this.getSelectedText().paint(g);
+		}
 		this.getRightText().paint(g);	
 		if(this.isTextCursorOn()) {
 			this.getBox().paint(g);

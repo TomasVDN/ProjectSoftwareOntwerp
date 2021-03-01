@@ -44,4 +44,6 @@ public class Box extends GUIElement {
 		g.setColor(Color.BLACK);
 		g.drawRect(this.getLeftX(), this.getUpperY(), this.getWidth(), this.getHeight());
 	}
+	
+
 }
