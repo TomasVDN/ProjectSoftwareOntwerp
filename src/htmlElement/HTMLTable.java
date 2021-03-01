@@ -1,4 +1,4 @@
-package htmlelement;
+package htmlElement;
 
 import java.util.ArrayList;
 

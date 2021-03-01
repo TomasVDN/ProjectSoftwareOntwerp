@@ -8,12 +8,12 @@ import browsrhtml.HtmlLexer.TokenType;
 import guiElement.GUIElement;
 import guiElement.Hyperlink;
 import guiElement.Text;
-import htmlelement.ContentSpan;
-import htmlelement.HTMLHyperlink;
-import htmlelement.HTMLTable;
-import htmlelement.HTMLTableCell;
-import htmlelement.HTMLTableRow;
-import htmlelement.HTMLText;
+import htmlElement.ContentSpan;
+import htmlElement.HTMLHyperlink;
+import htmlElement.HTMLTable;
+import htmlElement.HTMLTableCell;
+import htmlElement.HTMLTableRow;
+import htmlElement.HTMLText;
 
 public class HTMLDecoder {
 
@@ -88,10 +88,12 @@ public class HTMLDecoder {
 	public HTMLTableCell createCell() {
 		System.out.print(lexer.getTokenType() + "\n");
 		System.out.print(lexer.getTokenValue() + "\n");
-		//if (lexer.getTokenType() == TokenType.OPEN_START_TAG && lexer.getTokenValue() == "td"){
+		System.out.println(lexer.getTokenType() == TokenType.OPEN_START_TAG);
+		System.out.println(lexer.getTokenValue().equals(lexer.getTokenValue()));
+		if (lexer.getTokenType() == TokenType.OPEN_START_TAG && lexer.getTokenValue() == "td"){
 			lexer.eatToken(); //consume td
 			lexer.eatToken();
-		//}
+		}
 		System.out.print(lexer.getTokenType() + "\n");
 		System.out.print(lexer.getTokenValue() + "\n");
 		if ((lexer.getTokenType() == TokenType.OPEN_START_TAG && lexer.getTokenValue() == "td") || (lexer.getTokenType() == TokenType.OPEN_START_TAG && lexer.getTokenValue() == "tr") || (lexer.getTokenType() == TokenType.OPEN_END_TAG && lexer.getTokenValue() == "table")){

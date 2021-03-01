@@ -1,4 +1,4 @@
-package htmlelement;
+package htmlElement;
 
 public class HTMLText extends ContentSpan{
 
