@@ -8,7 +8,7 @@ public class HTMLTable extends ContentSpan {
 		
 	}
 	
-	private ArrayList<HTMLTableRow> rows;
+	private ArrayList<HTMLTableRow> rows = new ArrayList<HTMLTableRow>();
 	
 
 	/**
@@ -21,8 +21,23 @@ public class HTMLTable extends ContentSpan {
 	/**
 	 * @param rows the rows to set
 	 */
-	public void addRows(ArrayList<HTMLTableRow> rows) {
+	public void setRows(ArrayList<HTMLTableRow> rows) {
 		this.rows = rows;
+	}
+
+	public void addRow(HTMLTableRow rowToAdd) {
+		rows.add(rowToAdd);
+	}
+
+	@Override
+	public String toString() {
+		String table = "TABLE: (";
+		
+		for (HTMLTableRow row: rows) {
+			table += rows.toString() + ",";
+		}
+		
+		return table.substring(0, table.length() - 1) + ")";
 	}
 
 }

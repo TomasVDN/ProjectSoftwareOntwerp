@@ -2,8 +2,14 @@ package htmlelement;
 
 public class HTMLTableCell {
 
-	public HTMLTableCell() {
-		// TODO Auto-generated constructor stub
+	private ContentSpan content;
+	
+	public HTMLTableCell(ContentSpan content) {
+		this.content = content;
+	}
+	
+	public String toString() {
+		return "CELL: " + content.toString();
 	}
 
 }

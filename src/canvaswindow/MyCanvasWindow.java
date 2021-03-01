@@ -28,7 +28,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	//TODO test must be given from input file
 	public MyCanvasWindow(String title) {
 		super(title);
-		fileReader = new InputReader(this);
+		fileReader = new InputReader();
 		/*Button button = new Button(40, 40 * 12, 40, "Click me");
 		elements.add(button);
 		buttons.add(button);*/

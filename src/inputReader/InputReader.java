@@ -20,7 +20,7 @@ public class InputReader {
 
 	public void readFile(String path) {
 		//TODO remove this help function (used for testing) 
-//		path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
+path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 
 		//deze url => String komt van https://www.tutorialspoint.com/how-to-read-the-contents-of-a-webpage-into-a-string-in-java
 		try {
@@ -35,7 +35,7 @@ public class InputReader {
 	        }
 	        
 	        decoder = new HTMLDecoder(sb);
-	        
+	        System.out.print(decoder.createElements());
     	} catch (IOException e) {
     		File file = new File("src/error.txt");
     	    Scanner scan;

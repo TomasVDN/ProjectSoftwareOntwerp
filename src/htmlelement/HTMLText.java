@@ -2,8 +2,15 @@ package htmlelement;
 
 public class HTMLText extends ContentSpan{
 
-	public HTMLText() {
-		// TODO Auto-generated constructor stub
+	private String text;
+	
+	public HTMLText(String text) {
+		this.text = text;
+	}
+
+	@Override
+	public String toString() {
+		return "TEXT: " + text;
 	}
 
 }

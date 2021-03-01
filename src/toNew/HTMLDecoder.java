@@ -10,6 +10,10 @@ import guiElement.Hyperlink;
 import guiElement.Text;
 import htmlelement.ContentSpan;
 import htmlelement.HTMLHyperlink;
+import htmlelement.HTMLTable;
+import htmlelement.HTMLTableCell;
+import htmlelement.HTMLTableRow;
+import htmlelement.HTMLText;
 
 public class HTMLDecoder {
 
@@ -20,44 +24,26 @@ public class HTMLDecoder {
 	}
 
 	public ArrayList<ContentSpan> createElements(){
+		ArrayList<ContentSpan> list = new ArrayList<>();
 		while (lexer.getTokenType() != TokenType.END_OF_FILE) {
-//			System.out.print(lexer.getTokenType() + "\n");
-//			System.out.print(lexer.getTokenValue() + "\n");
-
-			switch (lexer.getTokenType()) {
-			case TEXT:				
-				break;
-			case OPEN_START_TAG:
-				createHTMLElement();
-				break;
-				
-			default:
-				break;
-			}
-			
-			lexer.eatToken();
+			list.add(createHTMLElement());
 		}
-		return null;
+		return list;
 	}
 	
 	public ContentSpan createHTMLElement() {
+		if (lexer.getTokenType() == TokenType.TEXT) {
+			return handleText();
+		}
+		
 		switch (lexer.getTokenValue()) {
 		case "a":
 			return createHyperlink();
-			break;
-		case "td":
-			return createCell();
-			break;
-		case "tr":
-			return createRow();
-			break;
 		case "table":
 			return createTable();
-			break;
 
 		default:
 			return null;
-			break;
 		}		
 	}
 	
@@ -75,70 +61,66 @@ public class HTMLDecoder {
 			}
 		}
 		
-		while (lexer.getTokenType() != TokenType.CLOSE_TAG) {
-			lexer.eatToken();
+		while (eat() != TokenType.CLOSE_TAG) {
 		}
 		
-		lexer.eatToken();
+		HTMLText htmlText = handleText();
 		
-		return url;
+		return new HTMLHyperlink(url, htmlText);
 	}
 	
-	
-	public ArrayList<GUIElement> createElements() {
-		
-		while (lexer.getTokenType() != TokenType.END_OF_FILE) {
-			System.out.print(lexer.getTokenType() + "\n");
-			System.out.print(lexer.getTokenValue() + "\n");
-
-			switch (lexer.getTokenType()) {
-			case TEXT:
-				Text text = new Text(minX, minY, 20, 20, this.handleText());
-				this.addElementToList(text);
-				break;
-			case OPEN_START_TAG:
-				this.handleOpenTag();
-			default:
-				break;
-			}
-			
-			lexer.eatToken();
-			this.setMinY(this.getMinY() + 10);
-		}
-		
-		return this.getListOfElements();
-	}
-	
-	private String eat() {
-		String t = lexer.getTokenValue();
+	private HtmlLexer.TokenType eat() {
+		HtmlLexer.TokenType t = lexer.getTokenType();
 		lexer.eatToken();
 		return t;
 	}
-	private String handleText() {
+	
+	private HTMLText handleText() {
 		String content = "";
 		while (lexer.getTokenType() == TokenType.TEXT) {
 			content += " " + lexer.getTokenValue();
 			lexer.eatToken();
 		}
-		return content;
-	}
-	
-	private String handleUrlExtract() {
 		
+		return new HTMLText(content);
 	}
 	
-	private void handleOpenTag() {
-		switch (lexer.getTokenValue()) {
-		case "a":
-			String url = handleUrlExtract();
-			String text = this.handleText();
-			text = text.substring(1);
-			this.addElementToList(new Hyperlink(minX, minY, 20, text, url));
-			break;
-
-		default:
-			break;
+	public HTMLTableCell createCell() {
+		System.out.print(lexer.getTokenType() + "\n");
+		System.out.print(lexer.getTokenValue() + "\n");
+		//if (lexer.getTokenType() == TokenType.OPEN_START_TAG && lexer.getTokenValue() == "td"){
+			lexer.eatToken(); //consume td
+			lexer.eatToken();
+		//}
+		System.out.print(lexer.getTokenType() + "\n");
+		System.out.print(lexer.getTokenValue() + "\n");
+		if ((lexer.getTokenType() == TokenType.OPEN_START_TAG && lexer.getTokenValue() == "td") || (lexer.getTokenType() == TokenType.OPEN_START_TAG && lexer.getTokenValue() == "tr") || (lexer.getTokenType() == TokenType.OPEN_END_TAG && lexer.getTokenValue() == "table")){
+			return new HTMLTableCell(new HTMLText(""));
 		}
+		
+		return new HTMLTableCell(createHTMLElement());	
+	}
+	
+	public HTMLTableRow createRow() {
+		lexer.eatToken();
+		lexer.eatToken();
+		HTMLTableRow row = new HTMLTableRow();
+		while ((lexer.getTokenType() != TokenType.OPEN_START_TAG && lexer.getTokenValue() != "tr") || (lexer.getTokenType() != TokenType.OPEN_END_TAG && lexer.getTokenValue() != "table")) {
+			row.addCell(createCell());
+		}
+		return row;
+	}
+	
+	public HTMLTable createTable() {
+		lexer.eatToken(); //consume <table>
+		lexer.eatToken();
+		HTMLTable table = new HTMLTable();
+		while (lexer.getTokenType() != TokenType.OPEN_END_TAG && lexer.getTokenValue() != "table") {
+			table.addRow(createRow());
+		}
+		lexer.eatToken(); //remove End tag table
+		lexer.eatToken();
+		return table;	
 	}
 }
 

@@ -8,7 +8,7 @@ public class HTMLTableRow {
 		
 	}
 
-	private ArrayList<HTMLTableCell> cells;
+	private ArrayList<HTMLTableCell> cells = new ArrayList<HTMLTableCell>();
 	
 
 	/**
@@ -21,8 +21,21 @@ public class HTMLTableRow {
 	/**
 	 * @param cells the cells to set
 	 */
-	public void addRows(ArrayList<HTMLTableCell> cells) {
+	public void setRows(ArrayList<HTMLTableCell> cells) {
 		this.cells = cells;
 	}
+	
+	public void addCell(HTMLTableCell cellToAdd) {
+		cells.add(cellToAdd);
+	}
 
+	public String toString() {
+		String row = "ROW: (";
+		
+		for (HTMLTableCell cell: cells) {
+			row += cell.toString() + ",";
+		}
+		
+		return row.substring(0, row.length() - 1) + ")";
+	}
 }
