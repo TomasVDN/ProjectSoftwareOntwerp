@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
 import htmlElement.GUIElement;
+import htmlElement.Hyperlink;
 import htmlElement.Text;
 
 public class HTMLToLayout {
@@ -159,7 +160,8 @@ public class HTMLToLayout {
 		case "a":
 			String url = handleUrlExtract();
 			String text = this.handleText();
-			this.addElementToList(new Text(minX, minY, 20, 20, text, url));
+			text = text.substring(1);
+			this.addElementToList(new Hyperlink(minX, minY, 20, text, url));
 			break;
 
 		default:

@@ -134,7 +134,7 @@ public class TextBox extends GUIElement{
 					if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 						// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
 						// deze if statement is er voor bijvoorbeeld bij Steven zijn keyboard niet drie keer tilde te krijgen in de string
-						if (keyChar != '�' &&  keyChar != '�' &&  keyChar != '`' &&  keyChar != '~') {
+						if (keyChar != '¨' &&  keyChar != '´' &&  keyChar != '`' &&  keyChar != '~') {
 							this.handleUndefined(keyChar);
 						}
 					}
@@ -143,7 +143,7 @@ public class TextBox extends GUIElement{
 			}
 			if (id == KeyEvent.KEY_TYPED) {
 				// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
-				if (keyChar == '�' ||  keyChar == '�' ||  keyChar == '`' ||  keyChar == '~') {
+				if (keyChar == '¨' ||  keyChar == '´' ||  keyChar == '`' ||  keyChar == '~') {
 					this.handleUndefined(keyChar);
 				}
 			}

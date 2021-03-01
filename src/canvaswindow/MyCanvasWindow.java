@@ -8,6 +8,7 @@ import java.util.Iterator;
 import browsrhtml.HtmlLexer.TokenType;
 import htmlElement.Button;
 import htmlElement.GUIElement;
+import htmlElement.Hyperlink;
 import htmlElement.Text;
 import htmlElement.TextBox;
 import inputReader.InputReader;
@@ -19,7 +20,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	private ArrayList<TextBox> textBoxes = new ArrayList<TextBox>();
-	private ArrayList<Text> hyperlinks = new ArrayList<Text>();
+	private ArrayList<Hyperlink> hyperlinks = new ArrayList<Hyperlink>();
 	
 	private SearchBar bar;
 	
@@ -52,10 +53,8 @@ public class MyCanvasWindow extends CanvasWindow {
 	 */
 	public void addElement(GUIElement elem) {
 		elements.add(elem);
-		if (elem instanceof Text) {
-			if (((Text) elem).isHyperlink()) {
-				this.hyperlinks.add((Text) elem);
-			}
+		if (elem instanceof Hyperlink) {
+			this.hyperlinks.add((Hyperlink) elem);
 		}
 	}
 	
@@ -133,15 +132,15 @@ public class MyCanvasWindow extends CanvasWindow {
 	public void handleMouseEvent(int id, int x, int y, int clickCount){
 		// deze for loop gaat alle buttons af en checkt of er geen
 		// event zich afspeelt in de buttons
-		buttons.forEach((n) -> {
-			if (n.checkCoordinates(x, y) && id == MouseEvent.MOUSE_CLICKED) {
-				elements.clear();
-				buttons.forEach((i) -> elements.add(i)); //buttons werden ook verwijdert uit elements dus moeten openieuw toegevoegd worden
-				setIncrement(0); // die lelijke variable incrementen (pls doe dit weg)
-				fileReader.readFile("src/input2.txt"); //deze button lees de andere file in
-				repaint(); //opnieuw het scherm drawen
-			}
-		});
+//		buttons.forEach((n) -> {
+//			if (n.checkCoordinates(x, y) && id == MouseEvent.MOUSE_CLICKED) {
+//				elements.clear();
+//				buttons.forEach((i) -> elements.add(i)); //buttons werden ook verwijdert uit elements dus moeten openieuw toegevoegd worden
+//				setIncrement(0); // die lelijke variable incrementen (pls doe dit weg)
+//				fileReader.readFile("src/input2.txt"); //deze button lees de andere file in
+//				repaint(); //opnieuw het scherm drawen
+//			}
+//		});
 		
 		textBoxes.forEach((n) -> {
 			n.handleMouseEvent(id, x, y);			
