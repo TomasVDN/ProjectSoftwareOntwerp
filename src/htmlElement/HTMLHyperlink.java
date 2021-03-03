@@ -3,6 +3,7 @@ package htmlElement;
 import java.awt.Graphics;
 
 import GUIElements.GUIElement;
+import GUIElements.Hyperlink;
 
 public class HTMLHyperlink extends ContentSpan{
 
@@ -35,9 +36,8 @@ public class HTMLHyperlink extends ContentSpan{
 
 
 	@Override
-	public GUIElement transformToGUI(int width, int heigth, int y, int x) {
-		// TODO Auto-generated method stub
-		return new HyperLink(x,y,10,this.getText().transformToGUI(width, heigth, y, x),this.getUrl());
+	public Hyperlink transformToGUI(int width, int height, int y, int x) {
+		return new Hyperlink(x,y,10,this.getText().transformToGUI(width, height, y, x),this.getUrl());
 	}
 
 }

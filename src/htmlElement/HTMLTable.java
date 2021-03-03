@@ -2,8 +2,17 @@ package htmlElement;
 
 import java.util.ArrayList;
 
+import GUIElements.GUIElement;
+import GUIElements.TableGUI;
+import GUIElements.TableRowGUI;
+
 public class HTMLTable extends ContentSpan {
 
+	/**
+	 * The distance between the guiRows in the table
+	 */
+	private static int YSPACE= 3;
+	
 	public HTMLTable() {
 		
 	}
@@ -24,6 +33,7 @@ public class HTMLTable extends ContentSpan {
 	public void setRows(ArrayList<HTMLTableRow> rows) {
 		this.rows = rows;
 	}
+	
 
 	public void addRow(HTMLTableRow rowToAdd) {
 		rows.add(rowToAdd);
@@ -38,6 +48,20 @@ public class HTMLTable extends ContentSpan {
 		}
 		
 		return table.substring(0, table.length() - 1) + ")";
+	}
+	/**
+	 * x and y are the relative top left side, creates a TableGUI element
+	 */
+	@Override
+	public GUIElement transformToGUI(int width, int height, int y, int x) {
+		int nextY=y;
+		ArrayList<TableRowGUI> GUIRows= new ArrayList<TableRowGUI>();
+		for(int i=0; i<this.getRows().size();i++) {
+			TableRowGUI gui = this.getRows().get(i).transformToGUI(width, height, nextY, x);
+			int Nexty = y + gui.getHeight() + YSPACE;
+			GUIRows.add(gui);
+		}
+		return new TableGUI(GUIRows,x,y,width,height);
 	}
 
 }
