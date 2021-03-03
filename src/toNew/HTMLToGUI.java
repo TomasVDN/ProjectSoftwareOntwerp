@@ -43,14 +43,14 @@ public class HTMLToGUI {
 	 * width= width of the drawing window
 	 * heigth = heigth of the drawing window
 	 */
-	public Container transformToGUI(int x, int y, int width,int heigth, ArrayList<ContentSpan> htmlElements) {
-		Container cont = new Container(); // creates empty container
+	public ArrayList<GUIElement> transformToGUI(int x, int y, int width,int heigth, ArrayList<ContentSpan> htmlElements) {
+		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
 		int relativeY=y;
 		int relativeX=x + XSPACE;
 		for(int i =0 ; i<htmlElements.size();i++) {
 			GUIElement gui=toGUI(htmlElements.get(i),width, heigth,relativeX,relativeY);
 			relativeY+=gui.getHeight() +YSPACE;
-			cont.addElement(gui);
+			cont.add(gui);
 		}
 		return cont;
 	}

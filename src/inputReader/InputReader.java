@@ -9,6 +9,7 @@ import browsrhtml.BrowsrDocumentValidator;
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
 import canvaswindow.MyCanvasWindow;
+import htmlElement.ContentSpan;
 import toNew.HTMLDecoder;
 
 public class InputReader {
@@ -18,7 +19,7 @@ public class InputReader {
 	public InputReader() {
 	}
 
-	public void readFile(String path) {
+	public ArrayList<ContentSpan> readFile(String path) {
 		//TODO remove this help function (used for testing) 
 path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 
@@ -35,7 +36,7 @@ path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 	        }
 	        
 	        decoder = new HTMLDecoder(sb);
-	        System.out.print(decoder.createElements());
+	        return decoder.createElements();
     	} catch (IOException e) {
     		File file = new File("src/error.txt");
     	    Scanner scan;
@@ -49,8 +50,8 @@ path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 			} catch (FileNotFoundException e1) {
 				System.out.print("Someone deleted the error file...");
 			}
- 
-    	}		
+			return null; // if something wrong happened
+    	}	
 	}
 
 }

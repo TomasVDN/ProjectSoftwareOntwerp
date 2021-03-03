@@ -26,7 +26,7 @@ public class HTMLText extends ContentSpan{
 
 	@Override
 	public Text transformToGUI(int width, int heigth, int y, int x) {
-		return new Text(x,y,width,heigth,this.getText());
+		return new Text(x,y,10,10,this.getText());//TODO aanpassen
 	}
 
 }

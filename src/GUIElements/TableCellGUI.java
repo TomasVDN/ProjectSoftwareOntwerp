@@ -13,8 +13,7 @@ public class TableCellGUI extends GUIElement {
 
 	@Override
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		this.getGui().paint(g);
 	}
 
 	public GUIElement getGui() {

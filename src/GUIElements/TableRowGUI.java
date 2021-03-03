@@ -27,8 +27,13 @@ public class TableRowGUI extends GUIElement {
 
 	@Override
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		for(int i=0; i< this.getGuiElements().size();i++) {
+			this.getGuiElements().get(i).paint(g);
+		}
+	}
+	
+	public int size() {
+		return this.getGuiElements().size();
 	}
 	
 	

@@ -12,8 +12,7 @@ public class TableGUI extends GUIElement {
 		super(x, y, w, h);
 		this.setGuiRows(guiRows);
 		this.updateTableCells();
-		
-		// TODO Auto-generated constructor stub
+
 	}
 
 	
@@ -29,8 +28,9 @@ public class TableGUI extends GUIElement {
 
 	@Override
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		for(int i=0; i< this.getGuiRows().size();i++) {
+			this.getGuiRows().get(i).paint(g);
+		}
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class TableGUI extends GUIElement {
 	 */
 	public ArrayList<ArrayList<GUIElement>> getAllColumns(){
 		ArrayList<ArrayList<GUIElement>> allColumns = new ArrayList<ArrayList<GUIElement>>();
-		int size= this.getGuiRows().size();
+		int size= this.getGuiRows().get(0).size();
 		for(int i=0; i<size;i++) {
 			allColumns.add(this.getColumn(i));
 		}

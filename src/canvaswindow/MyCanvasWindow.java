@@ -53,8 +53,14 @@ public class MyCanvasWindow extends CanvasWindow {
 	 */
 	public void addElement(GUIElement elem) {
 		elements.add(elem);
-		if (elem instanceof Hyperlink) {
-			this.hyperlinks.add((Hyperlink) elem);
+		//if (elem instanceof Hyperlink) {
+			//this.hyperlinks.add((Hyperlink) elem);
+		//}
+	}
+	
+	public void addAllElements(ArrayList<GUIElement> elements) {
+		for (int i=0; i<elements.size();i++) {
+			this.addElement(elements.get(i));
 		}
 	}
 	
