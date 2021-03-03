@@ -4,11 +4,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import GUIElements.GUIElement;
 import browsrhtml.BrowsrDocumentValidator;
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
 import canvaswindow.MyCanvasWindow;
-import guiElement.GUIElement;
 import toNew.HTMLDecoder;
 
 public class InputReader {

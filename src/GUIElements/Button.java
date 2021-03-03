@@ -1,4 +1,4 @@
-package guiElement;
+package GUIElements;
 
 import java.awt.Color; //geen idee of deze import mag 
 import java.awt.Font; 
@@ -14,7 +14,7 @@ import canvaswindow.MyCanvasWindow;
 public class Button extends GUIElement{
 	
 	//text en button kleur variabelen
-	private String text;
+	private Text text;
     private Color buttonColor =  Color.BLUE;
     private Font font = null;
     private Boolean box = false;
@@ -28,9 +28,9 @@ public class Button extends GUIElement{
      * @param size - groote van de font
      * @param text - text van de button
      */
-	public Button(int x, int y, int size, String text, Boolean box){
+	public Button(int x, int y, int size, Text text, Boolean box){
 		super(x, y, size, size);
-		setWidth((3*text.length()/4) * size);
+		setWidth((3*text.getText().length()/4) * size);
 		setHeight(size);	
 		setText(text);
 		if (box) {
@@ -57,24 +57,13 @@ public class Button extends GUIElement{
 		return this.size;
 	}
 	
-	/**
-	 * why is this here? its ugly
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param heigth
-	 * @param text
-	 */
-	public Button(int x, int y, int width,int heigth, String text){
-		super(x, y, width, heigth);	
-		setText(text);
-	}
+
 	
 	/**
 	 * Set de text van de button
 	 * @param text
 	 */
-	public void setText(String text) {
+	public void setText(Text text) {
 		this.text = text;
 	}
 	
@@ -90,7 +79,7 @@ public class Button extends GUIElement{
 	 * Geeft de text van de button
 	 * @return text
 	 */
-	public String getText() {
+	public Text getTextGUI() {
 		return this.text;
 	}
 	
@@ -121,10 +110,10 @@ public class Button extends GUIElement{
 		g.setFont(this.font);
 		//zorgt voor centreren van de tekst in de button
 	    FontMetrics metrics = g.getFontMetrics(this.font);
-	    int textX = getLeftX() + (getWidth() - metrics.stringWidth(getText())) / 2;
+	    int textX = getLeftX() + (getWidth() - metrics.stringWidth(getTextGUI().getText())) / 2;
 	    int textY = getUpperY() + ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
 	    //tekent de button en de tekst en zet dan de kleur terug naar de standaar kleur
-	    g.drawString(getText(), textX, textY);
+	    g.drawString(getTextGUI().getText(), textX, textY);
 	    if (this.box) {
 	    	g.drawRoundRect(getLeftX(), getUpperY(), getWidth(), getHeight(), 5, 5);
 	    }
@@ -133,7 +122,7 @@ public class Button extends GUIElement{
 		
 	@Override
 	public void update(Graphics g) {
-		setWidth((3*text.length()/4) * size);
+		setWidth((3*text.getText().length()/4) * size);
 		setHeight(size);
 	}
 

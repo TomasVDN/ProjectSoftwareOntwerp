@@ -1,4 +1,4 @@
-package guiElement;
+package GUIElements;
 
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
@@ -22,7 +22,7 @@ public class Hyperlink extends Button {
 	 * @param text
 	 * @param url
 	 */
-	public Hyperlink(int x, int y, int size, String text, String url) {
+	public Hyperlink(int x, int y, int size, Text text, String url) {
 		super(x, y, size, text, false);
 		this.setUrl(url);
 		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);

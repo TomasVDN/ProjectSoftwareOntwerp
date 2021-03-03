@@ -1,7 +1,7 @@
 package canvaswindow;
 import java.awt.Color;
 
-import guiElement.TextBox;
+import GUIElements.TextBox;
 
 public class SearchBar extends TextBox{
 	

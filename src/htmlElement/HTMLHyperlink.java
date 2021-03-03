@@ -1,5 +1,9 @@
 package htmlElement;
 
+import java.awt.Graphics;
+
+import GUIElements.GUIElement;
+
 public class HTMLHyperlink extends ContentSpan{
 
 	private String url;
@@ -27,6 +31,13 @@ public class HTMLHyperlink extends ContentSpan{
 	@Override
 	public String toString() {
 		return "HYPER: (" + url + "," + text.toString() + ")";
+	}
+
+
+	@Override
+	public GUIElement transformToGUI(int width, int heigth, int y, int x) {
+		// TODO Auto-generated method stub
+		return new HyperLink(x,y,10,this.getText().transformToGUI(width, heigth, y, x),this.getUrl());
 	}
 
 }

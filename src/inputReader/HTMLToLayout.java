@@ -12,11 +12,11 @@ import java.io.StringReader;
 import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 
+import GUIElements.GUIElement;
+import GUIElements.Hyperlink;
+import GUIElements.Text;
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
-import guiElement.GUIElement;
-import guiElement.Hyperlink;
-import guiElement.Text;
 
 public class HTMLToLayout {
 	

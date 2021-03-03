@@ -5,12 +5,12 @@ import java.awt.event.MouseEvent; // geen idee als deze import mag
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import GUIElements.Button;
+import GUIElements.GUIElement;
+import GUIElements.Hyperlink;
+import GUIElements.Text;
+import GUIElements.TextBox;
 import browsrhtml.HtmlLexer.TokenType;
-import guiElement.Button;
-import guiElement.GUIElement;
-import guiElement.Hyperlink;
-import guiElement.Text;
-import guiElement.TextBox;
 import inputReader.InputReader;
 
 

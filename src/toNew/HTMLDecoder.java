@@ -3,11 +3,11 @@ package toNew;
 import java.io.StringReader;
 import java.util.ArrayList;
 
+import GUIElements.GUIElement;
+import GUIElements.Hyperlink;
+import GUIElements.Text;
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
-import guiElement.GUIElement;
-import guiElement.Hyperlink;
-import guiElement.Text;
 import htmlElement.ContentSpan;
 import htmlElement.HTMLHyperlink;
 import htmlElement.HTMLTable;
