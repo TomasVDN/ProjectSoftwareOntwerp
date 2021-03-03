@@ -58,7 +58,7 @@ public class HTMLTable extends ContentSpan {
 		ArrayList<TableRowGUI> GUIRows= new ArrayList<TableRowGUI>();
 		for(int i=0; i<this.getRows().size();i++) {
 			TableRowGUI gui = this.getRows().get(i).transformToGUI(width, height, nextY, x);
-			int Nexty = y + gui.getHeight() + YSPACE;
+			int Nexty = y + gui.getHeight() ;//+ YSPACE;
 			GUIRows.add(gui);
 		}
 		return new TableGUI(GUIRows,x,y,width,height);

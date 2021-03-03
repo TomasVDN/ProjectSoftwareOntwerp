@@ -98,30 +98,7 @@ public class HTMLToLayout {
 		return this.listOfElements;
 	}
 	
-	public ArrayList<GUIElement> createElements() {
-		
-		while (lexer.getTokenType() != TokenType.END_OF_FILE) {
-			System.out.print(lexer.getTokenType() + "\n");
-			System.out.print(lexer.getTokenValue() + "\n");
 
-			switch (lexer.getTokenType()) {
-			case TEXT:
-				Text text = new Text(minX, minY, 20, 20, this.handleText());
-				this.addElementToList(text);
-				break;
-			case OPEN_START_TAG:
-				this.handleOpenTag();
-			default:
-				break;
-			}
-			
-			lexer.eatToken();
-			this.setMinY(this.getMinY() + 10);
-		}
-		
-		return this.getListOfElements();
-		
-	}
 	
 	private String handleText() {
 		String content = "";
@@ -155,17 +132,6 @@ public class HTMLToLayout {
 		return url;
 	}
 	
-	private void handleOpenTag() {
-		switch (lexer.getTokenValue()) {
-		case "a":
-			String url = handleUrlExtract();
-			String text = this.handleText();
-			text = text.substring(1);
-			this.addElementToList(new Hyperlink(minX, minY, 20, text, url));
-			break;
 
-		default:
-			break;
-		}
-	}
+	
 }

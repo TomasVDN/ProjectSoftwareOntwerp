@@ -22,6 +22,16 @@ public abstract class GUIElement {
 	}
 	
 	/**
+	 * Sets the x and y position
+	 * @param x
+	 * @param y
+	 */
+	public void setPosition(int x, int y) {
+		this.setX(x);
+		this.setY(y);
+	}
+	
+	/**
 	 * Sets the value xPos of this class
 	 * 
 	 * @param x - new value of this.xPos

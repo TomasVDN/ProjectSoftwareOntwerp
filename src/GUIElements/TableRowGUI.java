@@ -6,21 +6,21 @@ import java.util.ArrayList;
 public class TableRowGUI extends GUIElement {
 
 	
-	private ArrayList<GUIElement> guiElements;
+	private ArrayList<TableCellGUI> guiElements;
 	
 	
-	public TableRowGUI(ArrayList<GUIElement> guiElements, int x, int y, int w, int h) {
+	public TableRowGUI(ArrayList<TableCellGUI> cells, int x, int y, int w, int h) {
 		super(x, y, w, h);
-		this.setGuiElements(guiElements);
+		this.setGuiElements(cells);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ArrayList<GUIElement> getGuiElements() {
+	public ArrayList<TableCellGUI> getGuiElements() {
 		return guiElements;
 	}
 
-	public void setGuiElements(ArrayList<GUIElement> guiElements) {
-		this.guiElements = guiElements;
+	public void setGuiElements(ArrayList<TableCellGUI> cells) {
+		this.guiElements = cells;
 	}
 
 
@@ -30,14 +30,27 @@ public class TableRowGUI extends GUIElement {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 	/**
-	 * Zoek naar de grootste hoogte van zijn elementen
+	 * Sets the value height of each of its elements
+	 * 
+	 * @param height - new value of this.height
+	 */
+	public void setHeight(int height) {
+		for(int i= 0; i<this.getGuiElements().size();i++) {
+			this.getGuiElements().get(i).setHeight(height);
+		}
+	}
+	
+	/**
+	 * search for the biggest height of his elements
 	 */
 	@Override
 	public int getHeight(){
 		int maxHeight=0;
 		for(int i=0; i<this.getGuiElements().size();i++) {
-			int height = this.getGuiElements().get(i).getHeight();
+			int height = this.getGuiElements().get(i).getGUIHeight();
 			if(height>maxHeight) {
 				maxHeight=height;
 			}
@@ -45,12 +58,10 @@ public class TableRowGUI extends GUIElement {
 		return maxHeight;
 	}
 	
-	/**
-	 * Telt de widths van elke gui op, deze moeten even groot zijn als de grootste GUI in de rij
-	 */
-	@Override
-	public int getWidth(){
-		return this.getGuiElements().get(0).getWidth()*this.getGuiElements().size();
+
+	
+	public GUIElement getGUIAtGivenIndex(int index) {
+		return this.getGuiElements().get(index).getGui();
 	}
 	
 

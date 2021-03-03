@@ -3,6 +3,7 @@ package htmlElement;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
+import GUIElements.TableCellGUI;
 import GUIElements.TableRowGUI;
 
 public class HTMLTableRow {
@@ -56,12 +57,12 @@ public class HTMLTableRow {
 	
 	public TableRowGUI transformToGUI(int width, int heigth, int y, int x) {
 		int nextX =x;
-		ArrayList<GUIElement> GUIRows= new ArrayList<GUIElement>();
+		ArrayList<TableCellGUI> cells = new ArrayList<TableCellGUI>();
 		for(int i=0; i<this.getRow().size();i++) {
-			GUIElement gui = this.getRow().get(i).transformToGUI(width, heigth, y, nextX);
-			nextX+= gui.getWidth() + XSPACE;
-			GUIRows.add(gui);
+			TableCellGUI gui = this.getRow().get(i).transformToGUI(width, heigth, y, nextX);
+			nextX+= gui.getWidth() ;//+ XSPACE;
+			cells.add(gui);
 		}
-		return new TableRowGUI(GUIRows,x,y,width,heigth);
+		return new TableRowGUI(cells,x,y,width,heigth);
 	}
 }

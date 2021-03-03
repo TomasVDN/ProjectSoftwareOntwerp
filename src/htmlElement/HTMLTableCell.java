@@ -3,6 +3,7 @@ package htmlElement;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
+import GUIElements.TableCellGUI;
 
 public class HTMLTableCell {
 
@@ -16,8 +17,8 @@ public class HTMLTableCell {
 		return "CELL: " + content.toString();
 	}
 
-	public GUIElement transformToGUI(int width, int heigth, int y, int x) {
-		return content.transformToGUI(width, heigth, y, x);
+	public TableCellGUI transformToGUI(int width, int heigth, int y, int x) {
+		return new TableCellGUI(content.transformToGUI(width, heigth, y , x),width, heigth, y, x);
 	}
 
 }
