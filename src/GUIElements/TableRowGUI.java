@@ -29,6 +29,7 @@ public class TableRowGUI extends GUIElement {
 	public void paint(Graphics g) {
 		for(int i=0; i< this.getGuiElements().size();i++) {
 			this.getGuiElements().get(i).paint(g);
+			// relativeX+=this.getGuiElements.get(i).getWidth();
 		}
 	}
 	
