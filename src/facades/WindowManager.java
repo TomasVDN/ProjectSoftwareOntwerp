@@ -7,17 +7,14 @@ import GUIElements.GUIElement;
 import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
 import container.Container;
-import utils.FontMetricsHandle;
 
 public class WindowManager {
 
 	private Browsr browsr;
-	private FontMetricsHandle fontMetricsHandler;
 	private ArrayList<Container> listOfContainers = new ArrayList<Container>();
 	
-	public WindowManager (MyCanvasWindow myCanvasWindow) {
+	public WindowManager () {
 		browsr = new Browsr(this);
-		fontMetricsHandler = new FontMetricsHandle(myCanvasWindow);
 		
 		//bar is a container that should always be shown, on all windows. For the moment, it only contains one element: a searchBar
 		Container bar = new Container(0,0,600,100); //TODO window.getHeight kan enkel opgeroepen worden nadat show is opgeroepen geweest
@@ -128,10 +125,4 @@ public class WindowManager {
 		this.previousActive = previousActive;
 	}
 
-	/**
-	 * @return the fontMetricsHandler
-	 */
-	public FontMetricsHandle getFontMetricsHandler() {
-		return fontMetricsHandler;
-	}
 }

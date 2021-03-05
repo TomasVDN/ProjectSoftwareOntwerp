@@ -14,7 +14,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	
 	public MyCanvasWindow(String title) {
 		super(title);
-		windowManager = new WindowManager(this);
+		windowManager = new WindowManager();
 	}
 
 	/**
