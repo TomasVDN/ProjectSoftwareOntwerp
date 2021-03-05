@@ -1,12 +1,12 @@
-package main;
+package test;
 
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import canvaswindow.MyCanvasWindow;
-import htmlElement.ContentSpan;
+import converter.HTMLToGUI;
 import domain.InputReader;
-import toNew.HTMLToGUI;
+import htmlElement.ContentSpan;
 
 /**
  * Deze klasse dient voor stuff uit te testen, alles mag verwijderd worden wat hier staat
@@ -20,10 +20,10 @@ public class Test {
 			 MyCanvasWindow window = new MyCanvasWindow("Browsr");
 	         InputReader input = new InputReader();
 	         HTMLToGUI toGui = new HTMLToGUI(0, 0);
-	         ArrayList<ContentSpan> content = input.readFile("");	         
-	         ArrayList<GUIElement> allGUI = toGui.transformToGUI(10, 110, window.getWindowManager().getWidth(), window.getWindowManager().getHeight(), content);
-	         window.getWindowManager().addAllGUIToPage(allGUI);
-	         //window.show();
+	         ArrayList<ContentSpan> content = input.readFile("");
+	         ArrayList<GUIElement> allGUI = toGui.transformToGUI(10, 10, window.getWidth(), window.getHeight(), content);
+	         //window.addAllElements(allGUI);
+	         window.show();
 		});
 	}
 

@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
-import facades.Browsr;
 import facades.WindowManager;
 
 public class MyCanvasWindow extends CanvasWindow {
@@ -16,7 +15,8 @@ public class MyCanvasWindow extends CanvasWindow {
 	public MyCanvasWindow(String title) {
 		super(title);
 		this.show();
-		windowManager = new WindowManager(this,this.getWidth(),this.getHeight());
+		windowManager = new WindowManager(this.getWidth(),this.getHeight());
+
 	}
 
 	/**
@@ -31,12 +31,21 @@ public class MyCanvasWindow extends CanvasWindow {
 		windowManager.paint(g);
 	}
 
-	//TODO hier moeten we later een verschil maken tussen mouse clicked (single en double), mouse dragged en mouse released
 	@Override
 	public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
+		// left mouseClick
 		if (id == MouseEvent.MOUSE_CLICKED && button == MouseEvent.BUTTON1) {
 			windowManager.handleLeftMouse(x, y, clickCount, modifiersEx);
 		}
+		//right muisClick
+		if (id == MouseEvent.MOUSE_CLICKED && button == MouseEvent.BUTTON3) {
+			
+		}
+		//mouse drag
+		if (id == MouseEvent.MOUSE_DRAGGED && button == MouseEvent.BUTTON1) {
+			
+		}
+		
 		repaint();
 	}
 	

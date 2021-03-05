@@ -1,10 +1,8 @@
-package toNew;
+package converter;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
-import container.Container;
 import htmlElement.ContentSpan;
 
 /**
@@ -39,16 +37,16 @@ public class HTMLToGUI {
 	 * Turn the given html elements to a container and returns them
 	 * 
 	 * @param
-	 * g = graphics needed to find the heigth of a string,...
+	 * g = graphics needed to find the height of a string,...
 	 * width= width of the drawing window
-	 * heigth = heigth of the drawing window
+	 * height = height of the drawing window
 	 */
-	public ArrayList<GUIElement> transformToGUI(int x, int y, int width,int heigth, ArrayList<ContentSpan> htmlElements) {
+	public ArrayList<GUIElement> transformToGUI(int x, int y, int width,int height, ArrayList<ContentSpan> htmlElements) {
 		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
 		int relativeY=y;
 		int relativeX=x + XSPACE;
 		for(int i =0 ; i<htmlElements.size();i++) {
-			GUIElement gui=toGUI(htmlElements.get(i),width, heigth,relativeX,relativeY);
+			GUIElement gui=toGUI(htmlElements.get(i),width, height,relativeX,relativeY);
 			relativeY+=gui.getHeight() +YSPACE;
 			cont.add(gui);
 		}
@@ -60,12 +58,12 @@ public class HTMLToGUI {
 	 * Transforms the given html to a GUI
 	 * @param contentSpan
 	 * @param width
-	 * @param heigth
+	 * @param height
 	 * @param relativeY
 	 * @return
 	 */
-	private GUIElement toGUI(ContentSpan contentSpan, int width, int heigth, int relativeX,int relativeY) {
-		return contentSpan.transformToGUI(width, heigth, relativeY, relativeY);
+	private GUIElement toGUI(ContentSpan contentSpan, int width, int height, int relativeX,int relativeY) {
+		return contentSpan.transformToGUI(width, height, relativeY, relativeY);
 	}
 	
 	

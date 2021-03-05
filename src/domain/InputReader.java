@@ -1,4 +1,4 @@
-package inputReader;
+package domain;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
 import canvaswindow.MyCanvasWindow;
 import htmlElement.ContentSpan;
-import toNew.HTMLDecoder;
 
 public class InputReader {
 	
@@ -21,7 +20,7 @@ public class InputReader {
 
 	public ArrayList<ContentSpan> readFile(String path) {
 		//TODO remove this help function (used for testing) 
-path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
+		path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 
 		//deze url => String komt van https://www.tutorialspoint.com/how-to-read-the-contents-of-a-webpage-into-a-string-in-java
 		try {

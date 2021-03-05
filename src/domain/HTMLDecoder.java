@@ -1,4 +1,4 @@
-package toNew;
+package domain;
 
 import java.io.StringReader;
 import java.util.ArrayList;

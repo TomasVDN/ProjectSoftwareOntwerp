@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import GUIElements.GUIElement;
 import GUIElements.TableCellGUI;
 import GUIElements.TableRowGUI;
-import utils.FontMetricsHandle;
 
 public class HTMLTableRow {
 
@@ -56,11 +55,11 @@ public class HTMLTableRow {
 		return row.substring(0, row.length() - 1) + ")";
 	}
 	
-	public TableRowGUI transformToGUI(int width, int heigth, int y, int x, FontMetricsHandle f) {
+	public TableRowGUI transformToGUI(int width, int heigth, int y, int x) {
 		int nextX =x;
 		ArrayList<TableCellGUI> cells = new ArrayList<TableCellGUI>();
 		for(int i=0; i<this.getRow().size();i++) {
-			TableCellGUI gui = this.getRow().get(i).transformToGUI(width, heigth, y, nextX,f);
+			TableCellGUI gui = this.getRow().get(i).transformToGUI(width, heigth, y, nextX);
 			//nextX+= gui.getWidth() ;//+ XSPACE;
 			cells.add(gui);
 		}

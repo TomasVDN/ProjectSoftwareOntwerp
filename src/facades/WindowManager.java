@@ -5,36 +5,44 @@ import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import GUIElements.TextBox;
-import canvaswindow.MyCanvasWindow;
 import container.Container;
-import utils.FontMetricsHandle;
+import converter.HTMLToGUI;
+import htmlElement.ContentSpan;
 
 public class WindowManager {
 
 	private Browsr browsr;
-	private FontMetricsHandle fontMetricsHandler;
 	//private ArrayList<Container> listOfContainers = new ArrayList<Container>();
 	private Container bar;
 	private Container page;
 	private int width;
 	private int height;
+
 	
+
 	
-	public WindowManager (MyCanvasWindow myCanvasWindow, int newWidth,int newHeight) {
+	public WindowManager (int newWidth,int newHeight) {
 		browsr = new Browsr(this);
-		fontMetricsHandler = new FontMetricsHandle(myCanvasWindow);
 		int BARSIZE = 100;
 		//bar is a container that should always be shown, on all windows. For the moment, it only contains one element: a searchBar
+
 		this.setBar(new Container(0,0,this.getWidth(),BARSIZE)); //TODO window.getHeight kan enkel opgeroepen worden nadat show is opgeroepen geweest
 		this.setPage(new Container(0, BARSIZE, newWidth, newHeight));
+
+		bar = new Container(0,0,600,100); //TODO resize bar when resizing window
 		TextBox searchBar = new TextBox(10, 10, 580, 50);
 		searchBar.addUnselectListener(() -> {
-			browsr.runUrl();
+			browsr.runUrl(searchBar.getText());
 		});
 		searchBar.addKeyboardListener(10, () -> {
 			this.inherit(null);
 		});
 		bar.addElement(searchBar);
+		//listOfContainers.add(bar);
+		
+		//activePage = new Container(0,100,600,500);
+		//listOfContainers.add(activePage);
+
 	}
 
 	/**
@@ -60,9 +68,22 @@ public class WindowManager {
 	}
 	
 
+	/**
+	 * @return the listOfContainers
+	 */
+	/*public ArrayList<Container> getListOfContainers() {
+		return listOfContainers;
+	}
+*/
+	/**
+	 * @param listOfContainers the listOfContainers to set
+	 */
+	/*public void addToListOfContainers(Container container) {
+		this.listOfContainers.add(container);
+	}*/
+
 
 	private GUIElement activeElement;
-	private GUIElement previousActive;
 
 	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
 		
@@ -79,12 +100,12 @@ public class WindowManager {
 	 * This sets the previous & active elements.
 	 */
 	public void inherit(GUIElement element) {
-		previousActive = activeElement;
+		if (activeElement != null) {
+			activeElement.setActive(false);
+		}
+		
 		activeElement = element;
 		
-		if (previousActive != null) {
-			previousActive.setActive(false);
-		}
 		if (activeElement != null) {
 			activeElement.handleClick();
 			activeElement.setActive(true);
@@ -106,26 +127,16 @@ public class WindowManager {
 		this.activeElement = activeElement;
 	}
 
-	/**
-	 * @return the previousActive
-	 */
-	public GUIElement getPreviousActive() {
-		return previousActive;
+	public void draw(ArrayList<ContentSpan> htmlElements) {
+		HTMLToGUI converter = new HTMLToGUI(0, 100); //TODO edit this
+		
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
+		this.getPage().addAllElement(list);
+		/*for (GUIElement e: list) {
+			activePage.addElement(e);
+		}*/
 	}
 
-	/**
-	 * @param previousActive the previousActive to set
-	 */
-	public void setPreviousActive(GUIElement previousActive) {
-		this.previousActive = previousActive;
-	}
-
-	/**
-	 * @return the fontMetricsHandler
-	 */
-	public FontMetricsHandle getFontMetricsHandler() {
-		return fontMetricsHandler;
-	}
 
 	public Container getBar() {
 		return bar;
@@ -167,5 +178,18 @@ public class WindowManager {
 		this.height = height;
 	}
 	
-	
+	/**
+	 * @return the activePage
+	 */
+	/*public Container getActivePage() {
+		return activePage;
+	}*/
+
+	/**
+	 * @param activePage the activePage to set
+	 */
+	/*public void setActivePage(Container activePage) {
+		this.activePage = activePage;
+	}*/
+
 }

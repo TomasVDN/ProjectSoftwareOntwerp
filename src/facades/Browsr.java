@@ -1,10 +1,9 @@
 package facades;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
-import GUIElements.Button;
-import GUIElements.Text;
-import container.Container;
+import htmlElement.ContentSpan;
 
 //Dit is de controller
 public class Browsr {
@@ -13,7 +12,7 @@ public class Browsr {
 	private WindowManager windowManager;
 	
 	public Browsr(WindowManager windowManager) {
-		domainFacade = new DomainFacade();
+		domainFacade = new DomainFacade(this);
 		this.windowManager = windowManager;
 	}
 
@@ -35,15 +34,13 @@ public class Browsr {
 		windowManager.paint(g);		
 	}
 
-	//TODO
-	public void runUrl() {
-//		System.out.println("\n This should use the url \n");
-//		Container c = new Container(0, 100, 500, 600);
-//		windowManager.addToListOfContainers(c);
-//		Button b = new Button(10, 10, 100, 100, "hello", true);
-//		c.addElement(b);
-//		b.addClickListener(() -> {System.out.print("\nThis button works\n\n");});
-//		
+	public void runUrl(String path) {
+		System.out.println("\n This should use " + path + "\n");
+		domainFacade.runUrl(path);
+	}
+
+	public void draw(ArrayList<ContentSpan> htmlElements) {
+		windowManager.draw(htmlElements);
 	}
 	
 	

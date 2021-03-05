@@ -1,27 +1,25 @@
 package GUIElements;
 
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import utils.FontMetricsHandle;
-import utils.GeometricUtils;
 
 public class Text extends GUIElement {
 
 	private String text;
-	private FontMetricsHandle fontMetricsHandler;
+	private FontMetrics fontMetrics;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
-	public Text(int x, int y, int w, int h, String t, FontMetricsHandle fontMetricsHandler) {
+	public Text(int x, int y, int w, int h, String t) {
 		super(x, y, w, h);
 		text = t;
-		this.fontMetricsHandler = fontMetricsHandler;
-		setHeight(fontMetricsHandler.getFontMetrics(font).getHeight());
-		setWidth(fontMetricsHandler.getFontMetrics(font).stringWidth(text));
+		this.fontMetrics = Toolkit.getDefaultToolkit().getFontMetrics(font);
+		setHeight(fontMetrics.getHeight());
+		setWidth(fontMetrics.stringWidth(text));
 	}
 	
 	/**
@@ -82,14 +80,5 @@ public class Text extends GUIElement {
 		super.drawCenteredText(g, this.getText(), xContainer, yContainer);
 		g.setClip(oldClip);
 	}
-
-	/**
-	 * @return the fontMetricsHandler
-	 */
-	public FontMetricsHandle getFontMetricsHandler() {
-		return fontMetricsHandler;
-	}
-
-	
 
 }

@@ -2,7 +2,6 @@ package GUIElements;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.util.ArrayList;
@@ -41,7 +40,6 @@ public class Button extends GUIElement {
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		g.setFont(font);
-		FontMetrics metrics =  g.getFontMetrics(g.getFont());
 		
 		//content
 		g.setColor(getButtonColor());
@@ -52,11 +50,8 @@ public class Button extends GUIElement {
 		}
 	
 		//Text
-		Shape oldClip = g.getClip(); //TODO: getText().getText()
-		int textX = getX() + (getWidth() - metrics.stringWidth(getText().getText())) / 2;
-	    int textY = getY() + ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+		Shape oldClip = g.getClip();
 		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
-		//g.drawString(this.getText(), textX, textY);
 		this.getText().paint(g, xContainer, yContainer);
 		
 		
