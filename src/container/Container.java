@@ -100,6 +100,13 @@ public class Container {
 	public void addElement(GUIElement element) {
 		this.elements.add(element);
 	}
+	
+	/**
+	 * @param element the element to add
+	 */
+	public void addAllElement(ArrayList<GUIElement> guiList) {
+		this.elements.addAll(guiList);
+	}
 
 	public void paint(Graphics g) {
 		elements.stream().forEach(element -> element.paint(g,this.getX(), this.getY()));
@@ -117,7 +124,7 @@ public class Container {
 	public GUIElement elementAt(int x, int y) {
 		for (GUIElement e: elements) {
 			//TODO This is made to send relative coordinates. Is there another (more beautiful) way?
-			if (e.containsPoint(x - this.getX(), y - this.getY())) {
+			if (e.getGUIAtPosition(x,y)!=null) {
 				return e;
 			}
 		}

@@ -20,10 +20,10 @@ public class Test {
 			 MyCanvasWindow window = new MyCanvasWindow("Browsr");
 	         InputReader input = new InputReader();
 	         HTMLToGUI toGui = new HTMLToGUI(0, 0);
-	         ArrayList<ContentSpan> content = input.readFile("");
-	         ArrayList<GUIElement> allGUI = toGui.transformToGUI(10, 10, window.getWidth(), window.getHeight(), content);
-	         //window.addAllElements(allGUI);
-	         window.show();
+	         ArrayList<ContentSpan> content = input.readFile("");	         
+	         ArrayList<GUIElement> allGUI = toGui.transformToGUI(10, 110, window.getWindowManager().getWidth(), window.getWindowManager().getHeight(), content,window.getWindowManager().getFontMetricsHandler());
+	         window.getWindowManager().addAllGUIToPage(allGUI);
+	         //window.show();
 		});
 	}
 

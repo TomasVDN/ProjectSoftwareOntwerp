@@ -3,6 +3,7 @@ package canvaswindow;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import facades.Browsr;
@@ -14,7 +15,8 @@ public class MyCanvasWindow extends CanvasWindow {
 	
 	public MyCanvasWindow(String title) {
 		super(title);
-		windowManager = new WindowManager(this);
+		this.show();
+		windowManager = new WindowManager(this,this.getWidth(),this.getHeight());
 	}
 
 	/**
@@ -46,10 +48,10 @@ public class MyCanvasWindow extends CanvasWindow {
 			if (element != null) {
 				element.handleKeyEvent(keyCode, keyChar, modifiersEx);
 			}
-		}
-		
-		
+		}	
 		repaint();
 	}
+
+
 
 }

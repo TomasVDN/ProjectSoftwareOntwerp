@@ -55,7 +55,7 @@ public abstract class GUIElement {
 	 * @return this.xPos + this.width
 	 */
 	public int getEndX() {
-		return this.xPos + this.width;
+		return this.xPos + this.getWidth();
 	}	
 	
 	/**
@@ -82,7 +82,7 @@ public abstract class GUIElement {
 	 * @return this.yPos + this.height
 	 */
 	public int getEndY() {
-		return this.yPos + this.height;
+		return this.yPos + this.getHeight();
 	}
 	
 	/**
@@ -189,7 +189,7 @@ public abstract class GUIElement {
 		unselectListener.add(f);
 	}
 	
-	public abstract void handleClick();
+	public abstract void handleClick(int x, int y);
 	
 	public abstract void handleKeyEvent(int keyCode, char keyChar, int modifiersEx);
 	
@@ -218,6 +218,22 @@ public abstract class GUIElement {
 	 */
 	public boolean containsPoint(int x,int y) {
 		return (x >= getX() && y >= getY() && x <= getEndX() && y <= getEndY());
+	}
+
+	public void handleClick() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Returns the GUI if the given position is between its bounds
+	 */
+	public GUIElement getGUIAtPosition(int x, int y) {
+		if(this.containsPoint(x, y)) {
+			return this;
+		}
+		//otherwise return null
+		return null;
 	}
 
 	

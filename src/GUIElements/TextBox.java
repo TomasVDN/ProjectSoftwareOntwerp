@@ -72,7 +72,7 @@ public class TextBox extends GUIElement {
 	}
 
 	@Override
-	public void handleClick() {
+	public void handleClick( int x, int y) {
 		if (!isActive()) {
 			this.previousText = getText();
 			this.selectAll();

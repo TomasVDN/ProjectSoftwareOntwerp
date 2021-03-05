@@ -55,7 +55,7 @@ public class Text extends GUIElement {
 	}
 
 	@Override
-	public void handleClick() {
+	public void handleClick(int x, int y) {
 		new ArrayList<>(clickListeners).forEach(l -> l.run());
 	}
 

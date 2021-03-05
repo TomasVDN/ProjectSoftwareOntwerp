@@ -35,7 +35,7 @@ public class TableCellGUI extends GUIElement {
 	}
 
 	@Override
-	public void handleClick() {
+	public void handleClick(int x, int y) {
 		new ArrayList<>(clickListeners).forEach(l -> l.run());
 	}
 
@@ -52,6 +52,11 @@ public class TableCellGUI extends GUIElement {
 		new ArrayList<Runnable>(unselectListener).stream().forEach(l -> l.run());
 	}
 	
-	
+	/**
+	 * Returns the GUI if the given position is between its bounds
+	 */
+	public GUIElement getGUIAtPosition(int x, int y) {
+		return this.getGUIAtPosition(x-this.getX(), y - this.getY());
+	}
 	
 }

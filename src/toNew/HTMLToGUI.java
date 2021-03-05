@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import GUIElements.GUIElement;
 import container.Container;
 import htmlElement.ContentSpan;
+import utils.FontMetricsHandle;
 
 /**
  * This class turns the html elements to GUI elements, their positions are set to 
@@ -43,12 +44,12 @@ public class HTMLToGUI {
 	 * width= width of the drawing window
 	 * heigth = heigth of the drawing window
 	 */
-	public ArrayList<GUIElement> transformToGUI(int x, int y, int width,int heigth, ArrayList<ContentSpan> htmlElements) {
+	public ArrayList<GUIElement> transformToGUI(int x, int y, int width,int heigth, ArrayList<ContentSpan> htmlElements,FontMetricsHandle f) {
 		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
 		int relativeY=y;
 		int relativeX=x + XSPACE;
 		for(int i =0 ; i<htmlElements.size();i++) {
-			GUIElement gui=toGUI(htmlElements.get(i),width, heigth,relativeX,relativeY);
+			GUIElement gui=toGUI(htmlElements.get(i),width, heigth,relativeX,relativeY,f);
 			relativeY+=gui.getHeight() +YSPACE;
 			cont.add(gui);
 		}
@@ -64,8 +65,8 @@ public class HTMLToGUI {
 	 * @param relativeY
 	 * @return
 	 */
-	private GUIElement toGUI(ContentSpan contentSpan, int width, int heigth, int relativeX,int relativeY) {
-		return contentSpan.transformToGUI(width, heigth, relativeY, relativeY);
+	private GUIElement toGUI(ContentSpan contentSpan, int width, int heigth, int relativeX,int relativeY,FontMetricsHandle f) {
+		return contentSpan.transformToGUI(width, heigth, relativeY, relativeY,f);
 	}
 	
 	

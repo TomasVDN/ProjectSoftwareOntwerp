@@ -24,7 +24,7 @@ public class Button extends GUIElement {
 	}
 
 	@Override
-	public void handleClick() {
+	public void handleClick(int x, int y) {
 		new ArrayList<Runnable>(clickListeners).stream().forEach(l -> l.run());
 	}
 

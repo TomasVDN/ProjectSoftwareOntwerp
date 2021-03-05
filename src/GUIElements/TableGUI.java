@@ -26,12 +26,16 @@ public class TableGUI extends GUIElement {
 	}
 	
 
+	
+	
+	
 
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
+		int relativeY=yContainer;
 		for(int i=0; i< this.getGuiRows().size();i++) {
-			this.getGuiRows().get(i).paint(g, xContainer, yContainer);
-			// relativeY+=this.getGuiRows.get(i).getHeight();
+			this.getGuiRows().get(i).paint(g, xContainer, relativeY);
+			relativeY+=this.getGuiRows().get(i).getHeight();
 		}
 	}
 	
@@ -46,6 +50,19 @@ public class TableGUI extends GUIElement {
 			totalHeight+=height;
 		}
 		return totalHeight;
+	}
+	
+	/**
+	 * Telt de width van de row 
+	 */
+	@Override
+	public int getWidth(){
+		int totalWidth=0;
+		for(int i=0; i<this.getGuiRows().size();i++) {
+			int width = this.getGuiRows().get(i).getWidth();
+			totalWidth+=width;
+		}
+		return totalWidth;
 	}
 	
 	/**
@@ -130,7 +147,7 @@ public class TableGUI extends GUIElement {
 	}
 	
 	@Override
-	public void handleClick() {
+	public void handleClick(int x, int y) {
 		new ArrayList<>(clickListeners).forEach(l -> l.run());
 	}
 
@@ -145,6 +162,19 @@ public class TableGUI extends GUIElement {
 	@Override
 	public void handleUnselect() {
 		new ArrayList<Runnable>(unselectListener).stream().forEach(l -> l.run());
+	}
+	
+	/**
+	 * Returns the GUI if the given position is between its bounds
+	 */
+	public GUIElement getGUIAtPosition(int x, int y) {
+		for(int i=0; i<this.getGuiRows().size();i++) {
+			GUIElement e =this.getGuiRows().get(i).getGUIAtPosition(x-this.getX(), y - this.getY());
+			if(e!=null) {
+				return e;
+			}
+		}
+		return null;
 	}
 
 }
