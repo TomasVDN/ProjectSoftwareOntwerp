@@ -1,6 +1,5 @@
 package htmlElement;
 
-import GUIElements.GUIElement;
 import GUIElements.Text;
 
 public class HTMLText extends ContentSpan{
@@ -26,7 +25,7 @@ public class HTMLText extends ContentSpan{
 
 	@Override
 	public Text transformToGUI(int width, int heigth, int y, int x) {
-		return new Text(x,y,10,10,this.getText());//TODO: aanpassen
+		return new Text(x,y,10,10,this.getText());
 	}
 
 }

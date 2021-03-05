@@ -116,7 +116,6 @@ public class Container {
 	
 	public GUIElement elementAt(int x, int y) {
 		for (GUIElement e: elements) {
-			//TODO This is made to send relative coordinates. Is there another (more beautiful) way?
 			if (e.containsPoint(x - this.getX(), y - this.getY())) {
 				return e;
 			}

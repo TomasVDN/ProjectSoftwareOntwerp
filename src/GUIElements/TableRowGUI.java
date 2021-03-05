@@ -13,7 +13,6 @@ public class TableRowGUI extends GUIElement {
 	public TableRowGUI(ArrayList<TableCellGUI> cells, int x, int y, int w, int h) {
 		super(x, y, w, h);
 		this.setGuiElements(cells);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ArrayList<TableCellGUI> getGuiElements() {

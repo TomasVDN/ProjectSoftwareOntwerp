@@ -1,12 +1,12 @@
-package main;
+package test;
 
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import canvaswindow.MyCanvasWindow;
+import converter.HTMLToGUI;
+import domain.InputReader;
 import htmlElement.ContentSpan;
-import inputReader.InputReader;
-import toNew.HTMLToGUI;
 
 /**
  * Deze klasse dient voor stuff uit te testen, alles mag verwijderd worden wat hier staat
