@@ -22,8 +22,8 @@ public class Hyperlink extends Button {
 	 * @param text
 	 * @param url
 	 */
-	public Hyperlink(int x, int y, int size, Text text, String url) {
-		super(x, y, size, text, false);
+	public Hyperlink(int x, int y, int w, int h, int size, Text text, String url) {
+		super(x, y, w, h, text, false);
 		this.setUrl(url);
 		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		Font boldUnderline = new Font("Serif",Font.BOLD, size).deriveFont(fontAttributes);
@@ -32,21 +32,21 @@ public class Hyperlink extends Button {
 	}
 	
 	/**
-	 * HandlemouseEvent function for hyperlink - this function is called when
-	 * you click the hyperlink
-	 * @param id - type of event
-	 * @param x - x coord of event
-	 * @param y - y coord of event
-	 * @param window - window connected to this event
+	 * Contructor for the hyperlink
+	 * @param x
+	 * @param y
+	 * @param size
+	 * @param text
+	 * @param url
 	 */
-	public void handleMouseEvent(int id, int x, int y, MyCanvasWindow window) {
-		if (id == MouseEvent.MOUSE_CLICKED) {
-			if (this.checkCoordinates(x, y)) {
-				window.readFile(this.getUrl());
-			}
-							
-		}
+	public Hyperlink(int x, int y, Text text, String url) {
+		super(x, y, text.getWidth(), text.getHeight(), text, false);
+		this.setUrl(url);
+		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		Font boldUnderline = text.getFont().deriveFont(fontAttributes);
+		text.setFont(boldUnderline);
 	}
+	
 	
 	/**
 	 * getter for the hyperlink url
@@ -65,5 +65,4 @@ public class Hyperlink extends Button {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
 }

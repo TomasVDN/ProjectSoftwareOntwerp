@@ -14,14 +14,9 @@ public class Container {
 		this.height = height;
 	}
 	
-	public Container() {
-
-	}
-	
 	private int x,y,width,height;
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
-	
-	
+
 	/**
 	 * @return the x
 	 */
@@ -107,7 +102,7 @@ public class Container {
 	}
 
 	public void paint(Graphics g) {
-		elements.stream().forEach(element -> element.paint(g));
+		elements.stream().forEach(element -> element.paint(g,this.getX(), this.getY()));
 	}
 
 	/**
@@ -121,7 +116,8 @@ public class Container {
 	
 	public GUIElement elementAt(int x, int y) {
 		for (GUIElement e: elements) {
-			if (e.checkCoordinates(x, y)) {
+			//TODO This is made to send relative coordinates. Is there another (more beautiful) way?
+			if (e.containsPoint(x - this.getX(), y - this.getY())) {
 				return e;
 			}
 		}

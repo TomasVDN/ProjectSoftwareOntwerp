@@ -1,415 +1,279 @@
 package GUIElements;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Shape;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import canvaswindow.MyCanvasWindow;
+public class TextBox extends GUIElement {
 
-public class TextBox extends GUIElement{
-
-	private TextCursor text;
-	private Box box;
-	private boolean isActive;
-
+	private String leftText = "", rightText = "";
+	private String previousText;
+	private String selectedText = "";
+	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
 	public TextBox(int x, int y, int w, int h) {
-		super(x, y, w,  h + (h/4));
-		Color color = Color.white;
-		this.text = new TextCursor(x, y, w, h, "", "");
-		int size=this.getTextCursor().getFontSize();
-		System.out.println(size);
-		this.setBox(new Box(x, y, w, (int) Math.ceil(size*2), color)); //TODO mooie grootte kiezen
-		//TODO de (int) Math.ceil(size*2) zorgt ervoor dat de hoogte van Box van een TextBox niet overeenkomt met de hoogte van de TextBox
+		super(x, y, w, h);
+		leftText = "";
+		rightText = "";
 	}
 	
 	/**
-	 * Sets the value box of this class
-	 * 
-	 * @param newBox - new value of this.box
+	 * @return the leftText
 	 */
-	public void setBox(Box newBox) {
-		this.box = newBox;
-	}
-	
-	public Box getBox() {
-		return this.box;
-	}	
-	
-	public boolean isActive() {
-		return isActive;
+	public String getLeftText() {
+		return leftText;
 	}
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-		this.getTextCursor().setTextCursorOn(isActive);
+	/**
+	 * @param leftText the leftText to set
+	 */
+	public void setLeftText(String leftText) {
+		this.leftText = leftText;
 	}
-	
+
+	/**
+	 * @return the rightText
+	 */
+	public String getRightText() {
+		return rightText;
+	}
+
+	/**
+	 * @param rightText the rightText to set
+	 */
+	public void setRigthText(String rightText) {
+		this.rightText = rightText;
+	}
+
 	/**
 	 * @return the text
 	 */
-	public TextCursor getTextCursor() {
-		return text;
+	public String getText() {
+		return leftText + selectedText + rightText;
 	}
 
 	/**
-	 * @param text the text to set
+	 * @return the previousText
 	 */
-	public void setTextCursor(TextCursor text) {
-		this.text = text;
+	public String getPreviousText() {
+		return previousText;
 	}
-	
-	@Override
-	public void paint(Graphics g) {
-		this.getBox().paint(g);
-		this.getTextCursor().paint(g);
-	}
-	
-	@Override
-	public void update(Graphics g) {
-		this.getTextCursor().update(g);
-	}
-	
-	
-	public void handleMouseEvent(int id, int x, int y) {
-		if (id == MouseEvent.MOUSE_CLICKED) {
-			if (this.checkCoordinates(x, y)) {
-				if(this.isActive()) {
-					this.getTextCursor().unselectAllText();
-				}
-				else {
-					this.getTextCursor().selectAll();
-				}
-				this.setActive(true);
-				this.getBox().setColor(Color.gray);
-			} else {
-				if (this.isActive()){
-					this.handleEnter();
-					this.getTextCursor().unselectAllText();
-				}
-				this.setActive(false);
-				this.getBox().setColor(Color.white);
-			}
-			
-		}
-	}
-	
+
 	/**
-	 * If the bar is focused, reroute to the functions of corresponding key code.
-	 * @param id
-	 * @param keyCode
-	 * @param keyChar
+	 * @param previousText the previousText to set
 	 */
-	public void handleKeyBoardEvent(int id,int keyCode, char keyChar) {
-		if (this.isActive()) {
-			if (id == KeyEvent.KEY_PRESSED) {
-				switch (keyCode) {
-				case 8: //backspace
-					//this.getSelectedTextBox().clearSelected();
-					this.handleBackSpace();
-					break;
-				case 127: //delete
-					this.handleDelete();
-					break;
-				case 10: //enter
-					this.handleEnter();
-					break;
-				case 27: //escape
-					this.handleEscape();
-					break;
-				case 37: //left
-					this.handleLeft();
-					break;
-				case 39: //Right
-					this.handleRight();
-					break;
-				case 36: //home
-					this.handleHome();
-					break;
-				case 35: //end
-					this.handleEnd();
-					break;
-				default:
-					if (keyChar != KeyEvent.CHAR_UNDEFINED) {
-						// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
-						// deze if statement is er voor bijvoorbeeld bij Steven zijn keyboard niet drie keer tilde te krijgen in de string
-						if (keyChar != '¨' &&  keyChar != '´' &&  keyChar != '`' &&  keyChar != '~') {
-							this.handleUndefined(keyChar);
-						}
-					}
-					break;
-				}
-			}
-			if (id == KeyEvent.KEY_TYPED) {
-				// dit zijn speciale gevallen en kan misschien op een betere manier opgelost worden
-				if (keyChar == '¨' ||  keyChar == '´' ||  keyChar == '`' ||  keyChar == '~') {
-					this.handleUndefined(keyChar);
-				}
-			}
+	public void setPreviousText(String previousText) {
+		this.previousText = previousText;
+	}
+
+	@Override
+	public void handleClick() {
+		if (!isActive()) {
+			this.previousText = getText();
+			this.selectAll();
+			setActive(true);
+		} else {
+			this.unselectAllText();
 		}
+		
+		new ArrayList<Runnable>(clickListeners).stream().forEach(l -> l.run());
+	}
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
+		if (!this.isActive()) {
+			return;
+		}
+		
+		//HANDLE ONLY THE KEYS NEEDED FOR TEXT EDITING!!! The rest should be given with a keyboardListener
+		switch (keyCode) {
+		case 8: //backspace
+			this.handleBackSpace();
+			break;
+		case 127: //delete
+			this.handleDelete();
+			break;
+		case 27: //escape
+			this.handleEscape();
+			break;
+		case 37: //left
+			this.handleLeft();
+			break;
+		case 39: //Right
+			this.handleRight();
+			break;
+		case 36: //home
+			this.handleHome();
+			break;
+		case 35: //end
+			this.handleEnd();
+			break;
+		default:
+			if (keyChar != KeyEvent.CHAR_UNDEFINED) {
+				this.handleUndefined(keyChar);
+			}
+			break;
+		}
+		
+		if (new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode) == null)
+			return;
+		
+		new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode).stream().forEach(l -> l.run());
+	}
+
+	@Override
+	public void handleUnselect() {
+		unselectAllText();
+		new ArrayList<Runnable>(unselectListener).stream().forEach(l -> l.run());
+	}
+	
+	@Override
+	public void paint(Graphics g, int xContainer, int yContainer) {
+		g.setFont(font);
+		FontMetrics metrics =  g.getFontMetrics(g.getFont());
+		
+		//content
+		if (isActive()) {
+			g.setColor(Color.gray);
+		} else {
+			g.setColor(Color.white);
+		}
+		g.fillRect(super.getX() + xContainer,super.getY() + yContainer, super.getWidth(), super.getHeight());
+		g.setColor(Color.black);
+					
+		//Border
+		g.drawRect(super.getX() + xContainer,super.getY() + yContainer, super.getWidth(), super.getHeight());
+		
+		int y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2);
+		
+		
+		//Text
+		Shape oldClip = g.getClip();
+		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
+		if (selectedText != "") {
+			g.setColor(Color.blue);
+			g.fillRect(super.getX()+10 + xContainer,y, metrics.stringWidth(getSelectedText()) + 10, metrics.getHeight());
+			g.setColor(Color.black);
+		}
+		
+		y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+		g.drawString(this.getText(), super.getX()+10+ xContainer, y);
+	
+		
+		//cursor
+		y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2);
+		g.fillRect(super.getX() + xContainer + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
+		
+		g.setClip(oldClip);
 	}
 	
 	/**
 	 * Does the needed actions for the backSpace key.
 	 */
 	private void handleBackSpace() {
-		this.getTextCursor().deletePrevious();
+		deleteAllSelected();
+		if (this.getLeftText().length() > 0) { // check if left string is not empty
+			this.setLeftText(this.getLeftText().substring(0, this.getLeftText().length() - 1));
+		}
 	}
 	
 	/**
 	 * Does the needed actions for the delete key.
 	 */
 	private void handleDelete() {
-		this.getTextCursor().deleteNext();
+		deleteAllSelected();
+		if (this.getRightText().length() > 0) { // check if right string is not empty
+			this.setRigthText(this.getRightText().substring(1));
+		}
 	}
 	
 	/**
 	 * Does the needed actions for the Left arrow key.
 	 */
 	private void handleLeft() {
-		this.getTextCursor().moveLeft();
+		if (this.getLeftText().length() != 0) {
+			rightText = getLeftText().charAt(getLeftText().length() - 1) + getRightText();
+			leftText = getLeftText().substring(0, getLeftText().length() - 1);
+		}
 	}
 	
 	/**
 	 * Does the needed actions for the Right arrow key.
 	 */
 	private void handleRight() {
-		this.getTextCursor().moveRight();
+		this.unselectAllText();
+		if (this.getRightText().length() != 0) {
+			leftText = getLeftText() + getRightText().charAt(0);
+			rightText = getRightText().substring(1);
+		}
 	}
-	
+
 	/**
 	 * Does the needed actions for the End key.
 	 */
 	private void handleEnd() {
-		this.getTextCursor().moveToEnd();
+		this.unselectAllText();
+		leftText = getLeftText() + getRightText();
+		rightText = "";
 	}
 	
 	/**
 	 * Does the needed actions for the home key.
 	 */
 	private void handleHome() {
-		this.getTextCursor().moveToBegin();
+		this.unselectAllText();
+		rightText = getLeftText() + getRightText();
+		leftText = "";
 	}
 	
 	/**
 	 * Does the needed actions for the undefined keys.
 	 */
 	private void handleUndefined(char keyChar) {
-		this.getTextCursor().addCharachter(keyChar);
+		deleteAllSelected();
+		leftText = getLeftText() + keyChar;
 	}
-	
-	/**
-	 * Does the needed actions for the enter key.
-	 */
-	protected void handleEnter() {
-		/*
-		 * Misschien moet er later nog wel iets gedaan worden met andere TextBoxen als er ENTER gedrukt wordt.
-		 */
-	}
-	
+		
 	/**
 	 * Does the needed actions for the escape key.
 	 */
 	private void handleEscape() {
-		this.setActive(false);
-		this.getBox().setColor(Color.white);
+		setActive(false);
+		leftText = previousText;
+		rightText = "";
 	}
 
+	/**
+	 * @return the selectedText
+	 */
+	public String getSelectedText() {
+		return selectedText;
+	}
 
+	/**
+	 * @param selectedText the selectedText to set
+	 */
+	public void setSelectedText(String selectedText) {
+		this.selectedText = selectedText;
+	}
+	
+	public void selectAll() {
+		this.setSelectedText(this.getLeftText() + this.getSelectedText() + this.getRightText());
+		this.leftText = "";
+		this.rightText = "";
+	}
+	
+	private void deleteAllSelected() {
+		this.selectedText = "";
+	}
 
+	private void unselectAllText() {
+		setRigthText(selectedText + rightText); 
+		this.selectedText = "";
+	}
 }
-//
-//package htmlElement;
-//
-//import java.awt.Color;
-//import java.awt.Graphics;
-//import java.awt.event.KeyEvent;
-//import java.awt.event.MouseEvent;
-//
-//import canvaswindow.MyCanvasWindow;
-//
-//public class TextBox extends GUIElement{
-//
-//	private Text text;
-//	private Box box;
-//	private boolean isActive;
-//	private SurroundingTextBox selectedTextBox;
-//	private MyCanvasWindow window;
-//	
-//	
-//	public TextBox(int x, int y, int w, int h, MyCanvasWindow window) {
-//		super(x, y, w,  h + (h/4));
-//		Color color = Color.white;
-//		this.setBox(new Box(x, y, w, h + (h/4), color));
-//		Text text = Text.constructText("input text: ", x, y, h);
-//		this.setText(text);
-//		this.setSelectedTextBox(new SurroundingTextBox(0, 0, 0, 0, Color.blue, text)); // maakt een selected textbox aan deze gaat initieel leeg zijn
-//		this.window = window;
-//	}
-//	
-//	/**
-//	 * Sets the value box of this class
-//	 * 
-//	 * @param newBox - new value of this.box
-//	 */
-//	public void setBox(Box newBox) {
-//		this.box = newBox;
-//	}
-//	
-//	public Box getBox() {
-//		return this.box;
-//	}
-//	
-//	/**
-//	 * Sets the value text of this class
-//	 * 
-//	 * @param newText - new value of this.text
-//	 */
-//	public void setText(Text newText) {
-//		this.text = newText;
-//	}
-//	
-//	public Text getText() {
-//		return this.text;
-//	}
-//
-//	public void setTextValue(String newText) {
-//		this.text.setText(newText);
-//	}
-//	
-//	public String getTextValue() {
-//		return this.text.getText();
-//	}
-//	
-//	
-//	public boolean isActive() {
-//		return isActive;
-//	}
-//
-//	public void setActive(boolean isActive) {
-//		this.isActive = isActive;
-//	}
-//	
-//	@Override
-//	public void paint(Graphics g) {
-//		this.getBox().paint(g);
-//		this.getSelectedTextBox().paint(g);
-//		this.getText().paint(g);
-//	}
-//	
-//	@Override
-//	public void update(Graphics g) {
-//		this.getText().update(g);
-//	}
-//	
-//	
-//	public void handleMouseEvent(int id, int x, int y) {
-//		if (id == MouseEvent.MOUSE_CLICKED) {
-//			if (this.checkCoordinates(x, y)) {
-//				if(this.isActive()) {
-//					this.getSelectedTextBox().unselectAllText();
-//				}
-//				else {
-//					this.getSelectedTextBox().selectGivenText(this.getText());
-//				}
-//				this.setActive(true);
-//				this.getBox().setColor(Color.gray);
-//			} else {
-//				if (this.isActive()){
-//					this.handleEnter();
-//					this.getSelectedTextBox().unselectAllText();
-//				}
-//				this.setActive(false);
-//				this.getBox().setColor(Color.white);
-//			}
-//			
-//		}
-//	}
-//	
-//	/**
-//	 * If the bar is focused, reroute to the functions of corresponding key code.
-//	 * @param id - 
-//	 * @param keyCode
-//	 * @param keyChar
-//	 */
-//	public void handleKeyBoardEvent(int id,int keyCode, char keyChar) {
-//		if (this.isActive()) {
-//			if (id == KeyEvent.KEY_PRESSED) {
-//				
-//				switch (keyChar) {
-//				case KeyEvent.VK_BACK_SPACE:
-//					this.getSelectedTextBox().clearSelected();
-//					this.handleBackSpace();
-//					break;
-//				case KeyEvent.VK_ENTER:
-//					this.handleEnter();
-//					break;
-//				case KeyEvent.VK_ESCAPE:
-//					this.handleEscape();
-//					break;
-//				default:
-//					 if (keyChar != KeyEvent.CHAR_UNDEFINED) {
-//						 	this.getSelectedTextBox().clearSelected();
-//							this.setTextValue(this.getTextValue() + keyChar);
-//						}
-//					break;
-//				}
-//			}
-//		}
-//	}
-//	
-//	/**
-//	 * Does the needed actions for the backSpace key.
-//	 */
-//	private void handleBackSpace() {
-//		int textLength = this.getTextValue().length();
-//		if (textLength > 0) { // if text is not empty
-//			this.setTextValue(getTextValue().substring(0, textLength - 1));
-//		}
-//	}
-//	
-//	/**
-//	 * Does the needed actions for the enter key.
-//	 */
-//	private void handleEnter() {
-//		int textLength = this.getTextValue().length();
-//		if (textLength > 0) { // if text is not empty
-//			this.getWindow().readFile(getTextValue());
-//		}
-//	}
-//	
-//	/**
-//	 * Does the needed actions for the escape key.
-//	 */
-//	private void handleEscape() {
-//		this.setActive(false);
-//		this.getBox().setColor(Color.white);
-//	}
-//
-//	public SurroundingTextBox getSelectedTextBox() {
-//		return selectedTextBox;
-//	}
-//
-//	public void setSelectedTextBox(SurroundingTextBox selectedText) {
-//		this.selectedTextBox = selectedText;
-//	}
-//	
-//	/**
-//	 * @return the window
-//	 */
-//	public MyCanvasWindow getWindow() {
-//		return window;
-//	}
-//
-//	/**
-//	 * @param window - the window to set
-//	 */
-//	public void setWindow(MyCanvasWindow window) {
-//		this.window = window;
-//	}
-//
-//
-//
-//}
-

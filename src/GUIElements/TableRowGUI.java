@@ -2,6 +2,7 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TableRowGUI extends GUIElement {
 
@@ -26,9 +27,9 @@ public class TableRowGUI extends GUIElement {
 
 
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g, int xContainer, int yContainer) {
 		for(int i=0; i< this.getGuiElements().size();i++) {
-			this.getGuiElements().get(i).paint(g);
+			this.getGuiElements().get(i).paint(g, xContainer, yContainer);
 			// relativeX+=this.getGuiElements.get(i).getWidth();
 		}
 	}
@@ -68,6 +69,24 @@ public class TableRowGUI extends GUIElement {
 	
 	public GUIElement getGUIAtGivenIndex(int index) {
 		return this.getGuiElements().get(index).getGui();
+	}
+	
+	@Override
+	public void handleClick() {
+		new ArrayList<>(clickListeners).forEach(l -> l.run());
+	}
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
+		if (new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode) == null)
+			return;
+		
+		new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode).stream().forEach(l -> l.run());
+	}
+	
+	@Override
+	public void handleUnselect() {
+		new ArrayList<Runnable>(unselectListener).stream().forEach(l -> l.run());
 	}
 	
 
