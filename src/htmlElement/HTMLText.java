@@ -3,7 +3,11 @@ package htmlElement;
 import GUIElements.GUIElement;
 import GUIElements.Text;
 import utils.FontMetricsHandle;
-
+/**
+ * The text of a html
+ * @author kobe
+ *
+ */
 public class HTMLText extends ContentSpan{
 
 	private String text;
