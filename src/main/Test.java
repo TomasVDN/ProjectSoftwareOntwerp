@@ -6,7 +6,7 @@ import GUIElements.GUIElement;
 import canvaswindow.MyCanvasWindow;
 import htmlElement.ContentSpan;
 import domain.InputReader;
-import toNew.HTMLToGUI;
+import converter.HTMLToGUI;
 
 /**
  * Deze klasse dient voor stuff uit te testen, alles mag verwijderd worden wat hier staat

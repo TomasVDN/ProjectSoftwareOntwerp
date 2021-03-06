@@ -4,11 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import GUIElements.GUIElement;
-import browsrhtml.BrowsrDocumentValidator;
-import browsrhtml.HtmlLexer;
-import browsrhtml.HtmlLexer.TokenType;
-import canvaswindow.MyCanvasWindow;
 import htmlElement.ContentSpan;
 
 public class InputReader {
@@ -19,10 +14,9 @@ public class InputReader {
 	}
 
 	public ArrayList<ContentSpan> readFile(String path) {
-		//TODO remove this help function (used for testing) 
+		//this help function prevents typing the url each time (used for testing) 
 		path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 
-		//deze url => String komt van https://www.tutorialspoint.com/how-to-read-the-contents-of-a-webpage-into-a-string-in-java
 		try {
 			URL url = new URL(path);
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -37,6 +31,7 @@ public class InputReader {
 	        decoder = new HTMLDecoder(sb);
 	        return decoder.createElements();
     	} catch (IOException e) {
+    		//TODO rewrite error handling
     		File file = new File("src/error.txt");
     	    Scanner scan;
 			try {
