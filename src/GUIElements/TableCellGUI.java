@@ -56,7 +56,7 @@ public class TableCellGUI extends GUIElement {
 	 * Returns the GUI if the given position is between its bounds
 	 */
 	public GUIElement getGUIAtPosition(int x, int y) {
-		return this.getGUIAtPosition(x-this.getX(), y - this.getY());
+		return this.getGui().getGUIAtPosition(x-this.getX(), y - this.getY());
 	}
 	
 }
