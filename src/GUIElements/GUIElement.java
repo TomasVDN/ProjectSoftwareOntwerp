@@ -6,19 +6,30 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import facades.EventReader;
+
 public abstract class GUIElement {
 	private int xPos;
 	private int yPos;
 	private int width;
 	private int height;
+	private EventReader eventReader; //TODO moet mss naar runable verandert worden
 	private boolean isActive = false;
 
 	
-	public GUIElement(int x, int y, int w, int h){
-		this.xPos = x;
-		this.yPos = y;
-		this.width = w;
-		this.height = h;
+	public GUIElement(int x, int y, int w, int h){//TODO durf nog niet te verwijderen
+		this.setX(x);
+		this.setY(y);
+		this.setWidth(w);
+		this.setHeight(h);
+	}
+	
+	public GUIElement(int x, int y, int w, int h,EventReader eventReader){
+		this.setX(x);
+		this.setY(y);
+		this.setWidth(w);
+		this.setHeight(h);
+		this.setEventReader(eventReader);
 	}
 	
 	/**
@@ -234,6 +245,14 @@ public abstract class GUIElement {
 		}
 		//otherwise return null
 		return null;
+	}
+
+	public EventReader getEventReader() {
+		return eventReader;
+	}
+
+	public void setEventReader(EventReader eventReader) {
+		this.eventReader = eventReader;
 	}
 
 	
