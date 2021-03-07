@@ -66,7 +66,7 @@ public abstract class GUIElement {
 	 * @return this.xPos + this.width
 	 */
 	public int getEndX() {
-		return this.xPos + this.getWidth();
+		return this.getX() + this.getWidth();
 	}	
 	
 	/**
@@ -93,7 +93,7 @@ public abstract class GUIElement {
 	 * @return this.yPos + this.height
 	 */
 	public int getEndY() {
-		return this.yPos + this.getHeight();
+		return this.getY() + this.getHeight();
 	}
 	
 	/**

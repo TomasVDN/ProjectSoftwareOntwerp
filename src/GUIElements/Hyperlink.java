@@ -2,7 +2,9 @@ package GUIElements;
 
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
-import java.awt.Font; 
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Toolkit;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +52,14 @@ public class Hyperlink extends Button {
 		text.setFont(boldUnderline);
 	}
 	
+	
+	public int getWidth() {
+		return this.getText().getWidth();
+	}
+
+	public int getHeight() {
+		return this.getText().getHeight();
+	}
 	
 	/**
 	 * getter for the hyperlink url

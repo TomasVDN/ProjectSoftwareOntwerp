@@ -53,7 +53,16 @@ public class Text extends GUIElement {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	public int getWidth() {
+		FontMetrics fontMetric = Toolkit.getDefaultToolkit().getFontMetrics(this.getFont());
+		return fontMetric.stringWidth(this.getText());
+	}
 
+	public int getHeight() {
+		FontMetrics fontMetric = Toolkit.getDefaultToolkit().getFontMetrics(this.getFont());
+		return fontMetric.getHeight();
+	}
 
 
 	@Override

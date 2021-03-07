@@ -141,7 +141,7 @@ public class WindowManager {
 		HTMLToGUI converter = new HTMLToGUI(0, 100); //TODO edit this
 		
 		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(),this.getEventReader(), htmlElements);
-		this.getPage().addAllElement(list);
+		this.getPage().resetAllElements(list);
 		/*for (GUIElement e: list) {
 			activePage.addElement(e);
 		}*/
