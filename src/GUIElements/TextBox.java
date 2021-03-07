@@ -280,4 +280,11 @@ public class TextBox extends GUIElement {
 		setRigthText(selectedText + rightText); 
 		this.selectedText = "";
 	}
+	
+	public void replaceBox(String text) {
+		this.setLeftText(text);
+		this.setSelectedText("");
+		this.setRigthText("");
+		
+	}
 }

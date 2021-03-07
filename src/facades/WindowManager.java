@@ -15,6 +15,7 @@ public class WindowManager {
 	private Browsr browsr;
 	//private ArrayList<Container> listOfContainers = new ArrayList<Container>();
 	private Container bar;
+	private SearchBar searchbar;
 	private Container page;
 	private int width;
 	private int height;
@@ -39,6 +40,7 @@ public class WindowManager {
 		searchBar.addKeyboardListener(10, () -> {
 			this.inherit(null);
 		});*/
+		this.setSearchbar(searchBar);
 		bar.addElement(searchBar);
 		//listOfContainers.add(bar);
 		
@@ -194,6 +196,23 @@ public class WindowManager {
 
 	public void setEventReader(EventReader eventReader) {
 		this.eventReader = eventReader;
+	}
+
+	public SearchBar getSearchbar() {
+		return searchbar;
+	}
+
+	public void setSearchbar(SearchBar searchbar) {
+		this.searchbar = searchbar;
+	}
+	
+	/**
+	 * does all function to update the url
+	 */
+	public void updateURL(String url) {
+		this.inherit(null);
+		this.getSearchbar().replaceBox(url);
+		
 	}
 	
 	/**
