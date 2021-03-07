@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
+import GUIElements.SearchBar;
 import GUIElements.TextBox;
 import container.Container;
 import converter.HTMLToGUI;
@@ -31,13 +32,13 @@ public class WindowManager {
 		this.setPage(new Container(0, BARSIZE, newWidth, newHeight));
 
 		bar = new Container(0,0,600,100); //TODO resize bar when resizing window
-		TextBox searchBar = new TextBox(10, 10, 580, 50);
-		searchBar.addUnselectListener(() -> {
+		SearchBar searchBar = new SearchBar(10, 10, 550, 50,this.getEventReader());//this.getWidth()-10
+		/*searchBar.addUnselectListener(() -> {
 			browsr.runUrl(searchBar.getText());
 		});
 		searchBar.addKeyboardListener(10, () -> {
 			this.inherit(null);
-		});
+		});*/
 		bar.addElement(searchBar);
 		//listOfContainers.add(bar);
 		
@@ -53,10 +54,13 @@ public class WindowManager {
 		return browsr;
 	}
 
-	public void paint(Graphics g) {
+	public void paint(Graphics g,int width,int height) {
+		this.setWidth(width);
+		this.setHeight(height);
 		this.getBar().paint(g);
 		this.getPage().paint(g);
 	}
+	
 	
 	public Container containerAt(int x, int y) {
 		if(this.getBar().containsPoint(x, y)) {
@@ -89,9 +93,7 @@ public class WindowManager {
 	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
 		
 		try {
-			if (containerAt(x, y).elementAt(x, y) != null) {
-				inherit(containerAt(x, y).elementAt(x, y));
-			}		
+			inherit(containerAt(x, y).elementAt(x, y));	
 		} catch (NullPointerException e) {
 			inherit(null);
 		}		
@@ -101,15 +103,22 @@ public class WindowManager {
 	 * This sets the previous & active elements.
 	 */
 	public void inherit(GUIElement element) {
-		if (activeElement != null) {
-			activeElement.setActive(false);
+		if(element!=this.getActiveElement()) {	
+			if (activeElement != null && this.getActiveElement().isActive()) {
+				activeElement.setActive(false);
+			}
+			
+			activeElement = element;
+			
+			if (activeElement != null) {
+				activeElement.handleClick();
+				activeElement.setActive(true);
+			}
 		}
-		
-		activeElement = element;
-		
-		if (activeElement != null) {
-			activeElement.handleClick();
-			activeElement.setActive(true);
+		else {
+			if(element!=null) {
+				element.handleClick();
+			}
 		}
 		
 	}
@@ -131,7 +140,7 @@ public class WindowManager {
 	public void draw(ArrayList<ContentSpan> htmlElements) {
 		HTMLToGUI converter = new HTMLToGUI(0, 100); //TODO edit this
 		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(),this.getEventReader(), htmlElements);
 		this.getPage().addAllElement(list);
 		/*for (GUIElement e: list) {
 			activePage.addElement(e);

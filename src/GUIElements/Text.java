@@ -8,14 +8,16 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import facades.EventReader;
+
 public class Text extends GUIElement {
 
 	private String text;
 	private FontMetrics fontMetrics;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
-	public Text(int x, int y, int w, int h, String t) {
-		super(x, y, w, h);
+	public Text(int x, int y, int w, int h,EventReader e, String t) {
+		super(x, y, w, h,e);
 		text = t;
 		this.fontMetrics = Toolkit.getDefaultToolkit().getFontMetrics(font);
 		setHeight(fontMetrics.getHeight());
@@ -52,10 +54,7 @@ public class Text extends GUIElement {
 		this.text = text;
 	}
 
-	@Override
-	public void handleClick(int x, int y) {
-		new ArrayList<>(clickListeners).forEach(l -> l.run());
-	}
+
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {

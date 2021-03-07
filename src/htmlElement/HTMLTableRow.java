@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import GUIElements.GUIElement;
 import GUIElements.TableCellGUI;
 import GUIElements.TableRowGUI;
+import facades.EventReader;
 
 public class HTMLTableRow {
 
@@ -55,14 +56,14 @@ public class HTMLTableRow {
 		return row.substring(0, row.length() - 1) + ")";
 	}
 	
-	public TableRowGUI transformToGUI(int width, int heigth, int y, int x) {
+	public TableRowGUI transformToGUI(int width, int heigth, int y, int x,EventReader e) {
 		int nextX =x;
 		ArrayList<TableCellGUI> cells = new ArrayList<TableCellGUI>();
 		for(int i=0; i<this.getRow().size();i++) {
-			TableCellGUI gui = this.getRow().get(i).transformToGUI(width, heigth, y, nextX);
+			TableCellGUI gui = this.getRow().get(i).transformToGUI(width, heigth, y, nextX,e);
 			//nextX+= gui.getWidth() ;//+ XSPACE;
 			cells.add(gui);
 		}
-		return new TableRowGUI(cells,x,y,width,heigth);
+		return new TableRowGUI(cells,x,y,width,heigth,e);
 	}
 }

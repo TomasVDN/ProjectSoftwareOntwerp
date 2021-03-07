@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import GUIElements.GUIElement;
 import GUIElements.Hyperlink;
+import facades.EventReader;
 
 
 public class HTMLHyperlink extends ContentSpan{
@@ -37,8 +38,8 @@ public class HTMLHyperlink extends ContentSpan{
 
 
 	@Override
-	public Hyperlink transformToGUI(int width, int height, int y, int x) {
-		return new Hyperlink(x,y,this.getText().transformToGUI(width, height, y, x),this.getUrl());
+	public Hyperlink transformToGUI(int width, int height, int y, int x,EventReader e) {
+		return new Hyperlink(x,y,e,this.getText().transformToGUI(width, height, y, x,e),this.getUrl());
 	}
 
 }

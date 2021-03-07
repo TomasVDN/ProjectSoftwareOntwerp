@@ -30,13 +30,12 @@ public class Browsr {
 		return windowManager;
 	}
 
-	public void paint(Graphics g) {
-		windowManager.paint(g);		
-	}
 
 	public void runUrl(String path) {
 		System.out.println("\n This should use " + path + "\n");
-		domainFacade.runUrl(path);
+		ArrayList<ContentSpan> htmlList=domainFacade.runUrl(path);
+		this.draw(htmlList);
+		windowManager.inherit(null);
 	}
 
 	public void draw(ArrayList<ContentSpan> htmlElements) {

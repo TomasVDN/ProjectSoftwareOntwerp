@@ -28,7 +28,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	
 	@Override
 	protected void paint(Graphics g) {
-		windowManager.paint(g);
+		windowManager.paint(g,this.getWidth(),this.getHeight());
 	}
 
 	@Override
