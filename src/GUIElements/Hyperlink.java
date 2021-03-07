@@ -2,8 +2,10 @@ package GUIElements;
 
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.util.HashMap;
 import java.util.Map;
@@ -88,5 +90,10 @@ public class Hyperlink extends Button {
 		//this.setActive(false);// gewone textbox gaat inactief worden bij enter
 		Event event = new RunUrlEvent(this.getUrl());
 		this.getEventReader().readEvent(event);
+	}
+	
+	@Override
+	public void paint(Graphics g, int xContainer, int yContainer) {
+		this.getText().paint(g, xContainer, yContainer,Color.BLUE);
 	}
 }

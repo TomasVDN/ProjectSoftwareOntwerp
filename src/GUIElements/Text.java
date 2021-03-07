@@ -1,5 +1,6 @@
 package GUIElements;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -81,6 +82,25 @@ public class Text extends GUIElement {
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		g.setFont(font);
+		g.setColor(Color.black);
+		
+		Shape oldClip = g.getClip();
+		
+		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
+		super.drawCenteredText(g, this.getText(), xContainer, yContainer);
+		g.setClip(oldClip);
+	}
+	
+	/**
+	 * paints text in given color
+	 * @param g
+	 * @param xContainer
+	 * @param yContainer
+	 * @param color
+	 */
+	public void paint(Graphics g, int xContainer, int yContainer,Color color) {
+		g.setFont(font);
+		g.setColor(color);
 		
 		Shape oldClip = g.getClip();
 		
