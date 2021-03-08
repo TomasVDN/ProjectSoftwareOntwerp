@@ -7,7 +7,7 @@ import htmlElement.ContentSpan;
 
 public class DomainFacade {
 	
-	private ArrayList<ContentSpan> htmlElements = new ArrayList<ContentSpan>(); //TODO nog nodig?
+	private ArrayList<ContentSpan> htmlElements = new ArrayList<ContentSpan>();
 
 	public DomainFacade(Browsr browsr) {
 	}

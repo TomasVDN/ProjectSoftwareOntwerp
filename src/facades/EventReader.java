@@ -2,30 +2,31 @@ package facades;
 
 import events.*;
 
-public class EventReader {
+public final class EventReader {
 	
+	private static final EventReader INSTANCE = new EventReader();
+
+	private EventReader() {}
+
+	public static EventReader getInstance() {
+	        return INSTANCE;
+	    }
+	   
 	private Browsr browsr;
 	
-	public EventReader(Browsr browsr) {
-		this.setBrowsr(browsr);
-	}
-	
 	public void readEvent(Event event){
-		if(event instanceof RunUrlEvent) { //TODO instanceOf is blijkbaar bad practice
-			RunUrlEvent urlEvent= (RunUrlEvent) event;
-			this.getBrowsr().runUrl(urlEvent.getUrl());
-		}
-
-				
+		event.execute(this.getBrowsr());			
 	}
-	//
 
 	private Browsr getBrowsr() {
 		return browsr;
 	}
 
-	private void setBrowsr(Browsr browsr) {
+	//should only be called by windowManager once!!!
+	public void setBrowsr(Browsr browsr) {
+		if (this.browsr != null) {
+			return;
+		}
 		this.browsr = browsr;
 	}
-
 }

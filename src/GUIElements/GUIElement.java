@@ -13,23 +13,14 @@ public abstract class GUIElement {
 	private int yPos;
 	private int width;
 	private int height;
-	private EventReader eventReader; //TODO moet mss naar runable verandert worden
 	private boolean isActive = false;
 
 	
-//	public GUIElement(int x, int y, int w, int h){//TODO durf nog niet te verwijderen
-//		this.setX(x);
-//		this.setY(y);
-//		this.setWidth(w);
-//		this.setHeight(h);
-//	}
-	
-	public GUIElement(int x, int y, int w, int h,EventReader eventReader){
+	public GUIElement(int x, int y, int w, int h){
 		this.setX(x);
 		this.setY(y);
 		this.setWidth(w);
 		this.setHeight(h);
-		this.setEventReader(eventReader);
 	}
 	
 	/**
@@ -231,8 +222,7 @@ public abstract class GUIElement {
 	}
 
 	public void handleClick() {
-		// TODO Auto-generated method stub
-		
+		//TODO leeg laten? of abstract?
 	}
 	
 	/**
@@ -245,14 +235,4 @@ public abstract class GUIElement {
 		//otherwise return null
 		return null;
 	}
-
-	public EventReader getEventReader() {
-		return eventReader;
-	}
-
-	public void setEventReader(EventReader eventReader) {
-		this.eventReader = eventReader;
-	}
-
-	
 }

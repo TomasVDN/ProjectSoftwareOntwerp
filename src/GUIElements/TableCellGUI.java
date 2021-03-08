@@ -4,14 +4,12 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import facades.EventReader;
-
 public class TableCellGUI extends GUIElement {
 
 	private GUIElement gui;
 	
-	public TableCellGUI(GUIElement guiElement, int x, int y, int w, int h,EventReader e) {
-		super(x, y, w, h,e);
+	public TableCellGUI(GUIElement guiElement, int x, int y, int w, int h) {
+		super(x, y, w, h);
 		this.setGui(guiElement);
 	}
 

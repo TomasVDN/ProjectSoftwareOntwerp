@@ -20,27 +20,22 @@ public class WindowManager {
 	private Container page;
 	private int width;
 	private int height;
-	private EventReader eventReader;
 
 	
 
 	
 	public WindowManager (int newWidth,int newHeight) {
+		EventReader x = EventReader.getInstance();
+		x.setBrowsr(browsr);
+		
 		browsr = new Browsr(this);
 		int BARSIZE = 100;
 		//bar is a container that should always be shown, on all windows. For the moment, it only contains one element: a searchBar
-		this.setEventReader(new EventReader(browsr));
 		this.setBar(new Container(0,0,this.getWidth(),BARSIZE)); //TODO window.getHeight kan enkel opgeroepen worden nadat show is opgeroepen geweest
 		this.setPage(new Container(0, BARSIZE, newWidth, newHeight));
 
 		bar = new Container(0,0,600,100); //TODO resize bar when resizing window
-		SearchBar searchBar = new SearchBar(10, 10, 550, 50,this.getEventReader());//this.getWidth()-10
-		/*searchBar.addUnselectListener(() -> {
-			browsr.runUrl(searchBar.getText());
-		});
-		searchBar.addKeyboardListener(10, () -> {
-			this.inherit(null);
-		});*/
+		SearchBar searchBar = new SearchBar(10, 10, 580, 50);//this.getWidth()-10
 		this.setSearchbar(searchBar);
 		bar.addElement(searchBar);
 		//listOfContainers.add(bar);
@@ -141,13 +136,10 @@ public class WindowManager {
 	}
 
 	public void draw(ArrayList<ContentSpan> htmlElements) {
-		HTMLToGUI converter = new HTMLToGUI(0, 100); //TODO edit this
+		HTMLToGUI converter = new HTMLToGUI();
 		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(),this.getEventReader(), htmlElements);
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
 		this.getPage().resetAllElements(list);
-		/*for (GUIElement e: list) {
-			activePage.addElement(e);
-		}*/
 	}
 
 
@@ -191,14 +183,6 @@ public class WindowManager {
 		this.height = height;
 	}
 
-	public EventReader getEventReader() {
-		return eventReader;
-	}
-
-	public void setEventReader(EventReader eventReader) {
-		this.eventReader = eventReader;
-	}
-
 	public SearchBar getSearchbar() {
 		return searchbar;
 	}
@@ -223,6 +207,13 @@ public class WindowManager {
 				element.handleKeyEvent(keyCode, keyChar, modifiersEx);
 			}
 		}	
+		//Enkel op Tomas zijn keyboard.
+        if (id == KeyEvent.KEY_TYPED && keyChar == "~".charAt(0)) {
+            GUIElement element = this.getActiveElement();
+            if (element != null) {
+                element.handleKeyEvent(keyCode, keyChar, modifiersEx);
+            }
+        }
 	}
 	
 	/**

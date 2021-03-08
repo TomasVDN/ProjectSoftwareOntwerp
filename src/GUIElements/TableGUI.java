@@ -11,8 +11,8 @@ public class TableGUI extends GUIElement {
 	private ArrayList<TableRowGUI> guiRows;
 	
 	
-	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y, int w, int h,EventReader e) {
-		super(x, y, w, h,e);
+	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y, int w, int h) {
+		super(x, y, w, h);
 		this.setGuiRows(guiRows);
 		this.updateTableCells();
 

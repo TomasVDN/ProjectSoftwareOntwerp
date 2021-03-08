@@ -54,6 +54,7 @@ public class MyCanvasWindow extends CanvasWindow {
 		//TODO modifiers => 64 = Shift, 128 = Ctrl, 512 = alt
 		this.getWindowManager().handleKeyEvent(id, keyCode, keyChar, modifiersEx);	
 		repaint();
+
 	}
 
 

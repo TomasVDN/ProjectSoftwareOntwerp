@@ -18,8 +18,8 @@ public class TextBox extends GUIElement {
 	private String selectedText = "";
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
-	public TextBox(int x, int y, int w, int h,EventReader e) {
-		super(x, y, w, h,e);
+	public TextBox(int x, int y, int w, int h) {
+		super(x, y, w, h);
 		leftText = "";
 		rightText = "";
 	}
@@ -170,9 +170,11 @@ public class TextBox extends GUIElement {
 	
 		
 		//cursor
-		y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2);
-		g.fillRect(super.getX() + xContainer + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
-		
+		if (isActive()) {
+			y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2);
+			g.fillRect(super.getX() + xContainer + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
+		}
+			
 		g.setClip(oldClip);
 	}
 	

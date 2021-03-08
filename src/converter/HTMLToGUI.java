@@ -30,7 +30,7 @@ public class HTMLToGUI {
 	 * @param y
 	 *  y= The Y position to start drawing
 	 */
-	public HTMLToGUI(int x, int y) {
+	public HTMLToGUI() {
 		
 	}
 	
@@ -42,12 +42,12 @@ public class HTMLToGUI {
 	 * width= width of the drawing window
 	 * height = height of the drawing window
 	 */
-	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, EventReader e, ArrayList<ContentSpan> htmlElements) {
+	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements) {
 		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
 		int relativeY=y;
 		int relativeX=x + XSPACE;
 		for(int i =0 ; i<htmlElements.size();i++) {
-			GUIElement gui = toGUI(htmlElements.get(i), relativeX, relativeY, width, height, e);
+			GUIElement gui = toGUI(htmlElements.get(i), relativeX, relativeY, width, height);
 			relativeY+=gui.getHeight() +YSPACE;
 			cont.add(gui);
 		}
@@ -63,8 +63,8 @@ public class HTMLToGUI {
 	 * @param relativeY
 	 * @return
 	 */
-	private GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height, EventReader e) {
-		return contentSpan.transformToGUI(relativeX, relativeY, width, height, e);
+	private GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height) {
+		return contentSpan.transformToGUI(relativeX, relativeY, width, height);
 	}
 	
 	

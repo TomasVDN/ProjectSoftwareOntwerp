@@ -61,15 +61,12 @@ public class HTMLDecoder {
 				lexer.eatToken(); // consumes url
 			}
 		}
-		System.out.println(lexer.getTokenType() + "\n");
 		while (eat() != TokenType.CLOSE_TAG) {
-			System.out.println(lexer.getTokenType() + "\n");
 		}
 		
 		HTMLText htmlText = handleText();
 		lexer.eatToken();// consumes endtag
 		lexer.eatToken();
-		System.out.println(lexer.getTokenType() + "\n");
 		return new HTMLHyperlink(url, htmlText);
 	}
 	
@@ -81,6 +78,8 @@ public class HTMLDecoder {
 	
 	private HTMLText handleText() {
 		String content = "";
+		content += lexer.getTokenValue();
+		lexer.eatToken();
 		while (lexer.getTokenType() == TokenType.TEXT) {
 			content += " " + lexer.getTokenValue();
 			lexer.eatToken();

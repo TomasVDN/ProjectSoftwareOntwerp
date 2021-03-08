@@ -19,9 +19,9 @@ public class Test {
 		java.awt.EventQueue.invokeLater(() -> {
 			 MyCanvasWindow window = new MyCanvasWindow("Browsr");
 	         InputReader input = new InputReader();
-	         HTMLToGUI toGui = new HTMLToGUI(0, 0);
+	         HTMLToGUI toGui = new HTMLToGUI();
 	         ArrayList<ContentSpan> content = input.readFile("");
-	         ArrayList<GUIElement> allGUI = toGui.transformToGUI(10, 10, window.getWidth(), window.getHeight(),window.getWindowManager().getEventReader(), content);
+	         ArrayList<GUIElement> allGUI = toGui.transformToGUI(10, 10, window.getWidth(), window.getHeight(), content);
 	         //window.addAllElements(allGUI);
 	         //window.show();
 		});

@@ -1,5 +1,8 @@
 package events;
 
-public class Event {
+import facades.Browsr;
 
+public interface Event {
+
+	public void execute(Browsr browsr);
 }
