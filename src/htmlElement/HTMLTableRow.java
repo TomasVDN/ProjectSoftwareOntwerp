@@ -56,14 +56,14 @@ public class HTMLTableRow {
 		return row.substring(0, row.length() - 1) + ")";
 	}
 	
-	public TableRowGUI transformToGUI(int x, int y, int width, int heigth, EventReader e) {
+	public TableRowGUI transformToGUI(int x, int y, int width, int heigth) {
 		int nextX = x;
 		ArrayList<TableCellGUI> cells = new ArrayList<TableCellGUI>();
 		for(int i=0; i<this.getRow().size();i++) {
-			TableCellGUI gui = this.getRow().get(i).transformToGUI(nextX, y, width, heigth, e);
+			TableCellGUI gui = this.getRow().get(i).transformToGUI(nextX, y, width, heigth);
 			//nextX+= gui.getWidth() ;//+ XSPACE;
 			cells.add(gui);
 		}
-		return new TableRowGUI(cells, x, y, width, heigth, e);
+		return new TableRowGUI(cells, x, y, width, heigth);
 	}
 }

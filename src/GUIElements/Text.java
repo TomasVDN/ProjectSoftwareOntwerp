@@ -17,8 +17,8 @@ public class Text extends GUIElement {
 	private FontMetrics fontMetrics;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
-	public Text(int x, int y, int w, int h,EventReader e, String t) {
-		super(x, y, w, h,e);
+	public Text(int x, int y, int w, int h, String t) {
+		super(x, y, w, h);
 		text = t;
 		this.fontMetrics = Toolkit.getDefaultToolkit().getFontMetrics(font);
 		setHeight(fontMetrics.getHeight());

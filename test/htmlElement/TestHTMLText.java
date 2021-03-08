@@ -17,7 +17,7 @@ class TestHTMLText {
 	Text guiTextReference;
 	
 	void setUpReference() {
-		guiTextReference = new Text(10, 20, 30, 40, null, textValue);
+		guiTextReference = new Text(10, 20, 30, 40, textValue);
 	}
 	
 	@Test
@@ -25,7 +25,7 @@ class TestHTMLText {
 	void testNormalBehaviour() {
 		setUpReference();
 		htmlText = new HTMLText(textValue);
-		guiText = htmlText.transformToGUI(10, 20, 30, 40, null);
+		guiText = htmlText.transformToGUI(10, 20, 30, 40);
 		System.out.println(guiText.getX());
 		System.out.println(guiTextReference.getX());
 		assert guiText.getX() == guiTextReference.getX();

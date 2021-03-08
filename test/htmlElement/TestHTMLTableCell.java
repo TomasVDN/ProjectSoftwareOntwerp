@@ -23,12 +23,11 @@ class TestHTMLTableCell {
 	Text guiTextReference;
 	TableCellGUI guiTableCell;
 	TableCellGUI guiTableCellReference;
-	EventReader eventReader = new EventReader(null);
 	
 	void setUpReference() {
-		guiTextReference = new Text(10, 20, 30, 40, eventReader, "Hyperlink Text");
-		guiHyperlinkReference = new Hyperlink(10, 20, eventReader, guiTextReference, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
-		guiTableCellReference = new TableCellGUI(guiHyperlinkReference, 10, 20, 30, 40, eventReader);
+		guiTextReference = new Text(10, 20, 30, 40, "Hyperlink Text");
+		guiHyperlinkReference = new Hyperlink(10, 20, guiTextReference, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+		guiTableCellReference = new TableCellGUI(guiHyperlinkReference, 10, 20, 30, 40);
 	}
 	
 	@Test
@@ -39,7 +38,7 @@ class TestHTMLTableCell {
 		url = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 		htmlHyperlink = new HTMLHyperlink(url, htmlText);
 		htmlCell = new HTMLTableCell(htmlHyperlink);
-		guiTableCell = htmlCell.transformToGUI(10, 20, 30, 40, eventReader);
+		guiTableCell = htmlCell.transformToGUI(10, 20, 30, 40);
 		setUpReference();
 		assertEquals(guiTableCellReference, guiTableCell);
 	}

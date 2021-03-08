@@ -19,7 +19,6 @@ public class WindowManager {
 	private Container page;
 	private int width;
 	private int height;
-	private EventReader eventReader;
 
 	
 
@@ -28,12 +27,13 @@ public class WindowManager {
 		browsr = new Browsr(this);
 		int BARSIZE = 100;
 		//bar is a container that should always be shown, on all windows. For the moment, it only contains one element: a searchBar
-		this.setEventReader(new EventReader(browsr));
+		EventReader x = EventReader.getInstance();
+		x.setBrowsr(browsr);
 		this.setBar(new Container(0,0,this.getWidth(),BARSIZE)); //TODO window.getHeight kan enkel opgeroepen worden nadat show is opgeroepen geweest
 		this.setPage(new Container(0, BARSIZE, newWidth, newHeight));
 
 		bar = new Container(0,0,600,100); //TODO resize bar when resizing window
-		SearchBar searchBar = new SearchBar(10, 10, 550, 50,this.getEventReader());//this.getWidth()-10
+		SearchBar searchBar = new SearchBar(10, 10, 580, 50);//this.getWidth()-10
 		/*searchBar.addUnselectListener(() -> {
 			browsr.runUrl(searchBar.getText());
 		});
@@ -142,7 +142,7 @@ public class WindowManager {
 	public void draw(ArrayList<ContentSpan> htmlElements) {
 		HTMLToGUI converter = new HTMLToGUI(0, 100); //TODO edit this
 		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(),this.getEventReader(), htmlElements);
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
 		this.getPage().resetAllElements(list);
 		/*for (GUIElement e: list) {
 			activePage.addElement(e);
@@ -188,14 +188,6 @@ public class WindowManager {
 
 	public void setHeight(int height) {
 		this.height = height;
-	}
-
-	public EventReader getEventReader() {
-		return eventReader;
-	}
-
-	public void setEventReader(EventReader eventReader) {
-		this.eventReader = eventReader;
 	}
 
 	public SearchBar getSearchbar() {
