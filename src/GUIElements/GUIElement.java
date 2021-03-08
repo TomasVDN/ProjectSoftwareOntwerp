@@ -17,20 +17,20 @@ public abstract class GUIElement {
 	private boolean isActive = false;
 
 	
-//	public GUIElement(int x, int y, int w, int h){//TODO durf nog niet te verwijderen
-//		this.setX(x);
-//		this.setY(y);
-//		this.setWidth(w);
-//		this.setHeight(h);
-//	}
-	
-	public GUIElement(int x, int y, int w, int h,EventReader eventReader){
+	public GUIElement(int x, int y, int w, int h){//TODO durf nog niet te verwijderen
 		this.setX(x);
 		this.setY(y);
 		this.setWidth(w);
 		this.setHeight(h);
-		this.setEventReader(eventReader);
 	}
+	
+//	public GUIElement(int x, int y, int w, int h,EventReader eventReader){
+//		this.setX(x);
+//		this.setY(y);
+//		this.setWidth(w);
+//		this.setHeight(h);
+//		this.setEventReader(eventReader);
+//	}
 	
 	/**
 	 * Sets the x and y position

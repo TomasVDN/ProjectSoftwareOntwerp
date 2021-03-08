@@ -29,8 +29,8 @@ public class Hyperlink extends Button {
 	 * @param text
 	 * @param url
 	 */
-	public Hyperlink(int x, int y, int w, int h,EventReader e, int size, Text text, String url) {
-		super(x, y, w, h,e, text, false);
+	public Hyperlink(int x, int y, int w, int h, int size, Text text, String url) {
+		super(x, y, w, h, text, false);
 		this.setUrl(url);
 		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		Font boldUnderline = new Font("Serif",Font.BOLD, size).deriveFont(fontAttributes);
@@ -46,8 +46,8 @@ public class Hyperlink extends Button {
 	 * @param text
 	 * @param url
 	 */
-	public Hyperlink(int x, int y,EventReader e, Text text, String url) {
-		super(x, y, text.getWidth(), text.getHeight(),e, text, false);
+	public Hyperlink(int x, int y, Text text, String url) {
+		super(x, y, text.getWidth(), text.getHeight(), text, false);
 		this.setUrl(url);
 		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		Font boldUnderline = text.getFont().deriveFont(fontAttributes);
@@ -89,7 +89,8 @@ public class Hyperlink extends Button {
 	private void runUrlEvent() {
 		//this.setActive(false);// gewone textbox gaat inactief worden bij enter
 		Event event = new RunUrlEvent(this.getUrl());
-		this.getEventReader().readEvent(event);
+		EventReader e = EventReader.getInstance();
+		e.readEvent(event);
 	}
 	
 	@Override

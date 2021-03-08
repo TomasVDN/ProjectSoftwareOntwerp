@@ -18,8 +18,8 @@ public class Button extends GUIElement {
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean drawBox = false;
     
-	public Button(int x, int y, int w, int h,EventReader e, Text text, Boolean box) {
-		super(x, y, w, h,e);
+	public Button(int x, int y, int w, int h, Text text, Boolean box) {
+		super(x, y, w, h);
 		this.text = text;
 		this.drawBox = box;
 	}

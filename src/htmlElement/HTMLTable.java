@@ -55,15 +55,15 @@ public class HTMLTable extends ContentSpan {
 	 * x and y are the relative top left side, creates a TableGUI element
 	 */
 	@Override
-	public GUIElement transformToGUI(int x, int y, int width, int height, EventReader e) {
+	public GUIElement transformToGUI(int x, int y, int width, int height) {
 		int nextY=y;
 		ArrayList<TableRowGUI> GUIRows= new ArrayList<TableRowGUI>();
 		for(int i=0; i<this.getRows().size();i++) {
-			TableRowGUI gui = this.getRows().get(i).transformToGUI(x, nextY, width, height, e);
+			TableRowGUI gui = this.getRows().get(i).transformToGUI(x, nextY, width, height);
 			//int Nexty = y + gui.getHeight() ;//+ YSPACE;
 			GUIRows.add(gui);
 		}
-		return new TableGUI(GUIRows, x, y, width, height, e);
+		return new TableGUI(GUIRows, x, y, width, height);
 	}
 
 }

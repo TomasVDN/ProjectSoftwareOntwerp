@@ -18,8 +18,8 @@ public class TextBox extends GUIElement {
 	private String selectedText = "";
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
-	public TextBox(int x, int y, int w, int h,EventReader e) {
-		super(x, y, w, h,e);
+	public TextBox(int x, int y, int w, int h) {
+		super(x, y, w, h);
 		leftText = "";
 		rightText = "";
 	}
