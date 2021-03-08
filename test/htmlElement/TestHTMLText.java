@@ -33,6 +33,7 @@ class TestHTMLText {
 		assert guiText.getWidth() == guiTextReference.getWidth();
 		assert guiText.getHeight() == guiTextReference.getHeight();
 		assertEquals(guiTextReference.getText(), guiText.getText());
+		// assertEquals(guiTextReference, guiText);
 	}
 	
 	@Test
