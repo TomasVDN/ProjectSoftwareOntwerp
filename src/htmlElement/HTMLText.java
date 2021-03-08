@@ -1,7 +1,6 @@
 package htmlElement;
 
 import GUIElements.Text;
-import facades.EventReader;
 /**
  * The text of a html
  * @author kobe
@@ -31,7 +30,7 @@ public class HTMLText extends ContentSpan{
 	@Override
 
 	public Text transformToGUI(int x, int y, int width, int heigth) {
-		return new Text(x, y, 10, 10, this.getText());//TODO weghalen grootte en breedte
+		return new Text(x, y, this.getText());
 	}
 
 }

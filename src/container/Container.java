@@ -127,10 +127,9 @@ public class Container {
 	}
 	
 	public GUIElement elementAt(int x, int y) {
-		int relativeX= x-this.getX();
-		int relativeY= y-this.getY();
+		int relativeX= x - this.getX();
+		int relativeY= y - this.getY();
 		for (GUIElement e: elements) {
-			//TODO This is made to send relative coordinates. Is there another (more beautiful) way?
 			GUIElement gui= e.getGUIAtPosition(relativeX,relativeY);
 			if (gui!=null) {
 				return gui;
