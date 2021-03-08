@@ -81,6 +81,8 @@ public class HTMLDecoder {
 	
 	private HTMLText handleText() {
 		String content = "";
+		content += lexer.getTokenValue();
+		lexer.eatToken();
 		while (lexer.getTokenType() == TokenType.TEXT) {
 			content += " " + lexer.getTokenValue();
 			lexer.eatToken();
