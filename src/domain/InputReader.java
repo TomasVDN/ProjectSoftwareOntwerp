@@ -33,7 +33,7 @@ public class InputReader {
 		} catch (IOException e) {
             String sb = "Error 404\n";
             decoder = new HTMLDecoder(sb);
-             return decoder.createElements();
+            return decoder.createElements();
         }
 			
 	}
