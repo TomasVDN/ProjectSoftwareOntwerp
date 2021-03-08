@@ -107,7 +107,7 @@ public class WindowManager {
 	 * @param listOfGUI - the GUIElements to add to the active page.
 	 */
 	public void addAllGUIToPage(ArrayList<GUIElement> listOfGUI) {
-		this.getPage().addAllElement(listOfGUI);
+		this.getPage().addMultipleElements(listOfGUI);
 	}
 
 	/**
@@ -264,6 +264,7 @@ public class WindowManager {
 
 	
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
+		//TODO modifiers => 64 = Shift, 128 = Ctrl, 512 = alt
 		if (id == KeyEvent.KEY_PRESSED) {
 			GUIElement element = this.getActiveElement();
 			if (element != null) {

@@ -22,21 +22,9 @@ public class Button extends GUIElement {
 		this.drawBox = box;
 	}
 
-	@Override
-	public void handleClick() {
-		new ArrayList<Runnable>(clickListeners).stream().forEach(l -> l.run());
-	}
-
-	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
-		new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode).stream().forEach(l -> l.run());
-	}
-
-	@Override
-	protected void handleUnselect() {
-		new ArrayList<Runnable>(unselectListener).stream().forEach(l -> l.run());
-	}
-
+	/**
+	 * Paint the multiple components of a button.
+	 */
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		g.setFont(font);
@@ -113,6 +101,14 @@ public class Button extends GUIElement {
 	 */
 	public void setDrawBox(Boolean drawBox) {
 		this.drawBox = drawBox;
+	}
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {		
+	}
+
+	@Override
+	protected void handleUnselect() {		
 	}
 
 }

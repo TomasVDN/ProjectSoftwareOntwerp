@@ -14,21 +14,24 @@ public class DomainFacade {
 	
 
 	/**
-	 * @return the htmlElements
+	 * @return this.htmlElements
 	 */
 	public ArrayList<ContentSpan> getHtmlElements() {
 		return htmlElements;
 	}
 
 	/**
-	 * @param htmlElements the htmlElements to set
+	 * @param htmlElements - the htmlElements to set
 	 */
 	public void setHtmlElements(ArrayList<ContentSpan> htmlElements) {
 		this.htmlElements = htmlElements;
 	}
 
-
-
+	/**
+	 * Makes a new Inputreader to process the URL. Transfers the returned list of HTMLElements to caller.
+	 * @param path - URL to process
+	 * @return ArrayList with processed HTMLElements.
+	 */
 	public  ArrayList<ContentSpan> runUrl(String path) {
 		InputReader reader = new InputReader();
 		htmlElements = reader.readFile(path);

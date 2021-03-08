@@ -82,8 +82,6 @@ public class TextBox extends GUIElement {
 		} else {
 			this.unselectAllText();
 		}
-		
-		new ArrayList<Runnable>(clickListeners).stream().forEach(l -> l.run());
 	}
 
 	@Override
@@ -132,8 +130,6 @@ public class TextBox extends GUIElement {
 
 	@Override
 	public void handleUnselect() {
-		unselectAllText();
-		new ArrayList<Runnable>(unselectListener).stream().forEach(l -> l.run());
 	}
 	
 	@Override

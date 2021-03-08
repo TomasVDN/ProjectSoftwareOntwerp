@@ -33,27 +33,20 @@ public class TableCellGUI extends GUIElement {
 	public int getGUIHeight() {
 		return this.getGui().getHeight();
 	}
-
-
-
-	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
-		if (new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode) == null)
-			return;
-		
-		new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode).stream().forEach(l -> l.run());
-	}
-	
-	@Override
-	public void handleUnselect() {
-		new ArrayList<Runnable>(unselectListener).stream().forEach(l -> l.run());
-	}
 	
 	/**
 	 * Returns the GUI if the given position is between its bounds
 	 */
 	public GUIElement getGUIAtPosition(int x, int y) {
 		return this.getGui().getGUIAtPosition(x-this.getX(), y - this.getY());
+	}
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
+	}
+
+	@Override
+	protected void handleUnselect() {
 	}
 	
 }

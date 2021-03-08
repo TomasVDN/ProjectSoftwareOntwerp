@@ -2,7 +2,11 @@ package events;
 
 import facades.Browsr;
 
+/**
+ * Singleton type class that can be called by all GUIElements to transmit an event to the controller (browsr).
+ */
 public final class EventReader {
+	
 	
 	private static final EventReader INSTANCE = new EventReader();
 

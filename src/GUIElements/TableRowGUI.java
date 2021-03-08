@@ -91,15 +91,10 @@ public class TableRowGUI extends GUIElement {
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
-		if (new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode) == null)
-			return;
-		
-		new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode).stream().forEach(l -> l.run());
 	}
 	
 	@Override
 	public void handleUnselect() {
-		new ArrayList<Runnable>(unselectListener).stream().forEach(l -> l.run());
 	}
 	
 	/**

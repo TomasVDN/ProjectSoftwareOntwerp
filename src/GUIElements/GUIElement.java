@@ -140,62 +140,13 @@ public abstract class GUIElement {
 		}
 	}
 
-	
-
-	/**
-	 * All objects that get notified when this UIElement is clicked.
-	 */
-	protected ArrayList<Runnable> clickListeners = new ArrayList<Runnable>();
-	
-	/**
-	 * All objects that get notified when this UIElement is unselected.
-	 */
-	protected ArrayList<Runnable> unselectListener = new ArrayList<Runnable>();
-	
-	//Dit is een dict die in functie van de keycode de corresponderende arraylist van runnables moet geven.
-	/**
-	 * HashMap that maps keycodes to a list of runnables that are to be executed
-	 */
-	protected HashMap<Integer, ArrayList<Runnable>> keyboardListeners = new HashMap<Integer, ArrayList<Runnable>>();
-	
-	/**
-	 * adds a listener for a click action
-	 * @param f: the listener to be added
-	 */
-	public void addClickListener(Runnable f) {
-		clickListeners.add(f);
-	}
-	
-	/**
-	 * Attaches a function to a keyCode; the function will be executed when the key is pressed
-	 * @param keyCode	Key code
-	 * @param f			Function
-	 */
-	public void addKeyboardListener(int keyCode, Runnable f) {
-		ArrayList<Runnable> r = keyboardListeners.get(keyCode);
-		if (r == null) { //No Runnables for this keycode, create new ArrayList
-			ArrayList<Runnable> singleton = new ArrayList<Runnable>();
-			singleton.add(f);
-			keyboardListeners.put(keyCode, singleton);
-		}
-		else { 	//Already some Runnables, add to existing ArrayList
-			keyboardListeners.get(keyCode).add(f);
-		}	
-	}
-	
-	/**
-	 * adds a listener for a unselect action
-	 * @param f: the listener to be added
-	 */
-	public void addUnselectListener(Runnable f) {
-		unselectListener.add(f);
-	}
-	
-	
 	public abstract void handleKeyEvent(int keyCode, char keyChar, int modifiersEx);
 	
 	protected abstract void handleUnselect();
 	
+	public void handleClick() {
+		//TODO leeg laten? of abstract?
+	}
 	
 	public abstract void paint(Graphics g, int xContainer, int yContainer);
 	
@@ -219,10 +170,6 @@ public abstract class GUIElement {
 	 */
 	public boolean containsPoint(int x,int y) {
 		return (x >= getX() && y >= getY() && x <= getEndX() && y <= getEndY());
-	}
-
-	public void handleClick() {
-		//TODO leeg laten? of abstract?
 	}
 	
 	/**
