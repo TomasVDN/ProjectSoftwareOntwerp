@@ -11,8 +11,6 @@ import facades.EventReader;
 
 public class Button extends GUIElement {
 
-	
-	//TODO: remove font
 	private Text text;
     private Color buttonColor =  Color.BLACK;
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);

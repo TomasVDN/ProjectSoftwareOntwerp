@@ -170,9 +170,11 @@ public class TextBox extends GUIElement {
 	
 		
 		//cursor
-		y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2);
-		g.fillRect(super.getX() + xContainer + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
-		
+		if (isActive()) {
+			y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2);
+			g.fillRect(super.getX() + xContainer + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
+		}
+			
 		g.setClip(oldClip);
 	}
 	

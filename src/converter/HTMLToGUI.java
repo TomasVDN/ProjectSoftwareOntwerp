@@ -30,7 +30,7 @@ public class HTMLToGUI {
 	 * @param y
 	 *  y= The Y position to start drawing
 	 */
-	public HTMLToGUI(int x, int y) {
+	public HTMLToGUI() {
 		
 	}
 	

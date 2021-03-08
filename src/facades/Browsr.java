@@ -1,6 +1,5 @@
 package facades;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 import htmlElement.ContentSpan;
@@ -32,7 +31,6 @@ public class Browsr {
 
 
 	public void runUrl(String path) {
-		System.out.println("\n This should use " + path + "\n");
 		ArrayList<ContentSpan> htmlList=domainFacade.runUrl(path);
 		this.draw(htmlList);
 		this.getWindowManager().updateURL(path);

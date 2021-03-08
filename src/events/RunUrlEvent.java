@@ -1,6 +1,8 @@
 package events;
 
-public class RunUrlEvent extends Event {
+import facades.Browsr;
+
+public class RunUrlEvent implements Event {
 
 	private String url;
 	
@@ -14,5 +16,10 @@ public class RunUrlEvent extends Event {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	@Override
+	public void execute(Browsr browsr) {
+		browsr.runUrl(this.getUrl());
 	}
 }

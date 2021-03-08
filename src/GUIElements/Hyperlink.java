@@ -1,16 +1,12 @@
 package GUIElements;
 
-import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.util.HashMap;
 import java.util.Map;
 
-import canvaswindow.MyCanvasWindow;
 import events.Event;
 import events.RunUrlEvent;
 import facades.EventReader;
