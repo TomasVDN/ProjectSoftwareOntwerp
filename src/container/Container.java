@@ -7,15 +7,22 @@ import GUIElements.GUIElement;
 
 public class Container {
 	
+	private int x,y,width,height;
+	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
+	
+	/**
+	 * Constructor of the Container class.
+	 * @param x - x coordinate of this Container
+	 * @param y - y coordinate of this Container
+	 * @param width - width of this Container
+	 * @param height - height of this Container
+	 */
 	public Container(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 	}
-	
-	private int x,y,width,height;
-	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 
 	/**
 	 * @return the x
@@ -35,7 +42,11 @@ public class Container {
 	 * @param x the x to set
 	 */
 	public void setX(int x) {
-		this.x = x;
+		if (x < 0) {
+			this.x = 0;
+		} else {
+			this.x = x;
+		}
 	}
 
 	/**
@@ -56,7 +67,11 @@ public class Container {
 	 * @param y the y to set
 	 */
 	public void setY(int y) {
-		this.y = y;
+		if (y < 0) {
+			this.y = 0;
+		} else {
+			this.y = y;
+		}
 	}
 
 	/**

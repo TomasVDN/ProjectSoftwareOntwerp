@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
-import facades.EventReader;
+import events.EventReader;
 
 public abstract class ContentSpan {
 

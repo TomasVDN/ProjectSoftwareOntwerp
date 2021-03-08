@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import GUIElements.TableCellGUI;
-import facades.EventReader;
+import events.EventReader;
 
 public class HTMLTableCell {
 

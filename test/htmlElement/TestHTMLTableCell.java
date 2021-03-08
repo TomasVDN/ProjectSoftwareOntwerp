@@ -9,7 +9,7 @@ import GUIElements.GUIElement;
 import GUIElements.Hyperlink;
 import GUIElements.TableCellGUI;
 import GUIElements.Text;
-import facades.EventReader;
+import events.EventReader;
 
 class TestHTMLTableCell {
 	

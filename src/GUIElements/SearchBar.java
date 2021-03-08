@@ -1,8 +1,8 @@
 package GUIElements;
 
 import events.Event;
+import events.EventReader;
 import events.RunUrlEvent;
-import facades.EventReader;
 
 public class SearchBar extends TextBox {
 

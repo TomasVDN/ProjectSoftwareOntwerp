@@ -3,7 +3,7 @@ package converter;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
-import facades.EventReader;
+import events.EventReader;
 import htmlElement.ContentSpan;
 
 /**

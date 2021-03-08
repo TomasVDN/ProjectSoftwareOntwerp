@@ -1,6 +1,6 @@
-package facades;
+package events;
 
-import events.*;
+import facades.Browsr;
 
 public final class EventReader {
 	

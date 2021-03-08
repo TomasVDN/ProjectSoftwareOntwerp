@@ -7,7 +7,7 @@ import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import facades.EventReader;
+import events.EventReader;
 
 public class Button extends GUIElement {
 

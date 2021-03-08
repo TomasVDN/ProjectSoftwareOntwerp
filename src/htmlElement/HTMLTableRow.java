@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import GUIElements.GUIElement;
 import GUIElements.TableCellGUI;
 import GUIElements.TableRowGUI;
-import facades.EventReader;
+import events.EventReader;
 
 public class HTMLTableRow {
 

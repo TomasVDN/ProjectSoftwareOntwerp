@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import events.Event;
+import events.EventReader;
 import events.RunUrlEvent;
-import facades.EventReader;
 
 public class Hyperlink extends Button {
 

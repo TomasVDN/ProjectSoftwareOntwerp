@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import GUIElements.GUIElement;
 import GUIElements.Hyperlink;
-import facades.EventReader;
+import events.EventReader;
 
 
 public class HTMLHyperlink extends ContentSpan{

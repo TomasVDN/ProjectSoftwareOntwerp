@@ -12,6 +12,10 @@ public class MyCanvasWindow extends CanvasWindow {
 
 	private WindowManager windowManager;
 	
+	/**
+	 * Constructor of myCanvasWindow.
+	 * @param title - the title of this CanvasWindow
+	 */
 	public MyCanvasWindow(String title) {
 		super(title);
 		this.show();
@@ -20,17 +24,23 @@ public class MyCanvasWindow extends CanvasWindow {
 	}
 
 	/**
-	 * @return the windowManager
+	 * @return this.windowManager
 	 */
 	public WindowManager getWindowManager() {
 		return windowManager;
 	}
 	
+	/**
+	 * Transmits the Graphics object of CanvasWindow, this.width and this.height to the windowManager.paint method.
+	 */
 	@Override
 	protected void paint(Graphics g) {
 		windowManager.paint(g,this.getWidth(),this.getHeight());
 	}
 
+	/**
+	 * Transmits the mouseEvents to this.windowManager.
+	 */
 	@Override
 	public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
 		// left mouseClick
@@ -49,24 +59,27 @@ public class MyCanvasWindow extends CanvasWindow {
 		repaint();
 	}
 	
-	 @Override
-	    public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx){
-	        //TODO modifiers => 64 = Shift, 128 = Ctrl, 512 = alt
-	        if (id == KeyEvent.KEY_PRESSED) {
-	            GUIElement element = windowManager.getActiveElement();
-	            if (element != null) {
-	                element.handleKeyEvent(keyCode, keyChar, modifiersEx);
-	            }
+	/**
+	 * Transmits the keyBoardEvents to this.windowManager.
+	 */
+	@Override
+	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx){
+		//TODO modifiers => 64 = Shift, 128 = Ctrl, 512 = alt
+	    if (id == KeyEvent.KEY_PRESSED) {
+	    	GUIElement element = windowManager.getActiveElement();
+	        if (element != null) {
+	        	element.handleKeyEvent(keyCode, keyChar, modifiersEx);
 	        }
+	    }
 	        
-	        //Enkel op Tomas zijn keyboard.
-	        if (id == KeyEvent.KEY_TYPED && keyChar == "~".charAt(0)) {
-	            GUIElement element = windowManager.getActiveElement();
-	            if (element != null) {
-	                element.handleKeyEvent(keyCode, keyChar, modifiersEx);
-	            }
-	        }
-	        repaint();
+	    //Enkel op Tomas zijn keyboard.
+	    if (id == KeyEvent.KEY_TYPED && keyChar == "~".charAt(0)) {
+	    	GUIElement element = windowManager.getActiveElement();
+	    	if (element != null) {
+	    		element.handleKeyEvent(keyCode, keyChar, modifiersEx);
+	    	}
+	    }
+	    repaint();
 	}
 
 

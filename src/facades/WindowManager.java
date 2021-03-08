@@ -8,49 +8,55 @@ import GUIElements.SearchBar;
 import GUIElements.TextBox;
 import container.Container;
 import converter.HTMLToGUI;
+import events.EventReader;
 import htmlElement.ContentSpan;
 
 public class WindowManager {
 
 	private Browsr browsr;
-	//private ArrayList<Container> listOfContainers = new ArrayList<Container>();
+	
 	private Container bar;
 	private SearchBar searchbar;
 	private Container page;
+	
 	private int width;
 	private int height;
-
+	private final int BARSIZE = 100;
 	
-
+	private GUIElement activeElement;
 	
-	public WindowManager (int newWidth,int newHeight) {
+	/**
+	 * Constructor of the WindowManager class.
+	 * @param width - the width of the linked window
+	 * @param height - the height of the linked window
+	 */
+	public WindowManager (int width,int height) {
+		//Make new Browsr object.
+		browsr = new Browsr(this);
+		
+		//Set width/height. If w/h < 50, set it to 600.
+		this.setWidth(width);
+		this.setHeight(height);
+		
+		//Initialize EventReader
 		EventReader x = EventReader.getInstance();
 		x.setBrowsr(browsr);
 		
-		browsr = new Browsr(this);
-		int BARSIZE = 100;
-		//bar is a container that should always be shown, on all windows. For the moment, it only contains one element: a searchBar
-		this.setBar(new Container(0,0,this.getWidth(),BARSIZE)); //TODO window.getHeight kan enkel opgeroepen worden nadat show is opgeroepen geweest
-		this.setPage(new Container(0, BARSIZE, newWidth, newHeight));
+		//Make the bar and page containers
+		this.setBar(new Container(0,0,this.getWidth(),BARSIZE));
+		this.setPage(new Container(0, BARSIZE, this.getWidth(), height - BARSIZE));
 
-		bar = new Container(0,0,600,100); //TODO resize bar when resizing window
-		SearchBar searchBar = new SearchBar(10, 10, 580, 50);//this.getWidth()-10
+		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50);
 		this.setSearchbar(searchBar);
-		bar.addElement(searchBar);
-		//listOfContainers.add(bar);
-		
-		//activePage = new Container(0,100,600,500);
-		//listOfContainers.add(activePage);
-
+		this.getBar().addElement(searchBar);
 	}
 
 	/**
-	 * @return the browsr
+	 * Changes width and height of this windowManager (in case of a resize). Then ask the page and the bar to paint their components.
+	 * @param g - the Graphics to use to paint 
+	 * @param width - the width of the linked window
+	 * @param height - the height of the linked window
 	 */
-	public Browsr getBrowsr() {
-		return browsr;
-	}
-
 	public void paint(Graphics g,int width,int height) {
 		this.setWidth(width);
 		this.setHeight(height);
@@ -58,7 +64,14 @@ public class WindowManager {
 		this.getPage().paint(g);
 	}
 	
-	
+	/**
+	 * This method returns the container located at the (x,y) coordinates. Returns null otherwise.
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @return if (this.bar.contains(x,y): return this.bar
+	 * 			| if (this.page.contains(x,y): return this.page
+	 * 			| otherwise return null
+	 */
 	public Container containerAt(int x, int y) {
 		if(this.getBar().containsPoint(x, y)) {
 			return this.getBar();
@@ -69,26 +82,41 @@ public class WindowManager {
 		return null;
 	}
 	
-
 	/**
-	 * @return the listOfContainers
+	 * Transforms the given HTMLElements to GUIElements, and adds them to the active page.
+	 * @param htmlElements - the list of HTMLElements to add to the active page.
 	 */
-	/*public ArrayList<Container> getListOfContainers() {
-		return listOfContainers;
-	}
-*/
-	/**
-	 * @param listOfContainers the listOfContainers to set
-	 */
-	/*public void addToListOfContainers(Container container) {
-		this.listOfContainers.add(container);
-	}*/
-
-
-	private GUIElement activeElement;
-
-	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
+	public void draw(ArrayList<ContentSpan> htmlElements) {
+		HTMLToGUI converter = new HTMLToGUI();
 		
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
+		this.getPage().resetAllElements(list);
+	}
+	
+	/**
+	 * Adds the given GUIElement to the active page.
+	 * @param gui - the GUIElement to add to the active page.
+	 */
+	public void addGUIToPage(GUIElement gui) {
+		this.getPage().addElement(gui);
+	}
+	
+	/**
+	 * Adds the given GUIElements to the active page.
+	 * @param listOfGUI - the GUIElements to add to the active page.
+	 */
+	public void addAllGUIToPage(ArrayList<GUIElement> listOfGUI) {
+		this.getPage().addAllElement(listOfGUI);
+	}
+
+	/**
+	 * Checks if there is a GUIElement at coordinates (x,y), and transmits it to the inherit method. If there are none, it transmits null.
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param clickCount - the amount of clicks
+	 * @param modifiers - the modifiers
+	 */
+	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
 			inherit(containerAt(x, y).elementAt(x, y));	
 		} catch (NullPointerException e) {
@@ -97,14 +125,17 @@ public class WindowManager {
 	}
 	
 	/**
-	 * This sets the previous & active elements.
+	 * This method changes the activeElement to the given element, and invokes element.handleClick. If the given element is already the activeElement, it only invokes element.handleClick.
+	 * @param element - the new activeElement
 	 */
 	public void inherit(GUIElement element) {
-		if(element!=this.getActiveElement()) {	
+		if(element!=this.getActiveElement()) {
+			//deactivate old activeElement
 			if (activeElement != null && this.getActiveElement().isActive()) {
 				activeElement.setActive(false);
 			}
 			
+			//activate new activeElement
 			activeElement = element;
 			
 			if (activeElement != null) {
@@ -113,11 +144,20 @@ public class WindowManager {
 			}
 		}
 		else {
+			//if the given element is already the activeElement.
 			if(element!=null) {
 				element.handleClick();
 			}
 		}
-		
+	}
+	
+	/**
+	 * This handles hyperlinks.
+	 * @param url
+	 */
+	public void updateURL(String url) {
+		this.inherit(null);
+		this.getSearchbar().replaceBox(url);
 	}
 
 	/**
@@ -134,83 +174,90 @@ public class WindowManager {
 		this.activeElement = activeElement;
 	}
 
-	public void draw(ArrayList<ContentSpan> htmlElements) {
-		HTMLToGUI converter = new HTMLToGUI();
-		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
-		this.getPage().resetAllElements(list);
+	/**
+	 * @return this.browsr
+	 */
+	public Browsr getBrowsr() {
+		return browsr;
 	}
 
-
+	/**
+	 * @return this.bar
+	 */
 	public Container getBar() {
 		return bar;
 	}
 
+	/**
+	 * @param bar - the new value of this.bar
+	 */
 	public void setBar(Container bar) {
 		this.bar = bar;
 	}
 
+	/**
+	 * @return this.page
+	 */
 	public Container getPage() {
 		return page;
 	}
 
+	/**
+	 * @param page - the new value of this.page
+	 */
 	public void setPage(Container page) {
 		this.page = page;
 	}
 	
-	public void addGUIToPage(GUIElement gui) {
-		this.getPage().addElement(gui);
-	}
-	
-	public void addAllGUIToPage(ArrayList<GUIElement> listOfGUI) {
-		this.getPage().addAllElement(listOfGUI);
-	}
-
+	/**
+	 * @return this.width
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Sets the value of this.width to the given value. If this value is < 50, this.width will be set to 600.
+	 * @param width
+	 */
 	public void setWidth(int width) {
-		this.width = width;
+		if (width < 50) {
+			this.width = 600;
+		} else {
+			this.width = width;
+		}
 	}
 
+	/**
+	 * @return this.height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Sets the value of this.height to the given value. If this value is < 50, this.height will be set to 600.
+	 * @param height
+	 */
 	public void setHeight(int height) {
-		this.height = height;
+		if (height < 50) {
+			this.height = 600;
+		} else {
+			this.height = height;
+		}
 	}
 
+	/**
+	 * @return this.searchBar
+	 */
 	public SearchBar getSearchbar() {
 		return searchbar;
 	}
 
+	/**
+	 * @param searchbar - the new value of this.searchBar
+	 */
 	public void setSearchbar(SearchBar searchbar) {
 		this.searchbar = searchbar;
 	}
-	
-	/**
-	 * does all function to update the url
-	 */
-	public void updateURL(String url) {
-		this.inherit(null);
-		this.getSearchbar().replaceBox(url);
-		
-	}
-	
-	/**
-	 * @return the activePage
-	 */
-	/*public Container getActivePage() {
-		return activePage;
-	}*/
-
-	/**
-	 * @param activePage the activePage to set
-	 */
-	/*public void setActivePage(Container activePage) {
-		this.activePage = activePage;
-	}*/
-
 }
