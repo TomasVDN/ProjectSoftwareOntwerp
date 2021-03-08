@@ -11,7 +11,7 @@ import converter.HTMLToGUI;
 /**
  * Deze klasse dient voor stuff uit te testen, alles mag verwijderd worden wat hier staat
  * @author kobe
- *
+ *test
  */
 public class Test {
 	
