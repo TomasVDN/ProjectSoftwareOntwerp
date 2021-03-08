@@ -18,8 +18,8 @@ public class HTMLTableCell {
 		return "CELL: " + content.toString();
 	}
 
-	public TableCellGUI transformToGUI(int width, int heigth, int y, int x,EventReader e) {
-		return new TableCellGUI(content.transformToGUI(width, heigth, y , x,e),x,y,width, heigth,e);
+	public TableCellGUI transformToGUI(int x, int y, int width, int heigth, EventReader e) {
+		return new TableCellGUI(content.transformToGUI(x, y, width, heigth, e), x, y, width, heigth,e);
 	}
 
 }

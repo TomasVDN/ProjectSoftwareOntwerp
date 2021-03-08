@@ -30,8 +30,8 @@ public class HTMLText extends ContentSpan{
 
 	@Override
 
-	public Text transformToGUI(int width, int heigth, int y, int x,EventReader e) {
-		return new Text(x,y,10,10,e,this.getText());//TODO weghalen grootte en breedte
+	public Text transformToGUI(int x, int y, int width, int heigth, EventReader e) {
+		return new Text(x, y, 10, 10, e, this.getText());//TODO weghalen grootte en breedte
 	}
 
 }

@@ -38,8 +38,8 @@ public class HTMLHyperlink extends ContentSpan{
 
 
 	@Override
-	public Hyperlink transformToGUI(int width, int height, int y, int x,EventReader e) {
-		return new Hyperlink(x,y,e,this.getText().transformToGUI(width, height, y, x,e),this.getUrl());
+	public Hyperlink transformToGUI(int x, int y, int width, int height, EventReader e) {
+		return new Hyperlink(x, y, e, this.getText().transformToGUI(x, y, width, height, e), this.getUrl());
 	}
 
 }
