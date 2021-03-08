@@ -1,6 +1,7 @@
 package facades;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
@@ -213,6 +214,15 @@ public class WindowManager {
 		this.inherit(null);
 		this.getSearchbar().replaceBox(url);
 		
+	}
+	
+	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
+		if (id == KeyEvent.KEY_PRESSED) {
+			GUIElement element = this.getActiveElement();
+			if (element != null) {
+				element.handleKeyEvent(keyCode, keyChar, modifiersEx);
+			}
+		}	
 	}
 	
 	/**

@@ -34,8 +34,8 @@ public class Browsr {
 	public void runUrl(String path) {
 		System.out.println("\n This should use " + path + "\n");
 		ArrayList<ContentSpan> htmlList=domainFacade.runUrl(path);
-		this.draw(htmlList);
 		this.getWindowManager().updateURL(path);
+		this.draw(htmlList);
 	}
 
 	public void draw(ArrayList<ContentSpan> htmlElements) {

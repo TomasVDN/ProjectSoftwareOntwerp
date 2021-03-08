@@ -52,12 +52,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	@Override
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx){
 		//TODO modifiers => 64 = Shift, 128 = Ctrl, 512 = alt
-		if (id == KeyEvent.KEY_PRESSED) {
-			GUIElement element = windowManager.getActiveElement();
-			if (element != null) {
-				element.handleKeyEvent(keyCode, keyChar, modifiersEx);
-			}
-		}	
+		this.getWindowManager().handleKeyEvent(id, keyCode, keyChar, modifiersEx);	
 		repaint();
 	}
 
