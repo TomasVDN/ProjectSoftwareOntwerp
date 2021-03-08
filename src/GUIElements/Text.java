@@ -1,5 +1,6 @@
 package GUIElements;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -8,14 +9,16 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import facades.EventReader;
+
 public class Text extends GUIElement {
 
 	private String text;
 	private FontMetrics fontMetrics;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
-	public Text(int x, int y, int w, int h, String t) {
-		super(x, y, w, h);
+	public Text(int x, int y, int w, int h,EventReader e, String t) {
+		super(x, y, w, h,e);
 		text = t;
 		this.fontMetrics = Toolkit.getDefaultToolkit().getFontMetrics(font);
 		setHeight(fontMetrics.getHeight());
@@ -51,11 +54,17 @@ public class Text extends GUIElement {
 	public void setText(String text) {
 		this.text = text;
 	}
-
-	@Override
-	public void handleClick(int x, int y) {
-		new ArrayList<>(clickListeners).forEach(l -> l.run());
+	
+	public int getWidth() {
+		FontMetrics fontMetric = Toolkit.getDefaultToolkit().getFontMetrics(this.getFont());
+		return fontMetric.stringWidth(this.getText());
 	}
+
+	public int getHeight() {
+		FontMetrics fontMetric = Toolkit.getDefaultToolkit().getFontMetrics(this.getFont());
+		return fontMetric.getHeight();
+	}
+
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
@@ -73,6 +82,25 @@ public class Text extends GUIElement {
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		g.setFont(font);
+		g.setColor(Color.black);
+		
+		Shape oldClip = g.getClip();
+		
+		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
+		super.drawCenteredText(g, this.getText(), xContainer, yContainer);
+		g.setClip(oldClip);
+	}
+	
+	/**
+	 * paints text in given color
+	 * @param g
+	 * @param xContainer
+	 * @param yContainer
+	 * @param color
+	 */
+	public void paint(Graphics g, int xContainer, int yContainer,Color color) {
+		g.setFont(font);
+		g.setColor(color);
 		
 		Shape oldClip = g.getClip();
 		

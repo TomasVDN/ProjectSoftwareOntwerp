@@ -4,13 +4,15 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import facades.EventReader;
+
 public class TableGUI extends GUIElement {
 
 	private ArrayList<TableRowGUI> guiRows;
 	
 	
-	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y, int w, int h) {
-		super(x, y, w, h);
+	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y, int w, int h,EventReader e) {
+		super(x, y, w, h,e);
 		this.setGuiRows(guiRows);
 		this.updateTableCells();
 
@@ -145,11 +147,7 @@ public class TableGUI extends GUIElement {
 			}
 		}
 	}
-	
-	@Override
-	public void handleClick(int x, int y) {
-		new ArrayList<>(clickListeners).forEach(l -> l.run());
-	}
+
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {

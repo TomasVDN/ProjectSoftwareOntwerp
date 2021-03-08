@@ -18,13 +18,13 @@ public class EventReader {
 
 				
 	}
-	
+	//
 
-	public Browsr getBrowsr() {
+	private Browsr getBrowsr() {
 		return browsr;
 	}
 
-	public void setBrowsr(Browsr browsr) {
+	private void setBrowsr(Browsr browsr) {
 		this.browsr = browsr;
 	}
 

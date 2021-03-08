@@ -3,6 +3,7 @@ package converter;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
+import facades.EventReader;
 import htmlElement.ContentSpan;
 
 /**
@@ -41,12 +42,12 @@ public class HTMLToGUI {
 	 * width= width of the drawing window
 	 * height = height of the drawing window
 	 */
-	public ArrayList<GUIElement> transformToGUI(int x, int y, int width,int height, ArrayList<ContentSpan> htmlElements) {
+	public ArrayList<GUIElement> transformToGUI(int x, int y, int width,int height,EventReader e, ArrayList<ContentSpan> htmlElements) {
 		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
 		int relativeY=y;
 		int relativeX=x + XSPACE;
 		for(int i =0 ; i<htmlElements.size();i++) {
-			GUIElement gui=toGUI(htmlElements.get(i),width, height,relativeX,relativeY);
+			GUIElement gui=toGUI(htmlElements.get(i),width, height,relativeX,relativeY,e);
 			relativeY+=gui.getHeight() +YSPACE;
 			cont.add(gui);
 		}
@@ -62,8 +63,8 @@ public class HTMLToGUI {
 	 * @param relativeY
 	 * @return
 	 */
-	private GUIElement toGUI(ContentSpan contentSpan, int width, int height, int relativeX,int relativeY) {
-		return contentSpan.transformToGUI(width, height, relativeY, relativeY);
+	private GUIElement toGUI(ContentSpan contentSpan, int width, int height, int relativeX,int relativeY,EventReader e) {
+		return contentSpan.transformToGUI(width, height, relativeY, relativeY,e);
 	}
 	
 	

@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import facades.EventReader;
+
 public class TextBox extends GUIElement {
 
 	private String leftText = "", rightText = "";
@@ -16,8 +18,8 @@ public class TextBox extends GUIElement {
 	private String selectedText = "";
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
-	public TextBox(int x, int y, int w, int h) {
-		super(x, y, w, h);
+	public TextBox(int x, int y, int w, int h,EventReader e) {
+		super(x, y, w, h,e);
 		leftText = "";
 		rightText = "";
 	}
@@ -72,7 +74,7 @@ public class TextBox extends GUIElement {
 	}
 
 	@Override
-	public void handleClick( int x, int y) {
+	public void handleClick() {
 		if (!isActive()) {
 			this.previousText = getText();
 			this.selectAll();
@@ -113,17 +115,19 @@ public class TextBox extends GUIElement {
 		case 35: //end
 			this.handleEnd();
 			break;
+		case 10://enter
+			this.handleEnter();
+			break;
 		default:
 			if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 				this.handleUndefined(keyChar);
 			}
 			break;
 		}
-		
-		if (new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode) == null)
-			return;
-		
-		new HashMap<Integer, ArrayList<Runnable>>(keyboardListeners).get(keyCode).stream().forEach(l -> l.run());
+	}
+
+	void handleEnter() {
+		this.setActive(false);// gewone textbox gaat inactief worden bij enter
 	}
 
 	@Override
@@ -272,8 +276,15 @@ public class TextBox extends GUIElement {
 		this.selectedText = "";
 	}
 
-	private void unselectAllText() {
+	protected void unselectAllText() {
 		setRigthText(selectedText + rightText); 
 		this.selectedText = "";
+	}
+	
+	public void replaceBox(String text) {
+		this.setLeftText(text);
+		this.setSelectedText("");
+		this.setRigthText("");
+		
 	}
 }

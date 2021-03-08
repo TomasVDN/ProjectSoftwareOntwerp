@@ -7,26 +7,11 @@ import htmlElement.ContentSpan;
 
 public class DomainFacade {
 	
-	private Browsr browsr;
 	private ArrayList<ContentSpan> htmlElements = new ArrayList<ContentSpan>(); //TODO nog nodig?
 
 	public DomainFacade(Browsr browsr) {
-		this.browsr = browsr;
 	}
 	
-	/**
-	 * @return the browsr
-	 */
-	public Browsr getBrowsr() {
-		return browsr;
-	}
-
-	/**
-	 * @param browsr the browsr to set
-	 */
-	public void setBrowsr(Browsr browsr) {
-		this.browsr = browsr;
-	}
 
 	/**
 	 * @return the htmlElements
@@ -44,9 +29,9 @@ public class DomainFacade {
 
 
 
-	public void runUrl(String path) {
+	public  ArrayList<ContentSpan> runUrl(String path) {
 		InputReader reader = new InputReader();
 		htmlElements = reader.readFile(path);
-		browsr.draw(htmlElements);
+		return htmlElements;
 	}
 }

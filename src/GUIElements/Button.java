@@ -7,6 +7,8 @@ import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import facades.EventReader;
+
 public class Button extends GUIElement {
 
 	
@@ -16,14 +18,14 @@ public class Button extends GUIElement {
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean drawBox = false;
     
-	public Button(int x, int y, int w, int h, Text text, Boolean box) {
-		super(x, y, w, h);
+	public Button(int x, int y, int w, int h,EventReader e, Text text, Boolean box) {
+		super(x, y, w, h,e);
 		this.text = text;
 		this.drawBox = box;
 	}
 
 	@Override
-	public void handleClick(int x, int y) {
+	public void handleClick() {
 		new ArrayList<Runnable>(clickListeners).stream().forEach(l -> l.run());
 	}
 
