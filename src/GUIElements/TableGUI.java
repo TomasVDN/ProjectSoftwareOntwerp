@@ -10,7 +10,7 @@ public class TableGUI extends GUIElement {
 
 	private ArrayList<TableRowGUI> guiRows;
 	
-	
+	//TODO geen breedte en hoogt meegeven
 	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y, int w, int h) {
 		super(x, y, w, h);
 		this.setGuiRows(guiRows);
