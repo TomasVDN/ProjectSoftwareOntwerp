@@ -25,7 +25,7 @@ class TestHTMLTableCell {
 	TableCellGUI guiTableCellReference;
 	
 	void setUpReference() {
-		guiTextReference = new Text(10, 20, 30, 40, "Hyperlink Text");
+		guiTextReference = new Text(10, 20, "Hyperlink Text");//TODO heb dit aangepast
 		guiHyperlinkReference = new Hyperlink(10, 20, guiTextReference, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
 		guiTableCellReference = new TableCellGUI(guiHyperlinkReference, 10, 20, 30, 40);
 	}

@@ -32,8 +32,8 @@ public class Browsr {
 
 	public void runUrl(String path) {
 		ArrayList<ContentSpan> htmlList=domainFacade.runUrl(path);
-		this.draw(htmlList);
 		this.getWindowManager().updateURL(path);
+		this.draw(htmlList);
 	}
 
 	public void draw(ArrayList<ContentSpan> htmlElements) {

@@ -65,21 +65,8 @@ public class MyCanvasWindow extends CanvasWindow {
 	@Override
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx){
 		//TODO modifiers => 64 = Shift, 128 = Ctrl, 512 = alt
-	    if (id == KeyEvent.KEY_PRESSED) {
-	    	GUIElement element = windowManager.getActiveElement();
-	        if (element != null) {
-	        	element.handleKeyEvent(keyCode, keyChar, modifiersEx);
-	        }
-	    }
-	        
-	    //Enkel op Tomas zijn keyboard.
-	    if (id == KeyEvent.KEY_TYPED && keyChar == "~".charAt(0)) {
-	    	GUIElement element = windowManager.getActiveElement();
-	    	if (element != null) {
-	    		element.handleKeyEvent(keyCode, keyChar, modifiersEx);
-	    	}
-	    }
-	    repaint();
+		this.getWindowManager().handleKeyEvent(id, keyCode, keyChar, modifiersEx);	
+		repaint();
 	}
 
 
