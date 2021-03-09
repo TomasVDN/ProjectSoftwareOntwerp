@@ -15,7 +15,7 @@ import htmlElement.ContentSpan;
 
 public class WindowManager {
 
-	private Browsr browsr;
+
 	
 	private Container bar;
 	private SearchBar searchbar;
@@ -34,7 +34,7 @@ public class WindowManager {
 	 */
 	public WindowManager (int width,int height, MyCanvasWindow window) {
 		//Make new Browsr object.
-		browsr = new Browsr(this);
+		Browsr browsr = new Browsr(this);
 		
 		//Set width/height. If w/h < 50, set it to 600.
 		this.setWidth(width);
@@ -180,12 +180,7 @@ public class WindowManager {
 		this.activeElement = activeElement;
 	}
 
-	/**
-	 * @return this.browsr
-	 */
-	public Browsr getBrowsr() {
-		return browsr;
-	}
+
 
 	/**
 	 * @return this.bar
