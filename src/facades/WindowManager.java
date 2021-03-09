@@ -120,7 +120,7 @@ public class WindowManager {
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param clickCount - the amount of clicks
-	 * @param modifiers - the modifiers
+	 * @param modifiers - the modifiers given by the mouse click (like enter et cetera)
 	 */
 	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
