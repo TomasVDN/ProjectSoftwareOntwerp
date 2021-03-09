@@ -2,12 +2,14 @@ package htmlElement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import GUIElements.TableRowGUI;
+import canvaswindow.MyCanvasWindow;
 import GUIElements.TableCellGUI;
 
 class TestHTMLTableRow {
@@ -27,7 +29,10 @@ class TestHTMLTableRow {
 	TableRowGUI guiRow;
 	
 	@BeforeEach
-	void setup() {
+	void setUp() throws InvocationTargetException, InterruptedException {
+		java.awt.EventQueue.invokeAndWait(() -> {
+			MyCanvasWindow window = new MyCanvasWindow("Browsr");
+		});
 		htmlText1 = new HTMLText(textValue1);
 		htmlText2 = new HTMLText(textValue2);
 		htmlText3 = new HTMLText(textValue3);

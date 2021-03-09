@@ -3,12 +3,15 @@ package htmlElement;
 import htmlElement.HTMLTable;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import canvaswindow.MyCanvasWindow;
 
 class TestHTMLTable {
 	
@@ -36,7 +39,10 @@ class TestHTMLTable {
 	HTMLText text9;
 
 	@BeforeEach
-	void setup() {
+	void setUp() throws InvocationTargetException, InterruptedException {
+		java.awt.EventQueue.invokeAndWait(() -> {
+			MyCanvasWindow window = new MyCanvasWindow("Browsr");
+		});
 		// set up new table
 		table = new HTMLTable();
 		// set up new rows
