@@ -124,9 +124,9 @@ public class WindowManager {
 	 */
 	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
-			inherit(containerAt(x, y).elementAt(x, y));	
+			changeActive(containerAt(x, y).elementAt(x, y));	
 		} catch (NullPointerException e) {
-			inherit(null);
+			changeActive(null);
 		}		
 	}
 	
@@ -134,7 +134,7 @@ public class WindowManager {
 	 * This method changes the activeElement to the given element, and invokes element.handleClick. If the given element is already the activeElement, it only invokes element.handleClick.
 	 * @param element - the new activeElement
 	 */
-	public void inherit(GUIElement element) {
+	public void changeActive(GUIElement element) {
 		if(element!=this.getActiveElement()) {
 			//deactivate old activeElement
 			if (activeElement != null && this.getActiveElement().isActive()) {
@@ -162,7 +162,7 @@ public class WindowManager {
 	 * @param url
 	 */
 	public void updateURL(String url) {
-		this.inherit(null);
+		this.changeActive(null);
 		this.getSearchbar().replaceBox(url);
 	}
 
