@@ -170,4 +170,9 @@ public class TableGUI extends GUIElement {
 		return null;
 	}
 
+
+	@Override
+	public void handleClick() {		
+	}
+
 }

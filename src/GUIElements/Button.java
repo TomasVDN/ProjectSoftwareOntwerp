@@ -16,10 +16,19 @@ public class Button extends GUIElement {
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean drawBox = false;
     
+    /**
+     * Constructor of the Button class.
+     * @param x - x coordinate of this Button
+     * @param y - y coordinate of this Button
+     * @param w - width of this Button
+     * @param h - height of this Button
+     * @param text - content of this Button
+     * @param box - boolean: if true, a surrounding box will be drawn
+     */
 	public Button(int x, int y, int w, int h, Text text, Boolean box) {
 		super(x, y, w, h);
-		this.text = text;
-		this.drawBox = box;
+		this.setText(text);
+		this.setDrawBox(box);
 	}
 
 	/**
@@ -32,8 +41,8 @@ public class Button extends GUIElement {
 		//content
 		g.setColor(getButtonColor());
 		
-		//Border
-		if (getDrawBox()) {
+		//Border: draw if boolean this.drawBox is true
+		if (drawBox()) {
 			g.drawRect(super.getX() + xContainer,super.getY() + yContainer, super.getWidth(), super.getHeight());
 		}
 	
@@ -41,10 +50,9 @@ public class Button extends GUIElement {
 		Shape oldClip = g.getClip();
 		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
 		this.getText().paint(g, xContainer, yContainer);
-		
-		
-		g.setColor(Color.black);
 		g.setClip(oldClip);
+		
+		g.setColor(Color.black);	
 	}
 
 	/**
@@ -83,7 +91,7 @@ public class Button extends GUIElement {
 	}
 
 	/**
-	 * @param text the text to set
+	 * @param text - the text to set
 	 */
 	public void setText(Text text) {
 		this.text = text;
@@ -92,12 +100,12 @@ public class Button extends GUIElement {
 	/**
 	 * @return the drawBox
 	 */
-	public Boolean getDrawBox() {
+	public Boolean drawBox() {
 		return drawBox;
 	}
 
 	/**
-	 * @param drawBox the drawBox to set
+	 * @param drawBox - the drawBox to set
 	 */
 	public void setDrawBox(Boolean drawBox) {
 		this.drawBox = drawBox;
@@ -109,6 +117,10 @@ public class Button extends GUIElement {
 
 	@Override
 	protected void handleUnselect() {		
+	}
+
+	@Override
+	public void handleClick() {
 	}
 
 }

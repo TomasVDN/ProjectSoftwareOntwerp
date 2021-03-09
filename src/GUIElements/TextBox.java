@@ -6,10 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import events.EventReader;
 
 public class TextBox extends GUIElement {
 
@@ -18,6 +14,13 @@ public class TextBox extends GUIElement {
 	private String selectedText = "";
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
+	/**
+	 * Constructor of the TextBox class
+	 * @param x - x coordinate of the TextBox
+	 * @param y - y coordinate of the TextBox
+	 * @param w - width of the TextBox
+	 * @param h - height of the TextBox
+	 */
 	public TextBox(int x, int y, int w, int h) {
 		super(x, y, w, h);
 		leftText = "";
@@ -32,9 +35,12 @@ public class TextBox extends GUIElement {
 	}
 
 	/**
-	 * @param leftText the leftText to set
+	 * @param leftText - the new value of this.leftText
 	 */
 	public void setLeftText(String leftText) {
+		if (leftText == null) {
+			return;
+		}
 		this.leftText = leftText;
 	}
 
@@ -46,9 +52,12 @@ public class TextBox extends GUIElement {
 	}
 
 	/**
-	 * @param rightText the rightText to set
+	 * @param rightText - the new value of this.rightText
 	 */
 	public void setRigthText(String rightText) {
+		if (rightText == null) {
+			return;
+		}
 		this.rightText = rightText;
 	}
 
@@ -67,12 +76,18 @@ public class TextBox extends GUIElement {
 	}
 
 	/**
-	 * @param previousText the previousText to set
+	 * @param previousText - the new value of this.previousText to set
 	 */
 	public void setPreviousText(String previousText) {
+		if (rightText == null) {
+			return;
+		}
 		this.previousText = previousText;
 	}
 
+	/**
+	 * Handler for left mouse click. If textBox was not active, keep track of the previous content and select all text. Otherwise, unselect selected text.
+	 */
 	@Override
 	public void handleClick() {
 		if (!isActive()) {
@@ -84,13 +99,15 @@ public class TextBox extends GUIElement {
 		}
 	}
 
+	/**
+	 * Handler for the keyboardEvents.
+	 */
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
 		if (!this.isActive()) {
 			return;
 		}
 		
-		//HANDLE ONLY THE KEYS NEEDED FOR TEXT EDITING!!! The rest should be given with a keyboardListener
 		switch (keyCode) {
 		case 8: //backspace
 			this.handleBackSpace();
@@ -123,15 +140,10 @@ public class TextBox extends GUIElement {
 			break;
 		}
 	}
-
-	void handleEnter() {
-		this.setActive(false);// gewone textbox gaat inactief worden bij enter
-	}
-
-	@Override
-	public void handleUnselect() {
-	}
 	
+	/**
+	 * Paints all the components of this textBox.
+	 */
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		g.setFont(font);
@@ -172,6 +184,13 @@ public class TextBox extends GUIElement {
 		}
 			
 		g.setClip(oldClip);
+	}
+	
+	/**
+	 * Does the needed actions for the enter key.
+	 */
+	void handleEnter() {
+		this.setActive(false);// gewone textbox gaat inactief worden bij enter
 	}
 	
 	/**
@@ -264,25 +283,44 @@ public class TextBox extends GUIElement {
 		this.selectedText = selectedText;
 	}
 	
+	/**
+	 * Selects all the content in textBox
+	 */
 	public void selectAll() {
 		this.setSelectedText(this.getLeftText() + this.getSelectedText() + this.getRightText());
 		this.leftText = "";
 		this.rightText = "";
 	}
 	
+	/**
+	 * Delete all the content of selected text.
+	 */
 	private void deleteAllSelected() {
 		this.selectedText = "";
 	}
 
+	/**
+	 * Unselect all text.
+	 */
 	protected void unselectAllText() {
 		setRigthText(selectedText + rightText); 
 		this.selectedText = "";
 	}
 	
+	/**
+	 * Sets the content of the TextBox to the given value.
+	 * @param text - the new content
+	 */
 	public void replaceBox(String text) {
+		if (text == null) {
+			return;
+		}
 		this.setLeftText(text);
 		this.setSelectedText("");
 		this.setRigthText("");
-		
+	}
+	
+	@Override
+	public void handleUnselect() {
 	}
 }

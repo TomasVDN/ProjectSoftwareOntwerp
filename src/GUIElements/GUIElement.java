@@ -15,7 +15,13 @@ public abstract class GUIElement {
 	private int height;
 	private boolean isActive = false;
 
-	
+	/**
+	 * Constructor of GUIElement.
+	 * @param x - x coordinate of the GUIElement
+	 * @param y - y coordinate of the GUIElement
+	 * @param w - width of the GUIElement
+	 * @param h - height of the GUIElement
+	 */
 	public GUIElement(int x, int y, int w, int h){
 		this.setX(x);
 		this.setY(y);
@@ -25,8 +31,8 @@ public abstract class GUIElement {
 	
 	/**
 	 * Sets the x and y position
-	 * @param x
-	 * @param y
+	 * @param x - the new value of this.x
+	 * @param y - the new value of this.x
 	 */
 	public void setPosition(int x, int y) {
 		this.setX(x);
@@ -34,7 +40,7 @@ public abstract class GUIElement {
 	}
 	
 	/**
-	 * Sets the value xPos of this class
+	 * Sets the value xPos of this class.
 	 * 
 	 * @param x - new value of this.xPos
 	 */
@@ -88,11 +94,14 @@ public abstract class GUIElement {
 	}
 	
 	/**
-	 * Sets the value width of this class
+	 * Sets the value width of this class. If the new value is negative, set it to 0 instead.
 	 * 
 	 * @param width - new value of this.width
 	 */
 	public void setWidth(int width) {
+		if (width < 0) {
+			width = 0;
+		}
 		this.width = width;
 	}
 	
@@ -106,11 +115,14 @@ public abstract class GUIElement {
 	}
 	
 	/**
-	 * Sets the value height of this class
+	 * Sets the value height of this class. If the new value is negative, set it to 0 instead.
 	 * 
 	 * @param height - new value of this.height
 	 */
 	public void setHeight(int height) {
+		if (height < 0) {
+			height = 0;
+		}
 		this.height = height;
 	}
 	
@@ -131,7 +143,8 @@ public abstract class GUIElement {
 	}
 
 	/**
-	 * @param isActive the isActive to set
+	 * Sets if this GUIElement is active or not. If it is set to inactive, execute corresponding code.
+	 * @param isActive - the isActive to set
 	 */
 	public void setActive(boolean newIsActive) {
 		this.isActive = newIsActive;
@@ -144,14 +157,12 @@ public abstract class GUIElement {
 	
 	protected abstract void handleUnselect();
 	
-	public void handleClick() {
-		//TODO leeg laten? of abstract?
-	}
+	public abstract void handleClick();
 	
 	public abstract void paint(Graphics g, int xContainer, int yContainer);
 	
 	/**
-	 * Draws text centered in the UIElement.
+	 * Draws text centered in the GUIElement.
 	 * @param g		Graphics object
 	 * @param text	String to draw
 	 */
@@ -165,8 +176,8 @@ public abstract class GUIElement {
 
 	/**
 	 *	Returns whether (x,y) is inside the bounds of this UIElement
-	 * @param x 	X Coordinate
-	 * @param y 	Y Coordinate
+	 * @param x - x coordinate
+	 * @param y - y	coordinate
 	 */
 	public boolean containsPoint(int x,int y) {
 		return (x >= getX() && y >= getY() && x <= getEndX() && y <= getEndY());
@@ -174,11 +185,14 @@ public abstract class GUIElement {
 	
 	/**
 	 * Returns the GUI if the given position is between its bounds
+	 * @param x - the x coordinate from the position to check
+	 * @param y - the y coordinate from the position to check
 	 */
 	public GUIElement getGUIAtPosition(int x, int y) {
 		if(this.containsPoint(x, y)) {
 			return this;
 		}
+		
 		//otherwise return null
 		return null;
 	}
