@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.Toolkit;
 
+import canvaswindow.FontMetricGetter;
+import events.EventReader;
+
 public class Text extends GUIElement {
 
 	private String text;
@@ -22,7 +25,10 @@ public class Text extends GUIElement {
 	public Text(int x, int y, String t) {
 		super(x, y, 0, 0);
 		text = t;
-		this.fontMetrics = Toolkit.getDefaultToolkit().getFontMetrics(font);
+		
+		FontMetricGetter f = FontMetricGetter.getInstance();
+		this.fontMetrics = f.getFontMetric(font);
+		
 		setHeight(fontMetrics.getHeight());
 		setWidth(fontMetrics.stringWidth(text));
 	}
@@ -67,16 +73,14 @@ public class Text extends GUIElement {
 	 * Returns the width of the content.
 	 */
 	public int getWidth() {
-		FontMetrics fontMetric = Toolkit.getDefaultToolkit().getFontMetrics(this.getFont());
-		return fontMetric.stringWidth(this.getText());
+		return this.fontMetrics.stringWidth(this.getText());
 	}
 	
 	/**
 	 * Returns the height of the content.
 	 */
 	public int getHeight() {
-		FontMetrics fontMetric = Toolkit.getDefaultToolkit().getFontMetrics(this.getFont());
-		return fontMetric.getHeight();
+		return this.fontMetrics.getHeight();
 	}
 	
 	/**

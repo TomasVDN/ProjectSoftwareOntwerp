@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import GUIElements.SearchBar;
-import GUIElements.TextBox;
+import canvaswindow.FontMetricGetter;
+import canvaswindow.MyCanvasWindow;
 import container.Container;
 import converter.HTMLToGUI;
 import events.EventReader;
@@ -31,7 +32,7 @@ public class WindowManager {
 	 * @param width - the width of the linked window
 	 * @param height - the height of the linked window
 	 */
-	public WindowManager (int width,int height) {
+	public WindowManager (int width,int height, MyCanvasWindow window) {
 		//Make new Browsr object.
 		browsr = new Browsr(this);
 		
@@ -42,6 +43,10 @@ public class WindowManager {
 		//Initialize EventReader
 		EventReader x = EventReader.getInstance();
 		x.setBrowsr(browsr);
+		
+		//Initialize FontMetricGetter
+		FontMetricGetter f = FontMetricGetter.getInstance();
+		f.setWindow(window);
 		
 		//Make the bar and page containers
 		this.setBar(new Container(0,0,this.getWidth(),BARSIZE));
