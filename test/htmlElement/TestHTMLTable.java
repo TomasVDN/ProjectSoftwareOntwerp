@@ -68,22 +68,22 @@ class TestHTMLTable {
 	@Test
 	@DisplayName("Test the behaviour normal behaviour of HTMLTable.")
 	void testNormalBehaviour() {
-		ArrayList<HTMLTableCell> row1Data = new ArrayList();
+		ArrayList<HTMLTableCell> row1Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell1);
 		row1Data.add(cell2);
 		row1Data.add(cell3);
 		row1.setRow(row1Data);
-		ArrayList<HTMLTableCell> row2Data = new ArrayList();
+		ArrayList<HTMLTableCell> row2Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell4);
 		row1Data.add(cell5);
 		row1Data.add(cell6);
 		row2.setRow(row2Data);
-		ArrayList<HTMLTableCell> row3Data = new ArrayList();
+		ArrayList<HTMLTableCell> row3Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell7);
 		row1Data.add(cell8);
 		row1Data.add(cell9);
 		row3.setRow(row3Data);
-		ArrayList<HTMLTableRow> rows = new ArrayList();
+		ArrayList<HTMLTableRow> rows = new ArrayList<HTMLTableRow>();
 		rows.add(row1);
 		rows.add(row2);
 		rows.add(row3);
@@ -96,22 +96,22 @@ class TestHTMLTable {
 	@Test
 	@DisplayName("Test the transformation to a GUI element.")
 	void testTransformToGUI() {
-		ArrayList<HTMLTableCell> row1Data = new ArrayList();
+		ArrayList<HTMLTableCell> row1Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell1);
 		row1Data.add(cell2);
 		row1Data.add(cell3);
 		row1.setRow(row1Data);
-		ArrayList<HTMLTableCell> row2Data = new ArrayList();
+		ArrayList<HTMLTableCell> row2Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell4);
 		row1Data.add(cell5);
 		row1Data.add(cell6);
 		row2.setRow(row2Data);
-		ArrayList<HTMLTableCell> row3Data = new ArrayList();
+		ArrayList<HTMLTableCell> row3Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell7);
 		row1Data.add(cell8);
 		row1Data.add(cell9);
 		row3.setRow(row3Data);
-		ArrayList<HTMLTableRow> rows = new ArrayList();
+		ArrayList<HTMLTableRow> rows = new ArrayList<HTMLTableRow>();
 		rows.add(row1);
 		rows.add(row2);
 		rows.add(row3);
@@ -122,21 +122,21 @@ class TestHTMLTable {
 	@Test
 	@DisplayName("Test the behaviour of HTMLTable when rows have different amount of cells.")
 	void testDifferentAmountOfElementsInRows() {
-		ArrayList<HTMLTableCell> row1Data = new ArrayList();
+		ArrayList<HTMLTableCell> row1Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell1);
 		row1Data.add(cell2);
 		row1Data.add(cell3);
 		row1.setRow(row1Data);
-		ArrayList<HTMLTableCell> row2Data = new ArrayList();
+		ArrayList<HTMLTableCell> row2Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell4);
 		row1Data.add(cell5);
 		row2.setRow(row2Data);
-		ArrayList<HTMLTableCell> row3Data = new ArrayList();
+		ArrayList<HTMLTableCell> row3Data = new ArrayList<HTMLTableCell>();
 		row1Data.add(cell7);
 		row1Data.add(cell8);
 		row1Data.add(cell9);
 		row3.setRow(row3Data);
-		ArrayList<HTMLTableRow> rows = new ArrayList();
+		ArrayList<HTMLTableRow> rows = new ArrayList<HTMLTableRow>();
 		rows.add(row1);
 		rows.add(row2);
 		rows.add(row3);
