@@ -286,7 +286,7 @@ public class TextBox extends GUIElement {
 	/**
 	 * Selects all the content in textBox
 	 */
-	public void selectAll() {
+	private void selectAll() {
 		this.setSelectedText(this.getLeftText() + this.getSelectedText() + this.getRightText());
 		this.leftText = "";
 		this.rightText = "";
