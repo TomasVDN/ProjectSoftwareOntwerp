@@ -1,11 +1,14 @@
 package test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import canvaswindow.MyCanvasWindow;
 import converter.HTMLToGUI;
 import domain.InputReader;
+import events.EventReader;
+import events.FileOpenEvent;
 import htmlElement.ContentSpan;
 
 /**
@@ -18,12 +21,10 @@ public class Test {
 	public static void main(String[] args) {
 		java.awt.EventQueue.invokeLater(() -> {
 			 MyCanvasWindow window = new MyCanvasWindow("Browsr");
-	         InputReader input = new InputReader();
-	         HTMLToGUI toGui = new HTMLToGUI();
-	         ArrayList<ContentSpan> content = input.readFile("");
-	         ArrayList<GUIElement> allGUI = toGui.transformToGUI(10, 10, window.getWidth(), window.getHeight(), content);
-	         //window.addAllElements(allGUI);
-	         //window.show();
+			 FileOpenEvent event = new FileOpenEvent(new File("src/hyperlinktest.html"));
+			 EventReader e = EventReader.getInstance();
+			 e.readEvent(event);
+//	         window.show();
 		});
 	}
 

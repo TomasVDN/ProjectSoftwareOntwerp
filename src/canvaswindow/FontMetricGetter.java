@@ -29,6 +29,9 @@ public final class FontMetricGetter {
 
 	//should only be called by windowManager once!!!
 	public void setWindow(MyCanvasWindow window) {
+		if (window == null) {
+			throw new IllegalArgumentException();
+		}
 		if (this.window != null) {
 			return;
 		}
