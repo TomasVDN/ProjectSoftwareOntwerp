@@ -133,7 +133,7 @@ public abstract class GUIElement {
 	 */
 	public void setHeight(int height) {
 		if (height < 0) {
-			throw new IllegalArgumentException("The width of a GUIElement has to be positive.");
+			throw new IllegalArgumentException("The height of a GUIElement has to be positive.");
 		}
 		this.height = height;
 	}
