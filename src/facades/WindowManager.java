@@ -278,6 +278,9 @@ public class WindowManager {
                 element.handleKeyEvent(keyCode, keyChar, modifiersEx);
             }
         }
+//        if (id == KeyEvent.KEY_TYPED && keyChar == "z".charAt(0)) {
+//        	int i = 0; dees was nodig om het programma te stoppen (door william, mag verwijdert worden als we het niet meer nodig hebben TODO)
+//        }
 	}
 
 }
