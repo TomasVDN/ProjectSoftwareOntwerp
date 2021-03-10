@@ -2,6 +2,8 @@ package domain;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+
+import browsrhtml.BrowsrDocumentValidator;
 import htmlElement.ContentSpan;
 
 public class InputReader {
@@ -31,6 +33,13 @@ public class InputReader {
 
 	        while ((line = br.readLine()) != null) {
 	        	sb += line + "\n";
+	        }
+	        
+	        //Check if valid browsr html file
+	        try {
+	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
+	        } catch (RuntimeException r) {
+	        	sb = "Error occured. Reason: not a valid Browsr document.\n";
 	        }
 	        
 	        //create a new decoder and return the HTMLElements created through his functions.

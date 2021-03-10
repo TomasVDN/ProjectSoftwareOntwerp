@@ -24,6 +24,11 @@ public class WindowManager {
 	private int width;
 	private int height;
 	private final int BARSIZE = 100;
+	private Browsr browsr; // TODO: DEES STOND ER NIET MA DE TESTEN HEBBEN DEES NODIG 
+	public Browsr getBrowsr() {
+		return this.browsr;
+	}
+	
 	
 	private GUIElement activeElement;
 	
@@ -43,6 +48,7 @@ public class WindowManager {
 		//Initialize EventReader
 		EventReader x = EventReader.getInstance();
 		x.setBrowsr(browsr);
+		this.browsr = browsr; // TODO: KIJK NAAR DE BOVENST TODO VOOR UITLEG
 		
 		//Initialize FontMetricGetter
 		FontMetricGetter f = FontMetricGetter.getInstance();
@@ -277,6 +283,9 @@ public class WindowManager {
             if (element != null) {
                 element.handleKeyEvent(keyCode, keyChar, modifiersEx);
             }
+        }
+        if (id == KeyEvent.KEY_TYPED && keyChar == "z".charAt(0)) {
+        	int i = 0; //dees was nodig om het programma te stoppen (door william, mag verwijdert worden als we het niet meer nodig hebben TODO)
         }
 	}
 
