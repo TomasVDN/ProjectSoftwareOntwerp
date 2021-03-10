@@ -33,6 +33,15 @@ public class HTMLTable extends ContentSpan {
 	 * @param rows the rows to set
 	 */
 	public void setRows(ArrayList<HTMLTableRow> rows) {
+		if (rows == null) {
+			throw new IllegalArgumentException("setRows method can't be given null as a parameter.");
+		} 
+		int amountOfElementsReference = rows.get(0).getcells().size();
+		for (HTMLTableRow row : rows) {
+			if (amountOfElementsReference != row.getcells().size()) {
+				throw new IllegalArgumentException("All rows in the table need to have the same amount of elements in the setRows method.");
+			}
+		}
 		this.rows = rows;
 	}
 	
@@ -65,5 +74,4 @@ public class HTMLTable extends ContentSpan {
 		}
 		return new TableGUI(GUIRows, x, y, width, height);
 	}
-
 }

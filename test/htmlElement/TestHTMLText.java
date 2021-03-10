@@ -15,7 +15,7 @@ import canvaswindow.MyCanvasWindow;
 
 class TestHTMLText {
 	
-	String textValue = "text example";;
+	String textValue = "text example";
 	HTMLText htmlText;
 	Text guiText;
 	Text guiTextReference;
@@ -57,10 +57,12 @@ class TestHTMLText {
 	}
 	
 	@Test
-	@DisplayName("Test the behaviour if an empty string is given in the constructor.")
-	void testEmptyStringBehaviour() {
-		htmlText = new HTMLText("");
-		//TODO wat voor gedrag wordt er verwacht?
-		assert false;
+	@DisplayName("Test the behaviour if null is given in the setText method.")
+	void testSetNullBehaviour() {
+		htmlText = new HTMLText(textValue);
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+			htmlText.setText(null);
+		});
+		assertTrue(exception.getMessage().contains("The text of HTMLText can't be set to null."));
 	}
 }

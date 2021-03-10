@@ -15,10 +15,16 @@ public class HTMLText extends ContentSpan{
 	}
 
 	public void setText(String text) {
+		if (text == null) {
+			throw new IllegalArgumentException("The text of HTMLText can't be set to null.");
+		}
 		this.text = text;
 	}
 
 	public HTMLText(String text) {
+		if (text == null) {
+			throw new IllegalArgumentException("A HTMLText can't be constructed with null argument.");
+		}
 		this.text = text;
 	}
 

@@ -11,6 +11,9 @@ public class HTMLTableCell {
 	private ContentSpan content;
 	
 	public HTMLTableCell(ContentSpan content) {
+		if (content == null) {
+			throw new IllegalArgumentException("A table cell can't be constructed with null argument.");
+		}
 		this.content = content;
 	}
 	

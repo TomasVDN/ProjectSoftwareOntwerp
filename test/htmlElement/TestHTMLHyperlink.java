@@ -74,13 +74,4 @@ class TestHTMLHyperlink {
 		});
 		assertTrue(exception.getMessage().contains("The text can't be null in the constructor of HTMLHyperlink."));
 	}
-	
-	@Test
-	@DisplayName("Test the behaviour if an empty string is given for the text.")
-	void testEmptyStringBehaviour() {
-		htmlText = new HTMLText("");
-		htmlHyperlink = new HTMLHyperlink(url, htmlText);
-		//TODO wat voor gedrag wordt er verwacht?
-		assert false;
-	}
 }

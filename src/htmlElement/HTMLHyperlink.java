@@ -12,6 +12,12 @@ public class HTMLHyperlink extends ContentSpan{
 	private String url;
 	private HTMLText text;
 	public HTMLHyperlink(String url, HTMLText text) {
+		if (url == null) {
+			throw new IllegalArgumentException("The URL can't be null in the constructor of HTMLHyperlink.");
+		}
+		if (text == null) {
+			throw new IllegalArgumentException("The text can't be null in the constructor of HTMLHyperlink.");
+		}
 		this.url = url;
 		this.text = text;
 	}
