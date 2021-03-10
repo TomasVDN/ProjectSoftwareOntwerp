@@ -7,7 +7,7 @@ public class Main {
 		         MyCanvasWindow window = new MyCanvasWindow("Browsr");
 		         //window.show();
 		         //window.recordSession("recordings/recording");
-		         MyCanvasWindow.replayRecording("recordings/recording", window);
+		         //MyCanvasWindow.replayRecording("recordings/recording", window);
 		         //window.show();
 		      });
 	}
