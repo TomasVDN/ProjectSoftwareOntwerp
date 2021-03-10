@@ -18,29 +18,11 @@ public class Hyperlink extends Button {
 	private String url;
 	
 	/**
-	 * Contructor for the hyperlink
-	 * @param x
-	 * @param y
-	 * @param size
-	 * @param text
-	 * @param url
-	 */
-	public Hyperlink(int x, int y, int w, int h, int size, Text text, String url) {
-		super(x, y, w, h, text, false);
-		this.setUrl(url);
-		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		Font boldUnderline = new Font("Serif",Font.BOLD, size).deriveFont(fontAttributes);
-		this.setFont(boldUnderline);
-
-	}
-	
-	/**
-	 * Contructor for the hyperlink
-	 * @param x
-	 * @param y
-	 * @param size
-	 * @param text
-	 * @param url
+	 * Constructor for the hyperlink class.
+	 * @param x - x coordinate of the hyperlink
+	 * @param y - y coordinate
+	 * @param text - Text element of the hyperlink
+	 * @param url - URL to which the hyperlink redirects
 	 */
 	public Hyperlink(int x, int y, Text text, String url) {
 		super(x, y, text.getWidth(), text.getHeight(), text, false);
@@ -50,47 +32,50 @@ public class Hyperlink extends Button {
 		text.setFont(boldUnderline);
 	}
 	
-	
-	public int getWidth() {
-		return this.getText().getWidth();
-	}
-
-	public int getHeight() {
-		return this.getText().getHeight();
-	}
-	
 	/**
-	 * getter for the hyperlink url
-	 * 
-	 * @return url
+	 * If clicked, send a runUrlEvent
 	 */
-	public String getUrl() {
-		return url;
-	}
-
-	/**
-	 * setter for the hyperlink url
-	 * 
-	 * @param url the url to set
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
 	@Override
 	public void handleClick() {
-		this.runUrlEvent();
-	}
-	
-	private void runUrlEvent() {
 		//this.setActive(false);// gewone textbox gaat inactief worden bij enter
 		Event event = new RunUrlEvent(this.getUrl());
 		EventReader e = EventReader.getInstance();
 		e.readEvent(event);
 	}
 	
+	/**
+	 * Paint the this.text in blue.
+	 */
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		this.getText().paint(g, xContainer, yContainer,Color.BLUE);
+	}
+	
+	/**
+	 * @return the width (dependent on width of this.Text)
+	 */
+	public int getWidth() {
+		return this.getText().getWidth();
+	}
+
+	/**
+	 * @return the height (dependent on height of this.Text)
+	 */
+	public int getHeight() {
+		return this.getText().getHeight();
+	}
+	
+	/**
+	 * @return this.url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url - the new value of this.url
+	 */
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

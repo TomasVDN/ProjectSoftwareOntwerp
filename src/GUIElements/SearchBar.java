@@ -6,30 +6,41 @@ import events.RunUrlEvent;
 
 public class SearchBar extends TextBox {
 
+	/**
+	 * Constructor of the SearchBar class
+	 * @param x - x coordinate of the SearchBar
+	 * @param y - y coordinate of the SearchBar
+	 * @param w - width of the SearchBar
+	 * @param h - height of the SearchBar
+	 */
 	public SearchBar(int x, int y, int w, int h) {
 		super(x, y, w, h);
 	}
 	
-	/*
-	 * Overrides the handle enter method
+	/**
+	 * Overrides the handle enter method of the TextBox superclass
 	 */
 	@Override
 	void handleEnter() {
-		//this.setActive(false);
 		runUrlEvent();
 	}
 	
+	/**
+	 * Overrides the handle unselect method of the TextBox superclass
+	 */
+	@Override
+	public void handleUnselect() {
+		runUrlEvent();
+	}
+	
+	/**
+	 * Sends a runUrlEvent to the eventReader.
+	 */
 	private void runUrlEvent() {
-		//this.setActive(false);// gewone textbox gaat inactief worden bij enter
 		Event event = new RunUrlEvent(this.getText());
 		EventReader e = EventReader.getInstance();
 		e.readEvent(event);
 	}
 	
-	@Override
-	public void handleUnselect() {
-		//unselectAllText();
-		runUrlEvent();
-	}
 
 }

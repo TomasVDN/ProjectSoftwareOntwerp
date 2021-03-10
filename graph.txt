@@ -1,0 +1,187 @@
+* 0aed139 (HEAD -> main, origin/main, origin/HEAD) Continued comments. Progress: CanvasWindow,Container,Converter,Domain,Events,Facades done. Also remove artifacts from runnables across all GUIElements.
+*   fc2ec58 Commented & put up defenses in MycanvasWindow and WindowManager
+|\  
+| * 6de34f7 TODO geschreven
+| * e4dbb8a fout in test
+| * bb3b9b2 TODO geschreven
+| *   35ff4ff Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+| |\  
+| * | a1a2cb4 minor changes
+* | | 1b21f55 Commented & put up defenses in MycanvasWindow and WindowManager
+| |/  
+|/|   
+* |   78e6a8b Fixed all TODO's (except for future iterations and in test files).
+|\ \  
+| * | 24a9549 Fixed all TODO's (except for future iterations and in test files).
+* | | cae6899 initial commit
+* | |   c8e77f0 Merge pull request #5 from TomasVDN/SingletonTest
+|\ \ \  
+| |/ /  
+| * | b52a5f0 Made eventReader a singleton.
+| |/  
+* |   f2eddd2 Merge branch 'main' of github.com:TomasVDN/ProjectSoftwareOntwerp
+|\ \  
+| |/  
+| * dbf9c88 example of overriding equals method
+| * 5f2d4a8 initial commit
+* | beeb1f4 Bug met spatie voor hyperlinks opgelost. Recording testen gestart.
+|/  
+* 2a1deb3 initial commit
+* 26a2f50 Changed order of (int width, int heigth, int y, int x) parameters to (int x, int y, int width, int heigth) to be consistent with GUIElements.
+* f186a43 Merge met main
+*   c1f9839 Merge branch 'spaghettiEvent' into main
+|\  
+| * 1e287ac (origin/spaghettiEvent) Final
+| * 950108f Hyperlinks with blue color
+| * c0fde9d Browsr final
+| * 62b2e94 Hyperlink werkt nu als je hierop klikt
+| * 1e7a163 Hyperlinks werkt nog niet helemaal
+| * 12c560d Going for a spaghetti implementation
+* |   4ffe361 Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\ \  
+| |/  
+|/|   
+| * 09fe6e4 added Tests for HTMLTable.
+* | 3238719 Basis klasses gemaakt
+|/  
+| * ebe0022 (origin/TestForHyperlink) added hyperlink support. Tables -> list.
+| * 89a32db Made list of table
+| * ae2eef2 Branched
+|/  
+* f189bb4 -_-
+*   7d9b4b1 Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\  
+| * 2fd4221 Some minor changes
+* | 1df9225 GuiAtPosition opgelost
+|/  
+*   a95866d Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\  
+| * 3e4b077 Half of TODO's done.
+| * 0d7738a added Toolkit, thus removed FontMetricHandler
+| * a323866 Finished creating testing structure
+| * 4083efa Hierarchy of tests created
+| * e1b73cd Started applying testing hierachy
+* | d09e8cf Probeer  nog is te pushen
+* | 8a864af Tables werken nu denk
+|/  
+* a9fb340 Release-refactor 2
+* b900ce9 Release-refactor
+* 9bb72a7 commentaar toegevoegd bij paint
+* 233661b is het gemerged?
+* 6ac05c6 ik denk dat htmlToGui werkt niet zeker though
+* a929019 Tables gemaakt
+* 85bf7cb Eerste versie van htmlToGUI, nog wel problemen met columns juist allignene
+* 5db5a90 begin naar GUI gemaakt
+* b153353 Stomme bug gevonden
+* c770247 kleine aanpassing
+* f007c38 verandert naar equals
+*   eb01b1d Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\  
+| * f91a294 Speciale tekens even waglaten zodat er niet steeds Errors zijn in de code voor Steven.
+* | 1daacad htmlElement
+* | 5b84c07 Rip de inputReader, die wilt td en td niet gelijkstellen... (btw: het werkt nog niet)
+* | c1f94d4 maandag nammidag sammen
+|/  
+* a827f5a Haat tegen mijn paintbox opgelost, wtf is daar mis mee, das handig als ge da overerft een doosje moet tekenen
+* fe079c1 surroundingTexBox bug opgelost
+*   a1b6e2a Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\  
+| * 92c07b7 Bug in verband met Hyperlink opgelost De spatie voor de text in een hyperlink is opgelost
+| * c2e2079 Added Hyperlinks who extend Button class Nieuwe hyperlinks die een aparte classe zijn in de plaats van een onderdeel van text Deze zijn onderlijnd en reageren op click events. Ze extenden de button (die trouwens geupdate is) TODO: 	1. Er is precies nog een probleem met de positie van de hyperlinks (of kan ook zijn omdat we nog geen tables implemented hebben) 	2. De link zelfs wordt nog niet aangepast als je klikt op een hyperlink 	3. Om één of andere reden is er een spatie in het begin bij elke hyperlink: misschien een bug in layout?
+* |   c14ebd6 Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\ \  
+| |/  
+| * 08216fa Window var uit textbox verwijdert this.window = "window" verwijdert uit contructor
+* |   e5debd6 Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\ \  
+| |/  
+| *   f67e9e8 Merge branch 'main' of github.com:TomasVDN/ProjectSoftwareOntwerp into main
+| |\  
+| * | a4ca632 Fixed some issues on inputReader
+* | | 973e29e window weggehaald
+| |/  
+|/|   
+* | 9800505 Problemen gefixt
+* |   75c66a5 Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\ \  
+| |/  
+| *   dcdc300 Merge branch 'main' of github.com:TomasVDN/ProjectSoftwareOntwerp into main
+| |\  
+| * | 9132863 HTMLToLayout werkt met text/hyperlinks
+* | | da7ba14 Broken shit
+| |/  
+|/|   
+* | 8772c6f getter window added changed constructor for SearchBar
+* | 544af6e changed keychars
+|/  
+*   2c04823 Merge pull request #4 from TomasVDN/InputReader
+|\  
+| * 4c0c2f1 htmlToLayout added. Only works with TEXT tokenType for now.
+| * e026460 Input reader WIP
+* |   373caf1 Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\ \  
+| * | b86c43b Het begin van de klasse SearchBar.
+| * | cadea92 getWidtht() en getHeight() methoden toegevoegd.
+| * | 96ffee5 handleEnter methode protected gemaatk zodat SearchBar klasse deze kan overriden. Comment gezet bij de constructor omdat de hoogte van het box attribuut niet overeenkomt met hoogte van de TextBox zelf.
+| |/  
+* | cf9ecc3 Selection werkt terug, maar heb wel het gevoel da we een xtra klasse voor moeten maken
+|/  
+* 5e170f8 handleKeyBoardEvent methode wat extra gevallen opgelost
+* 7596d75 Fixed issue when using backspace or delete key.
+* 2efdddf Added check to see if left/right string is not empty so that you're not removing chars from an empty left/right string in deletePrevious() and deleteNext() methods.
+* 41b4997 Rectified keyTyped and keyPressed
+* 8330131 Tilde ghetto fix + url working
+* 067362e basic url reading.
+* 78ceb27 Renamed that function
+* 3d2533c Grootte dynamisch gemaakt maar niet optimaal
+* c0b1b4b made cursor, with delete, end, home, back space and charachter addition support. Fully documented.
+* 9858bba Basic textCursor
+* 17c99fb imports removed
+* 8b7e047 My bad (removed window to all classes)
+* 9683fbf selection zo goed als af
+* 172ecaf Text wordt geselecteerd bij aanklikken
+*   c9389f2 Merge pull request #3 from TomasVDN/Tomas
+|\  
+| * 9d2cfa9 Clean up & some changes
+* |   a35e471 Merge pull request #2 from TomasVDN/Tomas
+|\ \  
+| |/  
+| * d6e4d07 Added file opening from bar
+|/  
+* 27b4315 Clean up & some comments
+*   c7c1803 Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\  
+| * 063acf9 Schoonheidsfoutjes met de textbox opgelost. Toetsen op de computer die geen geldige unicode character hebben worden niet geprint in de bar. De hoogte van de bar wordt dynamisch aangepast aan de hand van de text.
+| * 5ad3413 added support for backslash in TextBox
+* | c392506 shift toegevoegd
+|/  
+* dc72ad4 Support voor backslash in TextBox
+* d259142 TextBox() constructor wat aangepast
+* 6c2b1a0 overloaden van de Text() constructor en de constructText() methode om wat te testen
+* bc01486 parameters wat aangepast om meer op de bar te laten lijken
+* d3de7bd TextBox implemented
+* 3e74d37 abstractbutton
+*   64d0f9f Merge branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git into main
+|\  
+| * 3e54ced Button geimplementeerd. Een button geimplementeerd die misschien kan dienen als de eerste stap naar een bar. De acties van de buttons staan momenteel op hetzelfde (er is dus maar 1 actie). features:  1. De tekst van buttons wordt mooi gecentreerd  2. Er is mogelijkheid om meerdere buttons te maken met meerdere functies (de functies 	zelf moet je in MyCanvasWindow schrijven maar kan misschien doorgegeven via 	lambda functies)  3. Buttons kunnen reageren op mouse events.
+| * 9743b54 Meerdere lijnen support (met lelijke increment though)
+| * cad127f First steps towards file input
+| * adf9e95 Delete filename.txt
+| *   547ffe5 Merge pull request #1 from TomasVDN/Tomas
+| |\  
+| | * 1b0379f Clean up
+| | * 4655f28 Tekst op een andere plek
+| |/  
+| * 17cf921 Test HTML file met tables
+* | 932f32a bar merge
+|/  
+* 87f5693 Clean up 1
+* df8403a Basic html file (1 line) read to window
+* 62aa199 Een eerste test
+* 2759f59 while lus toegevoegd voor het begrijpen van HtmlLexer.java
+* b6a5e82 Toevoegen lege functies
+* df6f9f4 Klasses gemaakt
+* 66a0202 nothing important
+* 40401b3 Added zip files
+* 8baf114 Verandert naar java project
+* e88f139 Initial commit

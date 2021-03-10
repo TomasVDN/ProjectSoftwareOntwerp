@@ -131,7 +131,7 @@ public class TableGUI extends GUIElement {
 	 * 		width is the max width in the column
 	 * Furthermore their relative positions are also updated
 	 */
-	public void updateTableCells() {
+	private void updateTableCells() {
 		ArrayList<Integer> rowHeight =this.getAllRowHeight();
 		ArrayList<Integer> colomnWidth =this.getAllColumnWidth();
 		int yPosition=0;
@@ -168,6 +168,11 @@ public class TableGUI extends GUIElement {
 			}
 		}
 		return null;
+	}
+
+
+	@Override
+	public void handleClick() {		
 	}
 
 }

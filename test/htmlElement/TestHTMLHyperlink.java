@@ -2,9 +2,17 @@ package htmlElement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.lang.reflect.InvocationTargetException;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import GUIElements.Hyperlink;
+import canvaswindow.FontMetricGetter;
+import canvaswindow.MyCanvasWindow;
+
 import events.EventReader;
 import facades.Browsr;
 import facades.WindowManager;
@@ -17,7 +25,16 @@ class TestHTMLHyperlink {
 	HTMLHyperlink htmlHyperlink;
 	Hyperlink guiHyperlink;
 	Hyperlink guiHyperlinkReference;
+	Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
+	FontMetrics fontMetrics;
 	
+	 
+	@BeforeEach
+	void setUp() throws InvocationTargetException, InterruptedException {
+		java.awt.EventQueue.invokeAndWait(() -> {
+			MyCanvasWindow window = new MyCanvasWindow("Browsr");
+		});
+	}
 	
 	void setUpReference() {
 		htmlText = new HTMLText(textValue);
@@ -26,7 +43,7 @@ class TestHTMLHyperlink {
 
 	@Test
 	@DisplayName("Test the normal behaviour of HTMLText.")
-	void testNormalBehaviour() {
+	void testNormalBehaviour() throws InvocationTargetException, InterruptedException {
 		htmlText = new HTMLText(textValue);
 		htmlHyperlink = new HTMLHyperlink(url, htmlText);
 		guiHyperlink = htmlHyperlink.transformToGUI(10, 20, 30, 40);
@@ -66,5 +83,4 @@ class TestHTMLHyperlink {
 		//TODO wat voor gedrag wordt er verwacht?
 		assert false;
 	}
-
 }

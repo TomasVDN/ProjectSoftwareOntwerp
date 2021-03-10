@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import GUIElements.SearchBar;
-import GUIElements.TextBox;
+import canvaswindow.FontMetricGetter;
+import canvaswindow.MyCanvasWindow;
 import container.Container;
 import converter.HTMLToGUI;
 import events.EventReader;
@@ -14,7 +15,7 @@ import htmlElement.ContentSpan;
 
 public class WindowManager {
 
-	private Browsr browsr;
+
 	
 	private Container bar;
 	private SearchBar searchbar;
@@ -31,9 +32,9 @@ public class WindowManager {
 	 * @param width - the width of the linked window
 	 * @param height - the height of the linked window
 	 */
-	public WindowManager (int width,int height) {
+	public WindowManager (int width,int height, MyCanvasWindow window) {
 		//Make new Browsr object.
-		browsr = new Browsr(this);
+		Browsr browsr = new Browsr(this);
 		
 		//Set width/height. If w/h < 50, set it to 600.
 		this.setWidth(width);
@@ -42,6 +43,10 @@ public class WindowManager {
 		//Initialize EventReader
 		EventReader x = EventReader.getInstance();
 		x.setBrowsr(browsr);
+		
+		//Initialize FontMetricGetter
+		FontMetricGetter f = FontMetricGetter.getInstance();
+		f.setWindow(window);
 		
 		//Make the bar and page containers
 		this.setBar(new Container(0,0,this.getWidth(),BARSIZE));
@@ -115,13 +120,13 @@ public class WindowManager {
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param clickCount - the amount of clicks
-	 * @param modifiers - the modifiers
+	 * @param modifiers - the modifiers given by the mouse click (like enter et cetera)
 	 */
 	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
-			inherit(containerAt(x, y).elementAt(x, y));	
+			changeActive(containerAt(x, y).elementAt(x, y));	
 		} catch (NullPointerException e) {
-			inherit(null);
+			changeActive(null);
 		}		
 	}
 	
@@ -129,7 +134,7 @@ public class WindowManager {
 	 * This method changes the activeElement to the given element, and invokes element.handleClick. If the given element is already the activeElement, it only invokes element.handleClick.
 	 * @param element - the new activeElement
 	 */
-	public void inherit(GUIElement element) {
+	public void changeActive(GUIElement element) {
 		if(element!=this.getActiveElement()) {
 			//deactivate old activeElement
 			if (activeElement != null && this.getActiveElement().isActive()) {
@@ -157,7 +162,7 @@ public class WindowManager {
 	 * @param url
 	 */
 	public void updateURL(String url) {
-		this.inherit(null);
+		this.changeActive(null);
 		this.getSearchbar().replaceBox(url);
 	}
 
@@ -175,12 +180,7 @@ public class WindowManager {
 		this.activeElement = activeElement;
 	}
 
-	/**
-	 * @return this.browsr
-	 */
-	public Browsr getBrowsr() {
-		return browsr;
-	}
+
 
 	/**
 	 * @return this.bar

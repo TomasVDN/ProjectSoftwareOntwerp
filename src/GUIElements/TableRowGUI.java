@@ -109,6 +109,10 @@ public class TableRowGUI extends GUIElement {
 		}
 		return null;
 	}
+
+	@Override
+	public void handleClick() {
+	}
 	
 
 }

@@ -7,24 +7,8 @@ import htmlElement.ContentSpan;
 
 public class DomainFacade {
 	
-	private ArrayList<ContentSpan> htmlElements = new ArrayList<ContentSpan>();
 
 	public DomainFacade(Browsr browsr) {
-	}
-	
-
-	/**
-	 * @return this.htmlElements
-	 */
-	public ArrayList<ContentSpan> getHtmlElements() {
-		return htmlElements;
-	}
-
-	/**
-	 * @param htmlElements - the htmlElements to set
-	 */
-	public void setHtmlElements(ArrayList<ContentSpan> htmlElements) {
-		this.htmlElements = htmlElements;
 	}
 
 	/**
@@ -34,7 +18,7 @@ public class DomainFacade {
 	 */
 	public  ArrayList<ContentSpan> runUrl(String path) {
 		InputReader reader = new InputReader();
-		htmlElements = reader.readFile(path);
+		ArrayList<ContentSpan> htmlElements = reader.readFile(path);
 		return htmlElements;
 	}
 }
