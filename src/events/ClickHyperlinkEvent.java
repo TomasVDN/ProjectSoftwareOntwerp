@@ -15,6 +15,7 @@ public class ClickHyperlinkEvent implements Event {
 		browsr.handleHyperlink(this.getURLAttribute());
 	}
 
+	
 	public String getURLAttribute() {
 		return URLAttribute;
 	}
