@@ -23,6 +23,9 @@ public abstract class GUIElement {
 	 * @param h - height of the GUIElement
 	 */
 	public GUIElement(int x, int y, int w, int h){
+		if (x < 0 || y < 0 || w < 0 || h < 0) {
+			throw new IllegalArgumentException("The x position, y position, width and height of a GUIElement have to be positive.");
+		}
 		this.setX(x);
 		this.setY(y);
 		this.setWidth(w);
@@ -35,6 +38,9 @@ public abstract class GUIElement {
 	 * @param y - the new value of this.x
 	 */
 	public void setPosition(int x, int y) {
+		if (x < 0 || y < 0) {
+			throw new IllegalArgumentException("The x position and y position of a GUIElement have to be positive.");
+		}
 		this.setX(x);
 		this.setY(y);
 	}
@@ -45,6 +51,9 @@ public abstract class GUIElement {
 	 * @param x - new value of this.xPos
 	 */
 	public void setX(int x) {
+		if (x < 0) {
+			throw new IllegalArgumentException("The x position of a GUIElement has to be positive.");
+		}
 		this.xPos = x;
 	}
 	
@@ -72,6 +81,9 @@ public abstract class GUIElement {
 	 * @param y - new value of this.yPos
 	 */
 	public void setY(int y) {
+		if (y < 0) {
+			throw new IllegalArgumentException("The y position of a GUIElement has to be positive.");
+		}
 		this.yPos = y;
 	}
 
@@ -100,7 +112,7 @@ public abstract class GUIElement {
 	 */
 	public void setWidth(int width) {
 		if (width < 0) {
-			width = 0;
+			throw new IllegalArgumentException("The width of a GUIElement has to be positive.");
 		}
 		this.width = width;
 	}
@@ -121,7 +133,7 @@ public abstract class GUIElement {
 	 */
 	public void setHeight(int height) {
 		if (height < 0) {
-			height = 0;
+			throw new IllegalArgumentException("The width of a GUIElement has to be positive.");
 		}
 		this.height = height;
 	}
