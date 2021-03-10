@@ -37,9 +37,9 @@ public class TextBox extends GUIElement {
 	/**
 	 * @param leftText - the new value of this.leftText
 	 */
-	public void setLeftText(String leftText) {
+	public void setLeftText(String leftText) throws IllegalArgumentException {
 		if (leftText == null) {
-			return;
+			throw new IllegalArgumentException("Null given to TextBox");
 		}
 		this.leftText = leftText;
 	}
@@ -56,7 +56,7 @@ public class TextBox extends GUIElement {
 	 */
 	public void setRigthText(String rightText) {
 		if (rightText == null) {
-			return;
+			throw new IllegalArgumentException("Null given to TextBox");
 		}
 		this.rightText = rightText;
 	}
@@ -79,8 +79,8 @@ public class TextBox extends GUIElement {
 	 * @param previousText - the new value of this.previousText to set
 	 */
 	public void setPreviousText(String previousText) {
-		if (rightText == null) {
-			return;
+		if (previousText == null) {
+			throw new IllegalArgumentException("Null given to TextBox");
 		}
 		this.previousText = previousText;
 	}
@@ -95,7 +95,7 @@ public class TextBox extends GUIElement {
 			this.selectAll();
 			setActive(true);
 		} else {
-			this.unselectAllText();
+			this.unselectAllTextToLeft();
 		}
 	}
 
@@ -169,7 +169,7 @@ public class TextBox extends GUIElement {
 		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
 		if (selectedText != "") {
 			g.setColor(Color.blue);
-			g.fillRect(super.getX()+10 + xContainer,y, metrics.stringWidth(getSelectedText()) + 10, metrics.getHeight());
+			g.fillRect(super.getX()+10 + xContainer,y, metrics.stringWidth(getSelectedText()), metrics.getHeight());
 			g.setColor(Color.black);
 		}
 		
@@ -217,6 +217,7 @@ public class TextBox extends GUIElement {
 	 * Does the needed actions for the Left arrow key.
 	 */
 	private void handleLeft() {
+		this.unselectAllTextToRight();
 		if (this.getLeftText().length() != 0) {
 			rightText = getLeftText().charAt(getLeftText().length() - 1) + getRightText();
 			leftText = getLeftText().substring(0, getLeftText().length() - 1);
@@ -227,7 +228,7 @@ public class TextBox extends GUIElement {
 	 * Does the needed actions for the Right arrow key.
 	 */
 	private void handleRight() {
-		this.unselectAllText();
+		this.unselectAllTextToLeft();
 		if (this.getRightText().length() != 0) {
 			leftText = getLeftText() + getRightText().charAt(0);
 			rightText = getRightText().substring(1);
@@ -238,7 +239,7 @@ public class TextBox extends GUIElement {
 	 * Does the needed actions for the End key.
 	 */
 	private void handleEnd() {
-		this.unselectAllText();
+		this.unselectAllTextToLeft();
 		leftText = getLeftText() + getRightText();
 		rightText = "";
 	}
@@ -247,7 +248,7 @@ public class TextBox extends GUIElement {
 	 * Does the needed actions for the home key.
 	 */
 	private void handleHome() {
-		this.unselectAllText();
+		this.unselectAllTextToLeft();
 		rightText = getLeftText() + getRightText();
 		leftText = "";
 	}
@@ -281,6 +282,9 @@ public class TextBox extends GUIElement {
 	 * @param selectedText the selectedText to set
 	 */
 	public void setSelectedText(String selectedText) {
+		if (selectedText == null) {
+			throw new IllegalArgumentException("Null given to TextBox");
+		}
 		this.selectedText = selectedText;
 	}
 	
@@ -301,10 +305,18 @@ public class TextBox extends GUIElement {
 	}
 
 	/**
-	 * Unselect all text.
+	 * Unselect all text right.
 	 */
-	protected void unselectAllText() {
+	protected void unselectAllTextToRight() {
 		setRigthText(selectedText + rightText); 
+		this.selectedText = "";
+	}
+	
+	/**
+	 * Unselect all text left.
+	 */
+	protected void unselectAllTextToLeft() {
+		setLeftText(leftText + selectedText); 
 		this.selectedText = "";
 	}
 	
@@ -314,7 +326,7 @@ public class TextBox extends GUIElement {
 	 */
 	public void replaceBox(String text) {
 		if (text == null) {
-			return;
+			throw new IllegalArgumentException("Null given to TextBox");
 		}
 		this.setLeftText(text);
 		this.setSelectedText("");
