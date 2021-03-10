@@ -18,11 +18,20 @@ public class HTMLToGUI {
 	 */
 	private static int XSPACE= 3;
 	
+	public static int getXSPACE() {
+		return XSPACE;
+	}
+
+
 	/**
 	 * The distance between the guiElements in the y direction
 	 */
 	private static int YSPACE= 3;
 	
+	public static int getYSPACE() {
+		return YSPACE;
+	}
+
 	/**
 	 * 
 	 * @param x
@@ -63,7 +72,7 @@ public class HTMLToGUI {
 	 * @param relativeY
 	 * @return
 	 */
-	private GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height) {
+	public GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height) {
 		return contentSpan.transformToGUI(relativeX, relativeY, width, height);
 	}
 	
