@@ -118,9 +118,11 @@ public class TableGUI extends GUIElement {
 	 */
 	public ArrayList<ArrayList<GUIElement>> getAllColumns(){
 		ArrayList<ArrayList<GUIElement>> allColumns = new ArrayList<ArrayList<GUIElement>>();
-		int size= this.getGuiRows().get(0).size();
-		for(int i=0; i<size;i++) {
-			allColumns.add(this.getColumn(i));
+		if(this.getGuiRows().size()!=0) {
+			int size= this.getGuiRows().get(0).size();
+			for(int i=0; i<size;i++) {
+				allColumns.add(this.getColumn(i));
+			}
 		}
 		return allColumns;
 	}

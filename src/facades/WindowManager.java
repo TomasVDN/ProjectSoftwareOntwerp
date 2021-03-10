@@ -37,8 +37,8 @@ public class WindowManager {
 		Browsr browsr = new Browsr(this);
 		
 		//Set width/height. If w/h < 50, set it to 600.
-		this.setWidth(width);
-		this.setHeight(height);
+		this.setWidth(500);//this.setWidth(width);
+		this.setHeight(500);//this.setHeight(height);
 		
 		//Initialize EventReader
 		EventReader x = EventReader.getInstance();
