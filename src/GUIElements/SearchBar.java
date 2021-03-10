@@ -42,5 +42,16 @@ public class SearchBar extends TextBox {
 		e.readEvent(event);
 	}
 	
+	public String getBaseURL() {
+		String URL = this.getText();
+		int index = URL.length() - 1;
+		boolean found = URL.charAt(index) == '/';
+		while (!found && index >= 0) {
+			index--;
+			found = URL.charAt(index) == '/';
+		}
+		return URL.substring(0, index+1);
+	}
+	
 
 }

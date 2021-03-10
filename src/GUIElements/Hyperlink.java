@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 
+import events.ClickHyperlinkEvent;
 import events.Event;
 import events.EventReader;
 import events.RunUrlEvent;
@@ -38,7 +39,7 @@ public class Hyperlink extends Button {
 	@Override
 	public void handleClick() {
 		//this.setActive(false);// gewone textbox gaat inactief worden bij enter
-		Event event = new RunUrlEvent(this.getUrl());
+		Event event = new ClickHyperlinkEvent(this.getUrl());
 		EventReader e = EventReader.getInstance();
 		e.readEvent(event);
 	}

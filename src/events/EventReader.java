@@ -33,4 +33,5 @@ public final class EventReader {
 		}
 		this.browsr = browsr;
 	}
+
 }

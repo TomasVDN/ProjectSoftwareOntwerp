@@ -54,7 +54,12 @@ public class Browsr {
 		windowManager.draw(htmlElements);
 	}
 	
+	public String getBaseURLFromSearchBar() {
+		return this.getWindowManager().getBaseURLFromSearchBar();
+	}
 	
-	
+	public void handleHyperlink(String URLAttribute) {
+		runUrl(getBaseURLFromSearchBar() + URLAttribute);
+	}
 
 }

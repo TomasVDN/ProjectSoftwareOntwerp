@@ -9,4 +9,5 @@ public interface Event {
 	 * @param browsr - the browsr (controller) that controls the window.
 	 */
 	public void execute(Browsr browsr);
+	
 }

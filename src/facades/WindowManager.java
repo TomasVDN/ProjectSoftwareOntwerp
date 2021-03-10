@@ -288,5 +288,9 @@ public class WindowManager {
         	int i = 0; //dees was nodig om het programma te stoppen (door william, mag verwijdert worden als we het niet meer nodig hebben TODO)
         }
 	}
+	
+	public String getBaseURLFromSearchBar() {
+		return this.getSearchbar().getBaseURL();
+	}
 
 }
