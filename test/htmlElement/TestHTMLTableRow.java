@@ -29,10 +29,7 @@ class TestHTMLTableRow {
 	TableRowGUI guiRow;
 	
 	@BeforeEach
-	void setUp() throws InvocationTargetException, InterruptedException {
-		java.awt.EventQueue.invokeAndWait(() -> {
-			MyCanvasWindow window = new MyCanvasWindow("Browsr");
-		});
+	void setUp() {
 		htmlText1 = new HTMLText(textValue1);
 		htmlText2 = new HTMLText(textValue2);
 		htmlText3 = new HTMLText(textValue3);

@@ -34,13 +34,6 @@ class TestHTMLTableCell {
 		guiTableCellReference = new TableCellGUI(guiHyperlinkReference, 10, 20, 30, 40);
 	}
 	
-	@BeforeEach
-	void setUp() throws InvocationTargetException, InterruptedException {
-		java.awt.EventQueue.invokeAndWait(() -> {
-			MyCanvasWindow window = new MyCanvasWindow("Browsr");
-		});
-	}
-	
 	@Test
 	@DisplayName("Test the normal behaviour of HTMLTableCell.")
 	void testNormalBehaviour() {

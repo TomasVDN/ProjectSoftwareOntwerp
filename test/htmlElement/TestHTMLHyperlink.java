@@ -28,14 +28,6 @@ class TestHTMLHyperlink {
 	Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	FontMetrics fontMetrics;
 	
-	 
-	@BeforeEach
-	void setUp() throws InvocationTargetException, InterruptedException {
-		java.awt.EventQueue.invokeAndWait(() -> {
-			MyCanvasWindow window = new MyCanvasWindow("Browsr");
-		});
-	}
-	
 	void setUpReference() {
 		htmlText = new HTMLText(textValue);
 		guiHyperlinkReference = new Hyperlink(10, 20, htmlText.transformToGUI(10, 20, 30, 40), url);
@@ -43,7 +35,7 @@ class TestHTMLHyperlink {
 
 	@Test
 	@DisplayName("Test the normal behaviour of HTMLText.")
-	void testNormalBehaviour() throws InvocationTargetException, InterruptedException {
+	void testNormalBehaviour() {
 		htmlText = new HTMLText(textValue);
 		htmlHyperlink = new HTMLHyperlink(url, htmlText);
 		guiHyperlink = htmlHyperlink.transformToGUI(10, 20, 30, 40);

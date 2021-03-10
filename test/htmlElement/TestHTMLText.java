@@ -24,13 +24,6 @@ class TestHTMLText {
 		guiTextReference = new Text(10, 20, textValue); //TODO heb dit aangepast ma ik weet nie of dat da juist is
 	}
 	
-	@BeforeEach
-	void setUp() throws InvocationTargetException, InterruptedException {
-		java.awt.EventQueue.invokeAndWait(() -> {
-			MyCanvasWindow window = new MyCanvasWindow("Browsr");
-		});
-	}
-	
 	@Test
 	@DisplayName("Test the normal behaviour of HTMLText.")
 	void testNormalBehaviour() {

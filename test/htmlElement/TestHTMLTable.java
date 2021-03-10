@@ -39,10 +39,7 @@ class TestHTMLTable {
 	HTMLText text9;
 
 	@BeforeEach
-	void setUp() throws InvocationTargetException, InterruptedException {
-		java.awt.EventQueue.invokeAndWait(() -> {
-			MyCanvasWindow window = new MyCanvasWindow("Browsr");
-		});
+	void setUp() {
 		// set up new table
 		table = new HTMLTable();
 		// set up new rows
