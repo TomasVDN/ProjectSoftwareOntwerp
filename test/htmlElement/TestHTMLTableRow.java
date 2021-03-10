@@ -74,6 +74,6 @@ class TestHTMLTableRow {
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
 			htmlRow.setRow(rowData);
 		});
-		assertTrue(exception.getMessage().contains("An element in the setRow method can't be null."));
+		assertTrue(exception.getMessage().contains("An element in the cells in setRow method can't be null."));
 	}
 }

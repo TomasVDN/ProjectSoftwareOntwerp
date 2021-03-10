@@ -80,14 +80,14 @@ class TestHTMLTable {
 		row1Data.add(cell3);
 		row1.setRow(row1Data);
 		ArrayList<HTMLTableCell> row2Data = new ArrayList<HTMLTableCell>();
-		row1Data.add(cell4);
-		row1Data.add(cell5);
-		row1Data.add(cell6);
+		row2Data.add(cell4);
+		row2Data.add(cell5);
+		row2Data.add(cell6);
 		row2.setRow(row2Data);
 		ArrayList<HTMLTableCell> row3Data = new ArrayList<HTMLTableCell>();
-		row1Data.add(cell7);
-		row1Data.add(cell8);
-		row1Data.add(cell9);
+		row3Data.add(cell7);
+		row3Data.add(cell8);
+		row3Data.add(cell9);
 		row3.setRow(row3Data);
 		ArrayList<HTMLTableRow> rows = new ArrayList<HTMLTableRow>();
 		rows.add(row1);
@@ -108,14 +108,14 @@ class TestHTMLTable {
 		row1Data.add(cell3);
 		row1.setRow(row1Data);
 		ArrayList<HTMLTableCell> row2Data = new ArrayList<HTMLTableCell>();
-		row1Data.add(cell4);
-		row1Data.add(cell5);
-		row1Data.add(cell6);
+		row2Data.add(cell4);
+		row2Data.add(cell5);
+		row2Data.add(cell6);
 		row2.setRow(row2Data);
 		ArrayList<HTMLTableCell> row3Data = new ArrayList<HTMLTableCell>();
-		row1Data.add(cell7);
-		row1Data.add(cell8);
-		row1Data.add(cell9);
+		row3Data.add(cell7);
+		row3Data.add(cell8);
+		row3Data.add(cell9);
 		row3.setRow(row3Data);
 		ArrayList<HTMLTableRow> rows = new ArrayList<HTMLTableRow>();
 		rows.add(row1);
@@ -149,7 +149,7 @@ class TestHTMLTable {
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
 			table.setRows(rows);
 		});
-		assertTrue(exception.getMessage().contains("All rows in the table need to have the same amount of elements."));
+		assertTrue(exception.getMessage().contains("All rows in the table need to have the same amount of elements in the setRows method."));
 	}
 	
 	@Test
@@ -158,7 +158,6 @@ class TestHTMLTable {
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
 			table.setRows(null);
 		});
-		assertTrue(exception.getMessage().contains("Rows can't be null."));
-	
+		assertTrue(exception.getMessage().contains("setRows method can't be given null as a parameter."));
 	}
 }

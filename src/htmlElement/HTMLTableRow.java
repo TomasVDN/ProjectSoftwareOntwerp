@@ -32,6 +32,14 @@ public class HTMLTableRow {
 	 * @param cells the cells to set
 	 */
 	public void setRow(ArrayList<HTMLTableCell> cells) {
+		if (cells == null) {
+			throw new IllegalArgumentException("setRow method can't be given null as a parameter.");
+		} 
+		for (HTMLTableCell cell : cells) {
+			if (cell == null) {
+				throw new IllegalArgumentException("An element in the cells in setRow method can't be null.");
+			}
+		}
 		this.cells = cells;
 	}
 	
