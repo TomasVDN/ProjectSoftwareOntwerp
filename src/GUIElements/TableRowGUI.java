@@ -9,24 +9,24 @@ import events.EventReader;
 public class TableRowGUI extends GUIElement {
 
 	
-	private ArrayList<TableCellGUI> guiElements;
+	private ArrayList<TableCellGUI> tableCellList;
 	
-	
+	/**
+	 * Constructor of the TableRowGUI class
+	 * @param cells - list of TableCellGUI
+	 * @param x - x coordinate of the TableRowGUI
+	 * @param y - y coordinate of the TableRowGUI
+	 * @param w - width of the TableRowGUI
+	 * @param h - height of the TableRowGUI
+	 */
 	public TableRowGUI(ArrayList<TableCellGUI> cells, int x, int y, int w, int h) {
 		super(x, y, w, h);
 		this.setGuiElements(cells);
 	}
-	
-	public ArrayList<TableCellGUI> getGuiElements() {
-		return guiElements;
-	}
 
-	public void setGuiElements(ArrayList<TableCellGUI> cells) {
-		this.guiElements = cells;
-	}
-
-
-
+	/**
+	 * Paint all the TableCellGUI while updating the relative x.
+	 */
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		int relativeX = xContainer;
@@ -36,6 +36,10 @@ public class TableRowGUI extends GUIElement {
 		}
 	}
 	
+	/**
+	 * Returns the number of table cells in this row.
+	 * @return this.tableCellList.size
+	 */
 	public int size() {
 		return this.getGuiElements().size();
 	}
@@ -55,7 +59,8 @@ public class TableRowGUI extends GUIElement {
 	}
 	
 	/**
-	 * search for the biggest height of his elements
+	 * Returns the height of the tallest tableCell.
+	 * @return this.height
 	 */
 	@Override
 	public int getHeight(){
@@ -70,7 +75,8 @@ public class TableRowGUI extends GUIElement {
 	}
 	
 	/**
-	 * sum up all the widths of the row
+	 * Sum up all the widths of the row to calculate the width of the row.
+	 * @return this.width
 	 */
 	@Override
 	public int getWidth(){
@@ -82,21 +88,15 @@ public class TableRowGUI extends GUIElement {
 		return totalWidth;
 	}
 	
-
-	
+	/**
+	 * Returns the GUIElement in the cell with index index.
+	 * @param index - index of the element to querry
+	 * @return this.tableCellList.get(index).getGui
+	 */
 	public GUIElement getGUIAtGivenIndex(int index) {
 		return this.getGuiElements().get(index).getGui();
 	}
-	
 
-	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
-	}
-	
-	@Override
-	public void handleUnselect() {
-	}
-	
 	/**
 	 * Returns the GUI if the given position is between its bounds
 	 */
@@ -110,9 +110,34 @@ public class TableRowGUI extends GUIElement {
 		return null;
 	}
 
+	/**
+	 * Returns the list of TableCells
+	 * @return this.tableCellList
+	 */
+	public ArrayList<TableCellGUI> getGuiElements() {
+		return tableCellList;
+	}
+
+	/**
+	 * Sets this.tableCellList to the given list of TableCellGUI's
+	 * @param cells - the new value of this.tableCellList
+	 */
+	public void setGuiElements(ArrayList<TableCellGUI> cells) {
+		if (cells == null) {
+			return;
+		}
+		this.tableCellList = cells;
+	}
+	
 	@Override
 	public void handleClick() {
 	}
 	
-
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
+	}
+	
+	@Override
+	public void handleUnselect() {
+	}
 }

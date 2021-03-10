@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 public class TextBox extends GUIElement {
 
 	private String leftText = "", rightText = "";
-	private String previousText;
+	private String previousText = "";
 	private String selectedText = "";
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	
@@ -152,7 +152,7 @@ public class TextBox extends GUIElement {
 		//content
 		if (isActive()) {
 			g.setColor(Color.gray);
-		} else {
+		} else { 
 			g.setColor(Color.white);
 		}
 		g.fillRect(super.getX() + xContainer,super.getY() + yContainer, super.getWidth(), super.getHeight());
@@ -267,6 +267,7 @@ public class TextBox extends GUIElement {
 		setActive(false);
 		leftText = previousText;
 		rightText = "";
+		selectedText = "";
 	}
 
 	/**
