@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import GUIElements.SearchBar;
-import canvaswindow.FontMetricGetter;
 import canvaswindow.MyCanvasWindow;
 import container.Container;
 import converter.HTMLToGUI;
@@ -15,8 +14,6 @@ import htmlElement.ContentSpan;
 
 public class WindowManager {
 
-
-	
 	private Container bar;
 	private SearchBar searchbar;
 	private Container page;
@@ -24,12 +21,6 @@ public class WindowManager {
 	private int width;
 	private int height;
 	private final int BARSIZE = 100;
-	private Browsr browsr; // TODO: DEES STOND ER NIET MA DE TESTEN HEBBEN DEES NODIG 
-	public Browsr getBrowsr() {
-		return this.browsr;
-	}
-	
-	
 	private GUIElement activeElement;
 	
 	/**
@@ -37,22 +28,17 @@ public class WindowManager {
 	 * @param width - the width of the linked window
 	 * @param height - the height of the linked window
 	 */
-	public WindowManager (int width,int height, MyCanvasWindow window) {
+	public WindowManager (MyCanvasWindow window) {
 		//Make new Browsr object.
 		Browsr browsr = new Browsr(this);
 		
 		//Set width/height. If w/h < 50, set it to 600.
-		this.setWidth(600);//this.setWidth(width);
-		this.setHeight(600);//this.setHeight(height);
+		this.setWidth(600);
+		this.setHeight(600);
 		
 		//Initialize EventReader
 		EventReader x = EventReader.getInstance();
 		x.setBrowsr(browsr);
-		this.browsr = browsr; // TODO: KIJK NAAR DE BOVENST TODO VOOR UITLEG
-		
-		//Initialize FontMetricGetter
-		FontMetricGetter f = FontMetricGetter.getInstance();
-		f.setWindow(window);
 		
 		//Make the bar and page containers
 		this.setBar(new Container(0,0,this.getWidth(),BARSIZE));

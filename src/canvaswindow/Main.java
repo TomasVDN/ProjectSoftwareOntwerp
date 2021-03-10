@@ -8,7 +8,7 @@ public class Main {
 		         //window.show();
 		         //window.recordSession("recordings/recording");
 		         //MyCanvasWindow.replayRecording("recordings/recording", window);
-		         //window.show();
+		         window.show();
 		      });
 	}
 	

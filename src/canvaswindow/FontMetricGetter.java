@@ -2,6 +2,7 @@ package canvaswindow;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Toolkit;
 
 /**
  * Singleton type class that can be called by all GUIElements to get the fontMetrics.
@@ -15,26 +16,9 @@ public final class FontMetricGetter {
 
 	public static FontMetricGetter getInstance() {
 	        return INSTANCE;
-	    }
-	   
-	private MyCanvasWindow window;
+	}
 	
 	public FontMetrics getFontMetric(Font font){
-		return this.getwindow().getFontMetrics(font);
-	}
-
-	private MyCanvasWindow getwindow() {
-		return window;
-	}
-
-	//should only be called by windowManager once!!!
-	public void setWindow(MyCanvasWindow window) {
-		if (window == null) {
-			throw new IllegalArgumentException();
-		}
-		if (this.window != null) {
-			return;
-		}
-		this.window = window;
+		return Toolkit.getDefaultToolkit().getFontMetrics(font);
 	}
 }
