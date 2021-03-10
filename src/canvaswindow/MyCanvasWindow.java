@@ -18,8 +18,8 @@ public class MyCanvasWindow extends CanvasWindow {
 	 */
 	public MyCanvasWindow(String title) {
 		super(title);
-		//this.show();
-		windowManager = new WindowManager(0,0, this);//new WindowManager(this.getWidth(),this.getHeight(), this);
+		this.show();
+		windowManager = new WindowManager(this.getWidth(),this.getHeight(), this);
 
 	}
 

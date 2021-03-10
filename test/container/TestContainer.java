@@ -77,7 +77,7 @@ class TestContainer {
 		list.add(button1);
 		list.add(button2);
 		container.addMultipleElements(list);
-		assertEquals(null, container.elementAt(111, 101));
+		assertEquals(null, container.elementAt(101, 111));
 	}
 	
 	
@@ -88,6 +88,22 @@ class TestContainer {
 		container.addElement(table);
 		container.addElement(bar);
 		assertEquals(container.getElements().size(), 4);
+	}
+	
+	@Test
+	void addNull() {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+			container.addElement(null);
+		});
+		assertTrue(exception.getMessage().contains("Can't add null to a container"));
+	}
+	
+	@Test
+	void addAllNull() {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+			container.addMultipleElements(null);
+		});
+		assertTrue(exception.getMessage().contains("Can't add null to a container"));
 	}
 	
 	

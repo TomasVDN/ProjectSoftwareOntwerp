@@ -73,6 +73,9 @@ public class Container {
 	 * @param element the element to add
 	 */
 	public void addElement(GUIElement element) {
+		if(element==null) {
+			throw new IllegalArgumentException("Can't add null to a container");
+		}
 		this.elements.add(element);
 	}
 	
@@ -80,7 +83,12 @@ public class Container {
 	 * @param element the element to add
 	 */
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
-		this.elements.addAll(guiList);
+		if(guiList==null) {
+			throw new IllegalArgumentException("Can't add null to a container");
+		}
+		for(int i=0;i<guiList.size();i++) {
+			this.addElement(guiList.get(i));
+		}
 	}
 	
 	/**
