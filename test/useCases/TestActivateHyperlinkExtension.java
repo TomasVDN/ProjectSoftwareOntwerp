@@ -19,7 +19,7 @@ import container.Container;
 import events.EventReader;
 import events.FileOpenEvent;
 
-class TestActivateHyperlink {
+class TestActivateHyperlinkExtension {
 
 	private MyCanvasWindow window;
 	
@@ -31,7 +31,7 @@ class TestActivateHyperlink {
 	}
 	
 	@Test
-	public void test() {
+	void test() {
 		FileOpenEvent event = new FileOpenEvent(new File("src/hyperlinktest.html"));
 		EventReader e = EventReader.getInstance();
 		e.readEvent(event);
@@ -42,16 +42,15 @@ class TestActivateHyperlink {
 		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 56, 136, 1, MouseEvent.BUTTON1, 0);
 		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 56, 136, 1, MouseEvent.BUTTON1, 0);
 
-		//testing GUI elements
 		Container pageContainer = window.getWindowManager().getPage();
 		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
-				
+		
 		Text pageTableRow1Text = (Text) (pageTableRow1.getGuiElements().get(0).getGui());
-			
+		
 		TableGUI pageTableRow2Table = (TableGUI) (pageTableRow2.getGuiElements().get(0).getGui());
-				
+		
 		Hyperlink pageTableRow2TableHyperlink1 = (Hyperlink) (pageTableRow2Table.getGuiRows().get(0).getGuiElements().get(0).getGui());
 		Hyperlink pageTableRow2TableHyperlink2 = (Hyperlink) (pageTableRow2Table.getGuiRows().get(1).getGuiElements().get(0).getGui());
 		Hyperlink pageTableRow2TableHyperlink3= (Hyperlink) (pageTableRow2Table.getGuiRows().get(2).getGuiElements().get(0).getGui());
@@ -68,21 +67,23 @@ class TestActivateHyperlink {
 		assertEquals("table.html", pageTableRow2TableHyperlink2.getUrl());
 		assertEquals("tr.html", pageTableRow2TableHyperlink3.getUrl());
 		assertEquals("td.html", pageTableRow2TableHyperlink4.getUrl());
-			
+		
 		//check hyperlink text
 		assertEquals("a", pageTableRow2TableHyperlink1.getText().getText());
 		assertEquals("table", pageTableRow2TableHyperlink2.getText().getText());
 		assertEquals("tr", pageTableRow2TableHyperlink3.getText().getText());
 		assertEquals("td", pageTableRow2TableHyperlink4.getText().getText());
-			
+		
 		//check table text
 		assertEquals("Hyperlink anchors", pageTableRow2TableHyperlink1Text.getText());
 		assertEquals("Tables", pageTableRow2TableHyperlink2Text.getText());
 		assertEquals("Table rows", pageTableRow2TableHyperlink3Text.getText());
 		assertEquals("Table cells containing table data", pageTableRow2TableHyperlink4Text.getText());
-		
-		//check the current active element is null and check the url
+			
+		//check bar active and url
 		assertEquals(null, window.getWindowManager().getActiveElement());
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
+		
 	}
+
 }
