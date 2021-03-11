@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import GUIElements.*;
 import canvaswindow.MyCanvasWindow;
 
 class TestHTMLTable {
@@ -119,7 +120,24 @@ class TestHTMLTable {
 		rows.add(row2);
 		rows.add(row3);
 		table.setRows(rows);
-		//TODO add test
+		TableGUI tableGui = table.transformToGUI(10, 10,100, 100);
+		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(0) instanceof Text);
+		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(1) instanceof Text);
+		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(2) instanceof Text);
+		assertTrue(tableGui.getGuiRows().get(1).getGUIAtGivenIndex(1) instanceof Text);
+		assertTrue(tableGui.getGuiRows().get(2).getGUIAtGivenIndex(2) instanceof Text);
+		Text textInTable1 = (Text) tableGui.getGuiRows().get(0).getGUIAtGivenIndex(0);
+		Text textInTable2 = (Text) tableGui.getGuiRows().get(0).getGUIAtGivenIndex(1);
+		Text textInTable3 = (Text) tableGui.getGuiRows().get(0).getGUIAtGivenIndex(2);
+		Text textInTable5 = (Text) tableGui.getGuiRows().get(1).getGUIAtGivenIndex(1);
+		Text textInTable9 = (Text) tableGui.getGuiRows().get(2).getGUIAtGivenIndex(2);
+		assertEquals(textInTable1.getText(),"value 1");
+		assertEquals(textInTable2.getText(),"value 2");
+		assertEquals(textInTable3.getText(),"value 3");
+		assertEquals(textInTable5.getText(),"value 5");
+		assertEquals(textInTable9.getText(),"value 9");
+
+		
 	}
 	
 	@Test
