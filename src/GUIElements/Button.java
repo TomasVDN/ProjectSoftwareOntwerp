@@ -47,7 +47,7 @@ public class Button extends GUIElement {
 		//Text
 		Shape oldClip = g.getClip();
 		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
-		this.getText().paint(g, xContainer, yContainer);
+		this.getText().paint(g, xContainer, yContainer,this.getButtonColor());
 		g.setClip(oldClip);
 		
 		g.setColor(Color.black);	
