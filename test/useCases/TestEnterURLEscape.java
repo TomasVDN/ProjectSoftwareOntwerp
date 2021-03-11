@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import canvaswindow.MyCanvasWindow;
@@ -24,6 +25,7 @@ class TestEnterURLEscape {
 	}
 
 	@Test
+	@DisplayName("Use Case 4.2 Extension 5a: Enter URL, press Escape")
 	// Use case 4.2.5a
 	public void enterUrlEscape() {
 		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
