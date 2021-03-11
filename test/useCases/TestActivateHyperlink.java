@@ -3,7 +3,6 @@ package useCases;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +17,6 @@ import canvaswindow.MyCanvasWindow;
 import container.Container;
 import events.Event;
 import events.EventReader;
-import events.FileOpenEvent;
 import events.RunUrlEvent;
 
 class TestActivateHyperlink {

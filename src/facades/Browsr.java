@@ -46,16 +46,6 @@ public class Browsr {
 		this.getWindowManager().updateURL(path);
 		this.draw(htmlList);
 	}
-	
-	/**
-	 * Used to process a File. Calls the openFile method in this.domainFacade, updates the url displayed in this.windowManager and calls the draw Method.
-	 * @param path - the URL to process.
-	 */
-	public void openFile(File file) {
-		ArrayList<ContentSpan> htmlList=domainFacade.openFile(file);
-		this.getWindowManager().updateURL(file.toString());
-		this.draw(htmlList);
-	}
 
 	/**
 	 * Asks this.windowManager to process and display the given list of HTMLElements.

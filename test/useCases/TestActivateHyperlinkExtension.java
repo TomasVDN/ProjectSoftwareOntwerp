@@ -18,7 +18,6 @@ import canvaswindow.MyCanvasWindow;
 import container.Container;
 import events.Event;
 import events.EventReader;
-import events.FileOpenEvent;
 import events.RunUrlEvent;
 
 class TestActivateHyperlinkExtension {

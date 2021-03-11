@@ -9,7 +9,6 @@ import converter.HTMLToGUI;
 import domain.InputReader;
 import events.Event;
 import events.EventReader;
-import events.FileOpenEvent;
 import events.RunUrlEvent;
 import htmlElement.ContentSpan;
 
