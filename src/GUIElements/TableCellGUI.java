@@ -19,6 +19,9 @@ public class TableCellGUI {
      * @param h - height of this TableCell
 	 */
 	public TableCellGUI(GUIElement guiElement, int x, int y, int w, int h) {
+		this.setPosition(x, y);
+		this.setWidth(w);
+		this.setHeight(h);
 		this.setGui(guiElement);
 	}
 
@@ -50,6 +53,9 @@ public class TableCellGUI {
 	 * @param gui - the new value of this.gui
 	 */
 	public void setGui(GUIElement gui) {
+		if(gui==null) {
+			throw new IllegalArgumentException("not a valid gui in table cell");
+		}
 		this.gui = gui;
 	}
 	
@@ -74,7 +80,7 @@ public class TableCellGUI {
 	 */
 	public void setPosition(int x, int y) {
 		if (x < 0 || y < 0) {
-			throw new IllegalArgumentException("The x position and y position of a GUIElement have to be positive.");
+			throw new IllegalArgumentException("invalid position tableCell");
 		}
 		this.setX(x);
 		this.setY(y);
@@ -87,7 +93,7 @@ public class TableCellGUI {
 	 */
 	public void setX(int x) {
 		if (x < 0) {
-			throw new IllegalArgumentException("The x position of a GUIElement has to be positive.");
+			throw new IllegalArgumentException("invalid position tableCell");
 		}
 		this.xPos = x;
 	}
@@ -117,7 +123,7 @@ public class TableCellGUI {
 	 */
 	public void setY(int y) {
 		if (y < 0) {
-			throw new IllegalArgumentException("The y position of a GUIElement has to be positive.");
+			throw new IllegalArgumentException("invalid position tableCell");
 		}
 		this.yPos = y;
 	}
@@ -147,7 +153,7 @@ public class TableCellGUI {
 	 */
 	public void setWidth(int width) {
 		if (width < 0) {
-			throw new IllegalArgumentException("The width of a GUIElement has to be positive.");
+			throw new IllegalArgumentException("invalid size tableCell");
 		}
 		this.width = width;
 	}
@@ -168,7 +174,7 @@ public class TableCellGUI {
 	 */
 	public void setHeight(int height) {
 		if (height < 0) {
-			throw new IllegalArgumentException("The height of a GUIElement has to be positive.");
+			throw new IllegalArgumentException("invalid size tableCell");
 		}
 		this.height = height;
 	}
