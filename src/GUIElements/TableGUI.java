@@ -23,7 +23,10 @@ public class TableGUI extends GUIElement {
 		return guiRows;
 	}
 
-	public void setGuiRows(ArrayList<TableRowGUI> guiElements) {
+	public void setGuiRows(ArrayList<TableRowGUI> guiElements) throws IllegalArgumentException {
+		if(guiElements==null) {
+			throw new IllegalArgumentException("rows of guiTable can't be null");
+		}
 		this.guiRows = guiElements;
 	}
 	
