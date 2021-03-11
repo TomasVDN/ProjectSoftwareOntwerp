@@ -31,23 +31,68 @@ public class TestEnterUrlNoRecording {
 	}
 	
 	@Test
+	// Use Case 4.2
 	public void enterUrlNoRecording() throws InvocationTargetException, InterruptedException {
 		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
 		
+		// make search bar get focus
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 28, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 28, 1, MouseEvent.BUTTON1, 0);
 		
 		assertTrue(mainWindow.getWindowManager().getSearchbar().isActive());
 		
+		// put some text in search bar
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 80, 'p', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 83, 's', 0);
+		
+		// make search bar lose focus
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 300, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 300, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 300, 1, MouseEvent.BUTTON1, 0);
+		
+		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
+		assertEquals("https", mainWindow.getWindowManager().getSearchbar().getText());
+		
+		// Step 4.2.1
+		// make search bar get focus
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		
+		// Step 4.2.2
+		assertTrue(mainWindow.getWindowManager().getSearchbar().isActive());
+		assertEquals("https", mainWindow.getWindowManager().getSearchbar().getSelectedText());
+		
+		// Step 4.2.3
+		// put some text in search bar
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 80, 'p', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 513, '/', 0);
+		
+		// press left key
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 37, '\0', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 37, '\0', 0);
+		
+		// check if cursor moves correctly
+		assertEquals("http", mainWindow.getWindowManager().getSearchbar().getLeftText());
+		assertEquals("/", mainWindow.getWindowManager().getSearchbar().getRightText());
+		
+		// put some text in search bar
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 83, 's', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 513, ':', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 513, '/', 0);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 513, '/', 0);
+		
+		// press right key
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 39, '\0', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 39, '\0', 0);
+		
+		// put some text in search bar
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 80, 'p', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 69, 'e', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 79, 'o', 0);
@@ -70,8 +115,42 @@ public class TestEnterUrlNoRecording {
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 66, 'b', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 69, 'e', 0);
 		
+		// Step 4.2.4
+		// check if text gets updated
 		assertEquals("https://people.cs.kuleuven.be", mainWindow.getWindowManager().getSearchbar().getText());
 		
+		// make search bar lose focus
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 300, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 300, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 300, 1, MouseEvent.BUTTON1, 0);
+		
+		// type "hello"
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 69, 'e', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 76, 'l', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 76, 'l', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 79, 'o', 0);
+		
+		// check if text in search bar is unaffected
+		assertEquals("https://people.cs.kuleuven.be", mainWindow.getWindowManager().getSearchbar().getText());
+		
+		// make search bar get focus
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		
+		// check if previous text is selected
+		assertEquals("https://people.cs.kuleuven.be", mainWindow.getWindowManager().getSearchbar().getSelectedText());
+		
+		// press again to unselect all text in search bar to keep editing the text
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		
+		// check if previous text is unselected now 
+		assertEquals("", mainWindow.getWindowManager().getSearchbar().getSelectedText());
+		
+		// keep editing text
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 513, '/', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 131, "~".charAt(0), 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 66, 'b', 0);
@@ -104,15 +183,12 @@ public class TestEnterUrlNoRecording {
 
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainWindow.getWindowManager().getSearchbar().getText());
 		
-		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 10, '\n', 0);
-		});
-		//Text text1 = new Text(0, 0, "hallo");
-		//Button button1 = new Button(0, 0, 10, 10, text1, true);
-		//mainWindow.getWindowManager().getPage().addElement(button1);
-		//random error geen idee hoe het komt
-		System.out.println(mainWindow.getWindowManager().getPage().getElements());
+		// Step 4.2.5
+		// press enter
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 10, '\n', 0);
 		
+		// Step 4.2.6
+		// check if everything gets loaded correctly
 		SearchBar mainBar = mainWindow.getWindowManager().getSearchbar();
 		
 		int referenceBarContainerHeight = mainWindow.getWindowManager().getBar().getHeight();
@@ -173,7 +249,6 @@ public class TestEnterUrlNoRecording {
 		//check the current active element is null and check the url
 		assertEquals(null, mainWindow.getWindowManager().getActiveElement());
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
-		
 	}
 
 }
