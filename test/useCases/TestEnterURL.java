@@ -20,7 +20,6 @@ import container.Container;
 
 class TestEnterURL {
 
-
 	@Test
 	@DisplayName("Use Case: Enter URL")
 	void test() throws InvocationTargetException, InterruptedException {	

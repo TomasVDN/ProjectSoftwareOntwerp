@@ -36,12 +36,6 @@ public class HTMLTable extends ContentSpan {
 		if (rows == null) {
 			throw new IllegalArgumentException("setRows method can't be given null as a parameter.");
 		} 
-		int amountOfElementsReference = rows.get(0).getcells().size();
-		for (HTMLTableRow row : rows) {
-			if (amountOfElementsReference != row.getcells().size()) {
-				throw new IllegalArgumentException("All rows in the table need to have the same amount of elements in the setRows method.");
-			}
-		}
 		this.rows = rows;
 	}
 	

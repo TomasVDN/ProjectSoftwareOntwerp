@@ -23,7 +23,7 @@ public class Test {
 	         ArrayList<ContentSpan> content = input.readFile("");	         
 	         //ArrayList<GUIElement> allGUI = toGui.transformToGUI(10, 110, window.getWindowManager().getWidth(), window.getWindowManager().getHeight(),window.getWindowManager().getEventReader(), content);
 	         //window.getWindowManager().addAllGUIToPage(allGUI);
-	         //window.show();
+	         window.show();
 		});
 	}
 
