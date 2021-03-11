@@ -26,11 +26,6 @@ public class TableGUI extends GUIElement {
 		}
 		this.guiRows = guiElements;
 	}
-	
-
-	
-	
-	
 
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
@@ -162,13 +157,7 @@ public class TableGUI extends GUIElement {
 	}
 
 
-	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
-	}
 	
-	@Override
-	public void handleUnselect() {
-	}
 	
 	/**
 	 * Returns the GUI if the given position is between its bounds
@@ -184,7 +173,14 @@ public class TableGUI extends GUIElement {
 		return null;
 	}
 
-
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
+	}
+	
+	@Override
+	public void handleUnselect() {
+	}
+	
 	@Override
 	public void handleClick() {		
 	}

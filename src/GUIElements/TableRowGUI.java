@@ -3,8 +3,9 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class TableRowGUI extends GUIElement {
+public class TableRowGUI {
 
+	private int xPos, yPos;
 	
 	private ArrayList<TableCellGUI> tableCellList;
 	
@@ -16,15 +17,15 @@ public class TableRowGUI extends GUIElement {
 	 * @param w - width of the TableRowGUI
 	 * @param h - height of the TableRowGUI
 	 */
-	public TableRowGUI(ArrayList<TableCellGUI> cells, int x, int y, int w, int h) {
-		super(x, y, w, h);
+	public TableRowGUI(ArrayList<TableCellGUI> cells, int x, int y) {
+		this.setX(x);
+		this.setY(y);
 		this.setGuiElements(cells);
 	}
 
 	/**
 	 * Paint all the TableCellGUI while updating the relative x.
 	 */
-	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		int relativeX = xContainer;
 		for(int i=0; i< this.getGuiElements().size();i++) {
@@ -47,7 +48,6 @@ public class TableRowGUI extends GUIElement {
 	 * 
 	 * @param height - new value of this.height
 	 */
-	@Override
 	public void setHeight(int height) {
 		if(this.getGuiElements()!=null) {
 			for(int i= 0; i<this.getGuiElements().size();i++) {
@@ -60,7 +60,6 @@ public class TableRowGUI extends GUIElement {
 	 * Returns the height of the tallest tableCell.
 	 * @return this.height
 	 */
-	@Override
 	public int getHeight(){
 		int maxHeight=0;
 		for(int i=0; i<this.getGuiElements().size();i++) {
@@ -76,7 +75,6 @@ public class TableRowGUI extends GUIElement {
 	 * Sum up all the widths of the row to calculate the width of the row.
 	 * @return this.width
 	 */
-	@Override
 	public int getWidth(){
 		int totalWidth=0;
 		for(int i=0; i<this.getGuiElements().size();i++) {
@@ -101,7 +99,6 @@ public class TableRowGUI extends GUIElement {
 	/**
 	 * Returns the GUI if the given position is between its bounds
 	 */
-	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
 		for(int i=0; i<this.getGuiElements().size();i++) {
 			GUIElement e =this.getGuiElements().get(i).getGUIAtPosition(x-this.getX(), y-this.getY());
@@ -112,6 +109,19 @@ public class TableRowGUI extends GUIElement {
 		return null;
 	}
 
+	/**
+	 * Sets the x and y position
+	 * @param x - the new value of this.x
+	 * @param y - the new value of this.x
+	 */
+	public void setPosition(int x, int y) {
+		if (x < 0 || y < 0) {
+			throw new IllegalArgumentException("The x position and y position of a GUIElement have to be positive.");
+		}
+		this.setX(x);
+		this.setY(y);
+	}
+	
 	/**
 	 * Returns the list of TableCells
 	 * @return this.tableCellList
@@ -131,15 +141,46 @@ public class TableRowGUI extends GUIElement {
 		this.tableCellList = cells;
 	}
 	
-	@Override
-	public void handleClick() {
+	/**
+	 * Sets the value xPos of this class.
+	 * 
+	 * @param x - new value of this.xPos
+	 */
+	public void setX(int x) {
+		if (x < 0) {
+			throw new IllegalArgumentException("The x position of a GUIElement has to be positive.");
+		}
+		this.xPos = x;
 	}
 	
-	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
+	/**
+	 * Returns the value xPos of this class
+	 * 
+	 * @return this.xPos
+	 */
+	public int getX() {
+		return this.xPos;
 	}
 	
-	@Override
-	public void handleUnselect() {
+	/**
+	 * Sets the value yPos of this class
+	 * 
+	 * @param y - new value of this.yPos
+	 */
+	public void setY(int y) {
+		if (y < 0) {
+			throw new IllegalArgumentException("The y position of a GUIElement has to be positive.");
+		}
+		this.yPos = y;
 	}
+
+	/**
+	 * Returns the value yPos of this class
+	 * 
+	 * @return this.yPos
+	 */
+	public int getY() {
+		return this.yPos;
+	}
+	
 }

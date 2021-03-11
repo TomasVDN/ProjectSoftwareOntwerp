@@ -7,11 +7,6 @@ import GUIElements.TableRowGUI;
 
 public class HTMLTableRow {
 
-	/**
-	 * The distance between the guiElements in the row
-	 */
-	private static int XSPACE= 3;
-	
 	public HTMLTableRow() {
 		
 	}
@@ -68,9 +63,8 @@ public class HTMLTableRow {
 		ArrayList<TableCellGUI> cells = new ArrayList<TableCellGUI>();
 		for(int i=0; i<this.getRow().size();i++) {
 			TableCellGUI gui = this.getRow().get(i).transformToGUI(nextX, y, width, heigth);
-			//nextX+= gui.getWidth() ;//+ XSPACE;
 			cells.add(gui);
 		}
-		return new TableRowGUI(cells, x, y, width, heigth);
+		return new TableRowGUI(cells, x, y);
 	}
 }

@@ -33,7 +33,7 @@ class TestTableGUI {
 		ArrayList<TableCellGUI> tableRow = new ArrayList<>();
 		tableRow.add(cell1);
 		tableRow.add(cell2);
-		TableRowGUI row = new TableRowGUI(tableRow, 0, 0, 0, 0);
+		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
 	}
