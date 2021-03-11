@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Shape;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import events.EventReader;
 
 public class Button extends GUIElement {
 

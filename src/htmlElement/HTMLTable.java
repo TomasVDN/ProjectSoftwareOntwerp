@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import GUIElements.GUIElement;
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
-import events.EventReader;
 
 
 public class HTMLTable extends ContentSpan {

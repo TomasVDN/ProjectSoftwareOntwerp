@@ -3,7 +3,6 @@ package converter;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
-import events.EventReader;
 import htmlElement.ContentSpan;
 
 /**

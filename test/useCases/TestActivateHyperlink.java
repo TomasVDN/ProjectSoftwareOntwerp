@@ -3,10 +3,10 @@ package useCases;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.Hyperlink;
@@ -16,8 +16,9 @@ import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import container.Container;
+import events.Event;
 import events.EventReader;
-import events.FileOpenEvent;
+import events.RunUrlEvent;
 
 class TestActivateHyperlink {
 
@@ -31,16 +32,20 @@ class TestActivateHyperlink {
 	}
 	
 	@Test
+	@DisplayName("Use Case 4.1: Activate Hyperlink")
 	public void test() {
-		FileOpenEvent event = new FileOpenEvent(new File("src/hyperlinktest.html"));
+		//load the page for the test
+		Event event = new RunUrlEvent("https://konikoko.github.io/");
 		EventReader e = EventReader.getInstance();
 		e.readEvent(event);
-		
+
+		//get the url bar
 		SearchBar mainBar = window.getWindowManager().getSearchbar();
 
-		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 56, 136, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 56, 136, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 56, 136, 1, MouseEvent.BUTTON1, 0);
+		//click on the hyperlink (manually)
+		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 76, 95, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 76, 95, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 76, 95, 1, MouseEvent.BUTTON1, 0);
 
 		//testing GUI elements
 		Container pageContainer = window.getWindowManager().getPage();
@@ -83,6 +88,6 @@ class TestActivateHyperlink {
 		
 		//check the current active element is null and check the url
 		assertEquals(null, window.getWindowManager().getActiveElement());
-		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
+		assertEquals("https://konikoko.github.io/goodwork.html", mainBar.getText());
 	}
 }

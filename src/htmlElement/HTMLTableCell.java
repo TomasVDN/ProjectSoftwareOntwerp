@@ -1,10 +1,6 @@
 package htmlElement;
 
-import java.util.ArrayList;
-
-import GUIElements.GUIElement;
 import GUIElements.TableCellGUI;
-import events.EventReader;
 
 public class HTMLTableCell {
 
@@ -17,6 +13,7 @@ public class HTMLTableCell {
 		this.content = content;
 	}
 	
+	@Override
 	public String toString() {
 		return "CELL: " + content.toString();
 	}

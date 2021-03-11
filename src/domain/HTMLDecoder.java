@@ -3,9 +3,6 @@ package domain;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-import GUIElements.GUIElement;
-import GUIElements.Hyperlink;
-import GUIElements.Text;
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
 import htmlElement.ContentSpan;

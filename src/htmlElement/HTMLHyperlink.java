@@ -1,10 +1,6 @@
 package htmlElement;
 
-import java.awt.Graphics;
-
-import GUIElements.GUIElement;
 import GUIElements.Hyperlink;
-import events.EventReader;
 
 
 public class HTMLHyperlink extends ContentSpan{

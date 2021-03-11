@@ -2,9 +2,6 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import events.EventReader;
 
 public class TableGUI extends GUIElement {
 
@@ -176,6 +173,7 @@ public class TableGUI extends GUIElement {
 	/**
 	 * Returns the GUI if the given position is between its bounds
 	 */
+	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
 		for(int i=0; i<this.getGuiRows().size();i++) {
 			GUIElement e =this.getGuiRows().get(i).getGUIAtPosition(x-this.getX(), y - this.getY());
