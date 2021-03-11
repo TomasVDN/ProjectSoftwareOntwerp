@@ -122,6 +122,7 @@ class TestHTMLTable {
 		//TODO add test
 	}
 	
+	
 	@Test
 	@DisplayName("Test the behaviour if null is given in the method setRows.")
 	void testSetNullBehaviour() {
