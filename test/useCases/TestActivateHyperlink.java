@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.Hyperlink;
@@ -31,20 +32,20 @@ class TestActivateHyperlink {
 	}
 	
 	@Test
+	@DisplayName("Use Case 4.1: Activate Hyperlink")
 	public void test() {
-//		FileOpenEvent event = new FileOpenEvent(new File("src/hyperlinktest.html"));
-//		EventReader e = EventReader.getInstance();
-//		e.readEvent(event);
-
+		//load the page for the test
 		Event event = new RunUrlEvent("https://konikoko.github.io/");
 		EventReader e = EventReader.getInstance();
 		e.readEvent(event);
 
+		//get the url bar
 		SearchBar mainBar = window.getWindowManager().getSearchbar();
 
-		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 51, 138, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 51, 138, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 51, 138, 1, MouseEvent.BUTTON1, 0);
+		//click on the hyperlink (manually)
+		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 76, 95, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 76, 95, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 76, 95, 1, MouseEvent.BUTTON1, 0);
 
 		//testing GUI elements
 		Container pageContainer = window.getWindowManager().getPage();

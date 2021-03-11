@@ -21,9 +21,10 @@ import container.Container;
 class TestEnterURL {
 
 	@Test
-	@DisplayName("Use Case: Enter URL")
+	@DisplayName("Use Case: Enter URL -with recording-")
 	void test() throws InvocationTargetException, InterruptedException {	
 			java.awt.EventQueue.invokeAndWait(() -> {
+				//create window
 				MyCanvasWindow mainWindow = new MyCanvasWindow("Browsr");
 				mainWindow.show();
 				
@@ -34,6 +35,7 @@ class TestEnterURL {
 				int referenceBarContainerX = mainWindow.getWindowManager().getBar().getX();
 				int referenceBarContainerY = mainWindow.getWindowManager().getBar().getY();
 				
+				//replay the recording
 				MyCanvasWindow.replayRecording("recordings/recordEnterUrlSuccess/recording", mainWindow);
 				
 				int mainBarContainerHeight = mainWindow.getWindowManager().getBar().getHeight();

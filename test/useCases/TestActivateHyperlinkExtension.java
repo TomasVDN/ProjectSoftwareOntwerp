@@ -7,6 +7,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.Hyperlink;
@@ -32,28 +33,35 @@ class TestActivateHyperlinkExtension {
 	}
 	
 	@Test
+	@DisplayName("Use Case 4.1 Extension 2a: Activate Hyperlink")
 	void test() {
+		//load the page for the test
 		Event event = new RunUrlEvent("https://konikoko.github.io/");
 		EventReader e = EventReader.getInstance();
 		e.readEvent(event);
 		
-		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 58, 160, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 58, 160, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 58, 160, 1, MouseEvent.BUTTON1, 0);
+		//click on the broken the broken hyperlink
+		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 70, 120, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 70, 120, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 70, 120, 1, MouseEvent.BUTTON1, 0);
 
+		//check the error screen
 		Container pageContainer = window.getWindowManager().getPage();
 		Text pageErrorText = (Text) (pageContainer.getElements().get(0));
 		
 		assertEquals("Error 404", pageErrorText.getText());
 		
+		//load the page for the test
 		Event event2 = new RunUrlEvent("https://konikoko.github.io/");
 		EventReader e2 = EventReader.getInstance();
 		e2.readEvent(event2);
 		
-		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 41, 182, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 41, 182, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 41, 182, 1, MouseEvent.BUTTON1, 0);
+		//click on the working hyperlink but with the broken html file
+		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 37, 145, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 37, 145, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 37, 145, 1, MouseEvent.BUTTON1, 0);
 
+		//check the error screen
 		Container pageContainer1 = window.getWindowManager().getPage();
 		Text pageErrorText1 = (Text) (pageContainer1.getElements().get(0));
 		
