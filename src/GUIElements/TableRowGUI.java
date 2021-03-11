@@ -94,6 +94,9 @@ public class TableRowGUI extends GUIElement {
 	 * @return this.tableCellList.get(index).getGui
 	 */
 	public GUIElement getGUIAtGivenIndex(int index) {
+		if(index>=this.getGuiElements().size()) { // given row has not the given index
+			return null;
+		}
 		return this.getGuiElements().get(index).getGui();
 	}
 

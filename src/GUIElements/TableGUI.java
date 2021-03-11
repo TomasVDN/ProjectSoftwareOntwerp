@@ -73,13 +73,15 @@ public class TableGUI extends GUIElement {
 	 * @return
 	 */
 	public ArrayList<GUIElement> getColumn(int index){
-		if (index > this.getGuiRows().size()) {
+		/*if (index > this.getGuiRows().size()) {
 			throw new IndexOutOfBoundsException("ColumnIndex not valid");
-		}
+		}*/
 		ArrayList<GUIElement> column= new ArrayList<GUIElement>();
 		for(int i = 0 ; i<this.getGuiRows().size();i++) {
 			GUIElement gui = this.getGuiRows().get(i).getGUIAtGivenIndex(index);
-			column.add(gui);
+			if(gui!=null) {
+				column.add(gui);
+			}
 		}
 		return column;
 	}
@@ -118,13 +120,22 @@ public class TableGUI extends GUIElement {
 	 */
 	public ArrayList<ArrayList<GUIElement>> getAllColumns(){
 		ArrayList<ArrayList<GUIElement>> allColumns = new ArrayList<ArrayList<GUIElement>>();
-		if(this.getGuiRows().size()!=0) {
-			int size= this.getGuiRows().get(0).size();
-			for(int i=0; i<size;i++) {
-				allColumns.add(this.getColumn(i));
-			}
+		int size= this.getMaxNumberOfColumns();
+		for(int i=0; i<size;i++) {
+			allColumns.add(this.getColumn(i));
 		}
 		return allColumns;
+	}
+	
+	public int getMaxNumberOfColumns() {
+		int max=0;
+		for(int i=0;i<this.getGuiRows().size();i++) {
+			int size= this.getGuiRows().get(i).size();
+			if(size>max) {
+				max=size;
+			}
+		}
+		return max;
 	}
 	
 	/**
@@ -142,7 +153,7 @@ public class TableGUI extends GUIElement {
 			this.getGuiRows().get(i).setPosition(0, yPosition);// set the row to the new position
 			this.getGuiRows().get(i).setHeight(rowHeight.get(i));
 			yPosition+=rowHeight.get(i); // add the height 
-			for(int j=0; j<colomnWidth.size();j++) { // column
+			for(int j=0; j<this.getGuiRows().get(i).size();j++) { // column
 				this.getGuiRows().get(i).getGuiElements().get(j).setPosition(xPosition,0);
 				this.getGuiRows().get(i).getGuiElements().get(j).setWidth(colomnWidth.get(j));
 				xPosition+=colomnWidth.get(j);// add the column width to the position

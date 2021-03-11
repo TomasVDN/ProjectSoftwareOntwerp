@@ -24,6 +24,7 @@ public class InputReader {
 	public ArrayList<ContentSpan> readFile(String path) {
 		//this prevents typing the url each time (used for testing) 
 		//path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
+		//path = "https://home.vanoverloop.xyz/browsrtest/browsrtest.html";
 
 		try {
 			//open url, and copy content to Buffered reader

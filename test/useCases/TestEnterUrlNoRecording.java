@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import GUIElements.Button;
 import GUIElements.Hyperlink;
 import GUIElements.SearchBar;
 import GUIElements.TableGUI;
@@ -30,7 +31,7 @@ public class TestEnterUrlNoRecording {
 	}
 	
 	@Test
-	public void enterUrlNoRecording() {
+	public void enterUrlNoRecording() throws InvocationTargetException, InterruptedException {
 		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
 		
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);
@@ -103,7 +104,14 @@ public class TestEnterUrlNoRecording {
 
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainWindow.getWindowManager().getSearchbar().getText());
 		
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 10, '\n', 0);
+		java.awt.EventQueue.invokeAndWait(() -> {
+			mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 10, '\n', 0);
+		});
+		//Text text1 = new Text(0, 0, "hallo");
+		//Button button1 = new Button(0, 0, 10, 10, text1, true);
+		//mainWindow.getWindowManager().getPage().addElement(button1);
+		//random error geen idee hoe het komt
+		System.out.println(mainWindow.getWindowManager().getPage().getElements());
 		
 		SearchBar mainBar = mainWindow.getWindowManager().getSearchbar();
 		
