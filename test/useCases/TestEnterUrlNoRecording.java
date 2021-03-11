@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.Button;
@@ -31,6 +32,7 @@ public class TestEnterUrlNoRecording {
 	}
 	
 	@Test
+	@DisplayName("Use Case 4.2: Main Success Scenario")
 	// Use Case 4.2
 	public void enterUrlNoRecording() throws InvocationTargetException, InterruptedException {
 		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
