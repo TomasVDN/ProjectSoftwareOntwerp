@@ -38,7 +38,6 @@ public class InputReader {
 	        while ((line = br.readLine()) != null) {
 	        	sb += line + "\n";
 	        }
-	        System.out.println(sb);
 	        //Check if valid browsr html file
 	        try {
 	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
