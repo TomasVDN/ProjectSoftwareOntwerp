@@ -22,18 +22,20 @@ class TestEnterURLEscape {
 			mainWindow = new MyCanvasWindow("Browsr");
 		});
 	}
-	
+
 	@Test
 	// Use case 4.2.5a
 	public void enterUrlEscape() {
 		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
 		
+		// make search bar get focus
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 28, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 28, 1, MouseEvent.BUTTON1, 0);
 		
 		assertTrue(mainWindow.getWindowManager().getSearchbar().isActive());
 		
+		// put some text in search bar
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
@@ -122,8 +124,8 @@ class TestEnterURLEscape {
 		assertEquals("hello", mainWindow.getWindowManager().getSearchbar().getText());
 		
 		// press escape
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 27, '?', 0);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 27, '?', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 27, '\0', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 27, '\0', 0);
 		
 		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
 		
@@ -145,12 +147,12 @@ class TestEnterURLEscape {
 		assertTrue(mainWindow.getWindowManager().getSearchbar().isActive());
 		
 		// press left key
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 37, '?', 0);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 37, '?', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 37, '\0', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 37, '\0', 0);
 		
 		// press left key
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 37, '?', 0);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 37, '?', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 37, '\0', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 37, '\0', 0);
 		
 		// type "hello" in search bar when previous string is not selected
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 0);
@@ -162,8 +164,8 @@ class TestEnterURLEscape {
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.hthelloml", mainWindow.getWindowManager().getSearchbar().getText());
 		
 		// press escape
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 27, '?', 0);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 27, '?', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 27, '\0', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 27, '\0', 0);
 		
 		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
 		
@@ -194,8 +196,8 @@ class TestEnterURLEscape {
 		assertEquals("hello", mainWindow.getWindowManager().getSearchbar().getText());
 		
 		// press escape
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 27, '?', 0);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 27, '?', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 27, '\0', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 27, '\0', 0);
 		
 		assertTrue(!mainWindow.getWindowManager().getSearchbar().isActive());
 		
