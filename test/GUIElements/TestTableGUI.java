@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 class TestTableGUI {
-
+	// test
 	Text textGUI = new Text(0, 0, "");
 	Text mediumText = new Text(0,0,"bla");
 	Text mediumText2 = new Text(0,0,"blabla");
