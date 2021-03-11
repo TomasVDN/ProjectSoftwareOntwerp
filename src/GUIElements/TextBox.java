@@ -265,7 +265,7 @@ public class TextBox extends GUIElement {
 	 * Does the needed actions for the escape key.
 	 */
 	private void handleEscape() {
-		setActive(false);
+		setActiveNoUnselect(false);
 		leftText = previousText;
 		rightText = "";
 		selectedText = "";

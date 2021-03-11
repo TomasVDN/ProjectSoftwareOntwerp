@@ -21,7 +21,7 @@ public class SearchBar extends TextBox {
 	 * Overrides the handle enter method of the TextBox superclass
 	 */
 	@Override
-	void handleEnter() {
+	public void handleEnter() {
 		runUrlEvent();
 	}
 	

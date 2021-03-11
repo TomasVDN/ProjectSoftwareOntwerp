@@ -9,7 +9,7 @@ public abstract class GUIElement {
 	private int yPos;
 	private int width;
 	private int height;
-	private boolean isActive = false;
+	protected boolean isActive = false;
 
 	/**
 	 * Constructor of GUIElement.
@@ -159,6 +159,10 @@ public abstract class GUIElement {
 		if (!newIsActive) {
 			handleUnselect();
 		}
+	}
+	
+	public void setActiveNoUnselect(boolean newIsActive) {
+		this.isActive = newIsActive;
 	}
 
 	public abstract void handleKeyEvent(int keyCode, char keyChar, int modifiersEx);
