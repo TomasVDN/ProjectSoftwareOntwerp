@@ -1,6 +1,5 @@
 package facades;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import htmlElement.ContentSpan;

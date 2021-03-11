@@ -2,10 +2,8 @@ package htmlElement;
 
 import java.util.ArrayList;
 
-import GUIElements.GUIElement;
 import GUIElements.TableCellGUI;
 import GUIElements.TableRowGUI;
-import events.EventReader;
 
 public class HTMLTableRow {
 
@@ -54,6 +52,7 @@ public class HTMLTableRow {
 		cells.add(cellToAdd);
 	}
 
+	@Override
 	public String toString() {
 		String row = "ROW: (";
 		

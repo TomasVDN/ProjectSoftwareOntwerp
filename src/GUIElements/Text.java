@@ -5,10 +5,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
-import java.awt.Toolkit;
-
 import canvaswindow.FontMetricGetter;
-import events.EventReader;
 
 public class Text extends GUIElement {
 
@@ -72,6 +69,7 @@ public class Text extends GUIElement {
 	/**
 	 * Returns the width of the content.
 	 */
+	@Override
 	public int getWidth() {
 		return this.fontMetrics.stringWidth(this.getText());
 	}
@@ -79,6 +77,7 @@ public class Text extends GUIElement {
 	/**
 	 * Returns the height of the content.
 	 */
+	@Override
 	public int getHeight() {
 		return this.fontMetrics.getHeight();
 	}

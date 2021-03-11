@@ -3,10 +3,6 @@ package GUIElements;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import events.EventReader;
 
 public abstract class GUIElement {
 	private int xPos;
