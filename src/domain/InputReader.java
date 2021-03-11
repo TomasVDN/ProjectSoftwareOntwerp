@@ -24,7 +24,7 @@ public class InputReader {
 	public ArrayList<ContentSpan> readFile(String path) {
 		//this prevents typing the url each time (used for testing) 
 		//path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";t
-		//path = "https://home.vanoverloop.xyz/browsrtest/browsrtest.html";
+		//path = "https://konikoko.github.io/";
 
 		try {
 			//open url, and copy content to Buffered reader
@@ -38,7 +38,7 @@ public class InputReader {
 	        while ((line = br.readLine()) != null) {
 	        	sb += line + "\n";
 	        }
-	        
+	        System.out.println(sb);
 	        //Check if valid browsr html file
 	        try {
 	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
