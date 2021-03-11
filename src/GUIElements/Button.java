@@ -20,9 +20,11 @@ public class Button extends GUIElement {
      * @param h - height of this Button
      * @param text - content of this Button
      * @param box - boolean: if true, a surrounding box will be drawn
+     * @param color - Color: color of this Button
      */
-	public Button(int x, int y, int w, int h, Text text, Boolean box) {
+	public Button(int x, int y, int w, int h, Text text, Boolean box, Color color) {
 		super(x, y, w, h);
+		this.setButtonColor(color);
 		this.setText(text);
 		this.setDrawBox(box);
 	}

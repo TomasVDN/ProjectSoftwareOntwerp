@@ -23,7 +23,7 @@ public class TestTableRow {
 		ArrayList<TableCellGUI> tableRow = new ArrayList<>();
 		tableRow.add(cell1);
 		tableRow.add(cell2);
-		TableRowGUI row = new TableRowGUI(tableRow, 0, 0, 0, 0);
+		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
 		tableRowList.add(row);
 		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0); // checks if width of array is correct after update
@@ -36,7 +36,7 @@ public class TestTableRow {
 		ArrayList<TableCellGUI> tableRow = new ArrayList<>();
 		tableRow.add(cell1);
 		tableRow.add(cell2);
-		TableRowGUI row = new TableRowGUI(tableRow, 0, 0, 0, 0);
+		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
 		tableRowList.add(row);
 		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0); // checks if height of array is correct after update
@@ -48,7 +48,7 @@ public class TestTableRow {
 		ArrayList<TableCellGUI> tableRow = new ArrayList<>();
 		tableRow.add(cell1);
 		tableRow.add(cell2);
-		TableRowGUI row = new TableRowGUI(tableRow, 0, 0, 0, 0);
+		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
 		tableRowList.add(row);
 		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
@@ -61,7 +61,7 @@ public class TestTableRow {
 		ArrayList<TableCellGUI> tableRow = new ArrayList<>();
 		tableRow.add(cell2);
 		tableRow.add(cell1);
-		TableRowGUI row = new TableRowGUI(tableRow, 0, 0, 0, 0);
+		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
 		tableRowList.add(row);
 		TableGUI guiTable = new TableGUI(tableRowList, 10, 0, 0, 0);

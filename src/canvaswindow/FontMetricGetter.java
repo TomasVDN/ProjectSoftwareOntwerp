@@ -9,15 +9,23 @@ import java.awt.Toolkit;
  */
 public final class FontMetricGetter {
 	
-	
 	private static final FontMetricGetter INSTANCE = new FontMetricGetter();
 
 	private FontMetricGetter() {}
 
+	/**
+	 * Returns the instance of this singleton.
+	 * @return this.instance
+	 */
 	public static FontMetricGetter getInstance() {
 	        return INSTANCE;
 	}
 	
+	/**
+	 * Returns the metric corresponding to the given font.
+	 * @param font
+	 * @return metric corresponding to the given font
+	 */
 	public FontMetrics getFontMetric(Font font){
 		return Toolkit.getDefaultToolkit().getFontMetrics(font);
 	}

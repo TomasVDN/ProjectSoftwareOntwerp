@@ -25,7 +25,7 @@ public class Hyperlink extends Button {
 	 * @param url - URL to which the hyperlink redirects
 	 */
 	public Hyperlink(int x, int y, Text text, String url) {
-		super(x, y, text.getWidth(), text.getHeight(), text, false);
+		super(x, y, text.getWidth(), text.getHeight(), text, true, Color.BLUE);
 		this.setUrl(url);
 		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		Font boldUnderline = text.getFont().deriveFont(fontAttributes);
@@ -46,10 +46,10 @@ public class Hyperlink extends Button {
 	/**
 	 * Paint the this.text in blue.
 	 */
-	@Override
-	public void paint(Graphics g, int xContainer, int yContainer) {
-		this.getText().paint(g, xContainer, yContainer,Color.BLUE);
-	}
+//	@Override
+//	public void paint(Graphics g, int xContainer, int yContainer) {
+//		this.getText().paint(g, xContainer, yContainer,Color.BLUE);
+//	}
 	
 	/**
 	 * @return the width (dependent on width of this.Text)
