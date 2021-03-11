@@ -15,7 +15,7 @@ public class HTMLToGUI {
 	/**
 	 * The distance between the guiElements from the start x position
 	 */
-	private static int XSPACE= 3;
+	private static int XSPACE= 0;
 	
 	public static int getXSPACE() {
 		return XSPACE;

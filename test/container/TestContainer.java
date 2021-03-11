@@ -2,6 +2,7 @@ package container;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -32,9 +33,9 @@ class TestContainer {
 			MyCanvasWindow window = new MyCanvasWindow("Browsr");
 		});
 		text1 = new Text(0, 0, "hallo");
-		button1 = new Button(0, 0, 10, 10, text1, true);
+		button1 = new Button(0, 0, 10, 10, text1, true, Color.BLACK);
 		text2 = new Text(0, 0, "wereld");
-		button2 = new Button(10, 0, 10, 10, text2, true);
+		button2 = new Button(10, 0, 10, 10, text2, true, Color.BLACK);
 
 	}
 	
