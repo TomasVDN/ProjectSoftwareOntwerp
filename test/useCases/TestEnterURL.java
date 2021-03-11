@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +20,14 @@ import container.Container;
 
 class TestEnterURL {
 
+
 	@Test
 	@DisplayName("Use Case: Enter URL")
 	void test() throws InvocationTargetException, InterruptedException {	
 			java.awt.EventQueue.invokeAndWait(() -> {
 				MyCanvasWindow mainWindow = new MyCanvasWindow("Browsr");
+				mainWindow.show();
+				
 				SearchBar mainBar = mainWindow.getWindowManager().getSearchbar();
 				
 				int referenceBarContainerHeight = mainWindow.getWindowManager().getBar().getHeight();
