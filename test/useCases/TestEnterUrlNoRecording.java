@@ -250,5 +250,4 @@ public class TestEnterUrlNoRecording {
 		assertEquals(null, mainWindow.getWindowManager().getActiveElement());
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
 	}
-
 }

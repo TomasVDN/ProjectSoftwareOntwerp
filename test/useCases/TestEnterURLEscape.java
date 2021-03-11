@@ -22,7 +22,7 @@ class TestEnterURLEscape {
 			mainWindow = new MyCanvasWindow("Browsr");
 		});
 	}
-	
+
 	@Test
 	// Use case 4.2.5a
 	public void enterUrlEscape() {
