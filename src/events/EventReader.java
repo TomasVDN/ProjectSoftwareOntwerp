@@ -26,12 +26,15 @@ public final class EventReader {
 		return browsr;
 	}
 
-	//should only be called by windowManager once!!!
-	public void setBrowsr(Browsr browsr) {
-		if (this.browsr != null) {
-			return;
-		}
-		this.browsr = browsr;
-	}
+    //should only be called by windowManager once!!!
+    public void setBrowsr(Browsr browsr) {
+        if (browsr == null) {
+            throw new IllegalArgumentException("Illegal browsr");
+        }
+//        if (this.browsr != null) {
+//            return;
+//        }
+        this.browsr = browsr;
+    }
 
 }
