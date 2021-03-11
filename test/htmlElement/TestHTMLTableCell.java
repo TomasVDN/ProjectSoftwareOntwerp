@@ -46,12 +46,10 @@ class TestHTMLTableCell {
 		setUpReference();
 		assertEquals(guiHyperlinkReference.getUrl(), ((Hyperlink) guiTableCell.getGui()).getUrl());
 		assertEquals(guiHyperlinkReference.getText().getText(), ((Hyperlink) guiTableCell.getGui()).getText().getText());
-		assert guiTableCell.getGui().getX() == guiHyperlinkReference.getX();
-		assert guiTableCell.getGui().getY() == guiHyperlinkReference.getY();
-		assert guiTableCell.getX() == guiTableCellReference.getX();
-		assert guiTableCell.getY() == guiTableCellReference.getY();
-		assert guiTableCell.getWidth() == guiTableCellReference.getWidth();
-		assert guiTableCell.getHeight() == guiTableCellReference.getHeight();
+		assertEquals(guiTableCell.getX(), guiTableCellReference.getX());
+		assertEquals(guiTableCell.getY(), guiTableCellReference.getY());
+		assertEquals(guiTableCell.getWidth(), guiTableCellReference.getWidth());
+		assertEquals(guiTableCell.getHeight(), guiTableCellReference.getHeight());
 	}
 	
 	@Test
