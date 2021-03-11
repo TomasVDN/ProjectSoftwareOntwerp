@@ -64,11 +64,9 @@ public class HTMLTableRow {
 	}
 	
 	public TableRowGUI transformToGUI(int x, int y, int width, int heigth) {
-		int nextX = x;
 		ArrayList<TableCellGUI> cells = new ArrayList<TableCellGUI>();
 		for(int i=0; i<this.getRow().size();i++) {
-			TableCellGUI gui = this.getRow().get(i).transformToGUI(nextX, y, width, heigth);
-			//nextX+= gui.getWidth() ;//+ XSPACE;
+			TableCellGUI gui = this.getRow().get(i).transformToGUI(0, 0, width, heigth);
 			cells.add(gui);
 		}
 		return new TableRowGUI(cells, x, y, width, heigth);

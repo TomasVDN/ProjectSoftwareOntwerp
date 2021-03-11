@@ -23,7 +23,7 @@ public class HTMLTableCell {
 	}
 
 	public TableCellGUI transformToGUI(int x, int y, int width, int heigth) {
-		return new TableCellGUI(content.transformToGUI(x, y, width, heigth), x, y, width, heigth);
+		return new TableCellGUI(content.transformToGUI(0, 0, width, heigth), x, y, width, heigth);
 	}
 
 }

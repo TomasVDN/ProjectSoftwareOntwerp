@@ -24,7 +24,7 @@ public class TableCellGUI extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g, int xContainer, int yContainer) {
-		this.getGui().paint(g, xContainer, yContainer);
+		this.getGui().paint(g, xContainer+ this.getX(), yContainer +this.getY());
 	}
 
 	/**

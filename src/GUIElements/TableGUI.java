@@ -36,8 +36,8 @@ public class TableGUI extends GUIElement {
 	public void paint(Graphics g, int xContainer, int yContainer) {
 		int relativeY=yContainer;
 		for(int i=0; i< this.getGuiRows().size();i++) {
-			this.getGuiRows().get(i).paint(g, xContainer, relativeY);
-			relativeY+=this.getGuiRows().get(i).getHeight();
+			this.getGuiRows().get(i).paint(g, xContainer+this.getX(), relativeY+this.getY());
+			//relativeY+=this.getGuiRows().get(i).getHeight();
 		}
 	}
 	

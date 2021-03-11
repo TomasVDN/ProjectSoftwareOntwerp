@@ -54,6 +54,19 @@ public class TestTableRow {
 		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
 		assertEquals(guiTable.getGUIAtPosition(hyper.getWidth()+1, 0),textGUIaLotOfText);
 	}
+	
+
+	@Test
+	void testGetGUIAtPosition2() {
+		ArrayList<TableCellGUI> tableRow = new ArrayList<>();
+		tableRow.add(cell2);
+		tableRow.add(cell1);
+		TableRowGUI row = new TableRowGUI(tableRow, 0, 0, 0, 0);
+		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
+		tableRowList.add(row);
+		TableGUI guiTable = new TableGUI(tableRowList, 10, 0, 0, 0);
+		assertEquals(guiTable.getGUIAtPosition(10+textGUIaLotOfText.getWidth()+1, 0),hyper);
+	}
 
 	
 }
