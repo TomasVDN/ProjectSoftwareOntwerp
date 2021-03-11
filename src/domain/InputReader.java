@@ -20,7 +20,7 @@ public class InputReader {
 	 */
 	public ArrayList<ContentSpan> readFile(String path) {
 		//this prevents typing the url each time (used for testing) 
-		//path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";t
+		//path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 		//path = "https://konikoko.github.io/";
 
 		try {
