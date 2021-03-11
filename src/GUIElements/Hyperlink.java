@@ -10,7 +10,6 @@ import java.util.Map;
 import events.ClickHyperlinkEvent;
 import events.Event;
 import events.EventReader;
-import events.RunUrlEvent;
 
 public class Hyperlink extends Button {
 
@@ -55,6 +54,7 @@ public class Hyperlink extends Button {
 	/**
 	 * @return the width (dependent on width of this.Text)
 	 */
+	@Override
 	public int getWidth() {
 		return this.getText().getWidth();
 	}
@@ -62,6 +62,7 @@ public class Hyperlink extends Button {
 	/**
 	 * @return the height (dependent on height of this.Text)
 	 */
+	@Override
 	public int getHeight() {
 		return this.getText().getHeight();
 	}

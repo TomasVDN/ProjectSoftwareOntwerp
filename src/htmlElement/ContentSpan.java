@@ -1,16 +1,13 @@
 package htmlElement;
 
-import java.awt.Graphics;
-import java.util.ArrayList;
-
 import GUIElements.GUIElement;
-import events.EventReader;
 
 public abstract class ContentSpan {
 
 	public ContentSpan() {
 	}
 
+	@Override
 	public abstract String toString();
 	
 	/**
