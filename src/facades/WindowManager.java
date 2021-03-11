@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import GUIElements.SearchBar;
+import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import container.Container;
 import converter.HTMLToGUI;
@@ -20,7 +21,7 @@ public class WindowManager {
 	
 	private int width;
 	private int height;
-	private final int BARSIZE = 100;
+	private final int BARSIZE = 60;
 	private GUIElement activeElement;
 	
 	/**
@@ -43,6 +44,10 @@ public class WindowManager {
 		//Make the bar and page containers
 		this.setBar(new Container(0,0,this.getWidth(),BARSIZE));
 		this.setPage(new Container(0, BARSIZE, this.getWidth(), height - BARSIZE));
+		
+		//Setup the welcome page
+		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
+		this.addGUIToPage(text);
 
 		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50);
 		this.setSearchbar(searchBar);
