@@ -26,7 +26,7 @@ public class TestTableRow {
 		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
 		tableRowList.add(row);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0); // checks if width of array is correct after update
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0); // checks if width of array is correct after update
 		assertEquals(row.getWidth(), hyper.getWidth()+textGUIaLotOfText.getWidth());
 		
 	}
@@ -39,7 +39,7 @@ public class TestTableRow {
 		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
 		tableRowList.add(row);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0); // checks if height of array is correct after update
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0); // checks if height of array is correct after update
 		assertEquals(row.getHeight(), hyper.getHeight());
 	}
 
@@ -51,7 +51,7 @@ public class TestTableRow {
 		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
 		tableRowList.add(row);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		assertEquals(guiTable.getGUIAtPosition(hyper.getWidth()+1, 0),textGUIaLotOfText);
 	}
 	
@@ -64,7 +64,7 @@ public class TestTableRow {
 		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList=new ArrayList<>();;
 		tableRowList.add(row);
-		TableGUI guiTable = new TableGUI(tableRowList, 10, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 10, 0);
 		assertEquals(guiTable.getGUIAtPosition(10+textGUIaLotOfText.getWidth()+1, 0),hyper);
 	}
 

@@ -25,7 +25,7 @@ class TestContainer {
 	Button button2;
 	SearchBar bar = new SearchBar(20, 0, 50, 50);
 	ArrayList<TableRowGUI> rows = new ArrayList<TableRowGUI>();
-	TableGUI table = new TableGUI(new ArrayList<TableRowGUI>(),0,100,20,20);
+	TableGUI table = new TableGUI(new ArrayList<TableRowGUI>(),0,100);
 			
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {

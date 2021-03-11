@@ -63,6 +63,6 @@ public class HTMLTable extends ContentSpan {
 			TableRowGUI gui = this.getRows().get(i).transformToGUI(0, 0, width, height);
 			GUIRows.add(gui);
 		}
-		return new TableGUI(GUIRows, x, y, width, height);
+		return new TableGUI(GUIRows, x, y);
 	}
 }

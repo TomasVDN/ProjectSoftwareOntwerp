@@ -28,6 +28,14 @@ public abstract class GUIElement {
 		this.setHeight(h);
 	}
 	
+	public GUIElement(int x, int y){
+		if (x < 0 || y < 0 ) {
+			throw new IllegalArgumentException("The x position, y position, width and height of a GUIElement have to be positive.");
+		}
+		this.setX(x);
+		this.setY(y);
+	}
+	
 	/**
 	 * Sets the x and y position
 	 * @param x - the new value of this.x

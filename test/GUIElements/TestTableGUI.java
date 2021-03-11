@@ -29,7 +29,7 @@ class TestTableGUI {
 	@Test
 	void testTableNull() {
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-			TableGUI guiTable = new TableGUI(null, 0, 0, 0, 0);
+			TableGUI guiTable = new TableGUI(null, 0, 0);
 		});
 		assertTrue(exception.getMessage().contains("rows of guiTable can't be null"));
 	}
@@ -43,7 +43,7 @@ class TestTableGUI {
 		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		assertEquals(guiTable.getWidth(),0);
 	}
 	
@@ -54,7 +54,7 @@ class TestTableGUI {
 		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		assertEquals(guiTable.getWidth(),textGUIaLotOfText.getWidth());
 	}
 
@@ -66,7 +66,7 @@ class TestTableGUI {
 		TableRowGUI row = new TableRowGUI(tableRow, 0, 0);
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		assertEquals(guiTable.getHeight(),textGUI.getHeight()); //TODO lege cell ook een hoogte?
 	}
 
@@ -83,7 +83,7 @@ class TestTableGUI {
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row1);
 		tableRowList.add(row2);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		assertEquals(guiTable.getGUIAtPosition(0, 0),mediumText);
 		assertEquals(guiTable.getGUIAtPosition(0, mediumText.getHeight()+1), textGUIaLotOfText);
 		
@@ -103,7 +103,7 @@ class TestTableGUI {
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row1);
 		tableRowList.add(row2);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		ArrayList<GUIElement> column1= guiTable.getColumn(0);
 		assertEquals(column1.get(0),mediumText);
 		assertEquals(column1.get(1),textGUIaLotOfText);
@@ -122,7 +122,7 @@ class TestTableGUI {
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row1);
 		tableRowList.add(row2);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		ArrayList<GUIElement> column1= guiTable.getColumn(0);
 		assertEquals(TableGUI.getMaxWidth(column1), textGUIaLotOfText.getWidth());
 	}
@@ -140,7 +140,7 @@ class TestTableGUI {
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row1);
 		tableRowList.add(row2);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		ArrayList<Integer> maxWidths = guiTable.getAllColumnWidth();
 		assertEquals(maxWidths.get(0), textGUIaLotOfText.getWidth());
 		assertEquals(maxWidths.get(1), textGUIaLotOfText.getWidth());
@@ -159,7 +159,7 @@ class TestTableGUI {
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row1);
 		tableRowList.add(row2);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		ArrayList<Integer> maxHeight = guiTable.getAllRowHeight();
 		assertEquals(maxHeight.get(0), textGUIaLotOfText.getHeight());
 		assertEquals(maxHeight.get(1), textGUIaLotOfText.getHeight());
@@ -180,7 +180,7 @@ class TestTableGUI {
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row1);
 		tableRowList.add(row2);
-		TableGUI guiTable = new TableGUI(tableRowList, 0, 0, 0, 0);
+		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
 		assertEquals(guiTable.getMaxNumberOfColumns(),3);
 	}
 
