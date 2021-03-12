@@ -139,7 +139,7 @@ public class WindowManager {
 			}
 			
 			//activate new activeElement
-			activeElement = element;
+			this.setActiveElement(element);
 			
 			if (activeElement != null) {
 				activeElement.handleClick();
