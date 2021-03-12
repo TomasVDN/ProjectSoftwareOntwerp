@@ -110,7 +110,7 @@ public class Text extends GUIElement {
 	 */
 	public void setText(String text) {
 		if(text==null) {
-			throw new IllegalAccessException("Text has to have a string");
+			throw new IllegalArgumentException("Text has to have a string");
 		}
 		this.text = text;
 	}
