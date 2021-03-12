@@ -19,9 +19,6 @@ public class InputReader {
 	 * @return ArrayList<ContentSpan>
 	 */
 	public ArrayList<ContentSpan> readFile(String path) {
-		//this prevents typing the url each time (used for testing) 
-		//path = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
-		//path = "https://konikoko.github.io/";
 
 		try {
 			//open url, and copy content to Buffered reader
@@ -47,7 +44,7 @@ public class InputReader {
 	        return decoder.createElements();
 	        
 		} catch (IOException e) {
-            String sb = "Error 404\n";
+            String sb = "Error occured. Make sure you entered a valid URL.\n";
             decoder = new HTMLDecoder(sb);
             return decoder.createElements();
         }

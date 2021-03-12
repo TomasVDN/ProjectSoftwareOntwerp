@@ -42,6 +42,10 @@ public class SearchBar extends TextBox {
 		e.readEvent(event);
 	}
 	
+	/**
+	 * Returns the base url (url with the domain only, without resource).
+	 * @return base URL
+	 */
 	public String getBaseURL() {
 		String URL = this.getText();
 		int index = URL.length() - 1;

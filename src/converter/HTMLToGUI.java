@@ -62,7 +62,6 @@ public class HTMLToGUI {
 		return cont;
 	}
 
-	
 	/**
 	 * Transforms the given html to a GUI
 	 * @param contentSpan
@@ -74,8 +73,4 @@ public class HTMLToGUI {
 	public GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height) {
 		return contentSpan.transformToGUI(relativeX, relativeY, width, height);
 	}
-	
-	
-	
-
 }

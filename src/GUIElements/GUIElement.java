@@ -28,6 +28,11 @@ public abstract class GUIElement {
 		this.setHeight(h);
 	}
 	
+	/**
+	 * Alternative constructor of GUIElement without width and height.
+	 * @param x - x coordinate of the GUIElement
+	 * @param y - y coordinate of the GUIElement
+	 */
 	public GUIElement(int x, int y){
 		if (x < 0 || y < 0 ) {
 			throw new IllegalArgumentException("The x position, y position, width and height of a GUIElement have to be positive.");

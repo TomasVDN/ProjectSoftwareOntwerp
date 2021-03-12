@@ -7,6 +7,12 @@ public class HTMLHyperlink extends ContentSpan{
 
 	private String url;
 	private HTMLText text;
+	
+	/**
+	 * Constructor of the HTMLHyperlink class.
+	 * @param url - url of this class
+	 * @param text - text of this class
+	 */
 	public HTMLHyperlink(String url, HTMLText text) {
 		if (url == null) {
 			throw new IllegalArgumentException("The URL can't be null in the constructor of HTMLHyperlink.");
@@ -17,7 +23,6 @@ public class HTMLHyperlink extends ContentSpan{
 		this.url = url;
 		this.text = text;
 	}
-	
 	
 	/**
 	 * @return the url
@@ -32,12 +37,10 @@ public class HTMLHyperlink extends ContentSpan{
 		return text;
 	}
 
-
 	@Override
 	public String toString() {
 		return "HYPER: (" + url + "," + text.toString() + ")";
 	}
-
 
 	@Override
 	public Hyperlink transformToGUI(int x, int y, int width, int height) {

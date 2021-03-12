@@ -18,7 +18,7 @@ public class Browsr {
 	 * @param windowManager - the corresponding windowManager.
 	 */
 	public Browsr(WindowManager windowManager) {
-		domainFacade = new DomainFacade(this);
+		domainFacade = new DomainFacade();
 		this.windowManager = windowManager;
 	}
 
@@ -54,10 +54,18 @@ public class Browsr {
 		windowManager.draw(htmlElements);
 	}
 	
+	/**
+	 * Asks the windowManager to return the baseUrl (domain without resource).
+	 * @return this.windowManager.getBaseURLFromSearchBar
+	 */
 	public String getBaseURLFromSearchBar() {
 		return this.getWindowManager().getBaseURLFromSearchBar();
 	}
 	
+	/**
+	 * Handler for the hyperlinks.
+	 * @param URLAttribute
+	 */
 	public void handleHyperlink(String URLAttribute) {
 		runUrl(getBaseURLFromSearchBar() + URLAttribute);
 	}

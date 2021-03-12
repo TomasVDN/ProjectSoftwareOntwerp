@@ -26,6 +26,7 @@ public final class FontMetricGetter {
 	 * @param font
 	 * @return metric corresponding to the given font
 	 */
+	@SuppressWarnings("deprecation")
 	public FontMetrics getFontMetric(Font font){
 		return Toolkit.getDefaultToolkit().getFontMetrics(font);
 	}
