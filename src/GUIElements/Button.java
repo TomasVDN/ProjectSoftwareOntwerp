@@ -92,6 +92,9 @@ public class Button extends GUIElement {
 	 * @param text - the text to set
 	 */
 	public void setText(Text text) {
+		if(text==null) {
+			throw new IllegalArgumentException("Given text must exist");
+		}
 		this.text = text;
 	}
 

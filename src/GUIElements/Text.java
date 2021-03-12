@@ -109,6 +109,9 @@ public class Text extends GUIElement {
 	 * @param text - the text to set
 	 */
 	public void setText(String text) {
+		if(text==null) {
+			throw new IllegalAccessException("Text has to have a string");
+		}
 		this.text = text;
 	}
 

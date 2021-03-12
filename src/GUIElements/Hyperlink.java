@@ -68,6 +68,9 @@ public class Hyperlink extends Button {
 	 * @param url - the new value of this.url
 	 */
 	public void setUrl(String url) {
+		if(url==null) {
+			throw new IllegalArgumentException("not a valid url given in hyperlink");
+		}
 		this.url = url;
 	}
 }
