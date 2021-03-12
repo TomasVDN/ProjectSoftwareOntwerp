@@ -2,7 +2,6 @@ package htmlElement;
 
 import java.util.ArrayList;
 
-import GUIElements.GUIElement;
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 

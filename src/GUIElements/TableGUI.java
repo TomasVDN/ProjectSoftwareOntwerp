@@ -7,7 +7,12 @@ public class TableGUI extends GUIElement {
 
 	private ArrayList<TableRowGUI> guiRows;
 	
-	//TODO geen breedte en hoogt meegeven
+	/**
+	 * Constructor of the table GUI class.
+	 * @param guiRows - list of TableRowGUI
+	 * @param x - x coordinate of this class
+	 * @param y - y coordinate of this class
+	 */
 	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y) {
 		super(x, y);
 		this.setGuiRows(guiRows);
@@ -15,7 +20,9 @@ public class TableGUI extends GUIElement {
 
 	}
 
-	
+	/**
+	 * @return this.guiRows
+	 */
 	public ArrayList<TableRowGUI> getGuiRows() {
 		return guiRows;
 	}
@@ -32,12 +39,11 @@ public class TableGUI extends GUIElement {
 		int relativeY=yContainer;
 		for(int i=0; i< this.getGuiRows().size();i++) {
 			this.getGuiRows().get(i).paint(g, xContainer+this.getX(), relativeY+this.getY());
-			//relativeY+=this.getGuiRows().get(i).getHeight();
 		}
 	}
 	
 	/**
-	 * Telt de hoogtes van elke row op
+	 * Calculates the height of the table by iterating through all rows.
 	 */
 	@Override
 	public int getHeight(){
@@ -50,7 +56,7 @@ public class TableGUI extends GUIElement {
 	}
 	
 	/**
-	 * Telt de width van de row 
+	 * Calculates the height of the table by iterating through all rows.
 	 */
 	@Override
 	public int getWidth(){
@@ -65,12 +71,9 @@ public class TableGUI extends GUIElement {
 	/**
 	 * return the column at the given index
 	 * @param index
-	 * @return
+	 * @return column[index]
 	 */
 	public ArrayList<GUIElement> getColumn(int index){
-		/*if (index > this.getGuiRows().size()) {
-			throw new IndexOutOfBoundsException("ColumnIndex not valid");
-		}*/
 		ArrayList<GUIElement> column= new ArrayList<GUIElement>();
 		for(int i = 0 ; i<this.getGuiRows().size();i++) {
 			GUIElement gui = this.getGuiRows().get(i).getGUIAtGivenIndex(index);
@@ -81,6 +84,11 @@ public class TableGUI extends GUIElement {
 		return column;
 	}
 	
+	/**
+	 * Returns the maximum width in the given array.
+	 * @param array
+	 * @return max(array.element.width)
+	 */
 	public static int getMaxWidth(ArrayList<GUIElement> array) {
 		int maxWidth=0;
 		for(int i=0; i<array.size();i++) {
@@ -92,6 +100,10 @@ public class TableGUI extends GUIElement {
 		return maxWidth;
 	}
 	
+	/**
+	 * Returns the width of all the columns.
+	 * @return columnWidth
+	 */
 	public ArrayList<Integer> getAllColumnWidth(){
 		ArrayList<ArrayList<GUIElement>> allColumns = this.getAllColumns();
 		ArrayList<Integer> columnWidth = new ArrayList<Integer>();
@@ -101,6 +113,10 @@ public class TableGUI extends GUIElement {
 		return columnWidth;
 	}
 	
+	/**
+	 * Returns the height of all the rows.
+	 * @return rowHeight
+	 */
 	public ArrayList<Integer> getAllRowHeight(){
 		ArrayList<Integer> rowHeight = new ArrayList<Integer>();
 		for(int i=0;i<this.getGuiRows().size();i++) {
@@ -110,7 +126,7 @@ public class TableGUI extends GUIElement {
 	}
 	
 	/**
-	 * gives back all columns
+	 * Gives back all columns
 	 * @return
 	 */
 	public ArrayList<ArrayList<GUIElement>> getAllColumns(){
@@ -122,6 +138,10 @@ public class TableGUI extends GUIElement {
 		return allColumns;
 	}
 	
+	/**
+	 * Returns the max number of columns.
+	 * @return
+	 */
 	public int getMaxNumberOfColumns() {
 		int max=0;
 		for(int i=0;i<this.getGuiRows().size();i++) {
@@ -155,9 +175,6 @@ public class TableGUI extends GUIElement {
 			}
 		}
 	}
-
-
-	
 	
 	/**
 	 * Returns the GUI if the given position is between its bounds

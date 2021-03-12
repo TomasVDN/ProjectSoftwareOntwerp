@@ -8,7 +8,10 @@ import htmlElement.ContentSpan;
 public class DomainFacade {
 	
 
-	public DomainFacade(Browsr browsr) {
+	/**
+	 * Empty constructor for the Domain Facade. Used to keep track in Browsr.
+	 */
+	public DomainFacade() {
 	}
 
 	/**

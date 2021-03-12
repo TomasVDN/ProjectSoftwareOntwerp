@@ -14,7 +14,7 @@ class TestDomainFacade {
 	@Test
 	void test() {
 
-		DomainFacade mainDomainFacade = new DomainFacade(null);
+		DomainFacade mainDomainFacade = new DomainFacade();
 		ContentSpan mainPageFirstContentSpan = mainDomainFacade.runUrl("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html").get(0);
 		
 		String mainPageFirstText = "";

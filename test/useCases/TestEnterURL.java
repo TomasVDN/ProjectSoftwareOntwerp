@@ -4,17 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.GUIElement;
 import GUIElements.Hyperlink;
 import GUIElements.SearchBar;
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
-import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
 import container.Container;
 

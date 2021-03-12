@@ -30,7 +30,6 @@ public class TableRowGUI {
 		int relativeX = xContainer;
 		for(int i=0; i< this.getGuiElements().size();i++) {
 			this.getGuiElements().get(i).paint(g, relativeX + this.getX(), yContainer+this.getY());
-			//relativeX+=this.getGuiElements().get(i).getWidth();
 		}
 	}
 	

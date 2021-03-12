@@ -3,7 +3,6 @@ package GUIElements;
 import java.awt.font.TextAttribute;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,20 +36,11 @@ public class Hyperlink extends Button {
 	 */
 	@Override
 	public void handleClick() {
-		//this.setActive(false);// gewone textbox gaat inactief worden bij enter
 		Event event = new ClickHyperlinkEvent(this.getUrl());
 		EventReader e = EventReader.getInstance();
 		e.readEvent(event);
 	}
-	
-	/**
-	 * Paint the this.text in blue.
-	 */
-/*	@Override
-	public void paint(Graphics g, int xContainer, int yContainer) {
-		this.getText().paint(g, xContainer, yContainer,Color.BLUE);
-	}*/
-	
+
 	/**
 	 * @return the width (dependent on width of this.Text)
 	 */

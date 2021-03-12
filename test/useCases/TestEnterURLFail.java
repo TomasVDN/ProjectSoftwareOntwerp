@@ -88,7 +88,7 @@ class TestEnterURLFail {
 	mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 10, '\n', 0);
 	
 	//check if the error screen is opened
-	assertEquals("Error 404", ((Text) mainWindow.getWindowManager().getPage().getElements().get(0)).getText());
+	assertEquals("Error occured. Make sure you entered a valid URL.", ((Text) mainWindow.getWindowManager().getPage().getElements().get(0)).getText());
 	}
 	
 	@Test

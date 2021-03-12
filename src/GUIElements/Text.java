@@ -123,26 +123,4 @@ public class Text extends GUIElement {
 	@Override
 	public void handleUnselect() {
 	}
-	
-	/*
-	@Override
-	public boolean equals(Object other) {
-		if (!(other instanceof Text)) {
-	        return false;
-		} else {
-			boolean stringEquals = this.getText().equals(((Text) other).getText());
-			boolean xEquals = this.getX() == ((Text) other).getX();
-			boolean yEquals = this.getY() == ((Text) other).getY();
-			boolean widthEquals = this.getWidth() == ((Text) other).getWidth();
-			boolean HeightEquals = this.getHeight() == ((Text) other).getHeight();
-			if (stringEquals && xEquals && yEquals && widthEquals && HeightEquals) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
-	**/
-	
-
 }

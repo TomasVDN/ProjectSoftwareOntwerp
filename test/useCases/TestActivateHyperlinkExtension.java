@@ -3,17 +3,12 @@ package useCases;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.Hyperlink;
-import GUIElements.SearchBar;
-import GUIElements.TableGUI;
-import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import container.Container;
@@ -49,7 +44,7 @@ class TestActivateHyperlinkExtension {
 		Container pageContainer = window.getWindowManager().getPage();
 		Text pageErrorText = (Text) (pageContainer.getElements().get(0));
 		
-		assertEquals("Error 404", pageErrorText.getText());
+		assertEquals("Error occured. Make sure you entered a valid URL.", pageErrorText.getText());
 		
 		//load the page for the test
 		Event event2 = new RunUrlEvent("https://konikoko.github.io/");
