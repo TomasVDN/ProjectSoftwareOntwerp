@@ -3,14 +3,11 @@ package domain;
 import java.io.StringReader;
 import java.util.ArrayList;
 
+//import com.sun.tools.javac.parser.Tokens.TokenKind; TODO ik krijg hier een error
+
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
-import htmlElement.ContentSpan;
-import htmlElement.HTMLHyperlink;
-import htmlElement.HTMLTable;
-import htmlElement.HTMLTableCell;
-import htmlElement.HTMLTableRow;
-import htmlElement.HTMLText;
+import htmlElement.*;
 
 public class HTMLDecoder {
 
@@ -50,6 +47,10 @@ public class HTMLDecoder {
 			return createHyperlink();
 		case "table":
 			return createTable();
+		case "form":
+			return createForm();
+		case "input":
+			return createInput();
 		default:
 			return null;
 		}		
@@ -149,4 +150,85 @@ public class HTMLDecoder {
 		lexer.eatToken();
 		return table;	
 	}
+	
+	/**
+	 * Creates a form html Object
+	 * @return
+	 */
+	private HTMLForm createForm() { //TODO no recursive Forms
+		//HtmlLexer.TokenType currentToken = this.eat();
+		if(lexer.getTokenValue().equals("action")) {
+			while(lexer.getTokenType() != TokenType.QUOTED_STRING) {
+				lexer.eatToken();
+			}
+			// lexer is on a token value
+			String action = lexer.getTokenValue();
+		}
+		while(this.eat() != TokenType.CLOSE_TAG) {} // eats untill close tag is encountered
+		lexer.eatToken();
+		ArrayList<ContentSpan> elements = this.formHandleInputs();
+		lexer.eatToken(); //remove End tag form
+		lexer.eatToken();
+		return new HTMLForm(elements);
+	}
+	
+	
+	private void eatUntillType(HtmlLexer.TokenType type) {
+		while(lexer.getTokenType() != type) {
+			lexer.eatToken();
+		}
+	}
+	
+	/**
+	 * Creates an htmlElement coresponding to its input tag
+	 * @return
+	 */
+	private ContentSpan createInput() {
+		if(! lexer.getTokenValue().equals("input")) {
+			throw new IllegalArgumentException("not an input"); // TODO veranderen naar de juiste input
+		}
+		this.eat(); // removes the start tag
+		String type;
+		String name;
+		while(lexer.getTokenType()!=TokenType.CLOSE_TAG) {
+			switch (lexer.getTokenValue()){
+			case "type": 
+				eatUntillType(TokenType.QUOTED_STRING);
+				type = lexer.getTokenValue();
+				lexer.eatToken(); // eats the string
+				break;
+			case "name": 
+				eatUntillType(TokenType.QUOTED_STRING);
+				name = lexer.getTokenValue();
+				lexer.eatToken();
+				break;
+			default: 
+				lexer.eatToken();// when not of the above it is not implemented
+				break;
+			}	
+			lexer.eatToken(); // eats the endTag
+		}
+		return null;
+	}
+	
+	private HTMLInput constructInput(String name,String type) {
+		switch(type) {
+		case "text":
+			return new HTMLTextBox(name);
+		case "sumbit":
+			return new HTMLButton(name);
+		default:
+			return null; //TODO type not available
+		}
+	}
+	
+	private ArrayList<ContentSpan> formHandleInputs(){
+		ArrayList<ContentSpan> elements= new ArrayList<ContentSpan>();
+		while(lexer.getTokenType() !=TokenType.OPEN_END_TAG ) { // until form ends
+			ContentSpan input = this.createInput();
+			elements.add(input);
+		}
+		return elements;
+	}
+	
 }
