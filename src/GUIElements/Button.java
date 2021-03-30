@@ -28,6 +28,14 @@ public class Button extends GUIElement {
 		this.setText(text);
 		this.setDrawBox(box);
 	}
+	
+	
+	public Button(int x, int y, Text text, Boolean box, Color color) {
+		super(x, y,text.getWidth(),text.getHeight());
+		this.setButtonColor(color);
+		this.setText(text);
+		this.setDrawBox(box);
+	}
 
 	/**
 	 * Paint the multiple components of a button.

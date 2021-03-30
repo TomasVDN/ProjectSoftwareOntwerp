@@ -2,26 +2,29 @@ package htmlElement;
 
 import java.util.ArrayList;
 
+import GUIElements.Form;
 import GUIElements.GUIElement;
 
 public class HTMLForm extends ContentSpan {
 	
-	ArrayList<ContentSpan> elements;
+	ContentSpan element;
+	String action;
 	
-	public HTMLForm(ArrayList<ContentSpan> elements) {
-		this.elements=elements;
+	public HTMLForm(String action,ContentSpan element) {
+		this.action = action;
+		this.element=element;
 	}
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return "FORM < " +element.toString() + ">";
 	}
 
 	@Override
-	public GUIElement transformToGUI(int x, int y, int width, int height) {
-		// TODO Auto-generated method stub
-		return null;
+	public Form transformToGUI(int x, int y, int width, int height) {
+		GUIElement gui= element.transformToGUI(x, y, width, height);
+		return new Form(gui,x,y,action);
 	}
 
 }

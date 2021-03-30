@@ -157,19 +157,20 @@ public class HTMLDecoder {
 	 */
 	private HTMLForm createForm() { //TODO no recursive Forms
 		//HtmlLexer.TokenType currentToken = this.eat();
+		this.eat();
+		String action ="";//TODO aanpassen
 		if(lexer.getTokenValue().equals("action")) {
 			while(lexer.getTokenType() != TokenType.QUOTED_STRING) {
 				lexer.eatToken();
 			}
 			// lexer is on a token value
-			String action = lexer.getTokenValue();
+			action = lexer.getTokenValue();
 		}
 		while(this.eat() != TokenType.CLOSE_TAG) {} // eats untill close tag is encountered
-		lexer.eatToken();
-		ArrayList<ContentSpan> elements = this.formHandleInputs();
+		ContentSpan element = this.createHTMLElement();//this.innerContentSpan();
 		lexer.eatToken(); //remove End tag form
 		lexer.eatToken();
-		return new HTMLForm(elements);
+		return new HTMLForm(action,element);
 	}
 	
 	
@@ -188,8 +189,8 @@ public class HTMLDecoder {
 			throw new IllegalArgumentException("not an input"); // TODO veranderen naar de juiste input
 		}
 		this.eat(); // removes the start tag
-		String type;
-		String name;
+		String type=null;
+		String name=null;
 		while(lexer.getTokenType()!=TokenType.CLOSE_TAG) {
 			switch (lexer.getTokenValue()){
 			case "type": 
@@ -206,29 +207,29 @@ public class HTMLDecoder {
 				lexer.eatToken();// when not of the above it is not implemented
 				break;
 			}	
-			lexer.eatToken(); // eats the endTag
 		}
-		return null;
+		lexer.eatToken(); // eats the endTag
+		return constructInput(name, type);
 	}
 	
 	private HTMLInput constructInput(String name,String type) {
 		switch(type) {
 		case "text":
 			return new HTMLTextBox(name);
-		case "sumbit":
-			return new HTMLButton(name);
+		case "submit":
+			return new HTMLButton();
 		default:
 			return null; //TODO type not available
 		}
 	}
-	
-	private ArrayList<ContentSpan> formHandleInputs(){
+	/*
+	private ArrayList<ContentSpan> innerContentSpan(){
 		ArrayList<ContentSpan> elements= new ArrayList<ContentSpan>();
 		while(lexer.getTokenType() !=TokenType.OPEN_END_TAG ) { // until form ends
-			ContentSpan input = this.createInput();
-			elements.add(input);
+			ContentSpan html = createHTMLElement();
+			elements.add(html);
 		}
 		return elements;
 	}
-	
+	*/
 }
