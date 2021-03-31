@@ -12,7 +12,9 @@ import htmlElement.*;
 public class HTMLDecoder {
 
 	private HtmlLexer lexer;
+	private boolean insideForm= false;
 	
+
 	/**
 	 * Constructor of the HTMLDecoder class (uses the included lexer).
 	 * @param input - String to convert to HTMLElements
@@ -155,8 +157,12 @@ public class HTMLDecoder {
 	 * Creates a form html Object
 	 * @return
 	 */
-	private HTMLForm createForm() { //TODO no recursive Forms
+	private HTMLForm createForm() { 
 		//HtmlLexer.TokenType currentToken = this.eat();
+		if(this.isInsideForm()) { // form inside a form
+			throw new IllegalCallerException("A form cannot exist inside a form");
+		}
+		this.setInsideForm(true);
 		this.eat();
 		String action ="";//TODO aanpassen
 		if(lexer.getTokenValue().equals("action")) {
@@ -170,6 +176,7 @@ public class HTMLDecoder {
 		ContentSpan element = this.createHTMLElement();//this.innerContentSpan();
 		lexer.eatToken(); //remove End tag form
 		lexer.eatToken();
+		this.setInsideForm(false);
 		return new HTMLForm(action,element);
 	}
 	
@@ -221,6 +228,14 @@ public class HTMLDecoder {
 		default:
 			return null; //TODO type not available
 		}
+	}
+	
+	public boolean isInsideForm() {
+		return insideForm;
+	}
+
+	public void setInsideForm(boolean insideForm) {
+		this.insideForm = insideForm;
 	}
 	/*
 	private ArrayList<ContentSpan> innerContentSpan(){
