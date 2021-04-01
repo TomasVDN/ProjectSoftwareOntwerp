@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import GUIElements.TableCellGUI;
 import GUIElements.TableRowGUI;
+import events.EventReader;
 
 public class HTMLTableRow {
 
@@ -58,10 +59,10 @@ public class HTMLTableRow {
 		return row.substring(0, row.length() - 1) + ")";
 	}
 	
-	public TableRowGUI transformToGUI(int x, int y, int width, int heigth) {
+	public TableRowGUI transformToGUI(int x, int y, int width, int heigth, EventReader eventReader) {
 		ArrayList<TableCellGUI> cells = new ArrayList<TableCellGUI>();
 		for(int i=0; i<this.getRow().size();i++) {
-			TableCellGUI gui = this.getRow().get(i).transformToGUI(0, 0, width, heigth);
+			TableCellGUI gui = this.getRow().get(i).transformToGUI(0, 0, width, heigth, eventReader);
 			cells.add(gui);
 		}
 		return new TableRowGUI(cells, x, y);

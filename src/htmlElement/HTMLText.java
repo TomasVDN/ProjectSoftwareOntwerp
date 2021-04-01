@@ -1,6 +1,7 @@
 package htmlElement;
 
 import GUIElements.Text;
+import events.EventReader;
 /**
  * The text of a html
  * @author kobe
@@ -35,7 +36,7 @@ public class HTMLText extends ContentSpan{
 
 	@Override
 
-	public Text transformToGUI(int x, int y, int width, int heigth) {
+	public Text transformToGUI(int x, int y, int width, int heigth, EventReader eventReader) {
 		return new Text(x, y, this.getText());
 	}
 

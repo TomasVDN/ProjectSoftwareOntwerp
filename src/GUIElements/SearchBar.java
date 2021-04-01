@@ -6,6 +6,8 @@ import events.RunUrlEvent;
 
 public class SearchBar extends TextBox {
 
+	private EventReader eventReader;
+	
 	/**
 	 * Constructor of the SearchBar class
 	 * @param x - x coordinate of the SearchBar
@@ -13,8 +15,9 @@ public class SearchBar extends TextBox {
 	 * @param w - width of the SearchBar
 	 * @param h - height of the SearchBar
 	 */
-	public SearchBar(int x, int y, int w, int h) {
+	public SearchBar(int x, int y, int w, int h, EventReader eventReader) {
 		super(x, y, w, h);
+		this.eventReader = eventReader;
 	}
 	
 	/**
@@ -38,8 +41,7 @@ public class SearchBar extends TextBox {
 	 */
 	private void runUrlEvent() {
 		Event event = new RunUrlEvent(this.getText());
-		EventReader e = EventReader.getInstance();
-		e.readEvent(event);
+		this.eventReader.readEvent(event);
 	}
 	
 	/**

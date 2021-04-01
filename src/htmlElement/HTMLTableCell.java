@@ -1,6 +1,7 @@
 package htmlElement;
 
 import GUIElements.TableCellGUI;
+import events.EventReader;
 
 public class HTMLTableCell {
 
@@ -22,8 +23,8 @@ public class HTMLTableCell {
 		return this.content;
 	}
 
-	public TableCellGUI transformToGUI(int x, int y, int width, int heigth) {
-		return new TableCellGUI(content.transformToGUI(0, 0, width, heigth), x, y, width, heigth);
+	public TableCellGUI transformToGUI(int x, int y, int width, int heigth, EventReader eventReader) {
+		return new TableCellGUI(content.transformToGUI(0, 0, width, heigth, eventReader), x, y, width, heigth);
 	}
 
 }

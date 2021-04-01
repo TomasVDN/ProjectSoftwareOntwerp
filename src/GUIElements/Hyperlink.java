@@ -15,6 +15,7 @@ public class Hyperlink extends Button {
 	//Map for setting the underline in the font and Variable for the url
     private Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
 	private String url;
+	private EventReader eventReader;
 	
 	/**
 	 * Constructor for the hyperlink class.
@@ -23,12 +24,13 @@ public class Hyperlink extends Button {
 	 * @param text - Text element of the hyperlink
 	 * @param url - URL to which the hyperlink redirects
 	 */
-	public Hyperlink(int x, int y, Text text, String url) {
+	public Hyperlink(int x, int y, Text text, String url, EventReader eventReader) {
 		super(x, y, text.getWidth(), text.getHeight(), text, false, Color.BLUE);
 		this.setUrl(url);
 		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		Font boldUnderline = text.getFont().deriveFont(fontAttributes);
 		text.setFont(boldUnderline);
+		this.eventReader = eventReader;
 	}
 	
 	/**
@@ -37,8 +39,7 @@ public class Hyperlink extends Button {
 	@Override
 	public void handleClick() {
 		Event event = new ClickHyperlinkEvent(this.getUrl());
-		EventReader e = EventReader.getInstance();
-		e.readEvent(event);
+		this.eventReader.readEvent(event);
 	}
 
 	/**

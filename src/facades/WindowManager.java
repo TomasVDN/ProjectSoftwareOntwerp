@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import javax.xml.stream.util.EventReaderDelegate;
+
 import GUIElements.GUIElement;
 import GUIElements.SearchBar;
 import GUIElements.Text;
@@ -24,6 +26,8 @@ public class WindowManager {
 	private final int BARSIZE = 60;
 	private GUIElement activeElement;
 	
+	private EventReader eventReader;
+	
 	/**
 	 * Constructor of the WindowManager class.
 	 * @param width - the width of the linked window
@@ -38,8 +42,7 @@ public class WindowManager {
 		this.setHeight(600);
 		
 		//Initialize EventReader
-		EventReader x = EventReader.getInstance();
-		x.setBrowsr(browsr);
+		this.eventReader = new EventReader(browsr);
 		
 		//Make the bar and page containers
 		this.setBar(new Container(0,0,this.getWidth(),BARSIZE));
@@ -49,7 +52,7 @@ public class WindowManager {
 		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
 		this.addGUIToPage(text);
 
-		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50);
+		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, this.eventReader);
 		this.setSearchbar(searchBar);
 		this.getBar().addElement(searchBar);
 	}
@@ -92,7 +95,7 @@ public class WindowManager {
 	public void draw(ArrayList<ContentSpan> htmlElements) {
 		HTMLToGUI converter = new HTMLToGUI();
 		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements, this.eventReader);
 		this.getPage().resetAllElements(list);
 	}
 	

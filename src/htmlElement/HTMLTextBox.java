@@ -2,6 +2,7 @@ package htmlElement;
 
 import GUIElements.GUIElement;
 import GUIElements.TextBox;
+import events.EventReader;
 
 public class HTMLTextBox extends HTMLInput {
 
@@ -20,7 +21,7 @@ public class HTMLTextBox extends HTMLInput {
 	}
 
 	@Override
-	public GUIElement transformToGUI(int x, int y, int width, int height) {
+	public GUIElement transformToGUI(int x, int y, int width, int height, EventReader eventReader) {
 		return new TextBox(x, y, WIDTH, HEIGHT);
 	}
 
