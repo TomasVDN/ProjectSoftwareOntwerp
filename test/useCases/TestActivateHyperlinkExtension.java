@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import container.Container;
+import GUIElements.Container;
 import events.Event;
 import events.EventReader;
 import events.RunUrlEvent;
@@ -35,12 +35,12 @@ class TestActivateHyperlinkExtension {
 		window.getWindowManager().getEventReader().readEvent(event);
 		
 		//click on the broken the broken hyperlink
-		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 70, 120, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 70, 120, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 70, 120, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 70, 180, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 70, 180, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 70, 180, 1, MouseEvent.BUTTON1, 0);
 
 		//check the error screen
-		Container pageContainer = window.getWindowManager().getPage();
+		Container pageContainer = window.getWindowManager().getMainPage().getPageContainer();
 		Text pageErrorText = (Text) (pageContainer.getElements().get(0));
 		
 		assertEquals("Error occured. Make sure you entered a valid URL.", pageErrorText.getText());
@@ -50,12 +50,12 @@ class TestActivateHyperlinkExtension {
 		window.getWindowManager().getEventReader().readEvent(event2);
 		
 		//click on the working hyperlink but with the broken html file
-		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 37, 145, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 37, 145, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 37, 145, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 37, 205, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 37, 205, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 37, 205, 1, MouseEvent.BUTTON1, 0);
 
 		//check the error screen
-		Container pageContainer1 = window.getWindowManager().getPage();
+		Container pageContainer1 = window.getWindowManager().getMainPage().getPageContainer();
 		Text pageErrorText1 = (Text) (pageContainer1.getElements().get(0));
 		
 		assertEquals("Error occured. Reason: not a valid Browsr document.", pageErrorText1.getText());

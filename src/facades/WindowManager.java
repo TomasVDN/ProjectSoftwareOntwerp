@@ -4,13 +4,12 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import javax.xml.stream.util.EventReaderDelegate;
-
 import GUIElements.GUIElement;
+import GUIElements.MainDialog;
 import GUIElements.SearchBar;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import container.Container;
+import GUIElements.Container;
 import converter.HTMLToGUI;
 import events.EventReader;
 import events.SavePageEvent;
@@ -18,13 +17,18 @@ import htmlElement.ContentSpan;
 
 public class WindowManager {
 
-	private Container bar;
+	private MainDialog mainPage;
+	private Container saveDialog = new Container(0, 0, 600, 600);
+	private Container bookmarkDialog = new Container(0, 0, 600, 600);
+	
+	private Container activeDialog;
+	
 	private SearchBar searchbar;
-	private Container page;
 	
 	private int width;
 	private int height;
-	private final int BARSIZE = 60;
+	private final int BAR_SIZE = 60;
+	private final int BOOKMARK_SIZE = 60;
 	private GUIElement activeElement;
 	
 	private EventReader eventReader;
@@ -46,8 +50,12 @@ public class WindowManager {
 		this.eventReader = new EventReader(browsr);
 		
 		//Make the bar and page containers
-		this.setBar(new Container(0,0,this.getWidth(),BARSIZE));
-		this.setPage(new Container(0, BARSIZE, this.getWidth(), height - BARSIZE));
+		Container searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
+		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
+		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
+		
+		this.mainPage = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer);
+		this.setActiveDialog(mainPage);
 		
 		//Setup the welcome page
 		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
@@ -55,7 +63,7 @@ public class WindowManager {
 
 		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, this.eventReader);
 		this.setSearchbar(searchBar);
-		this.getBar().addElement(searchBar);
+		this.getMainPage().getSearchBarContainer().addElement(searchBar);
 	}
 
 	/**
@@ -67,26 +75,7 @@ public class WindowManager {
 	public void paint(Graphics g,int width,int height) {
 		this.setWidth(width);
 		this.setHeight(height);
-		this.getBar().paint(g);
-		this.getPage().paint(g);
-	}
-	
-	/**
-	 * This method returns the container located at the (x,y) coordinates. Returns null otherwise.
-	 * @param x - x coordinate
-	 * @param y - y coordinate
-	 * @return if (this.bar.contains(x,y): return this.bar
-	 * 			| if (this.page.contains(x,y): return this.page
-	 * 			| otherwise return null
-	 */
-	public Container containerAt(int x, int y) {
-		if(this.getBar().containsPoint(x, y)) {
-			return this.getBar();
-		}
-		else if(this.getPage().containsPoint(x, y)) {
-			return this.getPage();
-		}
-		return null;
+		this.getActiveDialog().paint(g);
 	}
 	
 	/**
@@ -97,7 +86,7 @@ public class WindowManager {
 		HTMLToGUI converter = new HTMLToGUI();
 		
 		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements, this.eventReader);
-		this.getPage().resetAllElements(list);
+		this.getActiveDialog().resetAllElements(list);
 	}
 	
 	/**
@@ -105,7 +94,7 @@ public class WindowManager {
 	 * @param gui - the GUIElement to add to the active page.
 	 */
 	public void addGUIToPage(GUIElement gui) {
-		this.getPage().addElement(gui);
+		this.getActiveDialog().addElement(gui);
 	}
 	
 	/**
@@ -113,7 +102,7 @@ public class WindowManager {
 	 * @param listOfGUI - the GUIElements to add to the active page.
 	 */
 	public void addAllGUIToPage(ArrayList<GUIElement> listOfGUI) {
-		this.getPage().addMultipleElements(listOfGUI);
+		this.getActiveDialog().addMultipleElements(listOfGUI);
 	}
 
 	/**
@@ -125,7 +114,7 @@ public class WindowManager {
 	 */
 	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
-			changeActive(containerAt(x, y).elementAt(x, y));	
+			changeActive(getActiveDialog().getGUIAtPosition(x, y));	
 		} catch (NullPointerException e) {
 			changeActive(null);
 		}		
@@ -180,36 +169,6 @@ public class WindowManager {
 	public void setActiveElement(GUIElement activeElement) {
 		this.activeElement = activeElement;
 	}
-
-
-
-	/**
-	 * @return this.bar
-	 */
-	public Container getBar() {
-		return bar;
-	}
-
-	/**
-	 * @param bar - the new value of this.bar
-	 */
-	public void setBar(Container bar) {
-		this.bar = bar;
-	}
-
-	/**
-	 * @return this.page
-	 */
-	public Container getPage() {
-		return page;
-	}
-
-	/**
-	 * @param page - the new value of this.page
-	 */
-	public void setPage(Container page) {
-		this.page = page;
-	}
 	
 	/**
 	 * @return this.width
@@ -219,12 +178,12 @@ public class WindowManager {
 	}
 
 	/**
-	 * Sets the value of this.width to the given value. If this value is < 50, this.width will be set to 600.
+	 * Sets the value of this.width to the given value.
 	 * @param width
 	 */
-	public void setWidth(int width) {
-		if (width < 50) {
-			this.width = 600;
+	public void setWidth(int width) throws IllegalArgumentException {
+		if (width <= 0) {
+			throw new IllegalArgumentException("Given width must be positive");
 		} else {
 			this.width = width;
 		}
@@ -238,12 +197,12 @@ public class WindowManager {
 	}
 
 	/**
-	 * Sets the value of this.height to the given value. If this value is < 50, this.height will be set to 600.
+	 * Sets the value of this.height to the given value.
 	 * @param height
 	 */
 	public void setHeight(int height) {
-		if (height < 50) {
-			this.height = 600;
+		if (height <= 0) {
+			throw new IllegalArgumentException("Given height must be positive");
 		} else {
 			this.height = height;
 		}
@@ -299,6 +258,62 @@ public class WindowManager {
 	
 	public String getBaseURLFromSearchBar() {
 		return this.getSearchbar().getBaseURL();
+	}
+
+	/**
+	 * @return the mainPage
+	 */
+	public MainDialog getMainPage() {
+		return mainPage;
+	}
+
+	/**
+	 * @param mainPage the mainPage to set
+	 */
+	public void setMainPage(MainDialog mainPage) {
+		this.mainPage = mainPage;
+	}
+
+	/**
+	 * @return the saveDialog
+	 */
+	public Container getSaveDialog() {
+		return saveDialog;
+	}
+
+	/**
+	 * @param saveDialog the saveDialog to set
+	 */
+	public void setSaveDialog(Container saveDialog) {
+		this.saveDialog = saveDialog;
+	}
+
+	/**
+	 * @return the bookmarkDialog
+	 */
+	public Container getBookmarkDialog() {
+		return bookmarkDialog;
+	}
+
+	/**
+	 * @param bookmarkDialog the bookmarkDialog to set
+	 */
+	public void setBookmarkDialog(Container bookmarkDialog) {
+		this.bookmarkDialog = bookmarkDialog;
+	}
+
+	/**
+	 * @return the activeDialog
+	 */
+	public Container getActiveDialog() {
+		return activeDialog;
+	}
+
+	/**
+	 * @param activeDialog the activeDialog to set
+	 */
+	public void setActiveDialog(Container activeDialog) {
+		this.activeDialog = activeDialog;
 	}
 
 }

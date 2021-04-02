@@ -184,18 +184,18 @@ public abstract class GUIElement {
 	
 	public abstract void handleClick();
 	
-	public abstract void paint(Graphics g, int xContainer, int yContainer);
+	public abstract void paint(Graphics g);
 	
 	/**
 	 * Draws text centered in the GUIElement.
 	 * @param g		Graphics object
 	 * @param text	String to draw
 	 */
-	public void drawCenteredText(Graphics g, String text, int xContainer, int yContainer){
+	public void drawCenteredText(Graphics g, String text){
 		Font font = g.getFont();
 	    FontMetrics metrics = g.getFontMetrics(font);
-	    int centeredX = this.getX() + xContainer + (this.getWidth()- metrics.stringWidth(text)) / 2;
-	    int centeredY = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+	    int centeredX = this.getX() + (this.getWidth()- metrics.stringWidth(text)) / 2;
+	    int centeredY = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
 	    g.drawString(text, centeredX,centeredY);
 	}
 

@@ -41,7 +41,7 @@ public class Button extends GUIElement {
 	 * Paint the multiple components of a button.
 	 */
 	@Override
-	public void paint(Graphics g, int xContainer, int yContainer) {
+	public void paint(Graphics g) {
 		g.setFont(font);
 		
 		//content
@@ -49,13 +49,13 @@ public class Button extends GUIElement {
 		
 		//Border: draw if boolean this.drawBox is true
 		if (drawBox()) {
-			g.drawRect(super.getX() + xContainer,super.getY() + yContainer, super.getWidth(), super.getHeight());
+			g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
 		}
 	
 		//Text
 		Shape oldClip = g.getClip();
-		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
-		this.getText().paint(g, xContainer, yContainer,this.getButtonColor());
+		g.setClip(getX(), getY(), getWidth(), getHeight());
+		this.getText().paint(g,this.getButtonColor());
 		g.setClip(oldClip);
 		
 		g.setColor(Color.black);	

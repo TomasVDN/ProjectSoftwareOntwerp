@@ -15,9 +15,8 @@ import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import container.Container;
+import GUIElements.Container;
 import events.Event;
-import events.EventReader;
 import events.RunUrlEvent;
 
 class TestActivateHyperlink {
@@ -42,12 +41,12 @@ class TestActivateHyperlink {
 		SearchBar mainBar = window.getWindowManager().getSearchbar();
 
 		//click on the hyperlink (manually)
-		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 76, 95, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 76, 95, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 76, 95, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 76, 155, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 76, 155, 1, MouseEvent.BUTTON1, 0);
+		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 76, 155, 1, MouseEvent.BUTTON1, 0);
 
 		//testing GUI elements
-		Container pageContainer = window.getWindowManager().getPage();
+		Container pageContainer = window.getWindowManager().getMainPage().getPageContainer();
 		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);

@@ -35,9 +35,10 @@ public class Form extends GUIElement {
 	}
 
 	@Override
-	public void paint(Graphics g, int xContainer, int yContainer) {
-		this.getGui().paint(g, xContainer + this.getX(), yContainer + this.getY());
-		
+	public void paint(Graphics g) {
+		g.translate(this.getX(), this.getY());
+		this.getGui().paint(g);
+		g.translate(-this.getX(), -this.getY());
 	}
 	
 	/**

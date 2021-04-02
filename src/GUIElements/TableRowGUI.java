@@ -26,11 +26,12 @@ public class TableRowGUI {
 	/**
 	 * Paint all the TableCellGUI while updating the relative x.
 	 */
-	public void paint(Graphics g, int xContainer, int yContainer) {
-		int relativeX = xContainer;
+	public void paint(Graphics g) {
+		g.translate(this.getX(), this.getY());
 		for(int i=0; i< this.getGuiElements().size();i++) {
-			this.getGuiElements().get(i).paint(g, relativeX + this.getX(), yContainer+this.getY());
+			this.getGuiElements().get(i).paint(g);
 		}
+		g.translate(-this.getX(), -this.getY());
 	}
 	
 	/**
