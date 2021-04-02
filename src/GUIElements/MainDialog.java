@@ -99,11 +99,8 @@ public class MainDialog extends Container {
 	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
-		int relativeX= x - this.getX();
-		int relativeY= y - this.getY();
-		
 		for (GUIElement e: allContainers) {
-			GUIElement gui= e.getGUIAtPosition(relativeX,relativeY);
+			GUIElement gui= e.getGUIAtPosition(x, y);
 			if (gui!=null) {
 				return gui;
 			}
