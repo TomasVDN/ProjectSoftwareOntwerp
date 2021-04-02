@@ -32,8 +32,7 @@ class TestActivateHyperlinkExtension {
 	void test() {
 		//load the page for the test
 		Event event = new RunUrlEvent("https://konikoko.github.io/");
-		EventReader e = EventReader.getInstance();
-		e.readEvent(event);
+		window.getWindowManager().getEventReader().readEvent(event);
 		
 		//click on the broken the broken hyperlink
 		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 70, 120, 1, MouseEvent.BUTTON1, 0);
@@ -48,8 +47,7 @@ class TestActivateHyperlinkExtension {
 		
 		//load the page for the test
 		Event event2 = new RunUrlEvent("https://konikoko.github.io/");
-		EventReader e2 = EventReader.getInstance();
-		e2.readEvent(event2);
+		window.getWindowManager().getEventReader().readEvent(event2);
 		
 		//click on the working hyperlink but with the broken html file
 		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 37, 145, 1, MouseEvent.BUTTON1, 0);

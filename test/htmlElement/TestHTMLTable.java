@@ -120,7 +120,7 @@ class TestHTMLTable {
 		rows.add(row2);
 		rows.add(row3);
 		table.setRows(rows);
-		TableGUI tableGui = table.transformToGUI(10, 10,100, 100);
+		TableGUI tableGui = table.transformToGUI(10, 10,100, 100, null);
 		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(0) instanceof Text);
 		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(1) instanceof Text);
 		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(2) instanceof Text);

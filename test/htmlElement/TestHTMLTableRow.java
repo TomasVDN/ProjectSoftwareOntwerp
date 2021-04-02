@@ -48,7 +48,7 @@ class TestHTMLTableRow {
 		rowData.add(htmlCell2);
 		rowData.add(htmlCell3);
 		htmlRow.setRow(rowData);
-		htmlRow.transformToGUI(10, 20, 30, 40);
+		htmlRow.transformToGUI(10, 20, 30, 40, null);
 		// TODO juiste testen toevoegen
 	}
 	

@@ -30,7 +30,7 @@ class TestHTMLTableCell {
 	
 	void setUpReference() {
 		guiTextReference = new Text(10, 20, "Hyperlink Text");
-		guiHyperlinkReference = new Hyperlink(10, 20, guiTextReference, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+		guiHyperlinkReference = new Hyperlink(10, 20, guiTextReference, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", null);
 		guiTableCellReference = new TableCellGUI(guiHyperlinkReference, 10, 20, 30, 40);
 	}
 	
@@ -42,7 +42,7 @@ class TestHTMLTableCell {
 		url = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 		htmlHyperlink = new HTMLHyperlink(url, htmlText);
 		htmlCell = new HTMLTableCell(htmlHyperlink);
-		guiTableCell = htmlCell.transformToGUI(10, 20, 30, 40);
+		guiTableCell = htmlCell.transformToGUI(10, 20, 30, 40, null);
 		setUpReference();
 		assertEquals(guiHyperlinkReference.getUrl(), ((Hyperlink) guiTableCell.getGui()).getUrl());
 		assertEquals(guiHyperlinkReference.getText().getText(), ((Hyperlink) guiTableCell.getGui()).getText().getText());

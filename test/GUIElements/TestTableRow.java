@@ -14,7 +14,7 @@ public class TestTableRow {
 	Text mediumText2 = new Text(0,0,"blabla");
 	Text textGUIaLotOfText = new Text(0, 0, "blablablablabla");
 	Text hyperText = new Text(0,0,"This is a hyperlink");
-	Hyperlink hyper = new Hyperlink(0, 0, hyperText, "https://blabla.com");
+	Hyperlink hyper = new Hyperlink(0, 0, hyperText, "https://blabla.com", null);
 	TableCellGUI cell1 = new TableCellGUI(hyper, 0, 0, 0, 0);
 	TableCellGUI cell2 = new TableCellGUI(textGUIaLotOfText, 0, 0, 0, 0);
 	

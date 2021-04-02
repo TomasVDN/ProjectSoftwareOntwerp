@@ -30,7 +30,7 @@ class TestHTMLHyperlink {
 	
 	void setUpReference() {
 		htmlText = new HTMLText(textValue);
-		guiHyperlinkReference = new Hyperlink(10, 20, htmlText.transformToGUI(10, 20, 30, 40), url);
+		guiHyperlinkReference = new Hyperlink(10, 20, htmlText.transformToGUI(10, 20, 30, 40, null), url, null);
 	}
 
 	@Test
@@ -38,7 +38,7 @@ class TestHTMLHyperlink {
 	void testNormalBehaviour() {
 		htmlText = new HTMLText(textValue);
 		htmlHyperlink = new HTMLHyperlink(url, htmlText);
-		guiHyperlink = htmlHyperlink.transformToGUI(10, 20, 30, 40);
+		guiHyperlink = htmlHyperlink.transformToGUI(10, 20, 30, 40, null);
 		setUpReference();
 		assert guiHyperlink.getX() == guiHyperlinkReference.getX();
 		assert guiHyperlink.getY() == guiHyperlinkReference.getY();

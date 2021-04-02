@@ -249,6 +249,13 @@ public class WindowManager {
 	}
 
 	/**
+	 * @return this.eventReader
+	 */
+	public EventReader getEventReader() {
+		return eventReader;
+	}
+	
+	/**
 	 * @return this.searchBar
 	 */
 	public SearchBar getSearchbar() {

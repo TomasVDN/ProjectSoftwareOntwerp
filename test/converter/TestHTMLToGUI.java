@@ -66,20 +66,11 @@ class TestHTMLToGUI {
 		table.addRow(row2);
 		table.addRow(row3);
 		return table;
-	}
-	
-	@BeforeEach
-	void setUp() throws InvocationTargetException, InterruptedException {
-		java.awt.EventQueue.invokeAndWait(() -> {
-			MyCanvasWindow window = new MyCanvasWindow("Browsr");
-		});
-
-	}
-	
+	}	
 	
 	@Test
 	void testTextToGUI() {
-		GUIElement gui =converter.toGUI(text1,0, 0, 500, 500);
+		GUIElement gui =converter.toGUI(text1,0, 0, 500, 500, null);
 		assertTrue(gui instanceof Text);
 		Text textGui = (Text) gui;
 		assertEquals(textGui.getText(),"this is a text");
@@ -89,7 +80,7 @@ class TestHTMLToGUI {
 
 	@Test
 	void testHyperlinkToGUI() {
-		GUIElement gui =converter.toGUI(hyp1,0, 0, 500, 500);
+		GUIElement gui =converter.toGUI(hyp1,0, 0, 500, 500, null);
 		assertTrue(gui instanceof Hyperlink);
 		Hyperlink hyperGui = (Hyperlink) gui;
 		assertEquals(hyperGui.getText().getText(),"hyperlink1");
@@ -100,10 +91,9 @@ class TestHTMLToGUI {
 	
 	@Test
 	void testTableToGUI() {
-		GUIElement gui =converter.toGUI(createSmallTable(),0, 0, 500, 500);
+		GUIElement gui =converter.toGUI(createSmallTable(),0, 0, 500, 500, null);
 		assertTrue(gui instanceof TableGUI);
 		TableGUI tableGui = (TableGUI) gui;
-		System.out.println(tableGui.getAllColumns());
 		assertEquals(tableGui.getAllColumns().size(),2);
 		assertEquals(tableGui.getGuiRows().size(),2);
 		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(0) instanceof Text);
@@ -127,7 +117,7 @@ class TestHTMLToGUI {
 		list.add(hyp1);
 		list.add(createBigTable());
 		list.add(text2);
-		ArrayList<GUIElement> listOfGui= converter.transformToGUI(0, 0, 500, 500, list);
+		ArrayList<GUIElement> listOfGui= converter.transformToGUI(0, 0, 500, 500, list, null);
 		int xspace = HTMLToGUI.getXSPACE();
 		int yspace = HTMLToGUI.getYSPACE();
 		assertEquals( listOfGui.get(0).getX(),xspace);

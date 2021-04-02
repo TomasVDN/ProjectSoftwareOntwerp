@@ -11,9 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import GUIElements.*;
 import GUIElements.Text;
-import canvaswindow.CanvasWindow;
-import canvaswindow.MyCanvasWindow;
-import facades.WindowManager;
 
 class TestContainer {
 
@@ -23,15 +20,11 @@ class TestContainer {
 	Text text2;
 	Button button1;
 	Button button2;
-	SearchBar bar = new SearchBar(20, 0, 50, 50);
 	ArrayList<TableRowGUI> rows = new ArrayList<TableRowGUI>();
 	TableGUI table = new TableGUI(new ArrayList<TableRowGUI>(),0,100);
 			
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
-		java.awt.EventQueue.invokeAndWait(() -> {
-			MyCanvasWindow window = new MyCanvasWindow("Browsr");
-		});
 		text1 = new Text(0, 0, "hallo");
 		button1 = new Button(0, 0, 10, 10, text1, true, Color.BLACK);
 		text2 = new Text(0, 0, "wereld");
@@ -87,8 +80,7 @@ class TestContainer {
 		container.addElement(button1);
 		container.addElement(button2);
 		container.addElement(table);
-		container.addElement(bar);
-		assertEquals(container.getElements().size(), 4);
+		assertEquals(container.getElements().size(), 3);
 	}
 	
 	@Test

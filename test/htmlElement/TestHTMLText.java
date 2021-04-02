@@ -29,9 +29,7 @@ class TestHTMLText {
 	void testNormalBehaviour() {
 		setUpReference();
 		htmlText = new HTMLText(textValue);
-		guiText = htmlText.transformToGUI(10, 20, 30, 40);
-		System.out.println(guiText.getX());
-		System.out.println(guiTextReference.getX());
+		guiText = htmlText.transformToGUI(10, 20, 30, 40, null);
 		assert guiText.getX() == guiTextReference.getX();
 		assert guiText.getY() == guiTextReference.getY();
 		assert guiText.getWidth() == guiTextReference.getWidth();

@@ -36,8 +36,7 @@ class TestActivateHyperlink {
 	public void test() {
 		//load the page for the test
 		Event event = new RunUrlEvent("https://konikoko.github.io/");
-		EventReader e = EventReader.getInstance();
-		e.readEvent(event);
+		window.getWindowManager().getEventReader().readEvent(event);
 
 		//get the url bar
 		SearchBar mainBar = window.getWindowManager().getSearchbar();
