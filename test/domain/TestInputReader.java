@@ -10,6 +10,7 @@ import htmlElement.ContentSpan;
 
 class TestInputReader {
 	
+	Saver saver = new Saver();
 	InputReader inputReader = new InputReader();
 	String normalWebPage = "TABLE: (ROW: (CELL: TEXT: HTML elements partially supported by Browsr:),"
 			+ "ROW: (CELL: TABLE: (ROW: (CELL: HYPER: (a.html,TEXT: a),CELL: TEXT: Hyperlink anchors),"
@@ -20,7 +21,7 @@ class TestInputReader {
 	String illegalBrowsrWebPage = "TEXT: Error occured. Reason: not a valid Browsr document.";
 	@Test
 	void legalUrl() {
-		ArrayList<ContentSpan> list = inputReader.readFile("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+		ArrayList<ContentSpan> list = inputReader.readFile("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", saver);
 		
 		String output = list.get(0).toString();
 		assertEquals(normalWebPage, output);
@@ -28,7 +29,7 @@ class TestInputReader {
 	
 	@Test
 	void illegalUrl() {
-		ArrayList<ContentSpan> list = inputReader.readFile("https://people.cs.kuleuven.be/~bart.jacobs/malformed.html");
+		ArrayList<ContentSpan> list = inputReader.readFile("https://people.cs.kuleuven.be/~bart.jacobs/malformed.html", saver);
 		
 		String output = list.get(0).toString();
 		assertEquals(malformedUrl, output);
@@ -36,7 +37,7 @@ class TestInputReader {
 	
 	@Test
 	void nullUrl() {
-		ArrayList<ContentSpan> list = inputReader.readFile(null);
+		ArrayList<ContentSpan> list = inputReader.readFile(null, saver);
 		
 		String output = list.get(0).toString();
 		assertEquals(malformedUrl, output);
@@ -44,7 +45,7 @@ class TestInputReader {
 	
 	@Test
 	void legalUrlNotBrowsrFile() {
-		ArrayList<ContentSpan> list = inputReader.readFile("https://www.google.com");
+		ArrayList<ContentSpan> list = inputReader.readFile("https://www.google.com", saver);
 		
 		String output = list.get(0).toString();
 		assertEquals(illegalBrowsrWebPage, output);

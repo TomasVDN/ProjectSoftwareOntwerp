@@ -13,6 +13,7 @@ import canvaswindow.MyCanvasWindow;
 import container.Container;
 import converter.HTMLToGUI;
 import events.EventReader;
+import events.SavePageEvent;
 import htmlElement.ContentSpan;
 
 public class WindowManager {
@@ -271,13 +272,22 @@ public class WindowManager {
 
 	
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-		//TODO modifiers => 64 = Shift, 128 = Ctrl, 512 = alt
-		if (id == KeyEvent.KEY_PRESSED) {
+		//TODO modifiers => 128 = Ctrl, 512 = alt
+		if (id == KeyEvent.KEY_PRESSED & modifiersEx != 128) {
 			GUIElement element = this.getActiveElement();
 			if (element != null) {
 				element.handleKeyEvent(keyCode, keyChar, modifiersEx);
 			}
-		}	
+		}
+		
+		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
+			System.out.print(keyCode);
+			if (keyCode == 83) {
+				SavePageEvent event = new SavePageEvent();
+				this.getEventReader().readEvent(event);
+			}
+		}
+		
 		//Enkel op Tomas zijn keyboard.
         if (id == KeyEvent.KEY_TYPED && keyChar == "~".charAt(0)) {
             GUIElement element = this.getActiveElement();

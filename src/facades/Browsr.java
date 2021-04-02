@@ -69,5 +69,9 @@ public class Browsr {
 	public void handleHyperlink(String URLAttribute) {
 		runUrl(getBaseURLFromSearchBar() + URLAttribute);
 	}
+	
+	public void savePage() {
+		domainFacade.savePage();
+	}
 
 }

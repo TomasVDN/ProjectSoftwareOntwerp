@@ -18,7 +18,7 @@ public class InputReader {
 	 * @param path - url to open
 	 * @return ArrayList<ContentSpan>
 	 */
-	public ArrayList<ContentSpan> readFile(String path) {
+	public ArrayList<ContentSpan> readFile(String path, Saver saver) {
 
 		try {
 			//path = "https://konikoko.github.io/form.html";
@@ -39,6 +39,8 @@ public class InputReader {
 	        } catch (RuntimeException r) {
 	        	sb = "Error occured. Reason: not a valid Browsr document.\n";
 	        }*/ // TODO uitcomment dit als bart zijn versie heeft gemaakt
+	        
+	        saver.setHtmlCode(sb);
 	        
 	        //create a new decoder and return the HTMLElements created through his functions.
 	        decoder = new HTMLDecoder(sb);
