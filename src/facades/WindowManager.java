@@ -114,7 +114,7 @@ public class WindowManager {
 	 */
 	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
-			changeActive(getActiveElement().getGUIAtPosition(x, y));	
+			changeActive(getActiveDialog().getGUIAtPosition(x, y));	
 		} catch (NullPointerException e) {
 			changeActive(null);
 		}		

@@ -8,12 +8,17 @@ public class MainDialog extends Container {
 	private Container pageContainer;
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
+	private ArrayList<Container> allContainers;
 
 	public MainDialog(int x, int y, int w, int h, Container page, Container searchBar, Container bookmarkBar) {
 		super(x, y, w, h);
 		this.pageContainer = page;
 		this.searchBarContainer = searchBar;
 		this.bookmarkBarContainer = bookmarkBar;
+		this.allContainers = new ArrayList<Container>();
+		allContainers.add(bookmarkBarContainer);
+		allContainers.add(pageContainer);
+		allContainers.add(searchBarContainer);
 	}
 
 	/**
@@ -83,9 +88,33 @@ public class MainDialog extends Container {
 	@Override
 	public void paint(Graphics g) {
 		g.translate(getX(), getY());
-		this.getBookmarkBarContainer().paint(g);
-		this.getPageContainer().paint(g);
-		this.getSearchBarContainer().paint(g);
+		allContainers.stream().forEach(element -> element.paint(g));
 		g.translate(-getX(), -getY());
+	}
+	
+	/**
+	 * Returns the GUI if the given position is between its bounds
+	 * @param x - the x coordinate from the position to check
+	 * @param y - the y coordinate from the position to check
+	 */
+	@Override
+	public GUIElement getGUIAtPosition(int x, int y) {
+		int relativeX= x - this.getX();
+		int relativeY= y - this.getY();
+		
+		for (GUIElement e: allContainers) {
+			GUIElement gui= e.getGUIAtPosition(relativeX,relativeY);
+			if (gui!=null) {
+				return gui;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @return the allContainers
+	 */
+	public ArrayList<Container> getAllContainers() {
+		return allContainers;
 	}
 }
