@@ -37,14 +37,14 @@ public class Text extends GUIElement {
 	 * @param g - graphics object used to paint
 	 */
 	@Override
-	public void paint(Graphics g, int xContainer, int yContainer) {
+	public void paint(Graphics g) {
 		g.setFont(font);
 		g.setColor(Color.black);
 		
 		Shape oldClip = g.getClip();
 		
-		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
-		super.drawCenteredText(g, this.getText(), xContainer, yContainer);
+		g.setClip(getX(), getY(), getWidth(), getHeight());
+		super.drawCenteredText(g, this.getText());
 		g.setClip(oldClip);
 	}
 	
@@ -55,14 +55,14 @@ public class Text extends GUIElement {
 	 * @param g - graphics object used to paint
 	 * @param color - color to draw content with
 	 */
-	public void paint(Graphics g, int xContainer, int yContainer,Color color) {
+	public void paint(Graphics g, Color color) {
 		g.setFont(font);
 		g.setColor(color);
 		
 		Shape oldClip = g.getClip();
 		
-		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
-		super.drawCenteredText(g, this.getText(), xContainer, yContainer);
+		g.setClip(getX(), getY(), getWidth(), getHeight());
+		super.drawCenteredText(g, this.getText());
 		g.setClip(oldClip);
 	}
 	

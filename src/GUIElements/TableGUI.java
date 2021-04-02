@@ -35,11 +35,12 @@ public class TableGUI extends GUIElement {
 	}
 
 	@Override
-	public void paint(Graphics g, int xContainer, int yContainer) {
-		int relativeY=yContainer;
+	public void paint(Graphics g) {
+		g.translate(this.getX(), this.getY());		
 		for(int i=0; i< this.getGuiRows().size();i++) {
-			this.getGuiRows().get(i).paint(g, xContainer+this.getX(), relativeY+this.getY());
+			this.getGuiRows().get(i).paint(g);
 		}
+		g.translate(-this.getX(), -this.getY());
 	}
 	
 	/**

@@ -145,7 +145,7 @@ public class TextBox extends GUIElement {
 	 * Paints all the components of this textBox.
 	 */
 	@Override
-	public void paint(Graphics g, int xContainer, int yContainer) {
+	public void paint(Graphics g) {
 		g.setFont(font);
 		FontMetrics metrics =  g.getFontMetrics(g.getFont());
 		
@@ -155,32 +155,32 @@ public class TextBox extends GUIElement {
 		} else { 
 			g.setColor(Color.white);
 		}
-		g.fillRect(super.getX() + xContainer,super.getY() + yContainer, super.getWidth(), super.getHeight());
+		g.fillRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
 		g.setColor(Color.black);
 					
 		//Border
-		g.drawRect(super.getX() + xContainer,super.getY() + yContainer, super.getWidth(), super.getHeight());
+		g.drawRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
 		
-		int y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2);
+		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
 		
 		
 		//Text
 		Shape oldClip = g.getClip();
-		g.setClip(getX() + xContainer, getY() + yContainer, getWidth(), getHeight());
+		g.setClip(getX(), getY(), getWidth(), getHeight());
 		if (selectedText != "") {
 			g.setColor(Color.blue);
-			g.fillRect(super.getX()+10 + xContainer,y, metrics.stringWidth(getSelectedText()), metrics.getHeight());
+			g.fillRect(super.getX()+10,y, metrics.stringWidth(getSelectedText()), metrics.getHeight());
 			g.setColor(Color.black);
 		}
 		
-		y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
-		g.drawString(this.getText(), super.getX()+10+ xContainer, y);
+		y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+		g.drawString(this.getText(), super.getX()+10, y);
 	
 		
 		//cursor
 		if (isActive()) {
-			y = this.getY() + yContainer +  ((this.getHeight() - metrics.getHeight()) / 2);
-			g.fillRect(super.getX() + xContainer + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
+			y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
+			g.fillRect(super.getX() + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
 		}
 			
 		g.setClip(oldClip);
