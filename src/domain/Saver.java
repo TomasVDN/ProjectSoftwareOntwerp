@@ -19,9 +19,14 @@ public class Saver {
 		this.htmlCode = htmlCode;
 	}
 
-	public void saveToFile() {
-		//TODO: ask for input for file naming
-		File yourFile = new File("savedPages/output.html");
+	public void saveToFile(String filename) {
+		if (filename == null || filename == "") {
+			filename = "output.html";
+		}
+		
+		File yourFile = new File("savedPages/" + filename);
+		
+		System.out.print(htmlCode);
 		try {
 			yourFile.createNewFile();
 			FileOutputStream outputFile = new FileOutputStream(yourFile, false); 
