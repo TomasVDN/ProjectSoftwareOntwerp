@@ -9,6 +9,7 @@ public class MainDialog extends Container {
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
+	// test
 
 	public MainDialog(int x, int y, int w, int h, Container page, Container searchBar, Container bookmarkBar) {
 		super(x, y, w, h);
