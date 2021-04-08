@@ -2,6 +2,8 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import GUIElements.SearchBar;
+import events.EventReader;
 
 public class MainDialog extends Container {
 	
@@ -9,14 +11,23 @@ public class MainDialog extends Container {
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
-	// test
+	
+	
+	private SearchBar searchbar;
 
-	public MainDialog(int x, int y, int w, int h, Container page, Container searchBar, Container bookmarkBar) {
+	public MainDialog(int x, int y, int w, int h, EventReader eventReader, Container pageContainer, Container searchBarContainer, Container bookmarkBarContainer) {
 		super(x, y, w, h);
-		this.pageContainer = page;
-		this.searchBarContainer = searchBar;
-		this.bookmarkBarContainer = bookmarkBar;
+		this.pageContainer = pageContainer;
+		this.searchBarContainer = searchBarContainer;
+		this.bookmarkBarContainer = bookmarkBarContainer;
 		this.allContainers = new ArrayList<Container>();
+		
+		// set up searchbar
+		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, eventReader);
+		this.setSearchbar(searchBar);
+		this.getSearchBarContainer().addElement(searchBar);
+		
+		
 		allContainers.add(bookmarkBarContainer);
 		allContainers.add(pageContainer);
 		allContainers.add(searchBarContainer);
@@ -62,6 +73,21 @@ public class MainDialog extends Container {
 	 */
 	public void setBookmarkBarContainer(Container bookmarkBar) {
 		this.bookmarkBarContainer = bookmarkBar;
+	}
+	
+	
+	/**
+	 * @return this.searchBar
+	 */
+	public SearchBar getSearchbar() {
+		return searchbar;
+	}
+
+	/**
+	 * @param searchbar - the new value of this.searchBar
+	 */
+	public void setSearchbar(SearchBar searchbar) {
+		this.searchbar = searchbar;
 	}
 	
 	/**

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import GUIElements.GUIElement;
 import GUIElements.MainDialog;
 import GUIElements.SaveDialog;
-import GUIElements.SearchBar;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
@@ -20,8 +19,6 @@ import htmlElement.ContentSpan;
 public class WindowManager {
 
 	private Container activeDialog;
-	
-	private SearchBar searchbar;
 	
 	private int width;
 	private int height;
@@ -55,7 +52,7 @@ public class WindowManager {
 		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
 		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
 		
-		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer);
+		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, eventReader, pageContainer, searchBarContainer, bookmarkBarContainer);
 		this.setActiveDialog(mainDialog);
 		
 		SaveDialog saveDialog = new SaveDialog(0, 0, 600, 600, eventReader);
@@ -65,10 +62,6 @@ public class WindowManager {
 		//Setup the welcome page
 		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
 		this.addGUIToPage(text);
-
-		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, this.eventReader);
-		this.setSearchbar(searchBar);
-		mainDialog.getSearchBarContainer().addElement(searchBar);
 		
 		browsr.setDialogs(mainDialog, saveDialog, bookmarkDialog);
 	}
@@ -160,7 +153,7 @@ public class WindowManager {
 	 */
 	public void updateURL(String url) {
 		this.changeActive(null);
-		this.getSearchbar().replaceBox(url);
+		this.getMainPage().getSearchbar().replaceBox(url);
 	}
 
 	/**
@@ -221,20 +214,6 @@ public class WindowManager {
 	public EventReader getEventReader() {
 		return eventReader;
 	}
-	
-	/**
-	 * @return this.searchBar
-	 */
-	public SearchBar getSearchbar() {
-		return searchbar;
-	}
-
-	/**
-	 * @param searchbar - the new value of this.searchBar
-	 */
-	public void setSearchbar(SearchBar searchbar) {
-		this.searchbar = searchbar;
-	}
 
 	
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
@@ -264,7 +243,7 @@ public class WindowManager {
 	}
 	
 	public String getBaseURLFromSearchBar() {
-		return this.getSearchbar().getBaseURL();
+		return this.getMainPage().getSearchbar().getBaseURL();
 	}
 
 	/**
