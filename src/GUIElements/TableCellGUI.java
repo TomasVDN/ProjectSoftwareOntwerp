@@ -2,6 +2,8 @@ package GUIElements;
 
 import java.awt.Graphics;
 
+import events.EventListener;
+
 public class TableCellGUI {
 
 	private GUIElement gui;
@@ -189,4 +191,16 @@ public class TableCellGUI {
 	public int getHeight() {
 		return this.height;
 	}
+	
+	void addListener(EventListener listener) {
+		this.getGui().addListener(listener);
+	}
+
+
+
+	
+	void removeListener(EventListener listener) {
+		this.removeListener(listener);
+	}
+	
 }

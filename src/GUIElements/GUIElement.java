@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+import events.EventListener;
+
 public abstract class GUIElement {
 	private int xPos;
 	private int yPos;
@@ -221,4 +223,11 @@ public abstract class GUIElement {
 		//otherwise return null
 		return null;
 	}
+	
+	abstract void addListener(EventListener listener);
+	
+	abstract void removeListener(EventListener listener);
+	
+	
+	
 }
