@@ -19,10 +19,7 @@ public class Container extends GUIElement {
 	}
 
 	@Override
-	protected void handleUnselect() {
-		// TODO Auto-generated method stub
-
-	}
+	protected void handleUnselect() {}
 
 	@Override
 	public void handleClick() {
