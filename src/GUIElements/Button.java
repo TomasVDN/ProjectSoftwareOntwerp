@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Shape;
+import java.util.List;
+
+import events.*;
+
 
 public class Button extends GUIElement {
 
@@ -11,6 +15,8 @@ public class Button extends GUIElement {
     private Color buttonColor =  Color.BLACK;
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean drawBox = false;
+    private List<EventListener> listeners;
+    
     
     /**
      * Constructor of the Button class.
@@ -130,6 +136,21 @@ public class Button extends GUIElement {
 
 	@Override
 	public void handleClick() {
+	}
+	
+	/**
+	 * Add the given EventListener to a list of EventListeners
+	 * @param listener
+	 */
+	public void addListener(EventListener listener) {
+		listeners.add(listener);
+	}
+	
+	/**
+	 * removes the given EventListener form a list of EventListeners
+	 */
+	public void removeListener(EventListener listener) {
+		listeners.remove(listener);
 	}
 
 }

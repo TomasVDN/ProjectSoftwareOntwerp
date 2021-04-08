@@ -3,7 +3,9 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class TableRowGUI {
+import events.EventListener;
+
+public class TableRowGUI  {
 
 	private int xPos, yPos;
 	
@@ -180,6 +182,20 @@ public class TableRowGUI {
 	 */
 	public int getY() {
 		return this.yPos;
+	}
+	
+	
+	void addListener(EventListener listener) {
+		for(TableCellGUI cell : this.getGuiElements()) {
+			cell.addListener(listener);
+		}
+	}
+
+
+	void removeListener(EventListener listener) {
+		for(TableCellGUI cell : this.getGuiElements()) {
+			cell.removeListener(listener);
+		}
 	}
 	
 }

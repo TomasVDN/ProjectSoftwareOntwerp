@@ -3,6 +3,8 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import events.EventListener;
+
 public class TableGUI extends GUIElement {
 
 	private ArrayList<TableRowGUI> guiRows;
@@ -202,4 +204,21 @@ public class TableGUI extends GUIElement {
 	public void handleClick() {		
 	}
 
+	@Override
+	void addListener(EventListener listener) {
+		for(TableRowGUI row : this.getGuiRows()) {
+			row.addListener(listener);
+		}
+	}
+
+	@Override
+	void removeListener(EventListener listener) {
+		for(TableRowGUI row : this.getGuiRows()) {
+			row.removeListener(listener);
+		}
+	}
+
 }
+
+
+
