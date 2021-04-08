@@ -40,6 +40,9 @@ public class WindowManager {
 		//Make new Browsr object.
 		Browsr browsr = new Browsr(this);
 		
+		//TODO remove this
+		this.browsr = browsr;
+		
 		//Set width/height.
 		this.setWidth(600);
 		this.setHeight(600);
@@ -276,6 +279,12 @@ public class WindowManager {
 	 */
 	public void setActiveDialog(Container activeDialog) {
 		this.activeDialog = activeDialog;
+	}
+	
+	//TODO remove this.
+	private Browsr browsr;
+	public MainDialog getMainPage() {
+		return browsr.getMainDialog();
 	}
 
 }
