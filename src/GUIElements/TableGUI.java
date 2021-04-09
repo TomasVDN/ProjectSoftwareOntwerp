@@ -16,8 +16,6 @@ public class TableGUI extends GUIElement {
 	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y) {
 		super(x, y);
 		this.setGuiRows(guiRows);
-		this.updateTableCells();
-
 	}
 
 	/**
@@ -32,6 +30,7 @@ public class TableGUI extends GUIElement {
 			throw new IllegalArgumentException("rows of guiTable can't be null");
 		}
 		this.guiRows = guiElements;
+		updateTableCells();
 	}
 
 	@Override

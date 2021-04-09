@@ -29,9 +29,13 @@ public class MainDialog extends Container {
 		this.setSearchbar(searchBar);
 		this.getSearchBarContainer().addElement(this.getSearchbar());
 		
+		allContainers.add(searchBarContainer);
+		allContainers.add(bookmarkBarContainer);
+		allContainers.add(pageContainer);
+		
 		// set up bookmarkBar
-		Text t = new Text(0, 0, "hello");
-		TableCellGUI c = new TableCellGUI(t, 0, 0, 10, 10);
+		Text t = new Text(0, 0, "Bookmarks:");
+		TableCellGUI c = new TableCellGUI(t, 0, 0, 0, 0);
 		ArrayList<TableCellGUI> bookmarkCells = new ArrayList<TableCellGUI>();
 		bookmarkCells.add(c);
 		TableRowGUI emptyTableRow = new TableRowGUI(bookmarkCells, 0, 0);
@@ -42,9 +46,7 @@ public class MainDialog extends Container {
 		this.getBookmarkBarContainer().addElement(this.getBookmarkBar());
 		
 		
-		allContainers.add(bookmarkBarContainer);
-		allContainers.add(pageContainer);
-		allContainers.add(searchBarContainer);
+
 		
 		Text t2 = new Text(0, 0, "link");
 		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
@@ -119,10 +121,13 @@ public class MainDialog extends Container {
 	
 	public void addBookmark(BookmarkHyperlink newBookmark) {
 		ArrayList<TableCellGUI> bookmarkCells = this.bookmarkBar.getGuiRows().get(0).getGuiElements();
-		TableCellGUI newBookmarkCell = new TableCellGUI(newBookmark, 0, 0, 10, 10); // TODO die posities 
+		TableCellGUI newBookmarkCell = new TableCellGUI(newBookmark, 0, 0, 0, 0); // TODO die posities misschien veranderen?
 		bookmarkCells.add(newBookmarkCell);
-		this.getBookmarkBar().getGuiRows().get(0).setGuiElements(bookmarkCells); // TODO die get(0) misschien op een andere manier doen?
-		this.getBookmarkBar().updateTableCells();
+		TableRowGUI updatedRow = new TableRowGUI(bookmarkCells, 0, 0);
+		ArrayList<TableRowGUI> updatedRows = new ArrayList<TableRowGUI>();
+		updatedRows.add(updatedRow);
+		this.getBookmarkBar().setGuiRows(updatedRows);; // TODO die get(0) misschien op een andere manier doen?
+		//this.getBookmarkBar().updateTableCells();
 	}
 	
 	/**

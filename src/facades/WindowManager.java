@@ -9,10 +9,12 @@ import GUIElements.MainDialog;
 import GUIElements.SaveDialog;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
+import GUIElements.BookmarkDialog;
 import GUIElements.Container;
 import converter.HTMLToGUI;
 import events.ChangeToDialogEvent;
 import events.EventReader;
+import events.InitializeBookmarkDialogEvent;
 import events.SavePageEvent;
 import htmlElement.ContentSpan;
 
@@ -57,7 +59,7 @@ public class WindowManager {
 		
 		SaveDialog saveDialog = new SaveDialog(0, 0, 600, 600, eventReader);
 		
-		Container bookmarkDialog = new Container(0, 0, 600, 600);
+		BookmarkDialog bookmarkDialog = new BookmarkDialog(0, 0, 600, 600, eventReader);
 		
 		//Setup the welcome page
 		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
@@ -225,10 +227,22 @@ public class WindowManager {
 			}
 		}
 		
+		// Ctrl + s
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			System.out.print(keyCode);
 			if (keyCode == 83) {
 				ChangeToDialogEvent event = new ChangeToDialogEvent("saveDialog");
+				this.getEventReader().readEvent(event);
+			}
+		}
+		
+		// Ctrl + d
+		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
+			System.out.print(keyCode);
+			if (keyCode == 68) {
+				InitializeBookmarkDialogEvent initializeBookmarkDialogEvent = new InitializeBookmarkDialogEvent(getURLFromSearchBar());
+				this.getEventReader().readEvent(initializeBookmarkDialogEvent);
+				ChangeToDialogEvent event = new ChangeToDialogEvent("bookmarkDialog");
 				this.getEventReader().readEvent(event);
 			}
 		}
@@ -240,6 +254,10 @@ public class WindowManager {
                 element.handleKeyEvent(keyCode, keyChar, modifiersEx);
             }
         }
+	}
+	
+	public String getURLFromSearchBar() {
+		return this.getMainPage().getSearchbar().getText();
 	}
 	
 	public String getBaseURLFromSearchBar() {

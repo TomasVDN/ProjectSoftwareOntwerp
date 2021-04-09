@@ -335,5 +335,8 @@ public class TextBox extends GUIElement {
 	
 	@Override
 	public void handleUnselect() {
+		this.leftText = this.getLeftText() + this.getSelectedText() + this.getRightText();
+		this.setSelectedText("");
+		this.setRigthText("");
 	}
 }
