@@ -15,7 +15,7 @@ public class Hyperlink extends Button {
 	//Map for setting the underline in the font and Variable for the url
     private Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
 	private String url;
-	private EventReader eventReader;
+	protected EventReader eventReader;
 	
 	/**
 	 * Constructor for the hyperlink class.

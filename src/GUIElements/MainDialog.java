@@ -47,7 +47,7 @@ public class MainDialog extends Container {
 		allContainers.add(searchBarContainer);
 		
 		Text t2 = new Text(0, 0, "link");
-		Hyperlink hyperlinkTest = new Hyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
+		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
 		this.addBookmark(hyperlinkTest);
 	}
 
@@ -117,7 +117,7 @@ public class MainDialog extends Container {
 		this.bookmarkBar = bookmarkBar;
 	}
 	
-	public void addBookmark(Hyperlink newBookmark) {
+	public void addBookmark(BookmarkHyperlink newBookmark) {
 		ArrayList<TableCellGUI> bookmarkCells = this.bookmarkBar.getGuiRows().get(0).getGuiElements();
 		TableCellGUI newBookmarkCell = new TableCellGUI(newBookmark, 0, 0, 10, 10); // TODO die posities 
 		bookmarkCells.add(newBookmarkCell);
