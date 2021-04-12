@@ -21,6 +21,7 @@ public class WindowManager {
 
 	private Container activeDialog;
 	
+	//TODO mag dit?  searchbar bijgehouden in 2 plekken, maar wel nodig als bv in bookmark dialog
 	private SearchBar searchbar;
 	
 	private int width;

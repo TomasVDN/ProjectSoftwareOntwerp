@@ -10,6 +10,7 @@ public class MainDialog extends Container {
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
 
+	//TODO searchbar & bookmar bar fusen?
 	public MainDialog(int x, int y, int w, int h, Container page, Container searchBar, Container bookmarkBar) {
 		super(x, y, w, h);
 		this.pageContainer = page;
