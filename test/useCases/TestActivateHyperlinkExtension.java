@@ -14,7 +14,7 @@ import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
 import events.Event;
 import events.EventReader;
-import events.RunUrlEvent;
+
 
 class TestActivateHyperlinkExtension {
 
@@ -31,8 +31,8 @@ class TestActivateHyperlinkExtension {
 	@DisplayName("Use Case 4.1 Extension 2a: Activate Hyperlink")
 	void test() {
 		//load the page for the test
-		Event event = new RunUrlEvent("https://konikoko.github.io/");
-		window.getWindowManager().getEventReader().readEvent(event);
+		window.getWindowManager().getSearchbar().replaceBox("https://konikoko.github.io/");
+		window.getWindowManager().getSearchbar().handleEnter();
 		
 		//click on the broken the broken hyperlink
 		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 70, 180, 1, MouseEvent.BUTTON1, 0);
@@ -46,8 +46,8 @@ class TestActivateHyperlinkExtension {
 		assertEquals("Error occured. Make sure you entered a valid URL.", pageErrorText.getText());
 		
 		//load the page for the test
-		Event event2 = new RunUrlEvent("https://konikoko.github.io/");
-		window.getWindowManager().getEventReader().readEvent(event2);
+		window.getWindowManager().getSearchbar().replaceBox("https://konikoko.github.io/");
+		window.getWindowManager().getSearchbar().handleEnter();
 		
 		//click on the working hyperlink but with the broken html file
 		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 37, 205, 1, MouseEvent.BUTTON1, 0);

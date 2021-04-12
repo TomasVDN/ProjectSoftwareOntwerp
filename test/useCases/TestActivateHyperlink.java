@@ -17,7 +17,7 @@ import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
 import events.Event;
-import events.RunUrlEvent;
+
 
 class TestActivateHyperlink {
 
@@ -34,8 +34,10 @@ class TestActivateHyperlink {
 	@DisplayName("Use Case 4.1: Activate Hyperlink")
 	public void test() {
 		//load the page for the test
-		Event event = new RunUrlEvent("https://konikoko.github.io/");
-		window.getWindowManager().getEventReader().readEvent(event);
+		//Event event = new RunUrlEvent("https://konikoko.github.io/");
+		window.getWindowManager().getSearchbar().replaceBox("https://konikoko.github.io/");
+		window.getWindowManager().getSearchbar().handleEnter();
+		//window.getWindowManager().getEventReader().readEvent(event);
 
 		//get the url bar
 		SearchBar mainBar = window.getWindowManager().getSearchbar();

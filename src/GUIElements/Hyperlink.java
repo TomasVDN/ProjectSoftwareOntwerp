@@ -13,7 +13,6 @@ import javax.swing.event.HyperlinkListener;
 import EventCreators.HyperLinkEventCreator;
 import EventListeners.ActionListener;
 import EventListeners.HyperLinkListener;
-import events.ClickHyperlinkEvent;
 import events.Event;
 import events.EventReader;
 
@@ -86,14 +85,12 @@ public class Hyperlink extends Button implements HyperLinkEventCreator  {
 
 	@Override
 	public void addListener(HyperLinkListener listener) {
-		// TODO Auto-generated method stub
-		
+		this.getHyperListeners().add(listener);
 	}
 
 	@Override
 	public void removeListener(HyperLinkListener listener) {
-		// TODO Auto-generated method stub
-		
+		this.getHyperListeners().remove(listener);
 	}
 	
 
