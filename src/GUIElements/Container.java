@@ -3,6 +3,8 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import events.EventListener;
+
 public class Container extends GUIElement {
 
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
@@ -19,10 +21,7 @@ public class Container extends GUIElement {
 	}
 
 	@Override
-	protected void handleUnselect() {
-		// TODO Auto-generated method stub
-
-	}
+	protected void handleUnselect() {}
 
 	@Override
 	public void handleClick() {
@@ -112,6 +111,20 @@ public class Container extends GUIElement {
 			}
 		}
 		return null;
+	}
+
+
+	@Override
+	void addListener(EventListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	void removeListener(EventListener listener) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -28,7 +28,7 @@ public class DomainFacade {
 		return htmlElements;
 	}
 	
-	public void savePage() {
-		saver.saveToFile();
+	public void savePage(String filename) {
+		saver.saveToFile(filename);
 	}
 }

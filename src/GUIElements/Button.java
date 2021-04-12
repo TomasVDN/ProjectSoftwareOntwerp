@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Shape;
+
 import java.util.List;
 
 import events.*;
+
+import java.util.ArrayList;
 
 
 public class Button extends GUIElement {
@@ -133,11 +136,23 @@ public class Button extends GUIElement {
 	@Override
 	protected void handleUnselect() {		
 	}
+	
+	protected ArrayList<Runnable> clickListeners = new ArrayList<Runnable>();
+	
+
+	/**
+	 * adds a listener for a singleClick action
+	 * @param f: the listener to be added
+	 */
+	public void addSingleClickListener(Runnable f) {
+		clickListeners.add(f);
+	}
 
 	@Override
 	public void handleClick() {
+		new ArrayList<>(clickListeners).stream().forEach(l -> l.run());
 	}
-	
+
 	/**
 	 * Add the given EventListener to a list of EventListeners
 	 * @param listener
@@ -152,5 +167,6 @@ public class Button extends GUIElement {
 	public void removeListener(EventListener listener) {
 		listeners.remove(listener);
 	}
+
 
 }

@@ -6,21 +6,19 @@ import java.util.ArrayList;
 
 import GUIElements.GUIElement;
 import GUIElements.MainDialog;
+import GUIElements.SaveDialog;
 import GUIElements.SearchBar;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
 import converter.HTMLToGUI;
+import events.ChangeToDialogEvent;
 import events.EventReader;
 import events.SavePageEvent;
 import htmlElement.ContentSpan;
 
 public class WindowManager {
 
-	private MainDialog mainPage;
-	private Container saveDialog = new Container(0, 0, 600, 600);
-	private Container bookmarkDialog = new Container(0, 0, 600, 600);
-	
 	private Container activeDialog;
 	
 	private SearchBar searchbar;
@@ -42,7 +40,10 @@ public class WindowManager {
 		//Make new Browsr object.
 		Browsr browsr = new Browsr(this);
 		
-		//Set width/height. If w/h < 50, set it to 600.
+		//TODO remove this
+		this.browsr = browsr;
+		
+		//Set width/height.
 		this.setWidth(600);
 		this.setHeight(600);
 		
@@ -54,8 +55,12 @@ public class WindowManager {
 		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
 		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
 		
-		this.mainPage = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer);
-		this.setActiveDialog(mainPage);
+		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer);
+		this.setActiveDialog(mainDialog);
+		
+		SaveDialog saveDialog = new SaveDialog(0, 0, 600, 600, eventReader);
+		
+		Container bookmarkDialog = new Container(0, 0, 600, 600);
 		
 		//Setup the welcome page
 		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
@@ -63,7 +68,9 @@ public class WindowManager {
 
 		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, this.eventReader);
 		this.setSearchbar(searchBar);
-		this.getMainPage().getSearchBarContainer().addElement(searchBar);
+		mainDialog.getSearchBarContainer().addElement(searchBar);
+		
+		browsr.setDialogs(mainDialog, saveDialog, bookmarkDialog);
 	}
 
 	/**
@@ -242,7 +249,7 @@ public class WindowManager {
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			System.out.print(keyCode);
 			if (keyCode == 83) {
-				SavePageEvent event = new SavePageEvent();
+				ChangeToDialogEvent event = new ChangeToDialogEvent("saveDialog");
 				this.getEventReader().readEvent(event);
 			}
 		}
@@ -261,48 +268,6 @@ public class WindowManager {
 	}
 
 	/**
-	 * @return the mainPage
-	 */
-	public MainDialog getMainPage() {
-		return mainPage;
-	}
-
-	/**
-	 * @param mainPage the mainPage to set
-	 */
-	public void setMainPage(MainDialog mainPage) {
-		this.mainPage = mainPage;
-	}
-
-	/**
-	 * @return the saveDialog
-	 */
-	public Container getSaveDialog() {
-		return saveDialog;
-	}
-
-	/**
-	 * @param saveDialog the saveDialog to set
-	 */
-	public void setSaveDialog(Container saveDialog) {
-		this.saveDialog = saveDialog;
-	}
-
-	/**
-	 * @return the bookmarkDialog
-	 */
-	public Container getBookmarkDialog() {
-		return bookmarkDialog;
-	}
-
-	/**
-	 * @param bookmarkDialog the bookmarkDialog to set
-	 */
-	public void setBookmarkDialog(Container bookmarkDialog) {
-		this.bookmarkDialog = bookmarkDialog;
-	}
-
-	/**
 	 * @return the activeDialog
 	 */
 	public Container getActiveDialog() {
@@ -314,6 +279,12 @@ public class WindowManager {
 	 */
 	public void setActiveDialog(Container activeDialog) {
 		this.activeDialog = activeDialog;
+	}
+	
+	//TODO remove this.
+	private Browsr browsr;
+	public MainDialog getMainPage() {
+		return browsr.getMainDialog();
 	}
 
 }
