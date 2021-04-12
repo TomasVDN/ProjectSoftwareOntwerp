@@ -21,7 +21,7 @@ public class InputReader {
 	public ArrayList<ContentSpan> readFile(String path, Saver saver) {
 
 		try {
-			path = "https://konikoko.github.io/form.html";
+			//path = "https://konikoko.github.io/form.html";
 			//open url, and copy content to Buffered reader
 			URL url = new URL(path);
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -34,11 +34,11 @@ public class InputReader {
 	        	sb +=  line + "\n";
 	        }
 	        //Check if valid browsr html file
-	       /* try {
+	        try {
 	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
 	        } catch (RuntimeException r) {
 	        	sb = "Error occured. Reason: not a valid Browsr document.\n";
-	        }*/ // TODO uitcomment dit als bart zijn versie heeft gemaakt
+	        } // TODO uitcomment dit als bart zijn versie heeft gemaakt
 	        
 	        saver.setHtmlCode(sb);
 	        
