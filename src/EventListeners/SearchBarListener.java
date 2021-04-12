@@ -2,5 +2,5 @@ package EventListeners;
 
 public interface SearchBarListener extends EventListener {
 
-	void searchBarLoseFocus();
+	void searchBarLoseFocus(String url);
 }

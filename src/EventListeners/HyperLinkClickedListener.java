@@ -2,5 +2,5 @@ package EventListeners;
 
 public interface HyperLinkClickedListener extends EventListener {
 
-	void handleHyperLinkClicked();
+	void handleHyperLinkClicked(String urlAttribute);
 }
