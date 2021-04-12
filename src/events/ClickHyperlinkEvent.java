@@ -16,7 +16,7 @@ public class ClickHyperlinkEvent implements Event {
 
 	@Override
 	public void execute(Browsr browsr) {
-		browsr.handleHyperlink(this.getURLAttribute());
+		browsr.runUrlAttribute(this.getURLAttribute());
 	}
 
 	/**

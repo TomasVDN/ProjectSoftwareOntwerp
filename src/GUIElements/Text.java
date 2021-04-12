@@ -128,15 +128,5 @@ public class Text extends GUIElement {
 	public void handleUnselect() {
 	}
 
-	@Override
-	void addListener(EventListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	void removeListener(EventListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -205,28 +205,14 @@ public class TableGUI extends GUIElement {
 	public void handleClick() {		
 	}
 
-	@Override
-	void addListener(EventListener listener) {
-		for(TableRowGUI row : this.getGuiRows()) {
-			row.addListener(listener);
-		}
-	}
-
-	@Override
-	void removeListener(EventListener listener) {
-		for(TableRowGUI row : this.getGuiRows()) {
-			row.removeListener(listener);
-		}
-	}
+	
 	
 	@Override
-	public ArrayList<TextBox> getUsedTextBoxes() {
-		ArrayList<TextBox> textBoxList = new ArrayList<TextBox>();
-		for(GUIElement element: this.getGuiRows()) {
-			ArrayList<TextBox> foundElements = element.getUsedTextBoxes();
-			textBoxList.addAll(foundElements);
+	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
+			for(GUIElement element: this.getGuiRows()) {
+			element.getGuiClass(cls, array);
 		}
-		return textBoxList;
+		return array;
 	}
 
 }

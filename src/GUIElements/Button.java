@@ -7,19 +7,20 @@ import java.awt.Shape;
 
 import java.util.List;
 
-import EventListeners.EventListener;
-import events.*;
+import EventCreators.ActionCreator;
+import EventListeners.ActionListener;
+
 
 import java.util.ArrayList;
 
 
-public class Button extends GUIElement {
+public class Button extends GUIElement implements ActionCreator {
 
 	private Text text;
     private Color buttonColor =  Color.BLACK;
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean drawBox = false;
-    private List<EventListener> listeners = new ArrayList<EventListener>();
+    private List<ActionListener> listeners = new ArrayList<ActionListener>();
     
     
     /**
@@ -158,18 +159,18 @@ public class Button extends GUIElement {
 	 * Add the given EventListener to a list of EventListeners
 	 * @param listener
 	 */
-	public void addListener(EventListener listener) {
+	public void addListener(ActionListener listener) {
 		listeners.add(listener);
 	}
 	
 	/**
 	 * removes the given EventListener form a list of EventListeners
 	 */
-	public void removeListener(EventListener listener) {
+	public void removeListener(ActionListener listener) {
 		listeners.remove(listener);
 	}
 	
-	public List<EventListener> getListeners() {
+	public List<ActionListener> getListeners() {
 		return listeners;
 	}
 

@@ -347,17 +347,6 @@ public class TextBox extends GUIElement {
 	public void handleUnselect() {
 	}
 
-	@Override
-	void addListener(EventListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void removeListener(EventListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public String getName() {
 		return name;
@@ -367,13 +356,7 @@ public class TextBox extends GUIElement {
 		this.name = name;
 	}
 	
-	
-	@Override 
-	public ArrayList<TextBox> getUsedTextBoxes() {
-		ArrayList<TextBox> t= new ArrayList<TextBox>();
-		t.add(this);
-		return t;
-	}
+
 	
 	@Override
 	public String toString() {

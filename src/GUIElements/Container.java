@@ -113,29 +113,14 @@ public class Container extends GUIElement {
 	}
 
 
-	@Override
-	void addListener(EventListener listener) {
-		for(GUIElement elem : this.getElements()) {
-			elem.addListener(listener);
-		}
-	}
 
 
 	@Override
-	void removeListener(EventListener listener) {
-		for(GUIElement elem : this.getElements()) {
-			elem.removeListener(listener);
-		}
-	}
-
-	@Override
-	public ArrayList<TextBox> getUsedTextBoxes() {
-		ArrayList<TextBox> textBoxList = new ArrayList<TextBox>();
+	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array) {
 		for(GUIElement element: this.getElements()) {
-			ArrayList<TextBox> foundElements = element.getUsedTextBoxes();
-			textBoxList.addAll(foundElements);
+			element.getGuiClass(cls, array);
 		}
-		return textBoxList;
+		return array;
 	}
 
 }

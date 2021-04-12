@@ -93,7 +93,7 @@ public class WindowManager {
 	public void draw(ArrayList<ContentSpan> htmlElements) {
 		HTMLToGUI converter = new HTMLToGUI();
 		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements, this.eventReader);
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements,this.getEventReader());
 		this.getActiveDialog().resetAllElements(list);
 	}
 	

@@ -226,16 +226,21 @@ public abstract class GUIElement {
 		return null;
 	}
 	
-	abstract void addListener(EventListener listener);
 	
-	abstract void removeListener(EventListener listener);
-	
+
 	/**
-	 * Returns all the textboxes in the given GUIElement
-	 * In the normal case returns an emptyList
+	 * Returns all the elements of given GUI back into an array
+	 * @param <T>
+	 * @param cls
+	 * @param array
+	 * @return
 	 */
-	public ArrayList<TextBox> getUsedTextBoxes(){
-		return new ArrayList<TextBox>();
+	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
+		if(cls.isInstance(this)) {
+			array.add( (T) this); //TODO dit is niet veilig blijkbaar
+		}
+		return array;
 	}
 	
+
 }

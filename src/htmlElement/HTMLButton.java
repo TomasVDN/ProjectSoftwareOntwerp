@@ -2,6 +2,7 @@ package htmlElement;
 
 import java.awt.Color;
 
+import EventListeners.ActionListener;
 import EventListeners.EventListener;
 import GUIElements.Button;
 import GUIElements.GUIElement;
@@ -26,10 +27,9 @@ public class HTMLButton extends HTMLInput{
 		Text guiText = textInButton.transformToGUI(x, y, width, height, eventReader);
 		Button button = new Button(x, y, guiText, true, Color.GRAY);
 		button.addSingleClickListener(() ->{
-			SubmitEvent event = new SubmitEvent();
-			System.out.println("CLiCK OP BUTTON");
-			for(EventListener listener: button.getListeners()) {
-				//listener.readEvent(event);
+			System.out.println("CLICK OP BUTTON");
+			for(ActionListener listener: button.getListeners()) {
+				listener.clickButton();
 			}
 		});
 		

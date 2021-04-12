@@ -133,31 +133,14 @@ public class TableRowGUI extends GUIElement {
 		this.tableCellList = cells;
 	}
 
-	
-	void addListener(EventListener listener) {
-		for(TableCellGUI cell : this.getGuiElements()) {
-			cell.addListener(listener);
-		}
-	}
 
-
-	void removeListener(EventListener listener) {
-		for(TableCellGUI cell : this.getGuiElements()) {
-			cell.removeListener(listener);
-		}
-	}
-	
-	
 	@Override
-	public ArrayList<TextBox> getUsedTextBoxes() {
-		ArrayList<TextBox> textBoxList = new ArrayList<TextBox>();
-		for(TableCellGUI element: this.getGuiElements()) {
-			ArrayList<TextBox> foundElements = element.getUsedTextBoxes();
-			textBoxList.addAll(foundElements);
+	public  <T> ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array) {
+		for(GUIElement element: this.getGuiElements()) {
+			element.getGuiClass(cls, array);
 		}
-		return textBoxList;
+		return array;
 	}
-
 
 
 

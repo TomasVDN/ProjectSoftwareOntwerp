@@ -73,7 +73,7 @@ public class Browsr {
 	 * Handler for the hyperlinks.
 	 * @param URLAttribute
 	 */
-	public void handleHyperlink(String URLAttribute) {
+	public void runUrlAttribute(String URLAttribute) {
 		runUrl(getBaseURLFromSearchBar() + URLAttribute);
 	}
 	

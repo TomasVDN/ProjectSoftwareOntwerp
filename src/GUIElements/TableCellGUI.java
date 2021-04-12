@@ -193,14 +193,6 @@ public class TableCellGUI extends GUIElement {
 		return this.height;
 	}
 	
-	void addListener(EventListener listener) {
-		this.getGui().addListener(listener);
-	}
-
-	
-	void removeListener(EventListener listener) {
-		this.removeListener(listener);
-	}
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
@@ -219,9 +211,8 @@ public class TableCellGUI extends GUIElement {
 		// TODO Auto-generated method stub	
 	}
 	
-	@Override
-	public ArrayList<TextBox> getUsedTextBoxes() {
-		return this.getGui().getUsedTextBoxes();
+	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
+		return this.getGui().getGuiClass(cls, array);
 	}
 	
 }

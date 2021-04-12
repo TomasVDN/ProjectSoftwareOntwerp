@@ -2,34 +2,40 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.List;
 
-import EventListeners.EventListener;
-import events.ClickHyperlinkEvent;
-import events.Event;
-import events.SubmitEvent;
-import htmlElement.ContentSpan;
-import canvaswindow.*;
+import EventCreators.ActionCreator;
+import EventCreators.FormEventCreator;
+import EventListeners.*;
+import events.EventReader;
 
-public class Form extends GUIElement implements EventListener {
 
-	private GUIElement gui;
+public class Form extends GUIElement implements ActionListener,FormEventCreator {
+
+	private GUIElement rootGui;
 	private String action;
-	private List<EventListener> listeners = new ArrayList<EventListener>();
+	private ArrayList<FormListener> listeners = new ArrayList<FormListener>();
 	
-	public Form(GUIElement gui, int x, int y,String action,EventListener listener){
+	public Form(GUIElement gui, int x, int y,String action,EventReader listener){
 		super(x,y);
 		this.setGui(gui);
 		this.setAction(action);
-		this.getGui().addListener(this); // adds the form as listener to the gui
+		this.addSelfToRootGui(); // adds the form as listener to the gui
 		this.addListener(listener);
+	}
+	
+	private void addSelfToRootGui() {
+		ArrayList<ActionCreator> array = new ArrayList<>();
+		this.getRootGui().getGuiClass( ActionCreator.class, array);
+		for(ActionCreator ac : array) {
+			ac.addListener(this);
+		}
 	}
 
 
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
-		this.getGui().handleKeyEvent(keyCode, keyChar, modifiersEx);
+		this.getRootGui().handleKeyEvent(keyCode, keyChar, modifiersEx);
 	}
 
 	@Override
@@ -46,7 +52,7 @@ public class Form extends GUIElement implements EventListener {
 	@Override
 	public void paint(Graphics g) {
 		g.translate(this.getX(), this.getY());
-		this.getGui().paint(g);
+		this.getRootGui().paint(g);
 		g.translate(-this.getX(), -this.getY());
 	}
 	
@@ -55,7 +61,7 @@ public class Form extends GUIElement implements EventListener {
 	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
-		return this.getGui().getGUIAtPosition(x, y);
+		return this.getRootGui().getGUIAtPosition(x, y);
 	}
 
 
@@ -63,12 +69,15 @@ public class Form extends GUIElement implements EventListener {
 		String result="";
 		result+=this.getAction() + "?";
 		result+=this.getTextResults();
-		Event event = new ClickHyperlinkEvent(result);
-		for(EventListener reader: this.getListeners()) {
-			//reader.readEvent(event);
+		for(FormListener reader: this.getListeners()) {
+			reader.handleFormSubmit(result);
 		}
 	}
 	
+
+
+
+
 	/**
 	 * 
 	 * @return
@@ -76,7 +85,8 @@ public class Form extends GUIElement implements EventListener {
 	 * 	 */
 	public String getTextResults() {
 		String result="";
-		ArrayList<TextBox> textBoxesInForm = this.getUsedTextBoxes();
+		ArrayList<TextBox> textBoxesInForm =new ArrayList<TextBox>();
+		textBoxesInForm = this.getGuiClass(TextBox.class, textBoxesInForm);
 		for(TextBox textBox: textBoxesInForm) {
 			result+=textBox.toString() +"&";
 		}
@@ -86,14 +96,14 @@ public class Form extends GUIElement implements EventListener {
 	
 	
 	
-	public GUIElement getGui() {
-		return gui;
+	public GUIElement getRootGui() {
+		return rootGui;
 	}
 
 
 
 	public void setGui(GUIElement gui) {
-		this.gui = gui;
+		this.rootGui = gui;
 	}
 
 
@@ -110,30 +120,6 @@ public class Form extends GUIElement implements EventListener {
 
 
 
-	@Override
-	void addListener(EventListener listener) {
-		this.getListeners().add(listener);
-	}
-
-
-
-	@Override
-	void removeListener(EventListener listener) {
-		this.getListeners().remove(listener);
-	}
-
-
-
-	public List<EventListener> getListeners() {
-		return listeners;
-	}
-
-
-
-	public void setListeners(List<EventListener> listeners) {
-		this.listeners = listeners;
-	}
-
 
 
 //	@Override
@@ -145,10 +131,36 @@ public class Form extends GUIElement implements EventListener {
 //	}
 //	
 	
-	@Override
-	public ArrayList<TextBox> getUsedTextBoxes() {
-		return this.getGui().getUsedTextBoxes();
+	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
+		return this.getRootGui().getGuiClass(cls, array);
 	}
+
+
+
+	@Override
+	public void clickButton() {
+		this.submit();
+	}
+
+
+
+
+	@Override
+	public void addListener(FormListener listener) {
+		this.listeners.add(listener);
+	}
+
+
+
+	@Override
+	public  void removeListener(FormListener listener) {
+		this.listeners.remove(listener);
+	}
+
+	private ArrayList<FormListener> getListeners() {
+		return this.listeners; //TODO clone this
+	}
+
 
 
 

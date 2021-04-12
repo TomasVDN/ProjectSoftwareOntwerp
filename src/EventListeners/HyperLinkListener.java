@@ -1,6 +1,6 @@
 package EventListeners;
 
-public interface HyperLinkClickedListener extends EventListener {
+public interface HyperLinkListener extends EventListener {
 
 	void handleHyperLinkClicked(String urlAttribute);
 }
