@@ -4,10 +4,9 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import EventListeners.EventListener;
 import events.ClickHyperlinkEvent;
 import events.Event;
-import events.EventListener;
-import events.EventListener;
 import events.SubmitEvent;
 import htmlElement.ContentSpan;
 import canvaswindow.*;
@@ -66,7 +65,7 @@ public class Form extends GUIElement implements EventListener {
 		result+=this.getTextResults();
 		Event event = new ClickHyperlinkEvent(result);
 		for(EventListener reader: this.getListeners()) {
-			reader.readEvent(event);
+			//reader.readEvent(event);
 		}
 	}
 	
@@ -137,19 +136,23 @@ public class Form extends GUIElement implements EventListener {
 
 
 
-	@Override
-	public void readEvent(Event event) {//TODO bad practice mag zag geen andere oplossing
-		if(event instanceof SubmitEvent) {
-			SubmitEvent submit = (SubmitEvent) event;
-			submit.execute(this);
-		}
-	}
-	
+//	@Override
+//	public void readEvent(Event event) {//TODO bad practice mag zag geen andere oplossing
+//		if(event instanceof SubmitEvent) {
+//			SubmitEvent submit = (SubmitEvent) event;
+//			submit.execute(this);
+//		}
+//	}
+//	
 	
 	@Override
 	public ArrayList<TextBox> getUsedTextBoxes() {
 		return this.getGui().getUsedTextBoxes();
 	}
+
+
+
+
 	
 	
 	}

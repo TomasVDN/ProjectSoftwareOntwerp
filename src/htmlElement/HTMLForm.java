@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import GUIElements.Form;
 import GUIElements.GUIElement;
-import events.EventListener;
 import events.EventReader;
 
 public class HTMLForm extends ContentSpan {

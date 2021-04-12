@@ -1,5 +1,6 @@
 package events;
 
+import EventListeners.EventListener;
 import facades.Browsr;
 
 /**

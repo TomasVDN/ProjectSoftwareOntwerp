@@ -7,8 +7,7 @@ import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
-import events.EventListener;
+import EventListeners.EventListener;
 
 public class TextBox extends GUIElement {
 
