@@ -39,11 +39,19 @@ public class MyCanvasWindow extends CanvasWindow {
 	public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
 		// left mouseClick
 		if (id == MouseEvent.MOUSE_CLICKED && button == MouseEvent.BUTTON1) {
-			windowManager.handleLeftMouse(x, y, clickCount, modifiersEx);
+			windowManager.handleClickLeftMouse(x, y, clickCount, modifiersEx);
 		}
 		//right muisClick
 		if (id == MouseEvent.MOUSE_CLICKED && button == MouseEvent.BUTTON3) {
 			
+		}
+		// left mouse Pressed
+		if(id == MouseEvent.MOUSE_PRESSED && button == MouseEvent.BUTTON1) {
+			windowManager.handlePressLeftMouse(x, y, clickCount, modifiersEx);
+		}
+		// left mouse released
+		if(id == MouseEvent.MOUSE_RELEASED && button == MouseEvent.BUTTON1) {
+			windowManager.handleReleaseLeftMouse(x, y, clickCount, modifiersEx);
 		}
 		//mouse drag
 		if (id == MouseEvent.MOUSE_DRAGGED && button == MouseEvent.BUTTON1) {

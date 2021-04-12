@@ -3,6 +3,7 @@ package GUIElements;
 import java.awt.font.TextAttribute;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ import EventListeners.HyperLinkListener;
 import events.Event;
 import events.EventReader;
 
-public class Hyperlink extends Button implements HyperLinkEventCreator  {
+public class Hyperlink extends Text implements HyperLinkEventCreator  {
 
 	//Map for setting the underline in the font and Variable for the url
     private Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
@@ -31,11 +32,12 @@ public class Hyperlink extends Button implements HyperLinkEventCreator  {
 	 * @param url - URL to which the hyperlink redirects
 	 */
 	public Hyperlink(int x, int y, Text text, String url, EventReader eventReader) {
-		super(x, y, text.getWidth(), text.getHeight(), text, false, Color.BLUE);
+		super(x, y,text);
+		this.setColor(Color.blue);
 		this.setUrl(url);
 		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		Font boldUnderline = text.getFont().deriveFont(fontAttributes);
-		text.setFont(boldUnderline);
+		Font boldUnderline = this.getFont().deriveFont(fontAttributes);
+		this.setFont(boldUnderline);
 		this.addListener(eventReader);
 		
 		//creates the method when clicked on hyperlink
@@ -49,22 +51,6 @@ public class Hyperlink extends Button implements HyperLinkEventCreator  {
 	}
 	
 
-
-	/**
-	 * @return the width (dependent on width of this.Text)
-	 */
-	@Override
-	public int getWidth() {
-		return this.getText().getWidth();
-	}
-
-	/**
-	 * @return the height (dependent on height of this.Text)
-	 */
-	@Override
-	public int getHeight() {
-		return this.getText().getHeight();
-	}
 	
 	/**
 	 * @return this.url
@@ -97,4 +83,39 @@ public class Hyperlink extends Button implements HyperLinkEventCreator  {
 	private ArrayList<HyperLinkListener> getHyperListeners() {
 		return eventListener;
 	}
+
+
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void handleUnselect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	protected ArrayList<Runnable> clickListeners = new ArrayList<Runnable>();
+	
+
+	/**
+	 * adds a listener for a singleClick action
+	 * @param f: the listener to be added
+	 */
+	public void addSingleClickListener(Runnable f) {
+		clickListeners.add(f);
+	}
+	
+	
+	@Override
+	public void handleClick() {
+		new ArrayList<>(clickListeners).stream().forEach(l -> l.run());
+	}
+
 }

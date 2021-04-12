@@ -29,6 +29,7 @@ public class WindowManager {
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
 	private GUIElement activeElement;
+	private GUIElement pressedElement;
 	
 	private EventReader eventReader;
 	
@@ -120,13 +121,31 @@ public class WindowManager {
 	 * @param clickCount - the amount of clicks
 	 * @param modifiers - the modifiers given by the mouse click (like enter et cetera)
 	 */
-	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
+	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
 			changeActive(getActiveDialog().getGUIAtPosition(x, y));	
 		} catch (NullPointerException e) {
 			changeActive(null);
 		}		
 	}
+	
+	
+	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
+		this.setPressedElement(this.getActiveDialog().getGUIAtPosition(x, y)); 
+	}
+	
+	
+	public void handleReleaseLeftMouse(int x, int y, int clickCount, int modifiers) {
+		if(this.getPressedElement()!=null) {
+			GUIElement releasedAt = this.getActiveDialog().getGUIAtPosition(x, y);
+			if(this.getPressedElement() == releasedAt ) {
+				releasedAt.handleReleaseClick();
+			}
+		}
+		this.setPressedElement(null);
+	}
+	
+	
 	
 	/**
 	 * This method changes the activeElement to the given element, and invokes element.handleClick. If the given element is already the activeElement, it only invokes element.handleClick.
@@ -286,6 +305,14 @@ public class WindowManager {
 	private Browsr browsr;
 	public MainDialog getMainPage() {
 		return browsr.getMainDialog();
+	}
+
+	public GUIElement getPressedElement() {
+		return pressedElement;
+	}
+
+	public void setPressedElement(GUIElement pressedElement) {
+		this.pressedElement = pressedElement;
 	}
 
 }

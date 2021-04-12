@@ -188,6 +188,10 @@ public abstract class GUIElement {
 	
 	public abstract void handleClick();
 	
+	public void handleReleaseClick() {
+		
+	}
+	
 	public abstract void paint(Graphics g);
 	
 	/**

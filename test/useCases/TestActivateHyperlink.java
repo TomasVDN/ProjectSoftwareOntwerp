@@ -75,10 +75,10 @@ class TestActivateHyperlink {
 		assertEquals("td.html", pageTableRow2TableHyperlink4.getUrl());
 			
 		//check hyperlink text
-		assertEquals("a", pageTableRow2TableHyperlink1.getText().getText());
-		assertEquals("table", pageTableRow2TableHyperlink2.getText().getText());
-		assertEquals("tr", pageTableRow2TableHyperlink3.getText().getText());
-		assertEquals("td", pageTableRow2TableHyperlink4.getText().getText());
+		assertEquals("a", pageTableRow2TableHyperlink1.getText());
+		assertEquals("table", pageTableRow2TableHyperlink2.getText());
+		assertEquals("tr", pageTableRow2TableHyperlink3.getText());
+		assertEquals("td", pageTableRow2TableHyperlink4.getText());
 			
 		//check table text
 		assertEquals("Hyperlink anchors", pageTableRow2TableHyperlink1Text.getText());

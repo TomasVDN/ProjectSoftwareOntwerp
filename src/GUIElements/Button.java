@@ -55,18 +55,21 @@ public class Button extends GUIElement implements ActionCreator {
 	public void paint(Graphics g) {
 		g.setFont(font);
 		
-		//content
-		g.setColor(getButtonColor());
 		
+		g.setColor(Color.black);
 		//Border: draw if boolean this.drawBox is true
 		if (drawBox()) {
 			g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+			//content
+			g.setColor(getButtonColor());
+			g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
 		}
 	
 		//Text
 		Shape oldClip = g.getClip();
 		g.setClip(getX(), getY(), getWidth(), getHeight());
-		this.getText().paint(g,this.getButtonColor());
+		//this.getText().paint(g,this.getButtonColor());
+		this.getText().paint(g,Color.black);
 		g.setClip(oldClip);
 		
 		g.setColor(Color.black);	
@@ -152,8 +155,14 @@ public class Button extends GUIElement implements ActionCreator {
 
 	@Override
 	public void handleClick() {
+		//new ArrayList<>(clickListeners).stream().forEach(l -> l.run()); TODO
+	}
+	
+	@Override
+	public void handleReleaseClick() {
 		new ArrayList<>(clickListeners).stream().forEach(l -> l.run());
 	}
+	
 
 	/**
 	 * Add the given EventListener to a list of EventListeners
