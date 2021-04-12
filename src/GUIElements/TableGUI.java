@@ -218,6 +218,16 @@ public class TableGUI extends GUIElement {
 			row.removeListener(listener);
 		}
 	}
+	
+	@Override
+	public ArrayList<TextBox> getUsedTextBoxes() {
+		ArrayList<TextBox> textBoxList = new ArrayList<TextBox>();
+		for(GUIElement element: this.getGuiRows()) {
+			ArrayList<TextBox> foundElements = element.getUsedTextBoxes();
+			textBoxList.addAll(foundElements);
+		}
+		return textBoxList;
+	}
 
 }
 

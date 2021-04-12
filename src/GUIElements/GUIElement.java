@@ -3,6 +3,7 @@ package GUIElements;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import events.EventListener;
 
@@ -228,6 +229,12 @@ public abstract class GUIElement {
 	
 	abstract void removeListener(EventListener listener);
 	
-	
+	/**
+	 * Returns all the textboxes in the given GUIElement
+	 * In the normal case returns an emptyList
+	 */
+	public ArrayList<TextBox> getUsedTextBoxes(){
+		return new ArrayList<TextBox>();
+	}
 	
 }

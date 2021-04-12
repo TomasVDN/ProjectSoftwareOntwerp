@@ -18,7 +18,7 @@ public class Button extends GUIElement {
     private Color buttonColor =  Color.BLACK;
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean drawBox = false;
-    private List<EventListener> listeners;
+    private List<EventListener> listeners = new ArrayList<EventListener>();
     
     
     /**
@@ -166,6 +166,10 @@ public class Button extends GUIElement {
 	 */
 	public void removeListener(EventListener listener) {
 		listeners.remove(listener);
+	}
+	
+	public List<EventListener> getListeners() {
+		return listeners;
 	}
 
 

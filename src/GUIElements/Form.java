@@ -7,7 +7,8 @@ import java.util.List;
 import events.ClickHyperlinkEvent;
 import events.Event;
 import events.EventListener;
-import events.EventReader;
+import events.EventListener;
+import events.SubmitEvent;
 import htmlElement.ContentSpan;
 import canvaswindow.*;
 
@@ -15,12 +16,14 @@ public class Form extends GUIElement implements EventListener {
 
 	private GUIElement gui;
 	private String action;
-	private List<EventListener> listeners;
+	private List<EventListener> listeners = new ArrayList<EventListener>();
 	
-	public Form(GUIElement gui, int x, int y,String action){
+	public Form(GUIElement gui, int x, int y,String action,EventListener listener){
 		super(x,y);
 		this.setGui(gui);
 		this.setAction(action);
+		this.getGui().addListener(this); // adds the form as listener to the gui
+		this.addListener(listener);
 	}
 
 
@@ -57,25 +60,28 @@ public class Form extends GUIElement implements EventListener {
 	}
 
 
-	public void sumbit() {
+	public void submit() {
 		String result="";
-		String textResults= this.getTextResults();
 		result+=this.getAction() + "?";
 		result+=this.getTextResults();
 		Event event = new ClickHyperlinkEvent(result);
 		for(EventListener reader: this.getListeners()) {
 			reader.readEvent(event);
 		}
-
 	}
 	
 	/**
 	 * 
 	 * @return
-	 * Returns the results of the textboxes with the resulting string for a form
-	 */
+	 * Returns the results of the textboxes in their string 
+	 * 	 */
 	public String getTextResults() {
-		return null;
+		String result="";
+		ArrayList<TextBox> textBoxesInForm = this.getUsedTextBoxes();
+		for(TextBox textBox: textBoxesInForm) {
+			result+=textBox.toString() +"&";
+		}
+		return result.substring(0, result.length() - 1); // removes the last &
 	}
 	
 	
@@ -132,13 +138,18 @@ public class Form extends GUIElement implements EventListener {
 
 
 	@Override
-	public void readEvent(Event event) {
-		// TODO Auto-generated method stub
-		
+	public void readEvent(Event event) {//TODO bad practice mag zag geen andere oplossing
+		if(event instanceof SubmitEvent) {
+			SubmitEvent submit = (SubmitEvent) event;
+			submit.execute(this);
+		}
 	}
 	
 	
-	
+	@Override
+	public ArrayList<TextBox> getUsedTextBoxes() {
+		return this.getGui().getUsedTextBoxes();
+	}
 	
 	
 	}

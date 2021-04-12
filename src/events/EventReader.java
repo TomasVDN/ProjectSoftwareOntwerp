@@ -5,11 +5,11 @@ import facades.Browsr;
 /**
  * Class that can be called by given GUIElements to transmit an event to the controller (browsr).
  */
-public final class EventReader {
+public final class EventReader  implements EventListener {
 	
 	private Browsr browsr;
 	
-	public EventReader(Browsr browsr) {
+	public EventReader (Browsr browsr) {
 		this.browsr = browsr;
 	}
 	

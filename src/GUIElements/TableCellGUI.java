@@ -1,10 +1,11 @@
 package GUIElements;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import events.EventListener;
 
-public class TableCellGUI {
+public class TableCellGUI extends GUIElement {
 
 	private GUIElement gui;
 	private int xPos;
@@ -21,9 +22,10 @@ public class TableCellGUI {
      * @param h - height of this TableCell
 	 */
 	public TableCellGUI(GUIElement guiElement, int x, int y, int w, int h) {
-		this.setPosition(x, y);
-		this.setWidth(w);
-		this.setHeight(h);
+		super(x,y,w,h);
+		//this.setPosition(x, y);
+		//this.setWidth(w);
+		//this.setHeight(h);
 		this.setGui(guiElement);
 	}
 
@@ -196,11 +198,31 @@ public class TableCellGUI {
 		this.getGui().addListener(listener);
 	}
 
-
-
 	
 	void removeListener(EventListener listener) {
 		this.removeListener(listener);
+	}
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void handleUnselect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void handleClick() {
+		// TODO Auto-generated method stub	
+	}
+	
+	@Override
+	public ArrayList<TextBox> getUsedTextBoxes() {
+		return this.getGui().getUsedTextBoxes();
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import GUIElements.Form;
 import GUIElements.GUIElement;
+import events.EventListener;
 import events.EventReader;
 
 public class HTMLForm extends ContentSpan {
@@ -25,7 +26,7 @@ public class HTMLForm extends ContentSpan {
 	@Override
 	public Form transformToGUI(int x, int y, int width, int height, EventReader eventReader) {
 		GUIElement gui= element.transformToGUI(x, y, width, height, eventReader);
-		return new Form(gui,x,y,action);
+		return new Form(gui,x,y,action,eventReader);
 	}
 
 }

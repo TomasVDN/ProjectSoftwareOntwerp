@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import events.EventListener;
 
@@ -366,4 +367,18 @@ public class TextBox extends GUIElement {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	@Override 
+	public ArrayList<TextBox> getUsedTextBoxes() {
+		ArrayList<TextBox> t= new ArrayList<TextBox>();
+		t.add(this);
+		return t;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getName() +"=" + this.getText();
+	}
+	
 }

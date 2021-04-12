@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import events.EventListener;
 
-public class TableRowGUI  {
+public class TableRowGUI extends GUIElement {
 
 	private int xPos, yPos;
 	
@@ -20,11 +20,15 @@ public class TableRowGUI  {
 	 * @param h - height of the TableRowGUI
 	 */
 	public TableRowGUI(ArrayList<TableCellGUI> cells, int x, int y) {
-		this.setX(x);
-		this.setY(y);
+		super(x,y);
+		//this.setX(x);
+		//this.setY(y);
 		this.setGuiElements(cells);
 	}
 
+	
+	
+	
 	/**
 	 * Paint all the TableCellGUI while updating the relative x.
 	 */
@@ -110,19 +114,6 @@ public class TableRowGUI  {
 		}
 		return null;
 	}
-
-	/**
-	 * Sets the x and y position
-	 * @param x - the new value of this.x
-	 * @param y - the new value of this.x
-	 */
-	public void setPosition(int x, int y) {
-		if (x < 0 || y < 0) {
-			throw new IllegalArgumentException("The x position and y position of a GUIElement have to be positive.");
-		}
-		this.setX(x);
-		this.setY(y);
-	}
 	
 	/**
 	 * Returns the list of TableCells
@@ -142,49 +133,7 @@ public class TableRowGUI  {
 		}
 		this.tableCellList = cells;
 	}
-	
-	/**
-	 * Sets the value xPos of this class.
-	 * 
-	 * @param x - new value of this.xPos
-	 */
-	public void setX(int x) {
-		if (x < 0) {
-			throw new IllegalArgumentException("The x position of a GUIElement has to be positive.");
-		}
-		this.xPos = x;
-	}
-	
-	/**
-	 * Returns the value xPos of this class
-	 * 
-	 * @return this.xPos
-	 */
-	public int getX() {
-		return this.xPos;
-	}
-	
-	/**
-	 * Sets the value yPos of this class
-	 * 
-	 * @param y - new value of this.yPos
-	 */
-	public void setY(int y) {
-		if (y < 0) {
-			throw new IllegalArgumentException("The y position of a GUIElement has to be positive.");
-		}
-		this.yPos = y;
-	}
 
-	/**
-	 * Returns the value yPos of this class
-	 * 
-	 * @return this.yPos
-	 */
-	public int getY() {
-		return this.yPos;
-	}
-	
 	
 	void addListener(EventListener listener) {
 		for(TableCellGUI cell : this.getGuiElements()) {
@@ -197,6 +146,44 @@ public class TableRowGUI  {
 		for(TableCellGUI cell : this.getGuiElements()) {
 			cell.removeListener(listener);
 		}
+	}
+	
+	
+	@Override
+	public ArrayList<TextBox> getUsedTextBoxes() {
+		ArrayList<TextBox> textBoxList = new ArrayList<TextBox>();
+		for(TableCellGUI element: this.getGuiElements()) {
+			ArrayList<TextBox> foundElements = element.getUsedTextBoxes();
+			textBoxList.addAll(foundElements);
+		}
+		return textBoxList;
+	}
+
+
+
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	protected void handleUnselect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void handleClick() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
