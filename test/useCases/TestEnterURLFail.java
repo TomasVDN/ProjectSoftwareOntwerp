@@ -88,7 +88,7 @@ class TestEnterURLFail {
 	mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 10, '\n', 0);
 	
 	//check if the error screen is opened
-	assertEquals("Error occured. Make sure you entered a valid URL.", ((Text) mainWindow.getWindowManager().getMainPage().getPageContainer().getElements().get(0)).getText());
+	assertEquals("Error occured. Make sure you entered a valid URL.", ((Text) mainWindow.getWindowManager().getMainDialog().getPageContainer().getElements().get(0)).getText());
 	}
 	
 	@Test
@@ -152,6 +152,6 @@ class TestEnterURLFail {
 	mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 10, '\n', 0);
 	
 	//check if the error screen is opened
-	assertEquals("Error occured. Reason: not a valid Browsr document.", ((Text) mainWindow.getWindowManager().getMainPage().getPageContainer().getElements().get(0)).getText());
+	assertEquals("Error occured. Reason: not a valid Browsr document.", ((Text) mainWindow.getWindowManager().getMainDialog().getPageContainer().getElements().get(0)).getText());
 	}
 }

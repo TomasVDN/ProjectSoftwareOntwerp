@@ -27,18 +27,18 @@ class TestEnterURL {
 				
 				SearchBar mainBar = mainWindow.getWindowManager().getSearchbar();
 				
-				int referenceBarContainerHeight = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getHeight();
-				int referenceBarContainerWidth = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getWidth();
-				int referenceBarContainerX = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getX();
-				int referenceBarContainerY = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getY();
+				int referenceBarContainerHeight = mainWindow.getWindowManager().getMainDialog().getPageContainer().getHeight();
+				int referenceBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getPageContainer().getWidth();
+				int referenceBarContainerX = mainWindow.getWindowManager().getMainDialog().getPageContainer().getX();
+				int referenceBarContainerY = mainWindow.getWindowManager().getMainDialog().getPageContainer().getY();
 				
 				//replay the recording
 				MyCanvasWindow.replayRecording("recordings/recordEnterUrlSuccess/recording", mainWindow);
 				
-				int mainBarContainerHeight = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getHeight();
-				int mainBarContainerWidth = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getWidth();
-				int mainBarContainerX = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getX();
-				int mainBarContainerY = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getY();
+				int mainBarContainerHeight = mainWindow.getWindowManager().getMainDialog().getPageContainer().getHeight();
+				int mainBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getPageContainer().getWidth();
+				int mainBarContainerX = mainWindow.getWindowManager().getMainDialog().getPageContainer().getX();
+				int mainBarContainerY = mainWindow.getWindowManager().getMainDialog().getPageContainer().getY();
 				
 				//checks if the windows are correctly placed, even after searching
 				assertEquals(mainBarContainerHeight ,referenceBarContainerHeight);
@@ -47,7 +47,7 @@ class TestEnterURL {
 				assertEquals(mainBarContainerY ,referenceBarContainerY);
 
 				//testing GUI elements
-				Container pageContainer = mainWindow.getWindowManager().getMainPage().getPageContainer();
+				Container pageContainer = mainWindow.getWindowManager().getMainDialog().getPageContainer();
 				TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
 				TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 				TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
@@ -86,7 +86,7 @@ class TestEnterURL {
 				assertEquals("Table cells containing table data", pageTableRow2TableHyperlink4Text.getText());
 				
 				//check the current active element is null and check the url
-				assertEquals(null, mainWindow.getWindowManager().getActiveElement());
+				assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 				assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
 				
 			  });

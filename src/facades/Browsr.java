@@ -15,11 +15,7 @@ public class Browsr {
 	
 	private DomainFacade domainFacade;
 	private WindowManager windowManager;
-	
-	private MainDialog mainDialog;
-	private Container saveDialog;
-	private Container bookmarkDialog;
-	
+		
 	/**
 	 * Constructor of the Browsr class. Makes a new DomainFacade.
 	 * @param windowManager - the corresponding windowManager.
@@ -81,34 +77,7 @@ public class Browsr {
 		domainFacade.savePage(filename);
 	}
 
-	/**
-	 * @return the bookmarkDialog
-	 */
-	public Container getBookmarkDialog() {
-		return bookmarkDialog;
-	}
-
-	/**
-	 * @return the saveDialog
-	 */
-	public Container getSaveDialog() {
-		return saveDialog;
-	}
-
-	/**
-	 * @return the mainDialog
-	 */
-	public MainDialog getMainDialog() {
-		return mainDialog;
-	}
-
-	public void setDialogs(MainDialog mainDialog, SaveDialog saveDialog, Container bookmarkDialog) {
-		this.mainDialog = mainDialog;
-		this.saveDialog = saveDialog;
-		this.bookmarkDialog = bookmarkDialog;
-	}
-	
-	public void changeActiveDialog(Container dialog) {
-		this.windowManager.setActiveDialog(dialog);
+	public void changeActiveDialog(String type) {
+		this.windowManager.setActiveDialog(type);
 	}
 }

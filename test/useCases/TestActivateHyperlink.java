@@ -48,7 +48,7 @@ class TestActivateHyperlink {
 		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 76, 155, 1, MouseEvent.BUTTON1, 0);
 
 		//testing GUI elements
-		Container pageContainer = window.getWindowManager().getMainPage().getPageContainer();
+		Container pageContainer = window.getWindowManager().getMainDialog().getPageContainer();
 		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
@@ -87,7 +87,7 @@ class TestActivateHyperlink {
 		assertEquals("Table cells containing table data", pageTableRow2TableHyperlink4Text.getText());
 		
 		//check the current active element is null and check the url
-		assertEquals(null, window.getWindowManager().getActiveElement());
+		assertEquals(null, window.getWindowManager().getElementWithKeyboardFocus());
 		assertEquals("https://konikoko.github.io/goodwork.html", mainBar.getText());
 	}
 }

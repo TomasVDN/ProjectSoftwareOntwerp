@@ -14,22 +14,6 @@ public class ChangeToDialogEvent implements Event {
 
 	@Override
 	public void execute(Browsr browsr) {
-		Container dialog = null;
-		
-		switch (this.type) {
-		case "mainDialog":
-			dialog = browsr.getMainDialog();
-			break;
-		case "saveDialog":
-			dialog = browsr.getSaveDialog();
-			break;
-		case "bookmarkDialog":
-			dialog = browsr.getBookmarkDialog();
-			break;
-		default:
-			break;
-		}
-		
-		browsr.changeActiveDialog(dialog);
+		browsr.changeActiveDialog(this.type);
 	}
 }

@@ -14,12 +14,12 @@ import GUIElements.Container;
 import converter.HTMLToGUI;
 import events.ChangeToDialogEvent;
 import events.EventReader;
-import events.SavePageEvent;
 import htmlElement.ContentSpan;
 
 public class WindowManager {
 
 	private Container activeDialog;
+	private MainDialog mainDialog;
 	
 	//TODO mag dit?  searchbar bijgehouden in 2 plekken, maar wel nodig als bv in bookmark dialog
 	private SearchBar searchbar;
@@ -28,7 +28,7 @@ public class WindowManager {
 	private int height;
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
-	private GUIElement activeElement;
+	private GUIElement elementWithKeyboardFocus;
 	private GUIElement pressedElement;
 	
 	private EventReader eventReader;
@@ -41,9 +41,6 @@ public class WindowManager {
 	public WindowManager (MyCanvasWindow window) {
 		//Make new Browsr object.
 		Browsr browsr = new Browsr(this);
-		
-		//TODO remove this
-		this.browsr = browsr;
 		
 		//Set width/height.
 		this.setWidth(600);
@@ -58,11 +55,8 @@ public class WindowManager {
 		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
 		
 		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer);
+		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
-		
-		SaveDialog saveDialog = new SaveDialog(0, 0, 600, 600, eventReader);
-		
-		Container bookmarkDialog = new Container(0, 0, 600, 600);
 		
 		//Setup the welcome page
 		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
@@ -71,8 +65,6 @@ public class WindowManager {
 		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, this.eventReader);
 		this.setSearchbar(searchBar);
 		mainDialog.getSearchBarContainer().addElement(searchBar);
-		
-		browsr.setDialogs(mainDialog, saveDialog, bookmarkDialog);
 	}
 
 	/**
@@ -152,18 +144,18 @@ public class WindowManager {
 	 * @param element - the new activeElement
 	 */
 	public void changeActive(GUIElement element) {
-		if(element!=this.getActiveElement()) {
+		if(element!=this.getElementWithKeyboardFocus()) {
 			//deactivate old activeElement
-			if (activeElement != null && this.getActiveElement().isActive()) {
-				activeElement.setActive(false);
+			if (elementWithKeyboardFocus != null && this.getElementWithKeyboardFocus().isActive()) {
+				elementWithKeyboardFocus.setActive(false);
 			}
 			
 			//activate new activeElement
-			this.setActiveElement(element);
+			this.setElementWithKeyboardFocus(element);
 			
-			if (activeElement != null) {
-				activeElement.handleClick();
-				activeElement.setActive(true);
+			if (elementWithKeyboardFocus != null) {
+				elementWithKeyboardFocus.handleClick();
+				elementWithKeyboardFocus.setActive(true);
 			}
 		}
 		else {
@@ -184,17 +176,17 @@ public class WindowManager {
 	}
 
 	/**
-	 * @return the activeElement
+	 * @return the elementWithKeyboardFocus
 	 */
-	public GUIElement getActiveElement() {
-		return activeElement;
+	public GUIElement getElementWithKeyboardFocus() {
+		return elementWithKeyboardFocus;
 	}
 
 	/**
-	 * @param activeElement the activeElement to set
+	 * @param elementWithKeyboardFocus the elementWithKeyboardFocus to set
 	 */
-	public void setActiveElement(GUIElement activeElement) {
-		this.activeElement = activeElement;
+	public void setElementWithKeyboardFocus(GUIElement elementWithKeyboardFocus) {
+		this.elementWithKeyboardFocus = elementWithKeyboardFocus;
 	}
 	
 	/**
@@ -260,7 +252,7 @@ public class WindowManager {
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
 		//TODO modifiers => 128 = Ctrl, 512 = alt
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx != 128) {
-			GUIElement element = this.getActiveElement();
+			GUIElement element = this.getElementWithKeyboardFocus();
 			if (element != null) {
 				element.handleKeyEvent(keyCode, keyChar, modifiersEx);
 			}
@@ -276,7 +268,7 @@ public class WindowManager {
 		
 		//Enkel op Tomas zijn keyboard.
         if (id == KeyEvent.KEY_TYPED && keyChar == "~".charAt(0)) {
-            GUIElement element = this.getActiveElement();
+            GUIElement element = this.getElementWithKeyboardFocus();
             if (element != null) {
                 element.handleKeyEvent(keyCode, keyChar, modifiersEx);
             }
@@ -301,10 +293,23 @@ public class WindowManager {
 		this.activeDialog = activeDialog;
 	}
 	
-	//TODO remove this.
-	private Browsr browsr;
-	public MainDialog getMainPage() {
-		return browsr.getMainDialog();
+	/**
+	 * @param activeDialog the activeDialog to set
+	 */
+	public void setActiveDialog(String type) {
+		System.out.print(type);
+		switch (type) {
+		case "mainDialog":
+			this.setActiveDialog(this.getMainDialog());
+			break;
+		case "saveDialog":
+			this.setActiveDialog(new SaveDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader()));
+			break;
+		case "bookmarkDialog":
+			this.setActiveDialog(new Container(0, 0, this.getWidth(), this.getHeight()));
+		default:
+			break;
+		}
 	}
 
 	public GUIElement getPressedElement() {
@@ -313,6 +318,20 @@ public class WindowManager {
 
 	public void setPressedElement(GUIElement pressedElement) {
 		this.pressedElement = pressedElement;
+	}
+
+	/**
+	 * @return the mainDialog
+	 */
+	public MainDialog getMainDialog() {
+		return mainDialog;
+	}
+
+	/**
+	 * @param mainDialog the mainDialog to set
+	 */
+	public void setMainDialog(MainDialog mainDialog) {
+		this.mainDialog = mainDialog;
 	}
 
 }

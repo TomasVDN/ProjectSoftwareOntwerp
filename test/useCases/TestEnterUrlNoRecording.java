@@ -192,15 +192,15 @@ public class TestEnterUrlNoRecording {
 		// check if everything gets loaded correctly
 		SearchBar mainBar = mainWindow.getWindowManager().getSearchbar();
 		
-		int referenceBarContainerHeight = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getHeight();
-		int referenceBarContainerWidth = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getWidth();
-		int referenceBarContainerX = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getX();
-		int referenceBarContainerY = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getY();
+		int referenceBarContainerHeight = mainWindow.getWindowManager().getMainDialog().getSearchBarContainer().getHeight();
+		int referenceBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getSearchBarContainer().getWidth();
+		int referenceBarContainerX = mainWindow.getWindowManager().getMainDialog().getSearchBarContainer().getX();
+		int referenceBarContainerY = mainWindow.getWindowManager().getMainDialog().getSearchBarContainer().getY();
 				
-		int mainBarContainerHeight = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getHeight();
-		int mainBarContainerWidth = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getWidth();
-		int mainBarContainerX = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getX();
-		int mainBarContainerY = mainWindow.getWindowManager().getMainPage().getSearchBarContainer().getY();
+		int mainBarContainerHeight =mainWindow.getWindowManager().getMainDialog().getSearchBarContainer().getHeight();
+		int mainBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getSearchBarContainer().getWidth();
+		int mainBarContainerX = mainWindow.getWindowManager().getMainDialog().getSearchBarContainer().getX();
+		int mainBarContainerY = mainWindow.getWindowManager().getMainDialog().getSearchBarContainer().getY();
 		
 		//checks if the windows are correctly placed, even after searching
 		assertEquals(mainBarContainerHeight ,referenceBarContainerHeight);
@@ -209,7 +209,7 @@ public class TestEnterUrlNoRecording {
 		assertEquals(mainBarContainerY ,referenceBarContainerY);
 
 		//testing GUI elements
-		Container pageContainer = mainWindow.getWindowManager().getMainPage().getPageContainer();
+		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getPageContainer();
 		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
@@ -248,7 +248,7 @@ public class TestEnterUrlNoRecording {
 		assertEquals("Table cells containing table data", pageTableRow2TableHyperlink4Text.getText());
 		
 		//check the current active element is null and check the url
-		assertEquals(null, mainWindow.getWindowManager().getActiveElement());
+		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
 	}
 }
