@@ -17,7 +17,7 @@ import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
 import events.Event;
-import events.RunUrlEvent;
+
 
 class TestActivateHyperlink {
 
@@ -34,8 +34,10 @@ class TestActivateHyperlink {
 	@DisplayName("Use Case 4.1: Activate Hyperlink")
 	public void test() {
 		//load the page for the test
-		Event event = new RunUrlEvent("https://konikoko.github.io/");
-		window.getWindowManager().getEventReader().readEvent(event);
+		//Event event = new RunUrlEvent("https://konikoko.github.io/");
+		window.getWindowManager().getSearchbar().replaceBox("https://konikoko.github.io/");
+		window.getWindowManager().getSearchbar().handleEnter();
+		//window.getWindowManager().getEventReader().readEvent(event);
 
 		//get the url bar
 		SearchBar mainBar = window.getWindowManager().getSearchbar();
@@ -73,10 +75,10 @@ class TestActivateHyperlink {
 		assertEquals("td.html", pageTableRow2TableHyperlink4.getUrl());
 			
 		//check hyperlink text
-		assertEquals("a", pageTableRow2TableHyperlink1.getText().getText());
-		assertEquals("table", pageTableRow2TableHyperlink2.getText().getText());
-		assertEquals("tr", pageTableRow2TableHyperlink3.getText().getText());
-		assertEquals("td", pageTableRow2TableHyperlink4.getText().getText());
+		assertEquals("a", pageTableRow2TableHyperlink1.getText());
+		assertEquals("table", pageTableRow2TableHyperlink2.getText());
+		assertEquals("tr", pageTableRow2TableHyperlink3.getText());
+		assertEquals("td", pageTableRow2TableHyperlink4.getText());
 			
 		//check table text
 		assertEquals("Hyperlink anchors", pageTableRow2TableHyperlink1Text.getText());

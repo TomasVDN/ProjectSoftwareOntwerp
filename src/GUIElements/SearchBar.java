@@ -1,12 +1,16 @@
 package GUIElements;
 
-import events.Event;
+import java.util.ArrayList;
+import java.util.List;
+
+import EventCreators.SearchBarEventCreator;
+import EventListeners.SearchBarListener;
 import events.EventReader;
-import events.RunUrlEvent;
 
-public class SearchBar extends TextBox {
 
-	private EventReader eventReader;
+public class SearchBar extends TextBox implements SearchBarEventCreator {
+
+	private List<SearchBarListener > listeners = new ArrayList<SearchBarListener>();
 	
 	/**
 	 * Constructor of the SearchBar class
@@ -17,7 +21,7 @@ public class SearchBar extends TextBox {
 	 */
 	public SearchBar(int x, int y, int w, int h, EventReader eventReader) {
 		super(x, y, w, h);
-		this.eventReader = eventReader;
+		this.addListener(eventReader);
 	}
 	
 	/**
@@ -40,8 +44,9 @@ public class SearchBar extends TextBox {
 	 * Sends a runUrlEvent to the eventReader.
 	 */
 	private void runUrlEvent() {
-		Event event = new RunUrlEvent(this.getText());
-		this.eventReader.readEvent(event);
+		for(SearchBarListener listener: this.getListeners()) {
+			listener.searchBarLoseFocus(this.getText());
+		}
 	}
 	
 	/**
@@ -51,13 +56,32 @@ public class SearchBar extends TextBox {
 	public String getBaseURL() {
 		String URL = this.getText();
 		int index = URL.length() - 1;
-		boolean found = URL.charAt(index) == '/';
+		boolean found = false;//URL.charAt(index) == '/';
 		while (!found && index >= 0) {
-			index--;
+			//index--;
 			found = URL.charAt(index) == '/';
+			index--;
 		}
-		return URL.substring(0, index+1);
+		//checks if two slashes used or no slashes are found at all, then don't remove anything
+		if(index<0 || URL.charAt(index)=='/') {
+			return URL + "/"; //adds slash at the end of the string
+		}
+		return URL.substring(0, index+2);
 	}
-	
 
+	@Override
+	public void addListener(SearchBarListener listener) {
+		this.listeners.add(listener);
+	}
+
+	@Override
+	public void removeListener(SearchBarListener listener) {
+		this.listeners.remove(listener);
+	}
+
+	public List<SearchBarListener> getListeners() {
+		return listeners;
+	}
+
+	
 }

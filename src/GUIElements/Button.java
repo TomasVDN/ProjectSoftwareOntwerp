@@ -4,14 +4,24 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Shape;
+
+import java.util.List;
+
+import EventCreators.ActionCreator;
+import EventListeners.ActionListener;
+
+
 import java.util.ArrayList;
 
-public class Button extends GUIElement {
+
+public class Button extends GUIElement implements ActionCreator {
 
 	private Text text;
     private Color buttonColor =  Color.BLACK;
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean drawBox = false;
+    private List<ActionListener> listeners = new ArrayList<ActionListener>();
+    
     
     /**
      * Constructor of the Button class.
@@ -45,18 +55,21 @@ public class Button extends GUIElement {
 	public void paint(Graphics g) {
 		g.setFont(font);
 		
-		//content
-		g.setColor(getButtonColor());
 		
+		g.setColor(Color.black);
 		//Border: draw if boolean this.drawBox is true
 		if (drawBox()) {
 			g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+			//content
+			g.setColor(getButtonColor());
+			g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
 		}
 	
 		//Text
 		Shape oldClip = g.getClip();
 		g.setClip(getX(), getY(), getWidth(), getHeight());
-		this.getText().paint(g,this.getButtonColor());
+		//this.getText().paint(g,this.getButtonColor());
+		this.getText().paint(g,Color.black);
 		g.setClip(oldClip);
 		
 		g.setColor(Color.black);	
@@ -142,6 +155,35 @@ public class Button extends GUIElement {
 
 	@Override
 	public void handleClick() {
+		//new ArrayList<>(clickListeners).stream().forEach(l -> l.run()); TODO
+	}
+	
+	@Override
+	public void handleReleaseClick() {
 		new ArrayList<>(clickListeners).stream().forEach(l -> l.run());
 	}
+	
+
+	/**
+	 * Add the given EventListener to a list of EventListeners
+	 * @param listener
+	 */
+	public void addListener(ActionListener listener) {
+		listeners.add(listener);
+	}
+	
+	/**
+	 * removes the given EventListener form a list of EventListeners
+	 */
+	public void removeListener(ActionListener listener) {
+		listeners.remove(listener);
+	}
+	
+	public List<ActionListener> getListeners() {
+		return listeners;
+	}
+
+
+
+
 }

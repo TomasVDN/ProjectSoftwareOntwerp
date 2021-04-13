@@ -45,7 +45,7 @@ class TestHTMLHyperlink {
 		assert guiHyperlink.getWidth() == guiHyperlinkReference.getWidth();
 		assert guiHyperlink.getHeight() == guiHyperlinkReference.getHeight();
 		assertEquals(guiHyperlinkReference.getUrl(), guiHyperlink.getUrl());
-		assertEquals(guiHyperlinkReference.getText().getText(), guiHyperlink.getText().getText());
+		assertEquals(guiHyperlinkReference.getText(), guiHyperlink.getText());
 	}
 	
 	@Test

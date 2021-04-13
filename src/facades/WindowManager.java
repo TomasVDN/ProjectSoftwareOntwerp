@@ -22,11 +22,15 @@ public class WindowManager {
 
 	private Container activeDialog;
 	
+	//TODO mag dit?  searchbar bijgehouden in 2 plekken, maar wel nodig als bv in bookmark dialog
+	private SearchBar searchbar;
+
 	private int width;
 	private int height;
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
 	private GUIElement activeElement;
+	private GUIElement pressedElement;
 	
 	private EventReader eventReader;
 	
@@ -43,7 +47,8 @@ public class WindowManager {
 		this.browsr = browsr;
 		
 		//Set width/height.
-		this.setWidth(600);
+		//this.setWidth(600);
+		this.setWidth(10000);
 		this.setHeight(600);
 		
 		//Initialize EventReader
@@ -87,7 +92,7 @@ public class WindowManager {
 	public void draw(ArrayList<ContentSpan> htmlElements) {
 		HTMLToGUI converter = new HTMLToGUI();
 		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements, this.eventReader);
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements,this.getEventReader());
 		this.getActiveDialog().resetAllElements(list);
 	}
 	
@@ -114,13 +119,31 @@ public class WindowManager {
 	 * @param clickCount - the amount of clicks
 	 * @param modifiers - the modifiers given by the mouse click (like enter et cetera)
 	 */
-	public void handleLeftMouse(int x, int y, int clickCount, int modifiers) {
+	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
 			changeActive(getActiveDialog().getGUIAtPosition(x, y));	
 		} catch (NullPointerException e) {
 			changeActive(null);
 		}		
 	}
+	
+	
+	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
+		this.setPressedElement(this.getActiveDialog().getGUIAtPosition(x, y)); 
+	}
+	
+	
+	public void handleReleaseLeftMouse(int x, int y, int clickCount, int modifiers) {
+		if(this.getPressedElement()!=null) {
+			GUIElement releasedAt = this.getActiveDialog().getGUIAtPosition(x, y);
+			if(this.getPressedElement() == releasedAt ) {
+				releasedAt.handleReleaseClick();
+			}
+		}
+		this.setPressedElement(null);
+	}
+	
+	
 	
 	/**
 	 * This method changes the activeElement to the given element, and invokes element.handleClick. If the given element is already the activeElement, it only invokes element.handleClick.
@@ -282,6 +305,14 @@ public class WindowManager {
 	private Browsr browsr;
 	public MainDialog getMainPage() {
 		return browsr.getMainDialog();
+	}
+
+	public GUIElement getPressedElement() {
+		return pressedElement;
+	}
+
+	public void setPressedElement(GUIElement pressedElement) {
+		this.pressedElement = pressedElement;
 	}
 
 }

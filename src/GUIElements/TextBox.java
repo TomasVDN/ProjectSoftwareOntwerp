@@ -6,6 +6,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import EventListeners.EventListener;
 
 public class TextBox extends GUIElement {
 
@@ -13,6 +15,7 @@ public class TextBox extends GUIElement {
 	private String previousText = "";
 	private String selectedText = "";
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
+	private String name;
 	
 	/**
 	 * Constructor of the TextBox class
@@ -23,6 +26,13 @@ public class TextBox extends GUIElement {
 	 */
 	public TextBox(int x, int y, int w, int h) {
 		super(x, y, w, h);
+		leftText = "";
+		rightText = "";
+	}
+	
+	public TextBox(int x, int y, int w, int h,String name) {
+		super(x, y, w, h);
+		this.setName(name);
 		leftText = "";
 		rightText = "";
 	}
@@ -339,4 +349,21 @@ public class TextBox extends GUIElement {
 		this.setSelectedText("");
 		this.setRigthText("");
 	}
+
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+
+	
+	@Override
+	public String toString() {
+		return this.getName() +"=" + this.getText();
+	}
+	
 }

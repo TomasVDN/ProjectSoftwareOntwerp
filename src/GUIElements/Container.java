@@ -2,6 +2,7 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import EventListeners.EventListener;
 
 public class Container extends GUIElement {
 
@@ -109,6 +110,17 @@ public class Container extends GUIElement {
 			}
 		}
 		return null;
+	}
+
+
+
+
+	@Override
+	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array) {
+		for(GUIElement element: this.getElements()) {
+			element.getGuiClass(cls, array);
+		}
+		return array;
 	}
 
 }

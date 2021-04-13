@@ -17,7 +17,9 @@ public class MainDialog extends Container {
 	
 	private TableGUI bookmarkBar;
 
-	public MainDialog(int x, int y, int w, int h, EventReader eventReader, Container pageContainer, Container searchBarContainer, Container bookmarkBarContainer) {
+	//TODO searchbar & bookmar bar fusen?
+	public MainDialog(int x, int y, int w, int h, Container page, Container searchBar, Container bookmarkBar) {
+
 		super(x, y, w, h);
 		this.pageContainer = pageContainer;
 		this.searchBarContainer = searchBarContainer;

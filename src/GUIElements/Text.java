@@ -6,13 +6,16 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
 import canvaswindow.FontMetricGetter;
+import EventListeners.EventListener;
 
 public class Text extends GUIElement {
 
 	private String text;
 	private FontMetrics fontMetrics;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
+	protected Color color = Color.black;
 	
+
 	/**
 	 * Constructor of the Text class.
 	 * @param x - x coordinate of the Text
@@ -20,9 +23,20 @@ public class Text extends GUIElement {
 	 * @param t - content of the Text
 	 */
 	public Text(int x, int y, String t) {
-		super(x, y, 0, 0);
+		super(x, y);
 		text = t;
 		
+		FontMetricGetter f = FontMetricGetter.getInstance();
+		this.fontMetrics = f.getFontMetric(font);
+		
+		setHeight(fontMetrics.getHeight());
+		setWidth(fontMetrics.stringWidth(text));
+	}
+	
+	public Text(int x,int y,Text t) {
+		super(x,y);
+		this.setText(t.getText());
+		this.setFont(t.getFont());
 		FontMetricGetter f = FontMetricGetter.getInstance();
 		this.fontMetrics = f.getFontMetric(font);
 		
@@ -39,13 +53,14 @@ public class Text extends GUIElement {
 	@Override
 	public void paint(Graphics g) {
 		g.setFont(font);
-		g.setColor(Color.black);
+		g.setColor(this.getColor());
 		
 		Shape oldClip = g.getClip();
 		
 		g.setClip(getX(), getY(), getWidth(), getHeight());
 		super.drawCenteredText(g, this.getText());
 		g.setClip(oldClip);
+		g.setColor(Color.black); //TODO ik weet niet of dit nog nodig is
 	}
 	
 	/**
@@ -126,4 +141,13 @@ public class Text extends GUIElement {
 	@Override
 	public void handleUnselect() {
 	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	protected void setColor(Color color) {
+		this.color = color;
+	}
+
 }

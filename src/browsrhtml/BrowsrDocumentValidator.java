@@ -12,6 +12,7 @@ import browsrhtml.HtmlLexer.TokenType;
 public class BrowsrDocumentValidator {
 	
 	HtmlLexer lexer;
+	private boolean insideForm= false;
 	
 	BrowsrDocumentValidator(Reader reader) {
 		lexer = new HtmlLexer(reader);
@@ -118,6 +119,39 @@ public class BrowsrDocumentValidator {
 		consumeEndTag("table");
 	}
 	
+	void consumeForm() {
+		if(this.insideForm) {
+			fail();
+		}
+		this.setInsideForm(true);
+		consumeOpenStartTag("form");
+		consumeAttribute("action");
+		consumeToken(TokenType.CLOSE_TAG);
+		consumeContentSpan();
+		consumeEndTag("form");
+		this.setInsideForm(false);
+	}
+	
+	
+	void consumeInput() {
+		String type=null;
+		String name=null;
+		consumeOpenStartTag("input");
+		while(lexer.getTokenType()!=TokenType.CLOSE_TAG) {
+			switch (lexer.getTokenValue()){
+			case "type": 
+				consumeAttribute("type");
+				break;
+			case "name": 
+				consumeAttribute("name");
+				break;
+			default: 
+				fail();
+			}	
+		}
+		consumeToken(TokenType.CLOSE_TAG);
+	}
+	
 	void consumeContentSpan() {
 		switch (lexer.getTokenType()) {
 		case TEXT -> consumeTextSpan();
@@ -125,6 +159,8 @@ public class BrowsrDocumentValidator {
 			switch (lexer.getTokenValue()) {
 			case "a" -> consumeHyperlink();
 			case "table" -> consumeTable();
+			case "form" -> consumeForm();
+			case "input" -> consumeInput();
 			default -> fail();
 			}
 		}
@@ -132,6 +168,8 @@ public class BrowsrDocumentValidator {
 		}
 	}
 	
+
+
 	public static void assertIsValidBrowsrDocument(Reader reader) {
 		new BrowsrDocumentValidator(reader).consumeBrowsrDocument();
 	}
@@ -142,6 +180,20 @@ public class BrowsrDocumentValidator {
 	
 	public static void assertIsValidBrowsrDocument(URL url) throws IOException {
 		new BrowsrDocumentValidator(new BufferedReader(new InputStreamReader(url.openStream()))).consumeBrowsrDocument();
+	}
+
+	public boolean isInsideForm() {
+		return insideForm;
+	}
+
+	public void setInsideForm(boolean insideForm) {
+		this.insideForm = insideForm;
+	}
+	
+	private void eatUntillType(HtmlLexer.TokenType type) {
+		while(lexer.getTokenType() != type) {
+			lexer.eatToken();
+		}
 	}
 	
 	

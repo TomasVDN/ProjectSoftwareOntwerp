@@ -83,7 +83,7 @@ class TestHTMLToGUI {
 		GUIElement gui =converter.toGUI(hyp1,0, 0, 500, 500, null);
 		assertTrue(gui instanceof Hyperlink);
 		Hyperlink hyperGui = (Hyperlink) gui;
-		assertEquals(hyperGui.getText().getText(),"hyperlink1");
+		assertEquals(hyperGui.getText(),"hyperlink1");
 		assertEquals(hyperGui.getUrl(),"hyp1");
 		assertEquals(hyperGui.getX(),0);
 		assertEquals(hyperGui.getY(),0);

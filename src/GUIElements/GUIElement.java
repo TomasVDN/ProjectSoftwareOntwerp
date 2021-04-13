@@ -3,6 +3,10 @@ package GUIElements;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.util.ArrayList;
+
+import EventListeners.EventListener;
+
 
 public abstract class GUIElement {
 	private int xPos;
@@ -184,6 +188,10 @@ public abstract class GUIElement {
 	
 	public abstract void handleClick();
 	
+	public void handleReleaseClick() {
+		
+	}
+	
 	public abstract void paint(Graphics g);
 	
 	/**
@@ -221,4 +229,22 @@ public abstract class GUIElement {
 		//otherwise return null
 		return null;
 	}
+	
+	
+
+	/**
+	 * Returns all the elements of given GUI back into an array
+	 * @param <T>
+	 * @param cls
+	 * @param array
+	 * @return
+	 */
+	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
+		if(cls.isInstance(this)) {
+			array.add( (T) this); //TODO dit is niet veilig blijkbaar
+		}
+		return array;
+	}
+	
+
 }

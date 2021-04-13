@@ -10,6 +10,11 @@ import GUIElements.SaveDialog;
 import GUIElements.Text;
 import htmlElement.ContentSpan;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 /**
  * Controller type class. Used to connect DomainFacade (facade for the domain) and WindowManager (facade for the UI).
  *
@@ -51,11 +56,29 @@ public class Browsr {
 	 * @param path - the URL to process.
 	 */
 	public void runUrl(String path) {
-		ArrayList<ContentSpan> htmlList=domainFacade.runUrl(path);
-		this.getWindowManager().updateURL(path);
-		this.draw(htmlList);
+		// transform the searchBar to percentage encoding
+		try {
+			String percentageEncoded = URLEncoder.encode(path,StandardCharsets.UTF_8.name());
+			percentageEncoded = this.replaceUncorrectPercentages(percentageEncoded);;
+			// run the url
+			ArrayList<ContentSpan> htmlList=domainFacade.runUrl(percentageEncoded);
+			this.getWindowManager().updateURL(percentageEncoded);
+			this.draw(htmlList);	
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * Replaces all percentages of common characters that shouldn't be replaced with their counterpart
+	 * form URLencoder
+	 */
+	private String replaceUncorrectPercentages(String percentageEncoded) {
+		return percentageEncoded.replace("%2F", "/").replace("%3A",":" ).replace("%7E", "~").replace("%3F","?")
+				.replace("%3D","=").replace("%26","&");
+	}
+	
 	/**
 	 * Asks this.windowManager to process and display the given list of HTMLElements.
 	 * @param htmlElements - list to transmit.
@@ -76,7 +99,7 @@ public class Browsr {
 	 * Handler for the hyperlinks.
 	 * @param URLAttribute
 	 */
-	public void handleHyperlink(String URLAttribute) {
+	public void runUrlAttribute(String URLAttribute) {
 		runUrl(getBaseURLFromSearchBar() + URLAttribute);
 	}
 	

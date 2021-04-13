@@ -51,12 +51,12 @@ public class HTMLToGUI {
 	 * width= width of the drawing window
 	 * height = height of the drawing window
 	 */
-	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements, EventReader eventReader) {
+	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements,EventReader eventReader) {
 		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
 		int relativeY=y;
 		int relativeX=x + XSPACE;
 		for(int i =0 ; i<htmlElements.size();i++) {
-			GUIElement gui = toGUI(htmlElements.get(i), relativeX, relativeY, width, height, eventReader);
+			GUIElement gui = toGUI(htmlElements.get(i), relativeX, relativeY, width, height,eventReader);
 			relativeY+=gui.getHeight() +YSPACE;
 			cont.add(gui);
 		}
@@ -71,7 +71,7 @@ public class HTMLToGUI {
 	 * @param relativeY
 	 * @return
 	 */
-	public GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height, EventReader eventReader) {
-		return contentSpan.transformToGUI(relativeX, relativeY, width, height, eventReader);
+	public GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height,EventReader eventReader) {
+		return contentSpan.transformToGUI(relativeX, relativeY, width, height,eventReader);
 	}
 }
