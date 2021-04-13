@@ -2,6 +2,8 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import GUIElements.SearchBar;
+import events.EventReader;
 
 public class MainDialog extends Container {
 	
@@ -9,17 +11,48 @@ public class MainDialog extends Container {
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
+	
+	
+	private SearchBar searchbar;
+	
+	private TableGUI bookmarkBar;
 
 	//TODO searchbar & bookmar bar fusen?
 	public MainDialog(int x, int y, int w, int h, Container page, Container searchBar, Container bookmarkBar) {
+
 		super(x, y, w, h);
-		this.pageContainer = page;
-		this.searchBarContainer = searchBar;
-		this.bookmarkBarContainer = bookmarkBar;
+		this.pageContainer = pageContainer;
+		this.searchBarContainer = searchBarContainer;
+		this.bookmarkBarContainer = bookmarkBarContainer;
 		this.allContainers = new ArrayList<Container>();
+		
+		// set up searchbar
+		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, eventReader);
+		this.setSearchbar(searchBar);
+		this.getSearchBarContainer().addElement(this.getSearchbar());
+		
+		allContainers.add(searchBarContainer);
 		allContainers.add(bookmarkBarContainer);
 		allContainers.add(pageContainer);
-		allContainers.add(searchBarContainer);
+		
+		// set up bookmarkBar
+		Text t = new Text(0, 0, "Bookmarks:");
+		TableCellGUI c = new TableCellGUI(t, 0, 0, 0, 0);
+		ArrayList<TableCellGUI> bookmarkCells = new ArrayList<TableCellGUI>();
+		bookmarkCells.add(c);
+		TableRowGUI emptyTableRow = new TableRowGUI(bookmarkCells, 0, 0);
+		ArrayList<TableRowGUI> bookmarkRow = new ArrayList<TableRowGUI>();
+		bookmarkRow.add(emptyTableRow);
+		TableGUI bookmarkBar = new TableGUI(bookmarkRow, 10, 10);
+		this.setBookmarkBar(bookmarkBar);
+		this.getBookmarkBarContainer().addElement(this.getBookmarkBar());
+		
+		
+
+		
+		Text t2 = new Text(0, 0, "link");
+		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
+		this.addBookmark(hyperlinkTest);
 	}
 
 	/**
@@ -62,6 +95,41 @@ public class MainDialog extends Container {
 	 */
 	public void setBookmarkBarContainer(Container bookmarkBar) {
 		this.bookmarkBarContainer = bookmarkBar;
+	}
+	
+	
+	/**
+	 * @return this.searchBar
+	 */
+	public SearchBar getSearchbar() {
+		return searchbar;
+	}
+
+	/**
+	 * @param searchbar - the new value of this.searchBar
+	 */
+	public void setSearchbar(SearchBar searchbar) {
+		this.searchbar = searchbar;
+	}
+	
+
+	public TableGUI getBookmarkBar() {
+		return bookmarkBar;
+	}
+
+	public void setBookmarkBar(TableGUI bookmarkBar) {
+		this.bookmarkBar = bookmarkBar;
+	}
+	
+	public void addBookmark(BookmarkHyperlink newBookmark) {
+		ArrayList<TableCellGUI> bookmarkCells = this.bookmarkBar.getGuiRows().get(0).getGuiElements();
+		TableCellGUI newBookmarkCell = new TableCellGUI(newBookmark, 0, 0, 0, 0); // TODO die posities misschien veranderen?
+		bookmarkCells.add(newBookmarkCell);
+		TableRowGUI updatedRow = new TableRowGUI(bookmarkCells, 0, 0);
+		ArrayList<TableRowGUI> updatedRows = new ArrayList<TableRowGUI>();
+		updatedRows.add(updatedRow);
+		this.getBookmarkBar().setGuiRows(updatedRows);; // TODO die get(0) misschien op een andere manier doen?
+		//this.getBookmarkBar().updateTableCells();
 	}
 	
 	/**
@@ -115,4 +183,5 @@ public class MainDialog extends Container {
 	public ArrayList<Container> getAllContainers() {
 		return allContainers;
 	}
+
 }

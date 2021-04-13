@@ -2,9 +2,12 @@ package facades;
 
 import java.util.ArrayList;
 
+import GUIElements.BookmarkDialog;
+import GUIElements.BookmarkHyperlink;
 import GUIElements.Container;
 import GUIElements.MainDialog;
 import GUIElements.SaveDialog;
+import GUIElements.Text;
 import htmlElement.ContentSpan;
 
 import java.io.UnsupportedEncodingException;
@@ -23,7 +26,7 @@ public class Browsr {
 	
 	private MainDialog mainDialog;
 	private Container saveDialog;
-	private Container bookmarkDialog;
+	private BookmarkDialog bookmarkDialog;
 	
 	/**
 	 * Constructor of the Browsr class. Makes a new DomainFacade.
@@ -100,14 +103,35 @@ public class Browsr {
 		runUrl(getBaseURLFromSearchBar() + URLAttribute);
 	}
 	
+	/**
+	 * Handler for the hyperlinks.
+	 * @param URLAttribute
+	 */
+	public void handleBookmarkHyperlink(String URLAttribute) {
+		runUrl(URLAttribute);
+	}
+	
 	public void savePage(String filename) {
 		domainFacade.savePage(filename);
+	}
+	
+	public void initializeBookmarkDialog(String suggestedUrl) {
+		this.getBookmarkDialog().setInitialInputs(suggestedUrl);
+	}
+	
+	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
+		/*
+		 * TODO moet die BookmarkHyperlink hier wel aangemaakt worden? Maar anders weet ik niet van waar ge die eventReader gaat halen.
+		 */
+		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl, this.getWindowManager().getEventReader());
+		this.getWindowManager().getMainPage().addBookmark(newBookmarkHyperlink);
 	}
 
 	/**
 	 * @return the bookmarkDialog
 	 */
-	public Container getBookmarkDialog() {
+	public BookmarkDialog getBookmarkDialog() {
 		return bookmarkDialog;
 	}
 
@@ -125,13 +149,14 @@ public class Browsr {
 		return mainDialog;
 	}
 
-	public void setDialogs(MainDialog mainDialog, SaveDialog saveDialog, Container bookmarkDialog) {
+	public void setDialogs(MainDialog mainDialog, SaveDialog saveDialog, BookmarkDialog bookmarkDialog) {
 		this.mainDialog = mainDialog;
 		this.saveDialog = saveDialog;
 		this.bookmarkDialog = bookmarkDialog;
 	}
 	
 	public void changeActiveDialog(Container dialog) {
+		this.windowManager.changeActive(null);
 		this.windowManager.setActiveDialog(dialog);
 	}
 }

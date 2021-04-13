@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import GUIElements.GUIElement;
 import GUIElements.MainDialog;
 import GUIElements.SaveDialog;
-import GUIElements.SearchBar;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
+import GUIElements.BookmarkDialog;
 import GUIElements.Container;
 import converter.HTMLToGUI;
 import events.ChangeToDialogEvent;
 import events.EventReader;
+import events.InitializeBookmarkDialogEvent;
 import events.SavePageEvent;
 import htmlElement.ContentSpan;
 
@@ -23,7 +24,7 @@ public class WindowManager {
 	
 	//TODO mag dit?  searchbar bijgehouden in 2 plekken, maar wel nodig als bv in bookmark dialog
 	private SearchBar searchbar;
-	
+
 	private int width;
 	private int height;
 	private final int BAR_SIZE = 60;
@@ -58,20 +59,16 @@ public class WindowManager {
 		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
 		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
 		
-		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer);
+		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, eventReader, pageContainer, searchBarContainer, bookmarkBarContainer);
 		this.setActiveDialog(mainDialog);
 		
 		SaveDialog saveDialog = new SaveDialog(0, 0, 600, 600, eventReader);
 		
-		Container bookmarkDialog = new Container(0, 0, 600, 600);
+		BookmarkDialog bookmarkDialog = new BookmarkDialog(0, 0, 600, 600, eventReader);
 		
 		//Setup the welcome page
 		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
 		this.addGUIToPage(text);
-
-		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, this.eventReader);
-		this.setSearchbar(searchBar);
-		mainDialog.getSearchBarContainer().addElement(searchBar);
 		
 		browsr.setDialogs(mainDialog, saveDialog, bookmarkDialog);
 	}
@@ -181,7 +178,7 @@ public class WindowManager {
 	 */
 	public void updateURL(String url) {
 		this.changeActive(null);
-		this.getSearchbar().replaceBox(url);
+		this.getMainPage().getSearchbar().replaceBox(url);
 	}
 
 	/**
@@ -242,20 +239,6 @@ public class WindowManager {
 	public EventReader getEventReader() {
 		return eventReader;
 	}
-	
-	/**
-	 * @return this.searchBar
-	 */
-	public SearchBar getSearchbar() {
-		return searchbar;
-	}
-
-	/**
-	 * @param searchbar - the new value of this.searchBar
-	 */
-	public void setSearchbar(SearchBar searchbar) {
-		this.searchbar = searchbar;
-	}
 
 	
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
@@ -267,10 +250,22 @@ public class WindowManager {
 			}
 		}
 		
+		// Ctrl + s
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			System.out.print(keyCode);
 			if (keyCode == 83) {
 				ChangeToDialogEvent event = new ChangeToDialogEvent("saveDialog");
+				this.getEventReader().readEvent(event);
+			}
+		}
+		
+		// Ctrl + d
+		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
+			System.out.print(keyCode);
+			if (keyCode == 68) {
+				InitializeBookmarkDialogEvent initializeBookmarkDialogEvent = new InitializeBookmarkDialogEvent(getURLFromSearchBar());
+				this.getEventReader().readEvent(initializeBookmarkDialogEvent);
+				ChangeToDialogEvent event = new ChangeToDialogEvent("bookmarkDialog");
 				this.getEventReader().readEvent(event);
 			}
 		}
@@ -284,8 +279,12 @@ public class WindowManager {
         }
 	}
 	
+	public String getURLFromSearchBar() {
+		return this.getMainPage().getSearchbar().getText();
+	}
+	
 	public String getBaseURLFromSearchBar() {
-		return this.getSearchbar().getBaseURL();
+		return this.getMainPage().getSearchbar().getBaseURL();
 	}
 
 	/**

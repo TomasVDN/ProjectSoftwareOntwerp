@@ -22,7 +22,10 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 	//Map for setting the underline in the font and Variable for the url
     private Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
 	private String url;
+	protected EventReader eventReader;
+
 	private ArrayList<HyperLinkListener> eventListener = new ArrayList<HyperLinkListener>();
+
 	
 	/**
 	 * Constructor for the hyperlink class.

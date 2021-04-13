@@ -18,8 +18,6 @@ public class TableGUI extends GUIElement {
 	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y) {
 		super(x, y);
 		this.setGuiRows(guiRows);
-		this.updateTableCells();
-
 	}
 
 	/**
@@ -34,6 +32,7 @@ public class TableGUI extends GUIElement {
 			throw new IllegalArgumentException("rows of guiTable can't be null");
 		}
 		this.guiRows = guiElements;
+		updateTableCells();
 	}
 
 	@Override
@@ -162,7 +161,7 @@ public class TableGUI extends GUIElement {
 	 * 		width is the max width in the column
 	 * Furthermore their relative positions are also updated
 	 */
-	private void updateTableCells() {
+	public void updateTableCells() { // TODO terug private maken, even public gemaakt om table van bookmarks juist te tekenen in de MainDialog
 		ArrayList<Integer> rowHeight =this.getAllRowHeight();
 		ArrayList<Integer> colomnWidth =this.getAllColumnWidth();
 		int yPosition=0;
