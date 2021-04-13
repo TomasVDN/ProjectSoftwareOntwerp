@@ -46,7 +46,8 @@ public class WindowManager {
 		this.browsr = browsr;
 		
 		//Set width/height.
-		this.setWidth(600);
+		//this.setWidth(600);
+		this.setWidth(10000);
 		this.setHeight(600);
 		
 		//Initialize EventReader
