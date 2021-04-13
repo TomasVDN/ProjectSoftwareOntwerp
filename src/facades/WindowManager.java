@@ -297,7 +297,9 @@ public class WindowManager {
 	 * @param activeDialog the activeDialog to set
 	 */
 	public void setActiveDialog(String type) {
-		System.out.print(type);
+		//TODO rename function/keep with strings?
+		this.setElementWithKeyboardFocus(null);
+		
 		switch (type) {
 		case "mainDialog":
 			this.setActiveDialog(this.getMainDialog());

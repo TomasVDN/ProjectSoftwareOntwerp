@@ -16,13 +16,13 @@ public class SaveDialog extends Container{
 		
 		textBox = new TextBox(10, 10, w - 20, 40);
 		
-		Button cancelButton = new Button(Math.floorDiv(w, 4), 100, new Text(Math.floorDiv(w, 4), 100, "Cancel"), true, Color.black);
+		Button cancelButton = new Button(Math.floorDiv(w, 4), 100, new Text(Math.floorDiv(w, 4), 100, "Cancel"), true, Color.lightGray);
 		cancelButton.addSingleClickListener(() -> {
 			ChangeToDialogEvent event = new ChangeToDialogEvent("mainDialog");
 			eventReader.readEvent(event);
 		});
 		
-		Button submitButton = new Button(3*Math.floorDiv(w, 4), 100, new Text(3*Math.floorDiv(w, 4), 100, "Submit"), true, Color.black);
+		Button submitButton = new Button(3*Math.floorDiv(w, 4), 100, new Text(3*Math.floorDiv(w, 4), 100, "Submit"), true, Color.lightGray);
 		submitButton.addSingleClickListener(() ->{
 			String filename = this.getTextBox().getText();
 			
