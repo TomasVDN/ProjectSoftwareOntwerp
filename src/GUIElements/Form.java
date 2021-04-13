@@ -20,7 +20,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		this.setGui(gui);
 		this.setAction(action);
 		this.addSelfToRootGui(); // adds the form as listener to the gui
-		this.addListener(listener);
+		this.addFormListener(listener);
 	}
 	
 	private void addSelfToRootGui() {
@@ -146,14 +146,14 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 
 
 	@Override
-	public void addListener(FormListener listener) {
+	public void addFormListener(FormListener listener) {
 		this.listeners.add(listener);
 	}
 
 
 
 	@Override
-	public  void removeListener(FormListener listener) {
+	public  void removeFormListener(FormListener listener) {
 		this.listeners.remove(listener);
 	}
 

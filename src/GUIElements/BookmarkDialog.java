@@ -3,19 +3,21 @@ package GUIElements;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import javax.swing.text.TableView.TableRow;
-
-import events.ChangeToDialogEvent;
+import EventCreators.AddBookmarkEventCreator;
+import EventCreators.ChangeDialogEventCreator;
+import EventListeners.AddBookmarkListener;
+import EventListeners.ChangeDialogListener;
+import EventListeners.HyperLinkListener;
 import events.EventReader;
-import events.AddBookmarkEvent;
 
-public class BookmarkDialog extends Container{
+public class BookmarkDialog extends Container implements AddBookmarkEventCreator, ChangeDialogEventCreator{
 	
-
 	private TextBox bookmarkHyperlinkNameTextBox;
 	private TextBox bookmarkHyperlinkUrlTextBox;
 	private EventReader eventReader;
 	
+	private ArrayList<AddBookmarkListener> eventListener = new ArrayList<AddBookmarkListener>();
+	private ArrayList<ChangeDialogListener> eventListener2 = new ArrayList<ChangeDialogListener>();
 	
 	public BookmarkDialog(int x, int y, int w, int h, EventReader eventReader) {
 		super(x, y, w, h);
@@ -53,24 +55,30 @@ public class BookmarkDialog extends Container{
 		tableRows.add(urlInputRow);
 		TableGUI inputTable = new TableGUI(tableRows, 10, 40);
 		
+		this.addAddBookmarkListener(eventReader);
+		this.addChangeDialogListener(eventReader);
+		
 		// set up cancel button
-		Button cancelButton = new Button(Math.floorDiv(w, 4), 200, new Text(Math.floorDiv(w, 4), 200, "Cancel"), true, Color.black);
+		Button cancelButton = new Button(Math.floorDiv(w, 4), 200, new Text(Math.floorDiv(w, 4), 200, "Cancel"), true, Color.lightGray);
 		cancelButton.addSingleClickListener(() -> {
-			ChangeToDialogEvent event = new ChangeToDialogEvent("mainDialog");
-			eventReader.readEvent(event);
+			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
+				listener.changeDialog("mainDialog");
+			}
 		});
 		
 		// set up submit button
-		Button submitButton = new Button(2*Math.floorDiv(w, 4), 200, new Text(2*Math.floorDiv(w, 4), 200, "Add Bookmark	"), true, Color.black);
+		Button submitButton = new Button(2*Math.floorDiv(w, 4), 200, new Text(2*Math.floorDiv(w, 4), 200, "Add Bookmark	"), true, Color.lightGray);
 		submitButton.addSingleClickListener(() ->{
 			String bookmarkHyperlinkName = this.getNameTextBox().getText();
 			String bookmarkHyperlinkUrlTextBox = this.geturlTextBox().getText();
 			
-			AddBookmarkEvent addBookmarkEvent = new AddBookmarkEvent(bookmarkHyperlinkName, bookmarkHyperlinkUrlTextBox);
-			this.getEventReader().readEvent(addBookmarkEvent);
+			for(AddBookmarkListener listener: this.getAddBookmarkListeners()) {
+				listener.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrlTextBox);
+			}
 			
-			ChangeToDialogEvent changeToMainDialogEvent = new ChangeToDialogEvent("mainDialog");
-			this.getEventReader().readEvent(changeToMainDialogEvent);
+			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
+				listener.changeDialog("mainDialog");
+			}
 		});
 		
 		// add elements to BookmarkDialog container
@@ -81,7 +89,6 @@ public class BookmarkDialog extends Container{
 		
 		this.eventReader = eventReader;
 	}
-	
 
 	/**
 	 * @return the textBox
@@ -128,5 +135,36 @@ public class BookmarkDialog extends Container{
 	public void setInitialInputs(String suggestedURL) {
 		this.getNameTextBox().setLeftText("");
 		this.geturlTextBox().setLeftText(suggestedURL);
+	}
+
+
+	@Override
+	public void addAddBookmarkListener(AddBookmarkListener listener) {
+		this.getAddBookmarkListeners().add(listener);
+	}
+
+	@Override
+	public void removeAddBookmarkListener(AddBookmarkListener listener) {
+		this.getAddBookmarkListeners().remove(listener);
+	}
+	
+
+	protected ArrayList<AddBookmarkListener> getAddBookmarkListeners() {
+		return eventListener;
+	}
+
+	@Override
+	public void addChangeDialogListener(ChangeDialogListener listener) {
+		this.getChangeDialogListeners().add(listener);
+	}
+
+	@Override
+	public void removeChangeDialogListener(ChangeDialogListener listener) {
+		this.getChangeDialogListeners().remove(listener);
+	}
+	
+
+	protected ArrayList<ChangeDialogListener> getChangeDialogListeners() {
+		return eventListener2;
 	}
 }

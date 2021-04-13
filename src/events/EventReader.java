@@ -1,15 +1,17 @@
 package events;
 
-import EventListeners.EventListener;
+import EventListeners.AddBookmarkListener;
+import EventListeners.ChangeDialogListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
+import EventListeners.SavePageListener;
 import EventListeners.SearchBarListener;
 import facades.Browsr;
 
 /**
  * Class that can be called by given GUIElements to transmit an event to the controller (browsr).
  */
-public final class EventReader implements SearchBarListener, HyperLinkListener,FormListener {
+public final class EventReader implements SearchBarListener, HyperLinkListener,FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener {
 	
 	private Browsr browsr;
 	
@@ -52,5 +54,19 @@ public final class EventReader implements SearchBarListener, HyperLinkListener,F
 	public void handleBookmarkHyperLinkClicked(String url) {
 		browsr.runUrl(url);
 	}
-	
+
+	@Override
+	public void addBookmark(String name, String url) {
+		browsr.addBookmark(name, url);
+	}
+
+	@Override
+	public void changeDialog(String type) {
+		browsr.changeActiveDialog(type);
+	}
+
+	@Override
+	public void savePage(String filename) {
+		browsr.savePage(filename);
+	}	
 }

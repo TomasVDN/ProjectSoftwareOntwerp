@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import EventCreators.ChangeDialogEventCreator;
+import EventListeners.ChangeDialogListener;
 import GUIElements.GUIElement;
 import GUIElements.MainDialog;
 import GUIElements.SaveDialog;
@@ -13,7 +15,6 @@ import canvaswindow.MyCanvasWindow;
 import GUIElements.BookmarkDialog;
 import GUIElements.Container;
 import converter.HTMLToGUI;
-import events.ChangeToDialogEvent;
 import events.EventReader;
 import htmlElement.ContentSpan;
 
@@ -111,9 +112,9 @@ public class WindowManager {
 	 */
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
-			changeActive(getActiveDialog().getGUIAtPosition(x, y));	
+			changeElementWithKeyboardFocus(getActiveDialog().getGUIAtPosition(x, y));	
 		} catch (NullPointerException e) {
-			changeActive(null);
+			changeElementWithKeyboardFocus(null);
 		}		
 	}
 	
@@ -139,7 +140,7 @@ public class WindowManager {
 	 * This method changes the activeElement to the given element, and invokes element.handleClick. If the given element is already the activeElement, it only invokes element.handleClick.
 	 * @param element - the new activeElement
 	 */
-	public void changeActive(GUIElement element) {
+	public void changeElementWithKeyboardFocus(GUIElement element) {
 		if(element!=this.getElementWithKeyboardFocus()) {
 			//deactivate old activeElement
 			if (elementWithKeyboardFocus != null && this.getElementWithKeyboardFocus().isActive()) {
@@ -167,7 +168,7 @@ public class WindowManager {
 	 * @param url
 	 */
 	public void updateURL(String url) {
-		this.changeActive(null);
+		this.changeElementWithKeyboardFocus(null);
 		this.getMainDialog().getSearchbar().replaceBox(url);
 	}
 
@@ -244,8 +245,7 @@ public class WindowManager {
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			System.out.print(keyCode);
 			if (keyCode == 83) {
-				ChangeToDialogEvent event = new ChangeToDialogEvent("saveDialog");
-				this.getEventReader().readEvent(event);
+				this.setActiveDialog("saveDialog");
 			}
 		}
 		
@@ -253,8 +253,7 @@ public class WindowManager {
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			System.out.print(keyCode);
 			if (keyCode == 68) {
-				ChangeToDialogEvent event = new ChangeToDialogEvent("bookmarkDialog");
-				this.getEventReader().readEvent(event);
+				this.setActiveDialog("bookmarkDialog");
 			}
 		}
 		
@@ -294,8 +293,8 @@ public class WindowManager {
 	 */
 	public void setActiveDialog(String type) {
 		//TODO rename function/keep with strings?
-		this.setElementWithKeyboardFocus(null);
-		
+		this.changeElementWithKeyboardFocus(null);
+		System.out.print("Test\n\n");
 		switch (type) {
 		case "mainDialog":
 			this.setActiveDialog(this.getMainDialog());
