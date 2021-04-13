@@ -11,6 +11,7 @@ public class SaveDialog extends Container{
 	private TextBox textBox;
 	private EventReader eventReader;
 	
+	//TODO rename buttons & fix layout
 	public SaveDialog(int x, int y, int w, int h, EventReader eventReader) {
 		super(x, y, w, h);
 		

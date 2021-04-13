@@ -44,13 +44,16 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 		this.addListener(eventReader);
 		
 		//creates the method when clicked on hyperlink
+		initiateClickListeners();
+	}
+	
+	protected void initiateClickListeners() {
 		this.addSingleClickListener(() ->{
 			System.out.println("CLICK OP HYPERLINK");
 			for(HyperLinkListener listener: this.getHyperListeners()) {
 				listener.handleHyperLinkClicked(this.getUrl());
 			}
 		});
-		//this.eventListener = eventReader;
 	}
 	
 
@@ -83,7 +86,7 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 	}
 	
 
-	private ArrayList<HyperLinkListener> getHyperListeners() {
+	protected ArrayList<HyperLinkListener> getHyperListeners() {
 		return eventListener;
 	}
 

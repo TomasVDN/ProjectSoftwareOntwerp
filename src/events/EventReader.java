@@ -1,6 +1,5 @@
 package events;
 
-import EventListeners.ActionListener;
 import EventListeners.EventListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
@@ -10,7 +9,7 @@ import facades.Browsr;
 /**
  * Class that can be called by given GUIElements to transmit an event to the controller (browsr).
  */
-public final class EventReader  implements SearchBarListener, HyperLinkListener,FormListener {
+public final class EventReader implements SearchBarListener, HyperLinkListener,FormListener {
 	
 	private Browsr browsr;
 	
@@ -48,4 +47,10 @@ public final class EventReader  implements SearchBarListener, HyperLinkListener,
 	public void handleFormSubmit(String action) {
 		browsr.runUrlAttribute(action);
 	}
+	
+	@Override
+	public void handleBookmarkHyperLinkClicked(String url) {
+		browsr.runUrl(url);
+	}
+	
 }

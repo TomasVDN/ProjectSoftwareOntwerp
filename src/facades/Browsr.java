@@ -99,14 +99,6 @@ public class Browsr {
 		runUrl(getBaseURLFromSearchBar() + URLAttribute);
 	}
 	
-	/**
-	 * Handler for the hyperlinks.
-	 * @param URLAttribute
-	 */
-	public void handleBookmarkHyperlink(String URLAttribute) {
-		runUrl(URLAttribute);
-	}
-	
 	public void savePage(String filename) {
 		domainFacade.savePage(filename);
 	}

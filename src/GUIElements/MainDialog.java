@@ -2,7 +2,6 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import GUIElements.SearchBar;
 import events.EventReader;
 
 public class MainDialog extends Container {
