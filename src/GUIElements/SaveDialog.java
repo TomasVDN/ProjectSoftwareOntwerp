@@ -8,7 +8,6 @@ import EventCreators.SavePageEventCreator;
 import EventListeners.ChangeDialogListener;
 import EventListeners.SavePageListener;
 import events.EventReader;
-import events.SavePageEvent;
 
 public class SaveDialog extends Container implements ChangeDialogEventCreator, SavePageEventCreator{
 
@@ -17,12 +16,16 @@ public class SaveDialog extends Container implements ChangeDialogEventCreator, S
 	private ArrayList<ChangeDialogListener> changeDialogEventListeners = new ArrayList<ChangeDialogListener>();
 	private ArrayList<SavePageListener> savePageEventListeners = new ArrayList<SavePageListener>();
 
-	//TODO rename buttons & fix layout
 	public SaveDialog(int x, int y, int w, int h, EventReader eventReader) {
 		super(x, y, w, h);
 		
-		textBox = new TextBox(10, 10, w - 20, 40);
+		//Make text
+		Text text = new Text(10, 10, "Filename: ");
 		
+		//Make textBox
+		textBox = new TextBox(10 + text.getWidth(), 10, w - 20 - text.getWidth(), 40);
+		
+		//Make CancelButton
 		Button cancelButton = new Button(Math.floorDiv(w, 4), 100, new Text(Math.floorDiv(w, 4), 100, "Cancel"), true, Color.lightGray);
 		cancelButton.addSingleClickListener(() -> {
 			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
@@ -30,7 +33,8 @@ public class SaveDialog extends Container implements ChangeDialogEventCreator, S
 			}
 		});
 		
-		Button submitButton = new Button(3*Math.floorDiv(w, 4), 100, new Text(3*Math.floorDiv(w, 4), 100, "Submit"), true, Color.lightGray);
+		//Make SubmitButton
+		Button submitButton = new Button(3*Math.floorDiv(w, 4), 100, new Text(3*Math.floorDiv(w, 4), 100, "Save"), true, Color.lightGray);
 		submitButton.addSingleClickListener(() ->{
 			String filename = this.getTextBox().getText();
 			
@@ -43,6 +47,8 @@ public class SaveDialog extends Container implements ChangeDialogEventCreator, S
 			}
 		});
 		
+		//Add all freshly made elements
+		this.addElement(text);
 		this.addElement(textBox);
 		this.addElement(cancelButton);
 		this.addElement(submitButton);
