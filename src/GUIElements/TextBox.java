@@ -154,16 +154,22 @@ public class TextBox extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		Shape oldClip = g.getClip();
-		
 		g.setFont(font);
 		FontMetrics metrics =  g.getFontMetrics(g.getFont());
-	
+		
+		//content
+		this.drawContent(g);
+					
 		//Border
 		g.drawRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
-		this.drawContent(g);
+		
+		//Text
+		Shape oldClip = g.getClip();
+		g.setClip(getX(), getY(), getWidth(), getHeight());
 		this.drawText(g, metrics);
-		if (isActive) this.drawCursor(g, metrics);
+		
+		//cursor
+		if (isActive()) this.drawCursor(g, metrics);
 			
 		g.setClip(oldClip);
 	}
@@ -181,7 +187,6 @@ public class TextBox extends GUIElement {
 	private void drawText(Graphics g, FontMetrics metrics) {
 		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
 		
-		g.setClip(getX(), getY(), getWidth(), getHeight());
 		if (selectedText != "") {
 			g.setColor(Color.blue);
 			g.fillRect(super.getX()+10,y, metrics.stringWidth(getSelectedText()), metrics.getHeight());
