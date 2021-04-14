@@ -154,10 +154,21 @@ public class TextBox extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g) {
+		Shape oldClip = g.getClip();
+		
 		g.setFont(font);
 		FontMetrics metrics =  g.getFontMetrics(g.getFont());
-		
-		//content
+	
+		//Border
+		g.drawRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
+		this.drawContent(g);
+		this.drawText(g, metrics);
+		if (isActive) this.drawCursor(g, metrics);
+			
+		g.setClip(oldClip);
+	}
+	
+	private void drawContent(Graphics g) {
 		if (isActive()) {
 			g.setColor(Color.gray);
 		} else { 
@@ -165,15 +176,11 @@ public class TextBox extends GUIElement {
 		}
 		g.fillRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
 		g.setColor(Color.black);
-					
-		//Border
-		g.drawRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
-		
+	}
+	
+	private void drawText(Graphics g, FontMetrics metrics) {
 		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
 		
-		
-		//Text
-		Shape oldClip = g.getClip();
 		g.setClip(getX(), getY(), getWidth(), getHeight());
 		if (selectedText != "") {
 			g.setColor(Color.blue);
@@ -183,15 +190,11 @@ public class TextBox extends GUIElement {
 		
 		y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
 		g.drawString(this.getText(), super.getX()+10, y);
+	}
 	
-		
-		//cursor
-		if (isActive()) {
-			y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
-			g.fillRect(super.getX() + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
-		}
-			
-		g.setClip(oldClip);
+	private void drawCursor(Graphics g, FontMetrics metrics) {
+		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
+		g.fillRect(super.getX() + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
 	}
 	
 	/**

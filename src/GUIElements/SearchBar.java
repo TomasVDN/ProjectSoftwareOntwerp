@@ -55,18 +55,11 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 	 */
 	public String getBaseURL() {
 		String URL = this.getText();
-		int index = URL.length() - 1;
-		boolean found = false;//URL.charAt(index) == '/';
-		while (!found && index >= 0) {
-			//index--;
-			found = URL.charAt(index) == '/';
-			index--;
-		}
-		//checks if two slashes used or no slashes are found at all, then don't remove anything
-		if(index<0 || URL.charAt(index)=='/') {
-			return URL + "/"; //adds slash at the end of the string
-		}
-		return URL.substring(0, index+2);
+		int index = URL.lastIndexOf("/");
+		if (URL.length() - 1 == index)
+			return URL;
+		else
+			return URL + "/";
 	}
 
 	@Override

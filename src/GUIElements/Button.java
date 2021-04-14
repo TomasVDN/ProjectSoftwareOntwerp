@@ -19,7 +19,7 @@ public class Button extends GUIElement implements ActionCreator {
 	private Text text;
     private Color buttonColor =  Color.BLACK;
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
-    private Boolean drawBox = false;
+    private Boolean mustDrawBox = false;
     private List<ActionListener> listeners = new ArrayList<ActionListener>();
     
     
@@ -30,14 +30,14 @@ public class Button extends GUIElement implements ActionCreator {
      * @param w - width of this Button
      * @param h - height of this Button
      * @param text - content of this Button
-     * @param box - boolean: if true, a surrounding box will be drawn
+     * @param mustDrawBox - boolean: if true, a surrounding box will be drawn
      * @param color - Color: color of this Button
      */
-	public Button(int x, int y, int w, int h, Text text, Boolean box, Color color) {
+	public Button(int x, int y, int w, int h, Text text, Boolean mustDrawBox, Color color) {
 		super(x, y, w, h);
 		this.setButtonColor(color);
 		this.setText(text);
-		this.setDrawBox(box);
+		this.setMustDrawBox(mustDrawBox);
 	}
 	
 	
@@ -45,7 +45,7 @@ public class Button extends GUIElement implements ActionCreator {
 		super(x, y,text.getWidth(),text.getHeight());
 		this.setButtonColor(color);
 		this.setText(text);
-		this.setDrawBox(box);
+		this.setMustDrawBox(box);
 	}
 
 	/**
@@ -54,25 +54,26 @@ public class Button extends GUIElement implements ActionCreator {
 	@Override
 	public void paint(Graphics g) {
 		g.setFont(font);
-		
-		
 		g.setColor(Color.black);
-		//Border: draw if boolean this.drawBox is true
-		if (drawBox()) {
-			g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
-			//content
-			g.setColor(getButtonColor());
-			g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
-		}
+		
+		if (mustDrawBox()) this.drawBox(g);
+		
+		this.drawText(g);	
+	}
 	
-		//Text
+	private void drawBox(Graphics g) {
+		g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+
+		g.setColor(getButtonColor());
+		g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+		g.setColor(Color.black);
+	}
+	
+	private void drawText(Graphics g) {
 		Shape oldClip = g.getClip();
 		g.setClip(getX(), getY(), getWidth(), getHeight());
-		//this.getText().paint(g,this.getButtonColor());
 		this.getText().paint(g,Color.black);
 		g.setClip(oldClip);
-		
-		g.setColor(Color.black);	
 	}
 
 	/**
@@ -121,17 +122,17 @@ public class Button extends GUIElement implements ActionCreator {
 	}
 
 	/**
-	 * @return the drawBox
+	 * @return the mustDrawBox
 	 */
-	public Boolean drawBox() {
-		return drawBox;
+	public Boolean mustDrawBox() {
+		return mustDrawBox;
 	}
 
 	/**
-	 * @param drawBox - the drawBox to set
+	 * @param mustDrawBox - the drawBox to set
 	 */
-	public void setDrawBox(Boolean drawBox) {
-		this.drawBox = drawBox;
+	public void setMustDrawBox(Boolean mustDrawBox) {
+		this.mustDrawBox = mustDrawBox;
 	}
 
 	@Override

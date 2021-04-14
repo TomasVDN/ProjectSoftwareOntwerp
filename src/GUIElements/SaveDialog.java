@@ -12,29 +12,42 @@ import events.EventReader;
 public class SaveDialog extends Container implements ChangeDialogEventCreator, SavePageEventCreator{
 
 	private TextBox textBox;
-	
-	private ArrayList<ChangeDialogListener> changeDialogEventListeners = new ArrayList<ChangeDialogListener>();
-	private ArrayList<SavePageListener> savePageEventListeners = new ArrayList<SavePageListener>();
 
 	public SaveDialog(int x, int y, int w, int h, EventReader eventReader) {
 		super(x, y, w, h);
 		
-		//Make text
-		Text text = new Text(10, 10, "Filename: ");
+		this.initTextBox(w);
+		this.initCancelButton(w);
+		this.initSaveButton(w);
 		
-		//Make textBox
-		textBox = new TextBox(10 + text.getWidth(), 10, w - 20 - text.getWidth(), 40);
+		this.addChangeDialogListener(eventReader);
+		this.addSavePageListener(eventReader);
+	}
+	
+	private void initTextBox(int width) {
+		Text text = new Text(10, 15, "Filename: ");
+		this.addElement(text);
+		textBox = new TextBox(10 + text.getWidth(), 10, width - 20 - text.getWidth(), 40);
+		this.addElement(textBox);
+	}
+	
+	private void initCancelButton(int width) {
+		int xPos = Math.floorDiv(width, 4);
+		Button cancelButton = new Button(xPos, 100, new Text(xPos, 100, "Cancel"), true, Color.lightGray);
 		
-		//Make CancelButton
-		Button cancelButton = new Button(Math.floorDiv(w, 4), 100, new Text(Math.floorDiv(w, 4), 100, "Cancel"), true, Color.lightGray);
 		cancelButton.addSingleClickListener(() -> {
 			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
 				listener.changeDialog("mainDialog");
 			}
 		});
 		
-		//Make SubmitButton
-		Button submitButton = new Button(3*Math.floorDiv(w, 4), 100, new Text(3*Math.floorDiv(w, 4), 100, "Save"), true, Color.lightGray);
+		this.addElement(cancelButton);
+	}
+	
+	private void initSaveButton(int width) {
+		int xPos = 3 * Math.floorDiv(width, 4);
+		Button submitButton = new Button( xPos, 100, new Text(xPos , 100, "Save"), true, Color.lightGray);
+		
 		submitButton.addSingleClickListener(() ->{
 			String filename = this.getTextBox().getText();
 			
@@ -47,14 +60,7 @@ public class SaveDialog extends Container implements ChangeDialogEventCreator, S
 			}
 		});
 		
-		//Add all freshly made elements
-		this.addElement(text);
-		this.addElement(textBox);
-		this.addElement(cancelButton);
 		this.addElement(submitButton);
-		
-		this.addChangeDialogListener(eventReader);
-		this.addSavePageListener(eventReader);
 	}
 
 	/**
@@ -70,6 +76,12 @@ public class SaveDialog extends Container implements ChangeDialogEventCreator, S
 	public void setTextBox(TextBox textBox) {
 		this.textBox = textBox;
 	}
+	
+	
+	//LISTENERS
+	
+	private ArrayList<ChangeDialogListener> changeDialogEventListeners = new ArrayList<ChangeDialogListener>();
+	private ArrayList<SavePageListener> savePageEventListeners = new ArrayList<SavePageListener>();
 
 	@Override
 	public void addChangeDialogListener(ChangeDialogListener listener) {

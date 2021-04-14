@@ -21,9 +21,6 @@ public class TableCellGUI extends GUIElement {
 	 */
 	public TableCellGUI(GUIElement guiElement, int x, int y, int w, int h) {
 		super(x,y,w,h);
-		//this.setPosition(x, y);
-		//this.setWidth(w);
-		//this.setHeight(h);
 		this.setGui(guiElement);
 	}
 

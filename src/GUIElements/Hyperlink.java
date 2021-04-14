@@ -32,12 +32,8 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 		super(x, y,text);
 		this.setColor(Color.blue);
 		this.setUrl(url);
-		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		Font boldUnderline = this.getFont().deriveFont(fontAttributes);
-		this.setFont(boldUnderline);
+		this.initFont();
 		this.addListener(eventReader);
-		
-		//creates the method when clicked on hyperlink
 		initiateClickListeners();
 	}
 	
@@ -50,6 +46,11 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 		});
 	}
 	
+	private void initFont() {
+		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		Font boldUnderline = this.getFont().deriveFont(fontAttributes);
+		this.setFont(boldUnderline);
+	}
 
 	
 	/**

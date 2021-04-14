@@ -11,15 +11,23 @@ public class MainDialog extends Container {
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
 	
-	
 	private SearchBar searchbar;
-	
 	private TableGUI bookmarkBar;
 
-	//TODO searchbar & bookmar bar fusen?
 	public MainDialog(int x, int y, int w, int h, Container pageContainer, Container searchBarContainer, Container bookmarkBarContainer, EventReader eventReader) {
-
 		super(x, y, w, h);
+		
+		this.setContainers(pageContainer, searchBarContainer, bookmarkBarContainer);
+		this.initSearchBar(eventReader);
+		this.initBookmarkBar();
+		
+		//Used for testing purpose TODO
+		Text t2 = new Text(0, 0, "link");
+		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
+		this.addBookmark(hyperlinkTest);
+	}
+	
+	private void setContainers(Container pageContainer, Container searchBarContainer, Container bookmarkBarContainer) {
 		this.pageContainer = pageContainer;
 		this.searchBarContainer = searchBarContainer;
 		this.bookmarkBarContainer = bookmarkBarContainer;
@@ -28,12 +36,15 @@ public class MainDialog extends Container {
 		allContainers.add(searchBarContainer);
 		allContainers.add(bookmarkBarContainer);
 		allContainers.add(pageContainer);
-
+	}
+	
+	private void initSearchBar(EventReader eventReader) {
 		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, eventReader);
 		this.setSearchbar(searchBar);
 		this.getSearchBarContainer().addElement(searchBar);
-		
-		// set up bookmarkBar
+	}
+	
+	private void initBookmarkBar() {
 		Text t = new Text(0, 0, "Bookmarks:");
 		TableCellGUI c = new TableCellGUI(t, 0, 0, 0, 0);
 		ArrayList<TableCellGUI> bookmarkCells = new ArrayList<TableCellGUI>();
@@ -44,10 +55,6 @@ public class MainDialog extends Container {
 		TableGUI bookmarkBar = new TableGUI(bookmarkRow, 10, 10);
 		this.setBookmarkBar(bookmarkBar);
 		this.getBookmarkBarContainer().addElement(this.getBookmarkBar());
-		
-		Text t2 = new Text(0, 0, "link");
-		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
-		this.addBookmark(hyperlinkTest);
 	}
 
 	/**

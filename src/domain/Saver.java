@@ -26,7 +26,6 @@ public class Saver {
 		
 		File yourFile = new File("savedPages/" + filename);
 		
-		System.out.print(htmlCode);
 		try {
 			yourFile.createNewFile();
 			FileOutputStream outputFile = new FileOutputStream(yourFile, false); 
