@@ -99,12 +99,7 @@ public class Browsr {
 	}
 	
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
-		/*
-		 * TODO moet die BookmarkHyperlink hier wel aangemaakt worden? Maar anders weet ik niet van waar ge die eventReader gaat halen.
-		 */
-		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl, this.getWindowManager().getEventReader());
-		this.getWindowManager().getMainDialog().addBookmark(newBookmarkHyperlink);
+		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl);
 	}
 
 	public void changeActiveDialog(String type) {

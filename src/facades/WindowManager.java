@@ -11,6 +11,7 @@ import GUIElements.SearchBar;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.BookmarkDialog;
+import GUIElements.BookmarkHyperlink;
 import GUIElements.Container;
 import converter.HTMLToGUI;
 import events.EventReader;
@@ -342,5 +343,11 @@ public class WindowManager {
 	 */
 	public SearchBar getSearchbar() {
 		return this.getMainDialog().getSearchbar();
+	}
+	
+	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
+		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl, this.getEventReader());
+		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 }
