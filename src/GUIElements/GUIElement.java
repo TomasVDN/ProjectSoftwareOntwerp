@@ -5,8 +5,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import EventListeners.EventListener;
-
 
 public abstract class GUIElement {
 	private int xPos;

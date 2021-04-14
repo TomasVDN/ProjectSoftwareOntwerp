@@ -1,7 +1,5 @@
 package htmlElement;
 
-import java.util.ArrayList;
-
 import GUIElements.Form;
 import GUIElements.GUIElement;
 import events.EventReader;

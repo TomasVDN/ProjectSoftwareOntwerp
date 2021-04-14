@@ -18,21 +18,6 @@ public final class EventReader implements SearchBarListener, HyperLinkListener,F
 	public EventReader (Browsr browsr) {
 		this.browsr = browsr;
 	}
-	
-	/**
-	 * Method used to transmit an event type to the controller.
-	 * @param event
-	 */
-	public void readEvent(Event event){
-		event.execute(this.getBrowsr());			
-	}
-
-	/**
-	 * @return this.browsr
-	 */
-	private Browsr getBrowsr() {
-		return browsr;
-	}
 
 	@Override
 	public void handleHyperLinkClicked(String urlAttribute) {

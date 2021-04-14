@@ -2,7 +2,6 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import EventListeners.EventListener;
 
 public class TableRowGUI extends GUIElement {
 
@@ -31,6 +30,7 @@ public class TableRowGUI extends GUIElement {
 	/**
 	 * Paint all the TableCellGUI while updating the relative x.
 	 */
+	@Override
 	public void paint(Graphics g) {
 		g.translate(this.getX(), this.getY());
 		for(int i=0; i< this.getGuiElements().size();i++) {
@@ -53,6 +53,7 @@ public class TableRowGUI extends GUIElement {
 	 * 
 	 * @param height - new value of this.height
 	 */
+	@Override
 	public void setHeight(int height) {
 		if(this.getGuiElements()!=null) {
 			for(int i= 0; i<this.getGuiElements().size();i++) {
@@ -65,6 +66,7 @@ public class TableRowGUI extends GUIElement {
 	 * Returns the height of the tallest tableCell.
 	 * @return this.height
 	 */
+	@Override
 	public int getHeight(){
 		int maxHeight=0;
 		for(int i=0; i<this.getGuiElements().size();i++) {
@@ -80,6 +82,7 @@ public class TableRowGUI extends GUIElement {
 	 * Sum up all the widths of the row to calculate the width of the row.
 	 * @return this.width
 	 */
+	@Override
 	public int getWidth(){
 		int totalWidth=0;
 		for(int i=0; i<this.getGuiElements().size();i++) {
@@ -104,6 +107,7 @@ public class TableRowGUI extends GUIElement {
 	/**
 	 * Returns the GUI if the given position is between its bounds
 	 */
+	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
 		for(int i=0; i<this.getGuiElements().size();i++) {
 			GUIElement e =this.getGuiElements().get(i).getGUIAtPosition(x-this.getX(), y-this.getY());

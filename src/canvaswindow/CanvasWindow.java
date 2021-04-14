@@ -9,6 +9,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -126,12 +127,14 @@ class PaintItem extends RecordingItem {
 		return basePath + ".image" + itemIndex + ".png";
 	}
 	
+	@Override
 	void save(String path, int itemIndex, PrintWriter writer) throws IOException {
 		String imagePath = imagePathOf(path, itemIndex);
 		javax.imageio.ImageIO.write(image, "PNG", new File(imagePath));
 		writer.println("Paint");
 	}
 	
+	@Override
 	void replay(int itemIndex, CanvasWindow window) {
 		BufferedImage observedImage = window.captureImage();
 		for (int y = 0; y < observedImage.getHeight(); y++) {
@@ -296,11 +299,11 @@ public class CanvasWindow {
 	
 	public static String modifiersExToString(int modifiersEx) {
 		String result = "";
-		if ((modifiersEx & MouseEvent.SHIFT_DOWN_MASK) != 0)
+		if ((modifiersEx & InputEvent.SHIFT_DOWN_MASK) != 0)
 			result += " (Shift key was down)";
-		if ((modifiersEx & MouseEvent.CTRL_DOWN_MASK) != 0)
+		if ((modifiersEx & InputEvent.CTRL_DOWN_MASK) != 0)
 			result += " (Ctrl key was down)";
-		if ((modifiersEx & MouseEvent.ALT_DOWN_MASK) != 0)
+		if ((modifiersEx & InputEvent.ALT_DOWN_MASK) != 0)
 			result += " (Alt key was down)";
 		return result;
 	}

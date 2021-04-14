@@ -6,7 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
 import canvaswindow.FontMetricGetter;
-import EventListeners.EventListener;
 
 public class Text extends GUIElement {
 

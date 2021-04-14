@@ -4,8 +4,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import EventCreators.ChangeDialogEventCreator;
-import EventListeners.ChangeDialogListener;
 import GUIElements.GUIElement;
 import GUIElements.MainDialog;
 import GUIElements.SaveDialog;
@@ -285,6 +283,9 @@ public class WindowManager {
 	 * @param activeDialog the activeDialog to set
 	 */
 	public void setActiveDialog(Container activeDialog) {
+		if (this.getActiveDialog() != this.getMainDialog() && activeDialog != this.getMainDialog()) {
+			return;
+		}
 		this.activeDialog = activeDialog;
 	}
 	
@@ -292,9 +293,14 @@ public class WindowManager {
 	 * @param activeDialog the activeDialog to set
 	 */
 	public void setActiveDialog(String type) {
+		
+		if (this.getActiveDialog() != this.getMainDialog() && type != "mainDialog") {
+			return;
+		}
+		
 		//TODO rename function/keep with strings?
 		this.changeElementWithKeyboardFocus(null);
-		System.out.print("Test\n\n");
+		
 		switch (type) {
 		case "mainDialog":
 			this.setActiveDialog(this.getMainDialog());

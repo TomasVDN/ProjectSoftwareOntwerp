@@ -3,8 +3,6 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import EventListeners.EventListener;
-
 public class TableGUI extends GUIElement {
 
 	private ArrayList<TableRowGUI> guiRows;

@@ -2,7 +2,6 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import EventListeners.EventListener;
 
 public class TableCellGUI extends GUIElement {
 
@@ -31,6 +30,7 @@ public class TableCellGUI extends GUIElement {
 	/**
 	 * Transmits the Graphics object to this.guiElement.
 	 */
+	@Override
 	public void paint(Graphics g) {
 		g.translate(this.getX(), this.getY());
 		this.getGui().paint(g);
@@ -42,6 +42,7 @@ public class TableCellGUI extends GUIElement {
 	 * @param x - the x coordinate to check
 	 * @param y - the y coordinate to check
 	 */
+	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
 		return this.getGui().getGUIAtPosition(x-this.getX(), y - this.getY());
 	}
@@ -83,6 +84,7 @@ public class TableCellGUI extends GUIElement {
 	 * @param x - the new value of this.x
 	 * @param y - the new value of this.x
 	 */
+	@Override
 	public void setPosition(int x, int y) {
 		if (x < 0 || y < 0) {
 			throw new IllegalArgumentException("invalid position tableCell");
@@ -96,6 +98,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @param x - new value of this.xPos
 	 */
+	@Override
 	public void setX(int x) {
 		if (x < 0) {
 			throw new IllegalArgumentException("invalid position tableCell");
@@ -108,6 +111,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @return this.xPos
 	 */
+	@Override
 	public int getX() {
 		return this.xPos;
 	}
@@ -117,6 +121,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @return this.xPos + this.width
 	 */
+	@Override
 	public int getEndX() {
 		return this.getX() + this.getWidth();
 	}	
@@ -126,6 +131,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @param y - new value of this.yPos
 	 */
+	@Override
 	public void setY(int y) {
 		if (y < 0) {
 			throw new IllegalArgumentException("invalid position tableCell");
@@ -138,6 +144,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @return this.yPos
 	 */
+	@Override
 	public int getY() {
 		return this.yPos;
 	}
@@ -147,6 +154,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @return this.yPos + this.height
 	 */
+	@Override
 	public int getEndY() {
 		return this.getY() + this.getHeight();
 	}
@@ -156,6 +164,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @param width - new value of this.width
 	 */
+	@Override
 	public void setWidth(int width) {
 		if (width < 0) {
 			throw new IllegalArgumentException("invalid size tableCell");
@@ -168,6 +177,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @return this.width
 	 */
+	@Override
 	public int getWidth() {
 		return this.width;
 	}
@@ -177,6 +187,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @param height - new value of this.height
 	 */
+	@Override
 	public void setHeight(int height) {
 		if (height < 0) {
 			throw new IllegalArgumentException("invalid size tableCell");
@@ -189,6 +200,7 @@ public class TableCellGUI extends GUIElement {
 	 * 
 	 * @return this.height
 	 */
+	@Override
 	public int getHeight() {
 		return this.height;
 	}
@@ -211,6 +223,7 @@ public class TableCellGUI extends GUIElement {
 		// TODO Auto-generated method stub	
 	}
 	
+	@Override
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
 		return this.getGui().getGuiClass(cls, array);
 	}

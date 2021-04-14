@@ -7,7 +7,6 @@ import EventCreators.AddBookmarkEventCreator;
 import EventCreators.ChangeDialogEventCreator;
 import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
-import EventListeners.HyperLinkListener;
 import events.EventReader;
 
 public class BookmarkDialog extends Container implements AddBookmarkEventCreator, ChangeDialogEventCreator{

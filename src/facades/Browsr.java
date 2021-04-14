@@ -2,16 +2,11 @@ package facades;
 
 import java.util.ArrayList;
 
-import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
-import GUIElements.Container;
-import GUIElements.MainDialog;
-import GUIElements.SaveDialog;
 import GUIElements.Text;
 import htmlElement.ContentSpan;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 

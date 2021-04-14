@@ -2,7 +2,6 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import EventListeners.EventListener;
 
 public class Container extends GUIElement {
 

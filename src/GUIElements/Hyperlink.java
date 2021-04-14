@@ -3,18 +3,12 @@ package GUIElements;
 import java.awt.font.TextAttribute;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.swing.event.HyperlinkListener;
-
 import EventCreators.HyperLinkEventCreator;
-import EventListeners.ActionListener;
 import EventListeners.HyperLinkListener;
-import events.Event;
 import events.EventReader;
 
 public class Hyperlink extends Text implements HyperLinkEventCreator  {

@@ -130,6 +130,7 @@ public class MainDialog extends Container {
 	/**
 	 * @param element the element to add
 	 */
+	@Override
 	public void addElement(GUIElement element) {
 		this.getPageContainer().addElement(element);
 	}
@@ -137,6 +138,7 @@ public class MainDialog extends Container {
 	/**
 	 * @param element the element to add
 	 */
+	@Override
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
 		this.getPageContainer().addMultipleElements(guiList);
 	}
@@ -145,6 +147,7 @@ public class MainDialog extends Container {
 	 * Empties container and adds GUIElements from given guiList to the container.
 	 * @param guiList
 	 */
+	@Override
 	public void resetAllElements(ArrayList<GUIElement> guiList) {
 		this.getPageContainer().resetAllElements(guiList);
 	}

@@ -3,9 +3,7 @@ package htmlElement;
 import java.awt.Color;
 
 import EventListeners.ActionListener;
-import EventListeners.EventListener;
 import GUIElements.Button;
-import GUIElements.GUIElement;
 import GUIElements.Text;
 import events.*;
 

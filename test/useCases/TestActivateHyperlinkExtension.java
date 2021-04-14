@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
-import events.Event;
-import events.EventReader;
 
 
 class TestActivateHyperlinkExtension {
