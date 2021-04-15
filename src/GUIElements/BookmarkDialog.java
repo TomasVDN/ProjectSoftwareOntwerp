@@ -69,7 +69,7 @@ public class BookmarkDialog extends Container implements AddBookmarkEventCreator
 		Button submitButton = new Button(2*Math.floorDiv(w, 4), 200, new Text(2*Math.floorDiv(w, 4), 200, "Add Bookmark	"), true, Color.lightGray);
 		submitButton.addSingleClickListener(() ->{
 			String bookmarkHyperlinkName = this.getNameTextBox().getText();
-			String bookmarkHyperlinkUrlTextBox = this.geturlTextBox().getText();
+			String bookmarkHyperlinkUrlTextBox = this.getUrlTextBox().getText();
 			
 			for(AddBookmarkListener listener: this.getAddBookmarkListeners()) {
 				listener.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrlTextBox);
@@ -106,14 +106,14 @@ public class BookmarkDialog extends Container implements AddBookmarkEventCreator
 	/**
 	 * @return the textBox
 	 */
-	public TextBox geturlTextBox() {
+	public TextBox getUrlTextBox() {
 		return bookmarkHyperlinkUrlTextBox;
 	}
 
 	/**
 	 * @param textBox the textBox to set
 	 */
-	public void seturlTextBox(TextBox urlTextBox) {
+	public void setUrlTextBox(TextBox urlTextBox) {
 		this.bookmarkHyperlinkUrlTextBox = urlTextBox;
 	}
 
@@ -133,7 +133,7 @@ public class BookmarkDialog extends Container implements AddBookmarkEventCreator
 	
 	public void setInitialInputs(String suggestedURL) {
 		this.getNameTextBox().setLeftText("");
-		this.geturlTextBox().setLeftText(suggestedURL);
+		this.getUrlTextBox().setLeftText(suggestedURL);
 	}
 
 

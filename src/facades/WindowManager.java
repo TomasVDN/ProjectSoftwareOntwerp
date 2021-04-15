@@ -310,7 +310,7 @@ public class WindowManager {
 			break;
 		case "bookmarkDialog":
 			this.setActiveDialog(new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader()));
-			((BookmarkDialog) this.getActiveDialog()).geturlTextBox().setLeftText(this.getSearchbar().getText());
+			((BookmarkDialog) this.getActiveDialog()).getUrlTextBox().setLeftText(this.getSearchbar().getText());
 		default:
 			break;
 		}
