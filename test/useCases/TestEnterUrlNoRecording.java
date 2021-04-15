@@ -250,5 +250,8 @@ public class TestEnterUrlNoRecording {
 		//check the current active element is null and check the url
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
+		
+		TestGUI testgui1 = new TestGUI(mainWindow, "TestEnterUrl");
+		
 	}
 }
