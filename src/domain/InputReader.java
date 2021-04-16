@@ -38,7 +38,7 @@ public class InputReader {
 	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
 	        } catch (RuntimeException r) {
 	        	sb = "Error occured. Reason: not a valid Browsr document.\n";
-	        } // TODO uitcomment dit als bart zijn versie heeft gemaakt
+	        } 
 	        
 	        saver.setHtmlCode(sb);
 	        
