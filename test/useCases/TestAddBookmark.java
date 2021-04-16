@@ -78,9 +78,9 @@ class TestAddBookmark {
 		
 		// Step 4.5.3
 		// make name input TextBox get focus
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 73, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 73, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 73, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox());
 		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 
@@ -112,9 +112,9 @@ class TestAddBookmark {
 		assertEquals("test", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().getText());
 		
 		// make name input TextBox get focus
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 73, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 73, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 73, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox());
 		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 		
@@ -122,9 +122,9 @@ class TestAddBookmark {
 		assertEquals("test", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().getSelectedText());
 		
 		// press again to unselect all text in input name TextBox to keep editing the text
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 73, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 73, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 73, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		
 		// check if all text in name input TextBox is unselected and the text is at the left of the cursor
 		assertEquals("", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().getSelectedText());
@@ -141,9 +141,9 @@ class TestAddBookmark {
 		
 		// Step 4.5.6
 		// make URL input TextBox get focus
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 155, 131, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 155, 131, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 155, 131, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 155, 114, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 155, 114, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 155, 114, 1, MouseEvent.BUTTON1, 0);
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox());
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
@@ -153,9 +153,9 @@ class TestAddBookmark {
 		assertEquals("htt", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().getSelectedText());
 		
 		// press on URL input TextBox again to edit the suggested url
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 155, 131, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 155, 131, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 155, 131, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 155, 114, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 155, 114, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 155, 114, 1, MouseEvent.BUTTON1, 0);
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox());
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
