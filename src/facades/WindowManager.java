@@ -118,7 +118,11 @@ public class WindowManager {
 	
 	
 	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
-		this.setPressedElement(this.getActiveDialog().getGUIAtPosition(x, y)); 
+		GUIElement guiPressed = this.getActiveDialog().getGUIAtPosition(x, y);
+		this.setPressedElement(guiPressed);
+		if(guiPressed!=null) {
+			guiPressed.handlePressClick();
+		}
 	}
 	
 	
@@ -126,7 +130,10 @@ public class WindowManager {
 		if(this.getPressedElement()!=null) {
 			GUIElement releasedAt = this.getActiveDialog().getGUIAtPosition(x, y);
 			if(this.getPressedElement() == releasedAt ) {
-				releasedAt.handleReleaseClick();
+				this.getPressedElement().handleReleaseClick(true);
+			}
+			else {
+				this.getPressedElement().handleReleaseClick(false);
 			}
 		}
 		this.setPressedElement(null);

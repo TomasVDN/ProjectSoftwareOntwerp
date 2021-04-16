@@ -35,7 +35,9 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
-		this.getRootGui().handleKeyEvent(keyCode, keyChar, modifiersEx);
+		if(this.getRootGui()!=null) {
+			this.getRootGui().handleKeyEvent(keyCode, keyChar, modifiersEx);
+		}
 	}
 
 	@Override
@@ -52,7 +54,9 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	@Override
 	public void paint(Graphics g) {
 		g.translate(this.getX(), this.getY());
-		this.getRootGui().paint(g);
+		if(this.getRootGui()!=null) {
+			this.getRootGui().paint(g);
+		}
 		g.translate(-this.getX(), -this.getY());
 	}
 	
@@ -61,6 +65,9 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
+		if(this.getRootGui()==null) {
+			return null;
+		}
 		return this.getRootGui().getGUIAtPosition(x, y);
 	}
 
@@ -115,23 +122,18 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 
 
 	public void setAction(String action) {
+		if(action==null) {
+			throw new IllegalArgumentException("not a valid action");
+		}
 		this.action = action;
 	}
 
 
-
-
-
-//	@Override
-//	public void readEvent(Event event) {//TODO bad practice mag zag geen andere oplossing
-//		if(event instanceof SubmitEvent) {
-//			SubmitEvent submit = (SubmitEvent) event;
-//			submit.execute(this);
-//		}
-//	}
-//	
 	
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
+		if(this.getRootGui()==null) {
+			return array;
+		}
 		return this.getRootGui().getGuiClass(cls, array);
 	}
 

@@ -16,13 +16,19 @@ public class HTMLForm extends ContentSpan {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "FORM < " +element.toString() + ">";
+		String result = "FORM < ";
+		if(element!=null) {
+			result+=element.toString();
+		}
+		return result + ">";
 	}
 
 	@Override
 	public Form transformToGUI(int x, int y, int width, int height,EventReader eventReader) {
-		GUIElement gui= element.transformToGUI(x, y, width, height,eventReader);
+		GUIElement gui =null;
+		if(this.element!=null) {
+			gui= element.transformToGUI(x, y, width, height,eventReader);
+		}
 		return new Form(gui,x,y,action,eventReader);
 	}
 

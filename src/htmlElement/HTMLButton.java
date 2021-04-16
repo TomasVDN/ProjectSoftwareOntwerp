@@ -23,7 +23,7 @@ public class HTMLButton extends HTMLInput{
 	@Override
 	public Button transformToGUI(int x, int y, int width, int height, EventReader eventReader) {
 		Text guiText = textInButton.transformToGUI(x, y, width, height, eventReader);
-		Button button = new Button(x, y, guiText, true, Color.GRAY);
+		Button button = new Button(x, y, guiText, true, Color.LIGHT_GRAY);
 		button.addSingleClickListener(() ->{
 			System.out.println("CLICK OP BUTTON");
 			for(ActionListener listener: button.getListeners()) {

@@ -21,6 +21,8 @@ public class Button extends GUIElement implements ActionCreator {
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean mustDrawBox = false;
     private List<ActionListener> listeners = new ArrayList<ActionListener>();
+    private State state = new UnpressedState();
+
     
     
     /**
@@ -47,32 +49,69 @@ public class Button extends GUIElement implements ActionCreator {
 		this.setText(text);
 		this.setMustDrawBox(box);
 	}
+	
+	private static abstract class State {
+		abstract void paint(Graphics g);
+		abstract void handlePressClick();
+		abstract void handleReleaseClick(boolean releasedOn);
+		}
+	
+	private class UnpressedState extends State {
+		void paint(Graphics g) {
+			if (mustDrawBox()) drawBox(g,getButtonColor());
+			drawText(g);	
+		}
+		
+		void handlePressClick() {
+			state=new PressedState();
+		}
+		
+		void handleReleaseClick(boolean releasedOn) {
+			
+		}
+	}
+	
+	private class PressedState extends State {
+		void paint(Graphics g) {
+			if (mustDrawBox()) drawBox(g,getButtonColor().darker());
+			drawText(g);	
+		}
+		
+		void handlePressClick() {
+			
+		}
+		
+		void handleReleaseClick(boolean releasedOn) {
+			state = new UnpressedState();
+			if(releasedOn) {
+				new ArrayList<>(clickListeners).stream().forEach(l -> l.run());
+			}
+		}
+	}
+	
+	
 
 	/**
 	 * Paint the multiple components of a button.
 	 */
 	@Override
 	public void paint(Graphics g) {
-		g.setFont(font);
-		g.setColor(Color.black);
-		
-		if (mustDrawBox()) this.drawBox(g);
-		
-		this.drawText(g);	
+		//g.setFont(font);
+		state.paint(g);
 	}
 	
-	private void drawBox(Graphics g) {
+	private void drawBox(Graphics g,Color buttonColor) {
+		g.setColor(Color.black);
 		g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
 
-		g.setColor(getButtonColor());
+		g.setColor(buttonColor);
 		g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
-		g.setColor(Color.black);
 	}
 	
 	private void drawText(Graphics g) {
 		Shape oldClip = g.getClip();
 		g.setClip(getX(), getY(), getWidth(), getHeight());
-		this.getText().paint(g,Color.black);
+		this.getText().paint(g);
 		g.setClip(oldClip);
 	}
 
@@ -140,7 +179,7 @@ public class Button extends GUIElement implements ActionCreator {
 	}
 
 	@Override
-	protected void handleUnselect() {		
+	protected void handleUnselect() {	
 	}
 	
 	protected ArrayList<Runnable> clickListeners = new ArrayList<Runnable>();
@@ -160,8 +199,13 @@ public class Button extends GUIElement implements ActionCreator {
 	}
 	
 	@Override
-	public void handleReleaseClick() {
-		new ArrayList<>(clickListeners).stream().forEach(l -> l.run());
+	public void handlePressClick() {
+		state.handlePressClick();
+	}
+	
+	@Override
+	public void handleReleaseClick(boolean releasedOn) {
+		state.handleReleaseClick(releasedOn);
 	}
 	
 
