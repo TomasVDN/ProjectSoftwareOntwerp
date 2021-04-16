@@ -73,6 +73,7 @@ public class MyCanvasWindow extends CanvasWindow {
 		this.getWindowManager().handleKeyEvent(id, keyCode, keyChar, modifiersEx);	
 		repaint();
 	}
+	
 
 
 
