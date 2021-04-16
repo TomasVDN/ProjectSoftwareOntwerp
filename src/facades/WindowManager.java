@@ -18,6 +18,8 @@ import events.EventReader;
 import htmlElement.ContentSpan;
 
 public class WindowManager {
+	
+	private MyCanvasWindow window;
 
 	private Container activeDialog;
 	private MainDialog mainDialog;
@@ -37,6 +39,9 @@ public class WindowManager {
 	 * @param height - the height of the linked window
 	 */
 	public WindowManager (MyCanvasWindow window) {
+		
+		this.window = window;
+		
 		//Make new Browsr object.
 		Browsr browsr = new Browsr(this);
 		
@@ -311,9 +316,11 @@ public class WindowManager {
 		switch (type) {
 		case "mainDialog":
 			this.setActiveDialog(this.getMainDialog());
+			this.changeWindowTitle("Browsr");
 			break;
 		case "saveDialog":
 			this.setActiveDialog(new SaveDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader()));
+			this.changeWindowTitle("Save As");
 			break;
 		case "bookmarkDialog":
 			// TODO misschien toch nog anders doen?
@@ -321,6 +328,7 @@ public class WindowManager {
 			String suggestedUrl = this.getURLFromSearchBar();
 			newBookmarkDialog.setSuggestedUrl(suggestedUrl);
 			this.setActiveDialog(newBookmarkDialog);
+			this.changeWindowTitle("Add Bookmark");
 		default:
 			break;
 		}
@@ -359,5 +367,17 @@ public class WindowManager {
 		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
 		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl, this.getEventReader());
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
+	}
+
+	public MyCanvasWindow getWindow() {
+		return window;
+	}
+
+	public void setWindow(MyCanvasWindow window) {
+		this.window = window;
+	}
+	
+	public void changeWindowTitle(String newTitle) {
+		this.window.setTitle(newTitle);
 	}
 }
