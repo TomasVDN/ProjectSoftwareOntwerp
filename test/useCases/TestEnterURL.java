@@ -17,7 +17,6 @@ import GUIElements.Container;
 
 class TestEnterURL {
 
-	@Test
 	@DisplayName("Use Case: Enter URL -with recording-")
 	void test() throws InvocationTargetException, InterruptedException {	
 			java.awt.EventQueue.invokeAndWait(() -> {
