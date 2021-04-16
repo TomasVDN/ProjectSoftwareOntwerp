@@ -9,7 +9,7 @@ import events.*;
 
 public class HTMLButton extends HTMLInput{
 	
-	HTMLText textInButton = new HTMLText("Submit");
+	private HTMLText textInButton = new HTMLText("Submit");
 	
 	public HTMLButton() {
 		
