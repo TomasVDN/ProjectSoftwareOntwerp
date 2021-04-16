@@ -34,6 +34,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	@Override
 	protected void paint(Graphics g) {
 		windowManager.paint(g,this.getWidth(),this.getHeight());
+		updateFrameTitle();
 	}
 
 	/**
@@ -72,6 +73,10 @@ public class MyCanvasWindow extends CanvasWindow {
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx){
 		this.getWindowManager().handleKeyEvent(id, keyCode, keyChar, modifiersEx);	
 		repaint();
+	}
+	
+	public void setWindowTitle(String newTitle) {
+		this.title = newTitle;
 	}
 	
 
