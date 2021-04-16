@@ -38,7 +38,24 @@ class TestAddBookmark {
 	public void enterUrlNoRecording() throws InvocationTargetException, InterruptedException {
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
-		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), null);
+		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		
+		// make search bar get focus
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 28, 1, MouseEvent.BUTTON1, 0);
+		
+		// check if searchBar has keyboard focus
+		assertEquals(mainWindow.getWindowManager().getSearchbar(), mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertTrue(mainWindow.getWindowManager().getSearchbar().isActive());
+		
+		// type "htt" in searchbar to check if the suggested url will be given in the bookmarkDialog later on
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
+		
+		// check if contents of the searchbar have been updated
+		assertEquals("htt", mainWindow.getWindowManager().getURLFromSearchBar());
 		
 		// get amount of elements in bookmarkBar before adding the new bookmark
 		int amountOfElementsInBookmarkTableBefore = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();
@@ -50,9 +67,12 @@ class TestAddBookmark {
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
+		BookmarkDialog bookmarkDialog = (BookmarkDialog) mainWindow.getWindowManager().getActiveDialog();
 		assertThat(mainWindow.getWindowManager().getActiveDialog(), instanceOf(BookmarkDialog.class));
 		assertNotEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
-		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), null);
+		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
+		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
 		
 		// TODO Step 4.5.2 hoe gaan we deze stap juist testen?
 		
@@ -128,10 +148,23 @@ class TestAddBookmark {
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
 		
+		// check if the suggested url has been automatically filled in and selected after clicking on the URL input TextBox
+		assertEquals("htt", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().getText());
+		assertEquals("htt", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().getSelectedText());
+		
+		// press on URL input TextBox again to edit the suggested url
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 155, 131, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 155, 131, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 155, 131, 1, MouseEvent.BUTTON1, 0);
+		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox());
+		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
+		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
+		
+		// check if the url is on the left side of the cursor in the URL input TextBox
+		assertEquals("htt", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().getText());
+		assertEquals("htt", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().getLeftText());
+		
 		// type the url in the url input TextBox
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 0);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 80, 'p', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 513, '/', 0);
 		
@@ -217,7 +250,11 @@ class TestAddBookmark {
 		// Step 4.5.8
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
-		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), null);
+		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		
+		// check if the input TextBoxes of bookmarkDialog are not active
+		assertFalse(bookmarkDialog.getNameTextBox().isActive());
+		assertFalse(bookmarkDialog.getUrlTextBox().isActive());
 		
 		// check if the bookmarkBar is increased with one element
 		int amountOfElementsInBookmarkTableAfter = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();
