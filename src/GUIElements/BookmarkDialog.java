@@ -66,7 +66,7 @@ public class BookmarkDialog extends Container implements AddBookmarkEventCreator
 	private void initAddBookmarkButton(int width) {
 		int xPos = 2 * Math.floorDiv(width, 4);
 		
-		Button addBookmarkButton = new Button(xPos, 200, new Text(xPos, 200, "Add Bookmark	"), true, Color.lightGray);
+		Button addBookmarkButton = new Button(xPos, 200, new Text(xPos, 200, "Add Bookmark"), true, Color.lightGray);
 		addBookmarkButton.addSingleClickListener(() ->{
 			String bookmarkHyperlinkName = this.getNameTextBox().getText();
 			String bookmarkHyperlinkUrlTextBox = this.getUrlTextBox().getText();

@@ -24,6 +24,10 @@ public class MyCanvasWindow extends CanvasWindow {
 		return windowManager;
 	}
 	
+	public String getTitle() {
+		return this.title;
+	}
+	
 	/**
 	 * Transmits the Graphics object of CanvasWindow, this.width and this.height to the windowManager.paint method.
 	 */

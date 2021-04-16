@@ -14,7 +14,11 @@ import org.junit.jupiter.api.Test;
 
 import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
+import GUIElements.Button;
+import GUIElements.GUIElement;
 import GUIElements.TableCellGUI;
+import GUIElements.Text;
+import GUIElements.TextBox;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,7 +39,7 @@ class TestAddBookmark {
 	@Test
 	@DisplayName("Use Case 4.5: Add Bookmark main success scenario")
 	// Use Case 4.5
-	public void enterUrlNoRecording() throws InvocationTargetException, InterruptedException {
+	public void addBookmarkSuccess() throws InvocationTargetException, InterruptedException {
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
@@ -75,6 +79,49 @@ class TestAddBookmark {
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
 		
 		// TODO Step 4.5.2 hoe gaan we deze stap juist testen?
+		// check if right title is shown
+		// assertEquals("Add Bookmark", mainWindow.getTitle()); TODO uncomment this
+		ArrayList<GUIElement> bookmarkDialogElements = mainWindow.getWindowManager().getActiveDialog().getElements();
+		boolean containsNameLabel = false;
+		boolean containsUrlLabel = false;
+		boolean containsAtLeastOneTextBox = false;
+		boolean containsAtLeastTwoTextBoxes = false;
+		TextBox firstTextBox = null;
+		boolean containsCancelButton = false;
+		boolean containsAddBookmarkButton = false;
+		for (GUIElement element : bookmarkDialogElements) {
+			if (element.getClass().equals(Text.class)) {
+				if (((Text) element).getText().equals("Name:")) { // check if the name label is present
+					containsNameLabel = true;
+				} 
+				else if (((Text) element).getText().equals("URL:")) { // check if the url label is present
+					containsUrlLabel = true;
+				}
+			} 
+			else if (element.getClass().equals(TextBox.class)) {
+				if (!containsAtLeastOneTextBox) { // check if there is at least one TextBox
+					containsAtLeastOneTextBox = true;
+					firstTextBox = (TextBox) element;
+				}
+				else if (!containsAtLeastTwoTextBoxes && !firstTextBox.equals((TextBox) element)) { // check if there are at least two TextBoxes and both TextBoxes are different from each other
+					containsAtLeastTwoTextBoxes = true;
+				}
+			} else if (element.getClass().equals(Button.class)) {
+				if (((Button) element).getText().getText().equals("Cancel")) { // check if the Cancel button is present
+					containsCancelButton = true;
+				} 
+				else if (((Button) element).getText().getText().equals("Add Bookmark")) { // check if the Add Bookmark button is present
+					containsAddBookmarkButton = true;
+				}
+			}
+		}
+		
+		// check if all required Elements are contained by the BookmarkDialog
+		assertTrue(containsNameLabel);
+		assertTrue(containsUrlLabel);
+		assertTrue(containsAtLeastOneTextBox);
+		assertTrue(containsCancelButton);
+		assertTrue(containsAddBookmarkButton);
 		
 		// Step 4.5.3
 		// make name input TextBox get focus
