@@ -34,6 +34,7 @@ public class MyCanvasWindow extends CanvasWindow {
 	@Override
 	protected void paint(Graphics g) {
 		windowManager.paint(g,this.getWidth(),this.getHeight());
+		this.updateFrameTitle();
 	}
 
 	/**
@@ -74,6 +75,7 @@ public class MyCanvasWindow extends CanvasWindow {
 		repaint();
 	}
 
-
-
+	public void setWindowTitle(String newTitle) {
+		this.title = newTitle;
+	}
 }
