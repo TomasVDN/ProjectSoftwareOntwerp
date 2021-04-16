@@ -19,7 +19,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	private String action;
 	private ArrayList<FormListener> listeners = new ArrayList<FormListener>();
 	
-	public Form(GUIElement gui, int x, int y,String action,EventReader listener){
+	public Form(GUIElement gui, int x, int y,String action,FormListener listener){
 		super(x,y);
 		this.setGui(gui);
 		this.setAction(action);
@@ -29,7 +29,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	
 	private void addSelfToRootGui() {
 		ArrayList<ActionCreator> array = new ArrayList<>();
-		this.getRootGui().getGuiClass( ActionCreator.class, array);
+		this.getGuiClass( ActionCreator.class, array);
 		for(ActionCreator ac : array) {
 			ac.addListener(this);
 		}
@@ -76,7 +76,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	}
 
 
-	public void submit() {
+	private void submit() {
 		String result="";
 		result+=this.getAction() + "?";
 		result+=this.getTextResults();
@@ -94,22 +94,25 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	 * @return
 	 * Returns the results of the textboxes in their string 
 	 * 	 */
-	public String getTextResults() {
+	private String getTextResults() {
 		String result="";
 		ArrayList<TextBox> textBoxesInForm =new ArrayList<TextBox>();
 		textBoxesInForm = this.getGuiClass(TextBox.class, textBoxesInForm);
 		try {
-		for(TextBox textBox: textBoxesInForm) {
+		for(int i =0;i<textBoxesInForm.size();i++) {
+			TextBox textBox = textBoxesInForm.get(i);
+			if(i!=0) {
+				result+="&";
+			}
 			result+=URLEncoder.encode(textBox.getName(),StandardCharsets.UTF_8.name());
 			result+="=";
 			result+= URLEncoder.encode(textBox.getText(),StandardCharsets.UTF_8.name());
-			result+="&";
 		}
 		} catch (UnsupportedEncodingException e) {
 
 			e.printStackTrace();
 		}
-		return result.substring(0, result.length() - 1); // removes the last &
+		return result; // removes the last &
 	}
 	
 
@@ -161,7 +164,9 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 
 	@Override
 	public void addFormListener(FormListener listener) {
-		this.listeners.add(listener);
+		if(listener!=null) {
+			this.listeners.add(listener);
+		}
 	}
 
 
@@ -171,7 +176,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		this.listeners.remove(listener);
 	}
 
-	private ArrayList<FormListener> getListeners() {
+	public ArrayList<FormListener> getListeners() {
 		return this.listeners; //TODO clone this
 	}
 
