@@ -7,9 +7,21 @@ import events.EventReader;
 public class HTMLForm extends ContentSpan {
 	
 	ContentSpan element;
+	
+	public ContentSpan getElement() {
+		return element;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
 	String action;
 	
 	public HTMLForm(String action,ContentSpan element) {
+		if(action == null) {
+			throw new IllegalArgumentException("not a valid action");
+		}
 		this.action = action;
 		this.element=element;
 	}

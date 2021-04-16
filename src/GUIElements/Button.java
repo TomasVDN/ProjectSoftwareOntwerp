@@ -44,16 +44,19 @@ public class Button extends GUIElement implements ActionCreator {
 	
 	
 	public Button(int x, int y, Text text, Boolean box, Color color) {
-		super(x, y,text.getWidth(),text.getHeight());
+		super(x, y);
 		this.setButtonColor(color);
 		this.setText(text);
 		this.setMustDrawBox(box);
+		this.setWidth(text.getWidth());
+		this.setHeight(text.getHeight());
 	}
 	
 	private static abstract class State {
 		abstract void paint(Graphics g);
 		abstract void handlePressClick();
 		abstract void handleReleaseClick(boolean releasedOn);
+		abstract String getStateName();
 		}
 	
 	private class UnpressedState extends State {
@@ -68,6 +71,9 @@ public class Button extends GUIElement implements ActionCreator {
 		
 		void handleReleaseClick(boolean releasedOn) {
 			
+		}
+		String getStateName() {
+			return "UnpressedState";
 		}
 	}
 	
@@ -86,6 +92,10 @@ public class Button extends GUIElement implements ActionCreator {
 			if(releasedOn) {
 				new ArrayList<>(clickListeners).stream().forEach(l -> l.run());
 			}
+		}
+		
+		String getStateName() {
+			return "PressedState";
 		}
 	}
 	
@@ -140,6 +150,9 @@ public class Button extends GUIElement implements ActionCreator {
 	 * @param buttonColor the buttonColor to set
 	 */
 	public void setButtonColor(Color buttonColor) {
+		if(buttonColor==null) {
+			throw new IllegalArgumentException("not a valid color");
+		}
 		this.buttonColor = buttonColor;
 	}
 
@@ -230,7 +243,8 @@ public class Button extends GUIElement implements ActionCreator {
 		return listeners;
 	}
 
-
-
+	public String getStateName() {
+		return state.getStateName();
+	}
 
 }

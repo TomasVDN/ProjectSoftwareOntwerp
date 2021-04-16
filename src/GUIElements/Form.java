@@ -19,6 +19,19 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	private String action;
 	private ArrayList<FormListener> listeners = new ArrayList<FormListener>();
 	
+	/**
+	 * Creates a form class
+	 * @param gui
+	 *  the gui element of the form
+	 * @param x
+	 * 	the x position 
+	 * @param y
+	 * 	the y position
+	 * @param action
+	 * 	the action string of the form
+	 * @param listener
+	 * 	the initialized listener, if no listener in the beginning is applied to it use null
+	 */
 	public Form(GUIElement gui, int x, int y,String action,FormListener listener){
 		super(x,y);
 		this.setGui(gui);
@@ -27,6 +40,9 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		this.addFormListener(listener);
 	}
 	
+	/**
+	 * Add itself as listener to all action creators
+	 */
 	private void addSelfToRootGui() {
 		ArrayList<ActionCreator> array = new ArrayList<>();
 		this.getGuiClass( ActionCreator.class, array);
@@ -46,13 +62,10 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 
 	@Override
 	protected void handleUnselect() {
-		//TODO denk dat dit leeg moet blijven
-		//this.getGui().handleUnselect();
 	}
 
 	@Override
 	public void handleClick() {
-		//TODO same
 	}
 
 	@Override
@@ -76,6 +89,11 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	}
 
 
+	/**
+	 * submit the elements inside the form, first searches for all textboxes that
+	 * are inside the root of the form then adds them in the order found with
+	 * the correct symbols between them
+	 */
 	private void submit() {
 		String result="";
 		result+=this.getAction() + "?";
@@ -85,8 +103,6 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		}
 	}
 	
-
-
 
 
 	/**
@@ -117,26 +133,35 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	
 
 	
-	
+	/**
+	 * returns the root of the form
+	 * @return
+	 */
 	public GUIElement getRootGui() {
 		return rootGui;
 	}
 
 
-
-	public void setGui(GUIElement gui) {
+	/**
+	 * Sets the root of the form
+	 */
+	private void setGui(GUIElement gui) {
 		this.rootGui = gui;
 	}
 
 
-
+	/**
+	 * returns the action of the form
+	 */
 	public String getAction() {
 		return action;
 	}
 
 
-
-	public void setAction(String action) {
+	/**
+	 *  sets the action of the form to the given string
+	 */
+	private void setAction(String action) {
 		if(action==null) {
 			throw new IllegalArgumentException("not a valid action");
 		}
@@ -144,7 +169,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	}
 
 
-	
+	@Override
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
 		if(this.getRootGui()==null) {
 			return array;
@@ -176,6 +201,9 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		this.listeners.remove(listener);
 	}
 
+	/**
+	 * Returns a list of all the listeners of given form
+	 */
 	public ArrayList<FormListener> getListeners() {
 		return this.listeners; //TODO clone this
 	}
