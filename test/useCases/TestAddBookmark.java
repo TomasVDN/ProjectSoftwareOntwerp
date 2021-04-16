@@ -74,9 +74,13 @@ class TestAddBookmark {
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
+		
+		// check if dialogs changed correctly
 		BookmarkDialog bookmarkDialog = (BookmarkDialog) mainWindow.getWindowManager().getActiveDialog();
 		assertThat(mainWindow.getWindowManager().getActiveDialog(), instanceOf(BookmarkDialog.class));
 		assertNotEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
+		
+		// check if no element has keyboard focus
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
