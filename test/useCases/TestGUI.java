@@ -8,6 +8,8 @@ import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+
 
 import java.awt.Color;
 import java.awt.Font;
@@ -64,12 +66,9 @@ public class TestGUI {
 				
 		window.getWindowManager().paint(fakeGraphics, 600, 1000);
 
-		verify(fakeGraphics, atMost(fillrectmax)).fillRect(anyInt(), anyInt(), anyInt(), anyInt());
-		verify(fakeGraphics, atMost(drawRectmax)).drawRect(anyInt(), anyInt(), anyInt(), anyInt());
-		verify(fakeGraphics,atMost(setFontmax)).setFont(any(Font.class));
-		verify(fakeGraphics, atMost(setColormax)).setColor(Color.black);
-		verify(fakeGraphics, atMost(setClipmax)).setClip(fakeshape);
-		verify(fakeGraphics, atMost(drawStringmax)).drawString(anyString(), anyInt(), anyInt());
+		verify(fakeGraphics, times(fillrectmax)).fillRect(anyInt(), anyInt(), anyInt(), anyInt());
+		verify(fakeGraphics, times(drawRectmax)).drawRect(anyInt(), anyInt(), anyInt(), anyInt());
+		verify(fakeGraphics, times(drawStringmax)).drawString(anyString(), anyInt(), anyInt());
 
 	}
 }
