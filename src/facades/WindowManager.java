@@ -318,8 +318,8 @@ public class WindowManager {
 		case "bookmarkDialog":
 			// TODO misschien toch nog anders doen?
 			BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader());
-			String suggestedUrl = this.getSearchbar().getText();
-			newBookmarkDialog.getUrlTextBox().setLeftText(suggestedUrl);
+			String suggestedUrl = this.getURLFromSearchBar();
+			newBookmarkDialog.setSuggestedUrl(suggestedUrl);
 			this.setActiveDialog(newBookmarkDialog);
 		default:
 			break;
