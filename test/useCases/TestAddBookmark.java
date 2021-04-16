@@ -40,6 +40,9 @@ class TestAddBookmark {
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), null);
 		
+		// get amount of elements in bookmarkBar before adding the new bookmark
+		int amountOfElementsInBookmarkTableBefore = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();
+		
 		// Step 4.5.1
 		// User presses Ctrl + D
 		// TODO die juiste combinaties vinden voor Ctrl + D
@@ -51,7 +54,7 @@ class TestAddBookmark {
 		assertNotEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), null);
 		
-		// TODO Step 4.5.2 ??
+		// TODO Step 4.5.2 hoe gaan we deze stap juist testen?
 		
 		// Step 4.5.3
 		// make name input TextBox get focus
@@ -215,6 +218,10 @@ class TestAddBookmark {
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), null);
+		
+		// check if the bookmarkBar is increased with one element
+		int amountOfElementsInBookmarkTableAfter = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();
+		assert amountOfElementsInBookmarkTableBefore + 1 == amountOfElementsInBookmarkTableAfter;
 		
 		// check if last bookmark is the bookmark just added
 		ArrayList<TableCellGUI> bookmarkCellArrayList = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements();
