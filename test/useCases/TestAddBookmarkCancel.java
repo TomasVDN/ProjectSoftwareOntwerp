@@ -37,7 +37,7 @@ private MyCanvasWindow mainWindow;
 	@Test
 	@DisplayName("Use Case 4.5.7a: Add Bookmark cancel scenario")
 	// Use Case 4.5
-	public void addBookmarkSuccess() throws InvocationTargetException, InterruptedException {
+	public void addBookmarkCancel() throws InvocationTargetException, InterruptedException {
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
