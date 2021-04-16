@@ -228,7 +228,9 @@ public class Button extends GUIElement implements ActionCreator {
 	 */
 	@Override
 	public void addListener(ActionListener listener) {
-		listeners.add(listener);
+		if(listener!=null) {
+			listeners.add(listener);
+		}
 	}
 	
 	/**

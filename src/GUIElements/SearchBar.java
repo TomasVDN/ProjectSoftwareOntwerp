@@ -19,7 +19,7 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 	 * @param w - width of the SearchBar
 	 * @param h - height of the SearchBar
 	 */
-	public SearchBar(int x, int y, int w, int h, EventReader eventReader) {
+	public SearchBar(int x, int y, int w, int h, SearchBarListener eventReader) {
 		super(x, y, w, h);
 		this.addSearchBarListener(eventReader);
 	}
@@ -64,7 +64,9 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 
 	@Override
 	public void addSearchBarListener(SearchBarListener listener) {
-		this.listeners.add(listener);
+		if(listener!=null) {
+			this.listeners.add(listener);
+		}
 	}
 
 	@Override

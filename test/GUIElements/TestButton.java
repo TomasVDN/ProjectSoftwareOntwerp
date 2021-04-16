@@ -92,6 +92,13 @@ class TestButton {
 		testButton.handleReleaseClick(true);// release is on the button
 		assertTrue(actionListener.clicked);
 	}
+	
+	@Test
+	void testAddListenerEmpty() {
+		testButton.addListener(null);
+		assertEquals(0,testButton.getListeners().size());
+	}
+	
 
 	@Test
 	void testAddListener() {
