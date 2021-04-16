@@ -309,8 +309,11 @@ public class WindowManager {
 			this.setActiveDialog(new SaveDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader()));
 			break;
 		case "bookmarkDialog":
-			this.setActiveDialog(new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader()));
-			((BookmarkDialog) this.getActiveDialog()).getUrlTextBox().setLeftText(this.getSearchbar().getText());
+			// TODO misschien toch nog anders doen?
+			BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader());
+			String suggestedUrl = this.getSearchbar().getText();
+			newBookmarkDialog.getUrlTextBox().setLeftText(suggestedUrl);
+			this.setActiveDialog(newBookmarkDialog);
 		default:
 			break;
 		}
