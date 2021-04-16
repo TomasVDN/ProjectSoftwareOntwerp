@@ -47,28 +47,14 @@ public class Browsr {
 	 * @param path - the URL to process.
 	 */
 	public void runUrl(String path) {
-		// transform the searchBar to percentage encoding
-		try {
-			String percentageEncoded = URLEncoder.encode(path,StandardCharsets.UTF_8.name());
-			percentageEncoded = this.replaceUncorrectPercentages(percentageEncoded);;
-			// run the url
-			ArrayList<ContentSpan> htmlList=domainFacade.runUrl(percentageEncoded);
-			this.getWindowManager().updateURL(percentageEncoded);
-			this.draw(htmlList);	
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		ArrayList<ContentSpan> htmlList=domainFacade.runUrl(path);
+		this.getWindowManager().updateURL(path);
+		this.draw(htmlList);	
+
 	}
 
-	/**
-	 * Replaces all percentages of common characters that shouldn't be replaced with their counterpart
-	 * form URLencoder
-	 */
-	private String replaceUncorrectPercentages(String percentageEncoded) {
-		return percentageEncoded.replace("%2F", "/").replace("%3A",":" ).replace("%7E", "~").replace("%3F","?")
-				.replace("%3D","=").replace("%26","&");
-	}
+
 	
 	/**
 	 * Asks this.windowManager to process and display the given list of HTMLElements.

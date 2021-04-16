@@ -32,19 +32,7 @@ public class HTMLButton extends HTMLInput{
 		});
 		
 		return button;
-//		return new Button(x, y,guiText,true, Color.GRAY) {		
-//			@Override
-//			public void handleClick() {
-//				SubmitEvent event = new SubmitEvent();
-//				System.out.println("CLiCK OP BUTTON");
-//				for(EventListener listener: this.getListeners()) {
-//					listener.readEvent(event);
-//				}
-//			}
-//			
-//		};
-				
-				//Button(x, y,guiText,true, Color.GRAY);
+
 	}
 
 }

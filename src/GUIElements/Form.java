@@ -1,12 +1,16 @@
 package GUIElements;
 
 import java.awt.Graphics;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import EventCreators.ActionCreator;
 import EventCreators.FormEventCreator;
 import EventListeners.*;
 import events.EventReader;
+import htmlElement.ContentSpan;
 
 
 public class Form extends GUIElement implements ActionListener,FormEventCreator {
@@ -94,13 +98,21 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		String result="";
 		ArrayList<TextBox> textBoxesInForm =new ArrayList<TextBox>();
 		textBoxesInForm = this.getGuiClass(TextBox.class, textBoxesInForm);
+		try {
 		for(TextBox textBox: textBoxesInForm) {
-			result+=textBox.toString() +"&";
+			result+=URLEncoder.encode(textBox.getName(),StandardCharsets.UTF_8.name());
+			result+="=";
+			result+= URLEncoder.encode(textBox.getText(),StandardCharsets.UTF_8.name());
+			result+="&";
+		}
+		} catch (UnsupportedEncodingException e) {
+
+			e.printStackTrace();
 		}
 		return result.substring(0, result.length() - 1); // removes the last &
 	}
 	
-	
+
 	
 	
 	public GUIElement getRootGui() {
