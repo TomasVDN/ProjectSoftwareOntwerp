@@ -52,7 +52,7 @@ public class MainDialog extends Container {
 		TableRowGUI emptyTableRow = new TableRowGUI(bookmarkCells, 0, 0);
 		ArrayList<TableRowGUI> bookmarkRow = new ArrayList<TableRowGUI>();
 		bookmarkRow.add(emptyTableRow);
-		TableGUI bookmarkBar = new TableGUI(bookmarkRow, 10, 10);
+		TableGUIWithOffset bookmarkBar = new TableGUIWithOffset(bookmarkRow, 10, 10, 5);
 		this.setBookmarkBar(bookmarkBar);
 		this.getBookmarkBarContainer().addElement(this.getBookmarkBar());
 	}
