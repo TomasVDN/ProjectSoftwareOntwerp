@@ -47,14 +47,10 @@ public class Browsr {
 	 * @param path - the URL to process.
 	 */
 	public void runUrl(String path) {
-		
 		ArrayList<ContentSpan> htmlList=domainFacade.runUrl(path);
 		this.getWindowManager().updateURL(path);
 		this.draw(htmlList);	
-
 	}
-
-
 	
 	/**
 	 * Asks this.windowManager to process and display the given list of HTMLElements.
@@ -80,14 +76,27 @@ public class Browsr {
 		runUrl(getBaseURLFromSearchBar() + URLAttribute);
 	}
 	
+	/**
+	 * Asks the domainFacade to save the last loaded HTML code.
+	 * @param filename - file name under wich to save the HTML code.
+	 */
 	public void savePage(String filename) {
 		domainFacade.savePage(filename);
 	}
 	
+	/**
+	 * Asks windowManager to add a bookmark with the given name and url
+	 * @param bookmarkHyperlinkName - name to be displayed of the bookmark
+	 * @param bookmarkHyperlinkUrl - corresponding url
+	 */
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl);
 	}
 
+	/**
+	 * Changes the dialog to the given dialog.
+	 * @param type
+	 */
 	public void changeActiveDialog(String type) {
 		this.windowManager.setActiveDialog(type);
 	}

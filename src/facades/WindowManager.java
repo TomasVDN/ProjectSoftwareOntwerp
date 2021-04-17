@@ -53,6 +53,18 @@ public class WindowManager {
 		this.eventReader = new EventReader(browsr);
 		
 		//Make the bar and page containers
+		initMainDialog();
+		
+		//Setup the welcome page
+		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
+		this.addGUIToPage(text);
+
+	}
+
+	/**
+	 * Initialize the mainDialog. Adds three containers (one for the searchbar, one for the bookmarks and one for the htmlCode).
+	 */
+	private void initMainDialog() {
 		Container searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
 		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
@@ -60,11 +72,6 @@ public class WindowManager {
 		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer, eventReader);
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
-		
-		//Setup the welcome page
-		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
-		this.addGUIToPage(text);
-
 	}
 
 	/**
@@ -107,11 +114,11 @@ public class WindowManager {
 	}
 
 	/**
-	 * Checks if there is a GUIElement at coordinates (x,y), and transmits it to the inherit method. If there are none, it transmits null.
+	 * Checks if there is a GUIElement at coordinates (x,y), and transmits it to the changeElementWithKeyboardFocus method. If there are none, it transmits null.
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param clickCount - the amount of clicks
-	 * @param modifiers - the modifiers given by the mouse click (like enter et cetera)
+	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
@@ -121,7 +128,13 @@ public class WindowManager {
 		}		
 	}
 	
-	
+	/**
+	 * Checks if there is a GUIElement at coordinates (x,y) when the mouse is pressed, and calls the handlePressClick method on that element (if there is).
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param clickCount - the amount of clicks
+	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
+	 */
 	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
 		GUIElement guiPressed = this.getActiveDialog().getGUIAtPosition(x, y);
 		this.setPressedElement(guiPressed);
@@ -130,7 +143,13 @@ public class WindowManager {
 		}
 	}
 	
-	
+	/**
+	 * Checks if there is a GUIElement at coordinates (x,y) when the mouse is released, and calls the handleReleaseClick method on that element (if there is).
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param clickCount - the amount of clicks
+	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
+	 */
 	public void handleReleaseLeftMouse(int x, int y, int clickCount, int modifiers) {
 		if(this.getPressedElement()!=null) {
 			GUIElement releasedAt = this.getActiveDialog().getGUIAtPosition(x, y);
@@ -241,9 +260,14 @@ public class WindowManager {
 		return eventReader;
 	}
 
-	
+	/**
+	 * Transmits the keyEvent to the ElementWithKeyboardFocus. If a modifier (such as ctrl+s) is used, calls the setActiveDialog method. 
+	 * @param id
+	 * @param keyCode
+	 * @param keyChar
+	 * @param modifiersEx
+	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-		//TODO modifiers => 128 = Ctrl, 512 = alt
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx != 128) {
 			GUIElement element = this.getElementWithKeyboardFocus();
 			if (element != null) {
@@ -276,12 +300,22 @@ public class WindowManager {
         }
 	}
 	
+	/**
+	 * Returns the url present at that moment in mainDialog.searchbar.
+	 * @return
+	 */
 	public String getURLFromSearchBar() {
-		return this.getMainDialog().getSearchbar().getText();
+		SearchBar bar = this.getMainDialog().getSearchbar();
+		return bar.getText();
 	}
 	
+	/**
+	 * returns the base from the url present at that moment in mainDialog.searchbar.
+	 * @return
+	 */
 	public String getBaseURLFromSearchBar() {
-		return this.getMainDialog().getSearchbar().getBaseURL();
+		SearchBar bar = this.getMainDialog().getSearchbar();
+		return bar.getBaseURL();
 	}
 
 	/**
@@ -292,7 +326,7 @@ public class WindowManager {
 	}
 
 	/**
-	 * @param activeDialog the activeDialog to set
+	 * @param activeDialog - the activeDialog to set
 	 */
 	public void setActiveDialog(Container activeDialog) {
 		if (this.getActiveDialog() != this.getMainDialog() && activeDialog != this.getMainDialog()) {
@@ -302,10 +336,9 @@ public class WindowManager {
 	}
 	
 	/**
-	 * @param activeDialog the activeDialog to set
+	 * @param activeDialog - the activeDialog to set (String version)
 	 */
 	public void setActiveDialog(String type) {
-		
 		if (this.getActiveDialog() != this.getMainDialog() && type != "mainDialog") {
 			return;
 		}
@@ -315,29 +348,57 @@ public class WindowManager {
 		
 		switch (type) {
 		case "mainDialog":
-			this.setActiveDialog(this.getMainDialog());
-			this.changeWindowTitle("Browsr");
+			setMainDialogToActive();
 			break;
 		case "saveDialog":
-			this.setActiveDialog(new SaveDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader()));
-			this.changeWindowTitle("Save As");
+			setSaveDialogToActive();
 			break;
 		case "bookmarkDialog":
-			// TODO misschien toch nog anders doen?
-			BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader());
-			String suggestedUrl = this.getURLFromSearchBar();
-			newBookmarkDialog.setSuggestedUrl(suggestedUrl);
-			this.setActiveDialog(newBookmarkDialog);
-			this.changeWindowTitle("Add Bookmark");
+			setBookmarkDialogToActive();
 		default:
 			break;
 		}
 	}
+	
+	/**
+	 * Sets this.MainDialog as the active dialog.
+	 */
+	private void setMainDialogToActive() {
+		this.setActiveDialog(this.getMainDialog());
+		this.changeWindowTitle("Browsr");
+	}
+	
+	/**
+	 * Creates a saveDialog and set it as the active dialog.
+	 */
+	private void setSaveDialogToActive() {
+		this.setActiveDialog(new SaveDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader()));
+		this.changeWindowTitle("Save As");
+	}
+	
+	/**
+	 * Creates a bookmarkDialog and set it as the active dialog.
+	 */
+	private void setBookmarkDialogToActive() {
+		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader());
+		String suggestedUrl = this.getURLFromSearchBar();
+		newBookmarkDialog.setSuggestedUrl(suggestedUrl);
+		this.setActiveDialog(newBookmarkDialog);
+		this.changeWindowTitle("Add Bookmark");
+	}
 
+	/**
+	 * 
+	 * @return this.pressedElement
+	 */
 	public GUIElement getPressedElement() {
 		return pressedElement;
 	}
 
+	/**
+	 * Set this.pressedElement to the given element.
+	 * @param pressedElement
+	 */
 	public void setPressedElement(GUIElement pressedElement) {
 		this.pressedElement = pressedElement;
 	}

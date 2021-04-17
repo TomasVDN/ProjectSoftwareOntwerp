@@ -28,6 +28,10 @@ public class DomainFacade {
 		return htmlElements;
 	}
 	
+	/**
+	 * Asks this.saver to save the last loaded HTML code.
+	 * @param filename - file name under which to save the HTML code.
+	 */
 	public void savePage(String filename) {
 		saver.saveToFile(filename);
 	}

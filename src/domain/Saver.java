@@ -34,7 +34,7 @@ public class Saver {
 
 	/**
 	 * Saves the code saved in this.htmlCode to the file with the given name.
-	 * @param filename - name of the ouptut file. If this is null or empty, it defaults to output.html.
+	 * @param filename - name of the output file. If this is null or empty, it defaults to output.html.
 	 */
 	public void saveToFile(String filename) {
 		if (notValidFilename(filename)) {
@@ -66,9 +66,9 @@ public class Saver {
 	}
 
 	/**
-	 * Checks if the given filename is a valid filename.
+	 * Checks if the given file name is not valid.
 	 * @param filename - filename to check.
-	 * @return true if filename != null && filename != ""
+	 * @return true if filename == null or filename == ""
 	 */
 	private boolean notValidFilename(String filename) {
 		return filename == null || filename == "";
