@@ -20,6 +20,9 @@ public class HTMLDecoder {
 	 * @param input - String to convert to HTMLElements
 	 */
 	public HTMLDecoder(String input) {
+		if(input==null) {
+			throw new IllegalArgumentException();
+		}
 		lexer = new HtmlLexer(new StringReader(input));
 	}
 
@@ -160,7 +163,7 @@ public class HTMLDecoder {
 	private HTMLForm createForm() { 
 		//HtmlLexer.TokenType currentToken = this.eat();
 		if(this.isInsideForm()) { // form inside a form
-			throw new IllegalCallerException("A form cannot exist inside a form");
+			throw new RuntimeException("A form cannot exist inside a form");
 		}
 		this.setInsideForm(true);
 		this.eat();

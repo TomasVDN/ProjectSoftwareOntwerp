@@ -12,14 +12,15 @@ class testHTMLForm {
 	HTMLButton submitButton = new HTMLButton();
 
 	@Test
-	void testHTMLForm() {
+	void testHTMLFormCont() {
 		Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
 			HTMLForm form = new HTMLForm(null,null);
 		});
 		assertTrue(exception2.getMessage().contains("not a valid action"));
 	}
 	
-	void testHTMLForm2() {
+	@Test
+	void testHTMLFormCont2() {
 		HTMLForm form = new HTMLForm("action",null);
 		assertNull(form.getElement());
 		assertEquals("action", form.getAction());
