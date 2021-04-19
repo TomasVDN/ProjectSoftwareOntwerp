@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import events.EventReader;
 
-public class MainDialog extends Container {
+public class MainDialog extends Dialog {
 	
 	private Container documentArea;
 	private Container searchBarContainer;
@@ -191,5 +191,7 @@ public class MainDialog extends Container {
 	public ArrayList<Container> getAllContainers() {
 		return allContainers;
 	}
+
+
 
 }

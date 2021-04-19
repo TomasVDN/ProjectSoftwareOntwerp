@@ -9,7 +9,7 @@ import EventListeners.ChangeDialogListener;
 import EventListeners.SavePageListener;
 import events.EventReader;
 
-public class SaveDialog extends Container implements ChangeDialogEventCreator, SavePageEventCreator{
+public class SaveDialog extends Dialog implements ChangeDialogEventCreator, SavePageEventCreator{
 
 	private TextBox textBox;
 

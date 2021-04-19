@@ -9,7 +9,7 @@ import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
 import events.EventReader;
 
-public class BookmarkDialog extends Container implements AddBookmarkEventCreator, ChangeDialogEventCreator{
+public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, ChangeDialogEventCreator{
 	
 	private TextBox bookmarkHyperlinkNameTextBox;
 	private TextBox bookmarkHyperlinkUrlTextBox;

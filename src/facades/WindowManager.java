@@ -13,6 +13,7 @@ import canvaswindow.MyCanvasWindow;
 import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
 import GUIElements.Container;
+import GUIElements.Dialog;
 import converter.HTMLToGUI;
 import events.EventReader;
 import htmlElement.ContentSpan;
@@ -21,14 +22,14 @@ public class WindowManager {
 	
 	private MyCanvasWindow window;
 
-	private Container activeDialog;
+	private Dialog activeDialog;
 	private MainDialog mainDialog;
 
 	private int width;
 	private int height;
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
-	private GUIElement elementWithKeyboardFocus;
+	//private GUIElement elementWithKeyboardFocus;
 	private GUIElement pressedElement;
 	
 	private EventReader eventReader;
@@ -170,7 +171,8 @@ public class WindowManager {
 	 * @param element - the new activeElement
 	 */
 	public void changeElementWithKeyboardFocus(GUIElement element) {
-		if(element!=this.getElementWithKeyboardFocus()) {
+		GUIElement elementWithKeyboardFocus = this.getElementWithKeyboardFocus();
+		if(element!= elementWithKeyboardFocus) {
 			//deactivate old activeElement
 			if (elementWithKeyboardFocus != null && this.getElementWithKeyboardFocus().isActive()) {
 				elementWithKeyboardFocus.setActive(false);
@@ -179,9 +181,9 @@ public class WindowManager {
 			//activate new activeElement
 			this.setElementWithKeyboardFocus(element);
 			
-			if (elementWithKeyboardFocus != null) {
-				elementWithKeyboardFocus.handleClick();
-				elementWithKeyboardFocus.setActive(true);
+			if (element != null) {
+				element.handleClick();
+				element.setActive(true);
 			}
 		}
 		else {
@@ -205,14 +207,16 @@ public class WindowManager {
 	 * @return the elementWithKeyboardFocus
 	 */
 	public GUIElement getElementWithKeyboardFocus() {
-		return elementWithKeyboardFocus;
+		//return elementWithKeyboardFocus;
+		return this.getActiveDialog().getKeyBoardFocus();
 	}
 
 	/**
 	 * @param elementWithKeyboardFocus the elementWithKeyboardFocus to set
 	 */
 	public void setElementWithKeyboardFocus(GUIElement elementWithKeyboardFocus) {
-		this.elementWithKeyboardFocus = elementWithKeyboardFocus;
+		this.getActiveDialog().setKeyBoardFocus(elementWithKeyboardFocus);
+		//this.elementWithKeyboardFocus = elementWithKeyboardFocus;
 	}
 	
 	/**
@@ -319,14 +323,14 @@ public class WindowManager {
 	/**
 	 * @return the activeDialog
 	 */
-	public Container getActiveDialog() {
+	public Dialog getActiveDialog() {
 		return activeDialog;
 	}
 
 	/**
 	 * @param activeDialog - the activeDialog to set
 	 */
-	public void setActiveDialog(Container activeDialog) {
+	public void setActiveDialog(Dialog activeDialog) {
 		if (this.getActiveDialog() != this.getMainDialog() && activeDialog != this.getMainDialog()) {
 			return;
 		}
@@ -342,10 +346,11 @@ public class WindowManager {
 		}
 		
 		//TODO rename function/keep with strings?
-		this.changeElementWithKeyboardFocus(null);
-		
+		//this.changeElementWithKeyboardFocus(null);
+		this.getMainDialog().setKeyBoardFocus(this.getElementWithKeyboardFocus());
 		switch (type) {
 		case "mainDialog":
+			this.changeElementWithKeyboardFocus(this.getMainDialog().getKeyBoardFocus());
 			setMainDialogToActive();
 			break;
 		case "saveDialog":
