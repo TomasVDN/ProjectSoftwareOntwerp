@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Saver class, used to keep track of the last loaded HTML file. The saveToFile method can be called to write the saved HTML code to a file.
@@ -39,13 +41,18 @@ public class Saver {
 	 */
 	public void saveToFile(String filename) {
 		if (notValidFilename(filename)) {
-			filename = "output";
+			filename = "output" + this.now();
 		}
 		
 		if (!filename.contains(".html")) {
 			filename += ".html";
 		}
 		
+		File directory = new File("savedPages");
+	    if (! directory.exists()){
+	        directory.mkdir();
+	    }
+	    
 		File yourFile = new File("savedPages/" + filename);
 		
 		try {
@@ -77,5 +84,13 @@ public class Saver {
 	 */
 	private boolean notValidFilename(String filename) {
 		return filename == null || filename == "";
+	}
+	
+	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+
+	public String now() {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+		return sdf.format(cal.getTime());
 	}
 }

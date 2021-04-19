@@ -119,7 +119,6 @@ public class TextBox extends GUIElement {
 			return;
 		}
 		
-		System.out.print(modifier);
 		switch (keyCode) {
 		case 8: //backspace
 			this.handleBackSpace();
