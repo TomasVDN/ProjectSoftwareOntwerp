@@ -15,7 +15,7 @@ import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
 
-class TestEnterURL {
+class TestEnterURLWithRecording {
 
 	@DisplayName("Use Case: Enter URL -with recording-")
 	void test() throws InvocationTargetException, InterruptedException {	

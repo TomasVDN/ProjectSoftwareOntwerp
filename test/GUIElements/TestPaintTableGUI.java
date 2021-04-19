@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import GUIElements.TestForm.FormListenerClass;
 import events.EventReader;
 import facades.Browsr;
 
@@ -21,6 +22,11 @@ class TestPaintTableGUI {
 	TableCellGUI cell1 = new TableCellGUI(textGUI, 10, 10, 50, 50);
 	Container container1 = new Container(0,0,0,0);
 	TextBox textbox1 = new TextBox(0,0,0,0);
+	Text textOfButton = new Text(0, 0, "click");
+	Button button1 = new Button(0, 0,textOfButton,true ,Color.black);
+	FormListenerClass formListener = new FormListenerClass();
+	Form streetForm = new Form(container1, 0, 0, "searchAdress", formListener);
+
 
 	@Test
 	void testPaint() {
@@ -39,20 +45,30 @@ class TestPaintTableGUI {
 		
 		cell1.paint(fakeGraphics);
 		
-		//verify(fakeGraphics, atMost(1)).setColor(textGUI.getColor());
 		verify(fakeGraphics, times(1)).drawString(eq("test"), anyInt(), anyInt());
 		
 		container1.paint(fakeGraphics);
 		
 		verify(fakeGraphics,  times(2)).drawString(anyString(), anyInt(), anyInt());
 		
+		textbox1.setActive(true);
+		textbox1.setSelectedText("test");
 		textbox1.paint(fakeGraphics);
 		
-		verify(fakeGraphics,  times(1)).fillRect(anyInt(), anyInt(), anyInt(), anyInt());
+		verify(fakeGraphics,  times(3)).fillRect(anyInt(), anyInt(), anyInt(), anyInt());
 		verify(fakeGraphics,  times(1)).drawRect(anyInt(), anyInt(), anyInt(), anyInt());
 		verify(fakeGraphics,  times(3)).drawString(anyString(), anyInt(), anyInt());
+		
+		button1.paint(fakeGraphics);
+		
+		verify(fakeGraphics,  times(4)).fillRect(anyInt(), anyInt(), anyInt(), anyInt());
+		verify(fakeGraphics,  times(2)).drawRect(anyInt(), anyInt(), anyInt(), anyInt());
+		verify(fakeGraphics,  times(4)).drawString(anyString(), anyInt(), anyInt());
+		
+		streetForm.paint(fakeGraphics);
 
-				
+		verify(fakeGraphics,  times(5)).drawString(anyString(), anyInt(), anyInt());
+		
 	}
 
 }

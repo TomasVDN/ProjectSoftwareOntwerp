@@ -42,6 +42,9 @@ private MyCanvasWindow mainWindow;
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
+		// check if right title is shown
+		assertEquals("Browsr", mainWindow.getTitle());
+		
 		// get amount of elements in bookmarkBar before adding the new bookmark
 		int amountOfElementsInBookmarkTableBefore = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();
 		
@@ -52,12 +55,19 @@ private MyCanvasWindow mainWindow;
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
+		
+		// check if dialogs changed correctly
 		BookmarkDialog bookmarkDialog = (BookmarkDialog) mainWindow.getWindowManager().getActiveDialog();
 		assertThat(mainWindow.getWindowManager().getActiveDialog(), instanceOf(BookmarkDialog.class));
 		assertNotEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
+		
+		// check if no element has keyboard focus
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
+		
+		// check if right title is shown
+		assertEquals("Add Bookmark", mainWindow.getTitle());
 		
 		// Step 4.5.3
 		// make name input TextBox get focus
@@ -168,6 +178,9 @@ private MyCanvasWindow mainWindow;
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		
+		// check if right title is shown
+		assertEquals("Browsr", mainWindow.getTitle());
 		
 		// check if the input TextBoxes of bookmarkDialog are not active
 		assertFalse(bookmarkDialog.getNameTextBox().isActive());

@@ -1,13 +1,16 @@
 package GivenTests;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.junit.jupiter.api.Test;
 
+import GUIElements.Button;
 import browsrhtml.BrowsrDocumentValidator;
 
 class BrowsrDocumentValidatorTest {
@@ -27,6 +30,54 @@ class BrowsrDocumentValidatorTest {
 				</table>
 				""");
 	}
+	
+	
+	@Test
+	void testWithForms() {
+		BrowsrDocumentValidator.assertIsValidBrowsrDocument("""
+				<form action="browsrformactiontest.php">
+					<table>
+						<tr><td>List words from the Woordenlijst Nederlandse Taal
+						<tr><td>
+						<table>
+						<tr>
+						<td>Starts with:
+						<td><input type="text" name="starts_with">
+						<tr>
+						<td>Max. results:
+						<td><input type="text" name="max_nb_results">
+						</table>
+						<tr><td><input type="submit">
+					</table>
+				</form>
+				""");
+	}
+	
+	@Test
+	void testFormWithinForms() {
+		Exception exception = assertThrows(RuntimeException.class, () -> {
+			BrowsrDocumentValidator.assertIsValidBrowsrDocument("""
+					<form action="browsrformactiontest.php">
+					<form action="browsrformactiontest.php">
+					<table>
+						<tr><td>List words from the Woordenlijst Nederlandse Taal
+						<tr><td>
+						<table>
+						<tr>
+						<td>Starts with:
+						<td><input type="text" name="starts_with">
+						<tr>
+						<td>Max. results:
+						<td><input type="text" name="max_nb_results">
+						</table>
+						<tr><td><input type="submit">
+					</table>
+				</form>
+				</form>
+					""");});
+	}
+	
+	
 	
 	@Test
 	void testWithURL() throws MalformedURLException, IOException {

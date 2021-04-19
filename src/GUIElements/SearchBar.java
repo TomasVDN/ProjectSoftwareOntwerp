@@ -19,7 +19,7 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 	 * @param w - width of the SearchBar
 	 * @param h - height of the SearchBar
 	 */
-	public SearchBar(int x, int y, int w, int h, EventReader eventReader) {
+	public SearchBar(int x, int y, int w, int h, SearchBarListener eventReader) {
 		super(x, y, w, h);
 		this.addSearchBarListener(eventReader);
 	}
@@ -53,18 +53,23 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 	 * Returns the base url (url with the domain only, without resource).
 	 * @return base URL
 	 */
-	public String getBaseURL() {
+	public String getBaseURL() {	
 		String URL = this.getText();
 		int index = URL.lastIndexOf("/");
-		if (URL.length() - 1 == index)
-			return URL;
-		else
-			return URL + "/";
+		//checks if two slashes used or no slashes are found at all, then don't remove anything
+		if(index<0 || URL.charAt(index-1)=='/') {
+			return URL + "/"; //adds slash at the end of the string
+		}
+		return URL.substring(0, index+1);
+		
+		
 	}
 
 	@Override
 	public void addSearchBarListener(SearchBarListener listener) {
-		this.listeners.add(listener);
+		if(listener!=null) {
+			this.listeners.add(listener);
+		}
 	}
 
 	@Override

@@ -19,7 +19,7 @@ import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
 
-public class TestEnterUrlNoRecording {
+public class TestEnterUrl {
 
 	private MyCanvasWindow mainWindow;
 	

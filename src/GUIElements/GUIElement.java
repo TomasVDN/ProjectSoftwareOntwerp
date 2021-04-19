@@ -11,7 +11,7 @@ public abstract class GUIElement {
 	private int yPos;
 	private int width;
 	private int height;
-	protected boolean isActive = false;
+	private boolean isActive = false;
 
 	/**
 	 * Constructor of GUIElement.

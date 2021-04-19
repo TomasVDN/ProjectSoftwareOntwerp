@@ -6,8 +6,26 @@ import java.awt.Color;
 
 import org.junit.jupiter.api.Test;
 
+import EventListeners.ActionListener;
+import EventListeners.FormListener;
+
 class TestButton {
 	
+	
+	public static class ActionListenerClass implements ActionListener {
+
+
+		public boolean clicked = false;
+
+		@Override
+		public void clickButton() {
+			clicked = true;
+		}
+
+
+	};
+	
+	ActionListenerClass actionListener = new ActionListenerClass();
 	Text textOfButton = new Text(0, 0, "click");
 	Button testButton = new Button(0, 0,textOfButton,false,Color.black);
 	
@@ -31,39 +49,74 @@ class TestButton {
 
 	@Test
 	void testHandlePressClick() {
+		assertEquals("UnpressedState",testButton.getStateName());
 		testButton.handlePressClick();
 		assertEquals("PressedState",testButton.getStateName());
 	}
 
 	@Test
 	void testHandleReleaseClick() {
-		fail("Not yet implemented");
+		assertEquals("UnpressedState",testButton.getStateName());
+		testButton.handlePressClick();
+		assertEquals("PressedState",testButton.getStateName());
+		testButton.handleReleaseClick(false);
+		assertEquals("UnpressedState",testButton.getStateName());
+	}
+	
+	@Test
+	void testHandleDoublePress() {
+		assertEquals("UnpressedState",testButton.getStateName());
+		testButton.handleReleaseClick(true);
+		assertEquals("UnpressedState",testButton.getStateName());
+		testButton.handlePressClick();
+		assertEquals("PressedState",testButton.getStateName());
+		testButton.handlePressClick();
+		assertEquals("PressedState",testButton.getStateName());
 	}
 
 	@Test
-	void testPaint() {
-		fail("Not yet implemented");
+	void testPaint() { //TODO william
+		//fail("Not yet implemented"); 
 	}
 
 
 	@Test
 	void testAddSingleClickListener() {
-		fail("Not yet implemented");
+		testButton.addSingleClickListener(() ->{
+			for(ActionListener listener: testButton.getListeners()) {
+				listener.clickButton();
+			}
+		});
+		testButton.addListener(actionListener);
+		testButton.handlePressClick();
+		testButton.handleReleaseClick(true);// release is on the button
+		assertTrue(actionListener.clicked);
 	}
+	
+	@Test
+	void testAddListenerEmpty() {
+		testButton.addListener(null);
+		assertEquals(0,testButton.getListeners().size());
+	}
+	
 
 	@Test
 	void testAddListener() {
-		fail("Not yet implemented");
+		testButton.addListener(actionListener);
+		assertEquals(1,testButton.getListeners().size());
 	}
 
 	@Test
 	void testRemoveListener() {
-		fail("Not yet implemented");
+		testButton.addListener(actionListener);
+		assertEquals(1,testButton.getListeners().size());
+		ActionListenerClass actionListener2 = new ActionListenerClass();
+		testButton.addListener(actionListener2);
+		assertEquals(2,testButton.getListeners().size());
+		testButton.removeListener(actionListener);
+		assertEquals(1,testButton.getListeners().size());
 	}
 
-	@Test
-	void testGetListeners() {
-		fail("Not yet implemented");
-	}
+
 
 }

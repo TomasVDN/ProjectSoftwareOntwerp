@@ -439,6 +439,6 @@ public class WindowManager {
 	}
 	
 	public void changeWindowTitle(String newTitle) {
-		//this.window.setTitle(newTitle); TODO uncomment this
+		this.window.setWindowTitle(newTitle);
 	}
 }

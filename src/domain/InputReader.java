@@ -29,7 +29,7 @@ public class InputReader {
 	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
 	        } catch (RuntimeException r) {
 	        	sb = "Error occured. Reason: not a valid Browsr document.\n";
-	        }
+	        } 
 	        
 	        saver.setHtmlCode(sb);
 	        decoder = new HTMLDecoder(sb);
