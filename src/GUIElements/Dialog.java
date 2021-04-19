@@ -33,7 +33,6 @@ public abstract class Dialog extends Container {
 			
 			if (element != null) {
 				element.handleClick();
-				element.setActive(true);
 			}
 		}
 		else {
