@@ -25,7 +25,7 @@ public class SaveDialog extends Container implements ChangeDialogEventCreator, S
 	}
 	
 	private void initTextBox(int width) {
-		Text text = new Text(10, 15, "Filename: ");
+		Text text = new Text(10, 15, "File name:");
 		this.addElement(text);
 		textBox = new TextBox(10 + text.getWidth(), 10, width - 20 - text.getWidth(), 40);
 		this.addElement(textBox);
