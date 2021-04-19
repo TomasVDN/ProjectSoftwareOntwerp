@@ -30,6 +30,7 @@ public class WindowManager {
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
 	private GUIElement pressedElement;
+	boolean ignoreClick; //boolean if the next click shouldnt be reported (not press)
 	
 	private EventReader eventReader;
 	
@@ -122,7 +123,9 @@ public class WindowManager {
 	 */
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers) {
 		try {
-			changeElementWithKeyboardFocus(getActiveDialog().getGUIAtPosition(x, y));	
+			if(! ignoreClick) {
+				changeElementWithKeyboardFocus(getActiveDialog().getGUIAtPosition(x, y));
+			}
 		} catch (NullPointerException e) {
 			changeElementWithKeyboardFocus(null);
 		}		
@@ -136,6 +139,7 @@ public class WindowManager {
 	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
 	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
+		this.ignoreClick=false;
 		GUIElement guiPressed = this.getActiveDialog().getGUIAtPosition(x, y);
 		this.setPressedElement(guiPressed);
 		if(guiPressed!=null) {
@@ -334,7 +338,7 @@ public class WindowManager {
 		default:
 			break;
 		}
-		this.getActiveDialog().getKeyBoardFocus();
+		this.ignoreClick = true;
 	}
 	
 	/**
