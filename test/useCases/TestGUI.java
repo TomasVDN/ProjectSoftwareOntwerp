@@ -50,7 +50,7 @@ public class TestGUI {
 			setFontmax = 12;
 			setColormax = 18;
 			setClipmax = 12;
-			drawStringmax = 12;
+			drawStringmax = 13;
 		}
 		
 		FontMetrics metrics = mock(FontMetrics.class);

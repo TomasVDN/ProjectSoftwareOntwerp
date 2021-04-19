@@ -34,7 +34,6 @@ public class Saver {
 		this.htmlCode = htmlCode;
 	}
 
-	//TODO Make folder, datum
 	/**
 	 * Saves the code saved in this.htmlCode to the file with the given name.
 	 * @param filename - name of the output file. If this is null or empty, it defaults to output.html.
@@ -86,9 +85,9 @@ public class Saver {
 		return filename == null || filename == "";
 	}
 	
-	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+	private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 
-	public String now() {
+	private String now() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
 		return sdf.format(cal.getTime());
