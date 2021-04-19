@@ -130,6 +130,7 @@ class TestAddBookmark {
 		assertTrue(containsNameLabel);
 		assertTrue(containsUrlLabel);
 		assertTrue(containsAtLeastOneTextBox);
+		assertTrue(containsAtLeastTwoTextBoxes);
 		assertTrue(containsCancelButton);
 		assertTrue(containsAddBookmarkButton);
 		
