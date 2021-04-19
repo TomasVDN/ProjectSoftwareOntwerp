@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.BookmarkDialog;
 import GUIElements.Button;
 import GUIElements.GUIElement;
 import GUIElements.SaveDialog;
@@ -116,7 +115,7 @@ private MyCanvasWindow mainWindow;
 				if (((Button) element).getText().getText().equals("Cancel")) { // check if the Cancel button is present
 					containsCancelButton = true;
 				} 
-				else if (((Button) element).getText().getText().equals("Save")) { // check if the Add Bookmark button is present
+				else if (((Button) element).getText().getText().equals("Save")) { // check if the Save button is present
 					saveButton = (Button) element;
 					containsSaveButton = true;
 				}
@@ -166,6 +165,7 @@ private MyCanvasWindow mainWindow;
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
+		// Step 4.6.8
 		// check if the file is created
 		File fileThatIsCreated = new File("savedPages/TestSaveDocument123.html");
 		assertTrue(fileThatIsCreated.isFile());
