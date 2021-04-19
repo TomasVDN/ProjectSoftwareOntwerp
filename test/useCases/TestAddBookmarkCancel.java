@@ -66,18 +66,70 @@ private MyCanvasWindow mainWindow;
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
 		
+		// Step 4.5.2
 		// check if right title is shown
 		assertEquals("Add Bookmark", mainWindow.getTitle());
+		
+		// check if all required Elements are contained by the BookmarkDialog
+		Button cancelButton = null;
+		
+		ArrayList<GUIElement> bookmarkDialogElements = mainWindow.getWindowManager().getActiveDialog().getElements();
+		boolean containsNameLabel = false;
+		boolean containsUrlLabel = false;
+		boolean containsAtLeastOneTextBox = false;
+		boolean containsAtLeastTwoTextBoxes = false;
+		TextBox firstTextBox = null;
+		boolean containsCancelButton = false;
+		boolean containsAddBookmarkButton = false;
+		
+		for (GUIElement element : bookmarkDialogElements) {
+			if (element.getClass().equals(Text.class)) {
+				if (((Text) element).getText().equals("Name:")) { // check if the name label is present
+					containsNameLabel = true;
+				} 
+				else if (((Text) element).getText().equals("URL:")) { // check if the url label is present
+					containsUrlLabel = true;
+				}
+			} 
+			else if (element.getClass().equals(TextBox.class)) {
+				if (!containsAtLeastOneTextBox) { // check if there is at least one TextBox
+					containsAtLeastOneTextBox = true;
+					firstTextBox = (TextBox) element;
+				}
+				else if (!containsAtLeastTwoTextBoxes && !firstTextBox.equals((TextBox) element)) { // check if there are at least two TextBoxes and both TextBoxes are different from each other
+					containsAtLeastTwoTextBoxes = true;
+				}
+			} else if (element.getClass().equals(Button.class)) {
+				if (((Button) element).getText().getText().equals("Cancel")) { // check if the Cancel button is present
+					cancelButton = (Button) element;
+					containsCancelButton = true;
+				} 
+				else if (((Button) element).getText().getText().equals("Add Bookmark")) { // check if the Add Bookmark button is present
+					containsAddBookmarkButton = true;
+				}
+			}
+		}
+		
+		// actual check if all required Elements are contained by the BookmarkDialog
+		assertTrue(containsNameLabel);
+		assertTrue(containsUrlLabel);
+		assertTrue(containsAtLeastOneTextBox);
+		assertTrue(containsAtLeastTwoTextBoxes);
+		assertTrue(containsCancelButton);
+		assertTrue(containsAddBookmarkButton);
 		
 		// Step 4.5.3
 		// make name input TextBox get focus
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		
+		// Step 4.5.4
+		// check if input field has focus
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox());
 		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 
-		// Step 4.5.4 and 4.5.5
+		// Step 4.5.5
 		// type "testname"
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'e', 0);
@@ -169,15 +221,22 @@ private MyCanvasWindow mainWindow;
 		assertEquals("testname", ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().getText());
 		
 		// Step 4.5.7a
+		// check if right coordinates will be clicked for cancel button
+		assertThat(mainWindow.getWindowManager().getActiveDialog().getGUIAtPosition(cancelButton.getX(), cancelButton.getY()), instanceOf(Button.class));
+		assertEquals("Cancel", ((Button) mainWindow.getWindowManager().getActiveDialog().getGUIAtPosition(cancelButton.getX(), cancelButton.getY())).getText().getText());
+		
 		// press Cancel button
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 180, 215, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 180, 215, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 180, 215, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, cancelButton.getX(), cancelButton.getY(), 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, cancelButton.getX(), cancelButton.getY(), 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, cancelButton.getX(), cancelButton.getY(), 1, MouseEvent.BUTTON1, 0);
 		
 		// Step 4.5.8
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertFalse(bookmarkDialog.getNameTextBox().isActive());
+		assertFalse(bookmarkDialog.getUrlTextBox().isActive());
+		assertFalse(cancelButton.isActive());
 		
 		// check if right title is shown
 		assertEquals("Browsr", mainWindow.getTitle());

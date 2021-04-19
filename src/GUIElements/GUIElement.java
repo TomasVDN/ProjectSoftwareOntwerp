@@ -186,13 +186,9 @@ public abstract class GUIElement {
 	
 	public abstract void handleClick();
 	
-	public void handlePressClick() {
-		
-	}
+	public void handlePressClick() {}
 	
-	public void handleReleaseClick(boolean releasedOn) {
-		
-	}
+	public void handleReleaseClick(boolean releasedOn) {}
 	
 	public abstract void paint(Graphics g);
 	
@@ -228,7 +224,6 @@ public abstract class GUIElement {
 			return this;
 		}
 		
-		//otherwise return null
 		return null;
 	}
 	

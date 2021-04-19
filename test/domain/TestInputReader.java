@@ -19,6 +19,7 @@ class TestInputReader {
 			+ "ROW: (CELL: HYPER: (td.html,TEXT: td),CELL: TEXT: Table cells containing table data))))";
 	String malformedUrl = "TEXT: Error occured. Make sure you entered a valid URL.";
 	String illegalBrowsrWebPage = "TEXT: Error occured. Reason: not a valid Browsr document.";
+	
 	@Test
 	void legalUrl() {
 		ArrayList<ContentSpan> list = inputReader.readFile("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", saver);

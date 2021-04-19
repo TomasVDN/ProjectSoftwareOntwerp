@@ -24,7 +24,6 @@ public class Button extends GUIElement implements ActionCreator {
     private State state = new UnpressedState();
 
     
-    
     /**
      * Constructor of the Button class.
      * @param x - x coordinate of this Button
@@ -220,7 +219,6 @@ public class Button extends GUIElement implements ActionCreator {
 	public void handleReleaseClick(boolean releasedOn) {
 		state.handleReleaseClick(releasedOn);
 	}
-	
 
 	/**
 	 * Add the given EventListener to a list of EventListeners

@@ -33,7 +33,7 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 		this.setColor(Color.blue);
 		this.setUrl(url);
 		this.initFont();
-		this.addListener(eventReader);
+		this.addHyperLinkListener(eventReader);
 		initiateClickListeners();
 	}
 	
@@ -71,12 +71,12 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 	}
 
 	@Override
-	public void addListener(HyperLinkListener listener) {
+	public void addHyperLinkListener(HyperLinkListener listener) {
 		this.getHyperListeners().add(listener);
 	}
 
 	@Override
-	public void removeListener(HyperLinkListener listener) {
+	public void removeHyperLinkListener(HyperLinkListener listener) {
 		this.getHyperListeners().remove(listener);
 	}
 	

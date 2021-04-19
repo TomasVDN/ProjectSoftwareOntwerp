@@ -2,13 +2,7 @@ package facades;
 
 import java.util.ArrayList;
 
-import GUIElements.BookmarkHyperlink;
-import GUIElements.Text;
 import htmlElement.ContentSpan;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Controller type class. Used to connect DomainFacade (facade for the domain) and WindowManager (facade for the UI).
