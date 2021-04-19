@@ -124,7 +124,6 @@ class TestSaveDocumentExtension {
 		assertTrue(containsCancelButton);
 		assertTrue(containsSaveButton);
 		
-		
 		// check if right coordinates will be clicked for text input
 		assertEquals(((SaveDialog) mainWindow.getWindowManager().getActiveDialog()).getTextBox(), mainWindow.getWindowManager().getActiveDialog().getGUIAtPosition(textInputFieldBox.getX(), textInputFieldBox.getY()));
 		
