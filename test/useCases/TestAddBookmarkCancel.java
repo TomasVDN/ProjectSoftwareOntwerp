@@ -66,6 +66,7 @@ private MyCanvasWindow mainWindow;
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 		assertFalse(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getUrlTextBox().isActive());
 		
+		// Step 4.5.2
 		// check if right title is shown
 		assertEquals("Add Bookmark", mainWindow.getTitle());
 		
@@ -122,10 +123,13 @@ private MyCanvasWindow mainWindow;
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		
+		// Step 4.5.4
+		// check if input field has focus
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox());
 		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 
-		// Step 4.5.4 and 4.5.5
+		// Step 4.5.5
 		// type "testname"
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'e', 0);

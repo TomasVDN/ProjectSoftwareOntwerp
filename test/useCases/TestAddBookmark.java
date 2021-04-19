@@ -89,7 +89,6 @@ class TestAddBookmark {
 		// check if right title is shown
 		assertEquals("Add Bookmark", mainWindow.getTitle());
 		
-		
 		// check if all required Elements are contained by the BookmarkDialog
 		Button addBookmarkButton = null;
 		
@@ -143,10 +142,13 @@ class TestAddBookmark {
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 165, 60, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 165, 60, 1, MouseEvent.BUTTON1, 0);
+		
+		// Step 4.5.4
+		// check if input field has focus
 		assertEquals(mainWindow.getWindowManager().getElementWithKeyboardFocus(), ((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox());
 		assertTrue(((BookmarkDialog) mainWindow.getWindowManager().getActiveDialog()).getNameTextBox().isActive());
 
-		// Step 4.5.4 and 4.5.5
+		// Step 4.5.5
 		// type "test"
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 84, 't', 0);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'e', 0);
