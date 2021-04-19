@@ -39,7 +39,11 @@ public class Saver {
 	 */
 	public void saveToFile(String filename) {
 		if (notValidFilename(filename)) {
-			filename = "output.html";
+			filename = "output";
+		}
+		
+		if (!filename.contains(".html")) {
+			filename += ".html";
 		}
 		
 		File yourFile = new File("savedPages/" + filename);
