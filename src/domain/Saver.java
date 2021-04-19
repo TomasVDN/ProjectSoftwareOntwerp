@@ -32,6 +32,7 @@ public class Saver {
 		this.htmlCode = htmlCode;
 	}
 
+	//TODO Make folder, datum
 	/**
 	 * Saves the code saved in this.htmlCode to the file with the given name.
 	 * @param filename - name of the output file. If this is null or empty, it defaults to output.html.

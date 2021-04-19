@@ -12,6 +12,7 @@ public class TextBox extends GUIElement {
 	private String leftText = "", rightText = "";
 	private String previousText = "";
 	private String selectedText = "";
+	private Boolean cursorOnTheRightOfSelectedText = false;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	private String name;
 	
@@ -26,6 +27,7 @@ public class TextBox extends GUIElement {
 		super(x, y, w, h);
 		leftText = "";
 		rightText = "";
+		selectedText = "";
 	}
 	
 	public TextBox(int x, int y, int w, int h,String name) {
@@ -33,6 +35,7 @@ public class TextBox extends GUIElement {
 		this.setName(name);
 		leftText = "";
 		rightText = "";
+		selectedText = "";
 	}
 	
 	/**
@@ -116,6 +119,7 @@ public class TextBox extends GUIElement {
 			return;
 		}
 		
+		System.out.print(modifier);
 		switch (keyCode) {
 		case 8: //backspace
 			this.handleBackSpace();
@@ -127,16 +131,16 @@ public class TextBox extends GUIElement {
 			this.handleEscape();
 			break;
 		case 37: //left
-			this.handleLeft();
+			this.handleLeft(modifier);
 			break;
 		case 39: //Right
-			this.handleRight();
+			this.handleRight(modifier);
 			break;
 		case 36: //home
-			this.handleHome();
+			this.handleHome(modifier);
 			break;
 		case 35: //end
-			this.handleEnd();
+			this.handleEnd(modifier);
 			break;
 		case 10://enter
 			this.handleEnter();
@@ -188,8 +192,9 @@ public class TextBox extends GUIElement {
 		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
 		
 		if (selectedText != "") {
+			int x = super.getX() + 10 + metrics.stringWidth(this.leftText);
 			g.setColor(Color.blue);
-			g.fillRect(super.getX()+10,y, metrics.stringWidth(getSelectedText()), metrics.getHeight());
+			g.fillRect(x, y, metrics.stringWidth(selectedText), metrics.getHeight());
 			g.setColor(Color.black);
 		}
 		
@@ -199,7 +204,11 @@ public class TextBox extends GUIElement {
 	
 	private void drawCursor(Graphics g, FontMetrics metrics) {
 		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
-		g.fillRect(super.getX() + metrics.stringWidth(getLeftText()) + 10, y, metrics.getHeight() / 10, metrics.getHeight());
+		int x = super.getX() + metrics.stringWidth(leftText) + 10;
+		if (cursorOnTheRightOfSelectedText()) {
+			x += metrics.stringWidth(selectedText); 
+		}
+		g.fillRect(x, y, metrics.getHeight() / 10, metrics.getHeight());
 	}
 	
 	/**
@@ -214,8 +223,8 @@ public class TextBox extends GUIElement {
 	 */
 	private void handleBackSpace() {
 		deleteAllSelected();
-		if (this.getLeftText().length() > 0) { // check if left string is not empty
-			this.setLeftText(this.getLeftText().substring(0, this.getLeftText().length() - 1));
+		if (this.leftText.length() > 0) { // check if left string is not empty
+			this.setLeftText(this.leftText.substring(0, this.leftText.length() - 1));
 		}
 	}
 	
@@ -224,49 +233,103 @@ public class TextBox extends GUIElement {
 	 */
 	private void handleDelete() {
 		deleteAllSelected();
-		if (this.getRightText().length() > 0) { // check if right string is not empty
-			this.setRigthText(this.getRightText().substring(1));
+		if (this.rightText.length() > 0) { // check if right string is not empty
+			this.setRigthText(this.rightText.substring(1));
 		}
 	}
 	
 	/**
 	 * Does the needed actions for the Left arrow key.
 	 */
-	private void handleLeft() {
-		this.unselectAllTextToRight();
-		if (this.getLeftText().length() != 0) {
-			rightText = getLeftText().charAt(getLeftText().length() - 1) + getRightText();
-			leftText = getLeftText().substring(0, getLeftText().length() - 1);
+	private void handleLeft(int modifier) {
+		if (modifier == 64) { //Shift
+			if (selectedText == "") {
+				cursorOnTheRightOfSelectedText = true;
+			}
+			if (cursorOnTheRightOfSelectedText()) {
+				if (this.leftText.length() != 0) {
+					selectedText = leftText.charAt(leftText.length() - 1) + selectedText;
+					leftText = leftText.substring(0, leftText.length() - 1);
+				}
+			} else {
+				if (this.selectedText.length() != 0) {
+					rightText = selectedText.charAt(selectedText.length() - 1) + rightText;
+					selectedText = selectedText.substring(0, selectedText.length() - 1);
+				}
+			}
+		} else {
+			this.unselectAllTextToRight();
+			if (this.leftText.length() != 0) {
+				rightText = leftText.charAt(leftText.length() - 1) + rightText;
+				leftText = leftText.substring(0, leftText.length() - 1);
+			}
 		}
 	}
 	
 	/**
 	 * Does the needed actions for the Right arrow key.
 	 */
-	private void handleRight() {
-		this.unselectAllTextToLeft();
-		if (this.getRightText().length() != 0) {
-			leftText = getLeftText() + getRightText().charAt(0);
-			rightText = getRightText().substring(1);
+	private void handleRight(int modifier) {
+		if (modifier == 64) { //Shift
+			if (selectedText == "") {
+				cursorOnTheRightOfSelectedText = false;
+			}
+			if (cursorOnTheRightOfSelectedText()) {
+				if (this.selectedText.length() != 0) {
+					leftText = leftText + selectedText.charAt(0);
+					selectedText = selectedText.substring(1);
+				}
+			} else {
+				if (this.rightText.length() != 0) {
+					selectedText = selectedText + rightText.charAt(0);
+					rightText = rightText.substring(1);
+				}
+			}
+		} else {
+			this.unselectAllTextToLeft();
+			if (this.rightText.length() != 0) {
+				leftText = leftText + rightText.charAt(0);
+				rightText = rightText.substring(1);
+			}
 		}
 	}
 
 	/**
 	 * Does the needed actions for the End key.
 	 */
-	private void handleEnd() {
-		this.unselectAllTextToLeft();
-		leftText = getLeftText() + getRightText();
-		rightText = "";
+	private void handleEnd(int modifier) {
+		if (modifier == 64) { //Shift
+			if (cursorOnTheRightOfSelectedText()) {
+				this.unselectAllTextToLeft();
+			} else {
+				this.unselectAllTextToRight();
+			}
+			this.selectAllRight();
+			this.cursorOnTheRightOfSelectedText = false;
+		} else {
+			this.unselectAllTextToRight();
+			leftText = leftText + rightText;
+			rightText = "";
+		}
 	}
 	
 	/**
 	 * Does the needed actions for the home key.
 	 */
-	private void handleHome() {
-		this.unselectAllTextToLeft();
-		rightText = getLeftText() + getRightText();
-		leftText = "";
+	private void handleHome(int modifier) {
+		if (modifier == 64) { //Shift
+			if (cursorOnTheRightOfSelectedText()) {
+				this.unselectAllTextToLeft();
+			} else {
+				this.unselectAllTextToRight();
+			}
+			this.selectAllLeft();
+			this.cursorOnTheRightOfSelectedText = true;
+		} else {
+			this.unselectAllTextToLeft();
+			rightText = leftText + rightText;
+			leftText = "";
+		}
 	}
 	
 	/**
@@ -274,7 +337,7 @@ public class TextBox extends GUIElement {
 	 */
 	private void handleUndefined(char keyChar) {
 		deleteAllSelected();
-		leftText = getLeftText() + keyChar;
+		leftText = leftText + keyChar;
 	}
 		
 	/**
@@ -308,8 +371,24 @@ public class TextBox extends GUIElement {
 	 * Selects all the content in textBox
 	 */
 	private void selectAll() {
-		this.setSelectedText(this.getLeftText() + this.getSelectedText() + this.getRightText());
+		this.setSelectedText(this.leftText + this.selectedText + this.rightText);
 		this.leftText = "";
+		this.rightText = "";
+	}
+	
+	/**
+	 * Selects all the content in textBox left from the cursor
+	 */
+	private void selectAllLeft() {
+		this.setSelectedText(this.leftText + this.selectedText);
+		this.leftText = "";
+	}
+	
+	/**
+	 * Selects all the content in textBox right from the cursor
+	 */
+	private void selectAllRight() {
+		this.setSelectedText(this.selectedText + this.rightText);
 		this.rightText = "";
 	}
 	
@@ -351,7 +430,7 @@ public class TextBox extends GUIElement {
 	
 	@Override
 	public void handleUnselect() {
-		this.leftText = this.getLeftText() + this.getSelectedText() + this.getRightText();
+		this.leftText = this.leftText + this.selectedText + this.rightText;
 		this.setSelectedText("");
 		this.setRigthText("");
 	}
@@ -365,11 +444,16 @@ public class TextBox extends GUIElement {
 		this.name = name;
 	}
 	
-
-	
 	@Override
 	public String toString() {
 		return this.getName() +"=" + this.getText();
+	}
+
+	/**
+	 * @return the cursorOnTheRightOfSelectedText
+	 */
+	private Boolean cursorOnTheRightOfSelectedText() {
+		return cursorOnTheRightOfSelectedText;
 	}
 	
 }
