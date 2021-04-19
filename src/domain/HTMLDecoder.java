@@ -48,16 +48,16 @@ public class HTMLDecoder {
 		}
 		
 		switch (lexer.getTokenValue()) {
-		case "a":
-			return createHyperlink();
-		case "table":
-			return createTable();
-		case "form":
-			return createForm();
-		case "input":
-			return createInput();
-		default:
-			return null;
+			case "a":
+				return createHyperlink();
+			case "table":
+				return createTable();
+			case "form":
+				return createForm();
+			case "input":
+				return createInput();
+			default:
+				return null;
 		}		
 	}
 	
@@ -161,12 +161,13 @@ public class HTMLDecoder {
 	 * @return
 	 */
 	private HTMLForm createForm() { 
-		//HtmlLexer.TokenType currentToken = this.eat();
 		if(this.isInsideForm()) { // form inside a form
 			throw new RuntimeException("A form cannot exist inside a form");
 		}
+		
 		this.setInsideForm(true);
 		this.eat();
+		
 		String action ="";//TODO aanpassen
 		if(lexer.getTokenValue().equals("action")) {
 			while(lexer.getTokenType() != TokenType.QUOTED_STRING) {
@@ -175,10 +176,13 @@ public class HTMLDecoder {
 			// lexer is on a token value
 			action = lexer.getTokenValue();
 		}
+		
 		while(this.eat() != TokenType.CLOSE_TAG) {} // eats untill close tag is encountered
+		
 		ContentSpan element = this.createHTMLElement();//this.innerContentSpan();
 		lexer.eatToken(); //remove End tag form
 		lexer.eatToken();
+		
 		this.setInsideForm(false);
 		return new HTMLForm(action,element);
 	}
@@ -240,14 +244,4 @@ public class HTMLDecoder {
 	public void setInsideForm(boolean insideForm) {
 		this.insideForm = insideForm;
 	}
-	/*
-	private ArrayList<ContentSpan> innerContentSpan(){
-		ArrayList<ContentSpan> elements= new ArrayList<ContentSpan>();
-		while(lexer.getTokenType() !=TokenType.OPEN_END_TAG ) { // until form ends
-			ContentSpan html = createHTMLElement();
-			elements.add(html);
-		}
-		return elements;
-	}
-	*/
 }

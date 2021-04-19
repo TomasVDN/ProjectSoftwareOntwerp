@@ -53,9 +53,10 @@ public class HTMLToGUI {
 	 */
 	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements,EventReader eventReader) {
 		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
-		int relativeY=y;
-		int relativeX=x + XSPACE;
-		for(int i =0 ; i<htmlElements.size();i++) {
+		int relativeY = y;
+		int relativeX = x + XSPACE;
+		
+		for(int i = 0 ; i < htmlElements.size(); i++) {
 			GUIElement gui = toGUI(htmlElements.get(i), relativeX, relativeY, width, height,eventReader);
 			relativeY+=gui.getHeight() +YSPACE;
 			cont.add(gui);
