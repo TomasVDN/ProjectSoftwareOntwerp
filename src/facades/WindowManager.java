@@ -277,7 +277,6 @@ public class WindowManager {
 		
 		// Ctrl + s
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
-			System.out.print(keyCode);
 			if (keyCode == 83) {
 				this.setActiveDialog("saveDialog");
 			}
@@ -285,7 +284,6 @@ public class WindowManager {
 		
 		// Ctrl + d
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
-			System.out.print(keyCode);
 			if (keyCode == 68) {
 				this.setActiveDialog("bookmarkDialog");
 			}
