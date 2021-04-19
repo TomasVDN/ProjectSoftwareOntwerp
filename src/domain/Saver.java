@@ -85,9 +85,9 @@ public class Saver {
 		return filename == null || filename == "";
 	}
 	
-	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+	private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 
-	public String now() {
+	private String now() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
 		return sdf.format(cal.getTime());
