@@ -34,6 +34,7 @@ class TestSaver {
 			+ "</table>\n";
 	File directory = new File("savedPages");
 	
+	
 	@BeforeEach
 	void setup() {
 		saver.setHtmlCode(normalWebPage);
@@ -43,6 +44,7 @@ class TestSaver {
 	void cleanUp() {
 		deleteFolderContent(directory);
 	}
+	
 	
 	@Test
 	void testValidFileName() {
@@ -67,6 +69,7 @@ class TestSaver {
 		assertEquals(1, fileCount);
 	}
 	
+	
 	//https://stackoverflow.com/questions/7768071/how-to-delete-directory-content-in-java/8632891
 	private static void deleteFolderContent(File folder) {
 	    File[] files = folder.listFiles();
@@ -78,13 +81,11 @@ class TestSaver {
 	}
 
 	private String readFileToString(String filename) {
-
 		try {
 			return new String(Files.readAllBytes(Paths.get(filename)));
 		} catch (IOException e) {
 			return "Error";
-		}
-		
+		}		
 	}
 	
 

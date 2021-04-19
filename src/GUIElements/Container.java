@@ -11,20 +11,10 @@ public class Container extends GUIElement {
 		super(x, y, w, h);
 	}
 
-
-	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
-		
-	}
-
-	@Override
-	protected void handleUnselect() {}
-
-	@Override
-	public void handleClick() {
-		
-	}
-
+	/**
+	 * Paints all the GUIElements contained within this container.
+	 * @param g - Graphics object used to paint.
+	 */
 	@Override
 	public void paint(Graphics g) {
 		g.translate(getX(), getY());
@@ -40,7 +30,6 @@ public class Container extends GUIElement {
 	 * 			| otherwise null
 	 */
 	public GUIElement elementAt(int x, int y) {
-		//calculate the relativeX/Y
 		int relativeX= x - this.getX();
 		int relativeY= y - this.getY();
 		
@@ -110,9 +99,9 @@ public class Container extends GUIElement {
 		return null;
 	}
 
-
-
-
+	/**
+	 * Returns an array with all the elements in this Container of the given class.
+	 */
 	@Override
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array) {
 		for(GUIElement element: this.getElements()) {
@@ -120,5 +109,15 @@ public class Container extends GUIElement {
 		}
 		return array;
 	}
+	
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}
+
+	@Override
+	protected void handleUnselect() {}
+
+	@Override
+	public void handleClick() {}
+
 
 }
