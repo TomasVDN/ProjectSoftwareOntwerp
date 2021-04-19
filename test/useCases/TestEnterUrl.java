@@ -41,6 +41,8 @@ public class TestEnterUrl {
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 132, 28, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 132, 28, 1, MouseEvent.BUTTON1, 0);
 		
+		// check if search bar has focus
+		assertEquals(mainWindow.getWindowManager().getSearchbar(), mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertTrue(mainWindow.getWindowManager().getSearchbar().isActive());
 		
 		// put some text in search bar
