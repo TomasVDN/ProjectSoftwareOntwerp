@@ -26,18 +26,18 @@ class TestEnterURLWithRecording {
 				
 				SearchBar mainBar = mainWindow.getWindowManager().getSearchbar();
 				
-				int referenceBarContainerHeight = mainWindow.getWindowManager().getMainDialog().getPageContainer().getHeight();
-				int referenceBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getPageContainer().getWidth();
-				int referenceBarContainerX = mainWindow.getWindowManager().getMainDialog().getPageContainer().getX();
-				int referenceBarContainerY = mainWindow.getWindowManager().getMainDialog().getPageContainer().getY();
+				int referenceBarContainerHeight = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getHeight();
+				int referenceBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getWidth();
+				int referenceBarContainerX = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getX();
+				int referenceBarContainerY = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getY();
 				
 				//replay the recording
 				MyCanvasWindow.replayRecording("recordings/recordEnterUrlSuccess/recording", mainWindow);
 				
-				int mainBarContainerHeight = mainWindow.getWindowManager().getMainDialog().getPageContainer().getHeight();
-				int mainBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getPageContainer().getWidth();
-				int mainBarContainerX = mainWindow.getWindowManager().getMainDialog().getPageContainer().getX();
-				int mainBarContainerY = mainWindow.getWindowManager().getMainDialog().getPageContainer().getY();
+				int mainBarContainerHeight = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getHeight();
+				int mainBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getWidth();
+				int mainBarContainerX = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getX();
+				int mainBarContainerY = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getY();
 				
 				//checks if the windows are correctly placed, even after searching
 				assertEquals(mainBarContainerHeight ,referenceBarContainerHeight);
@@ -46,7 +46,7 @@ class TestEnterURLWithRecording {
 				assertEquals(mainBarContainerY ,referenceBarContainerY);
 
 				//testing GUI elements
-				Container pageContainer = mainWindow.getWindowManager().getMainDialog().getPageContainer();
+				Container pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
 				TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
 				TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 				TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);

@@ -87,7 +87,7 @@ class TestFillAndSubmitFormExtension {
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 55, 200, 1, MouseEvent.BUTTON1, 0);
 		
 		//check the error screen
-		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getPageContainer();
+		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
 		Text pageErrorText = (Text) (pageContainer.getElements().get(0));
 				
 		assertEquals("Error occured. Make sure you entered a valid URL.", pageErrorText.getText());

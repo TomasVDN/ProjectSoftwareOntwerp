@@ -101,7 +101,7 @@ class TestActivateBookmark {
 		assertEquals(mainBarContainerY, referenceBarContainerY);
 
 		//testing GUI elements
-		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getPageContainer();
+		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
 		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);

@@ -38,7 +38,7 @@ class TestActivateHyperlinkExtension {
 		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 70, 180, 1, MouseEvent.BUTTON1, 0);
 
 		//check the error screen
-		Container pageContainer = window.getWindowManager().getMainDialog().getPageContainer();
+		Container pageContainer = window.getWindowManager().getMainDialog().getDocumentArea();
 		Text pageErrorText = (Text) (pageContainer.getElements().get(0));
 		
 		assertEquals("Error occured. Make sure you entered a valid URL.", pageErrorText.getText());
@@ -53,7 +53,7 @@ class TestActivateHyperlinkExtension {
 		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 37, 205, 1, MouseEvent.BUTTON1, 0);
 
 		//check the error screen
-		Container pageContainer1 = window.getWindowManager().getMainDialog().getPageContainer();
+		Container pageContainer1 = window.getWindowManager().getMainDialog().getDocumentArea();
 		Text pageErrorText1 = (Text) (pageContainer1.getElements().get(0));
 		
 		assertEquals("Error occured. Reason: not a valid Browsr document.", pageErrorText1.getText());

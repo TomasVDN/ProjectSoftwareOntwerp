@@ -6,7 +6,7 @@ import events.EventReader;
 
 public class MainDialog extends Container {
 	
-	private Container pageContainer;
+	private Container documentArea;
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
@@ -30,15 +30,15 @@ public class MainDialog extends Container {
 		this.addBookmark(hyperlinkTest2);
 	}
 	
-	private void setContainers(Container pageContainer, Container searchBarContainer, Container bookmarkBarContainer) {
-		this.pageContainer = pageContainer;
+	private void setContainers(Container documentArea, Container searchBarContainer, Container bookmarkBarContainer) {
+		this.documentArea = documentArea;
 		this.searchBarContainer = searchBarContainer;
 		this.bookmarkBarContainer = bookmarkBarContainer;
 		this.allContainers = new ArrayList<Container>();
 		
 		allContainers.add(searchBarContainer);
 		allContainers.add(bookmarkBarContainer);
-		allContainers.add(pageContainer);
+		allContainers.add(documentArea);
 	}
 	
 	private void initSearchBar(EventReader eventReader) {
@@ -63,15 +63,15 @@ public class MainDialog extends Container {
 	/**
 	 * @return the page
 	 */
-	public Container getPageContainer() {
-		return pageContainer;
+	public Container getDocumentArea() {
+		return documentArea;
 	}
 
 	/**
 	 * @param page the page to set
 	 */
-	public void setPageContainer(Container page) {
-		this.pageContainer = page;
+	public void setDocumentArea(Container page) {
+		this.documentArea = page;
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class MainDialog extends Container {
 	 */
 	@Override
 	public void addElement(GUIElement element) {
-		this.getPageContainer().addElement(element);
+		this.getDocumentArea().addElement(element);
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public class MainDialog extends Container {
 	 */
 	@Override
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
-		this.getPageContainer().addMultipleElements(guiList);
+		this.getDocumentArea().addMultipleElements(guiList);
 	}
 	
 	/**
@@ -159,7 +159,7 @@ public class MainDialog extends Container {
 	 */
 	@Override
 	public void resetAllElements(ArrayList<GUIElement> guiList) {
-		this.getPageContainer().resetAllElements(guiList);
+		this.getDocumentArea().resetAllElements(guiList);
 	}
 	
 	@Override

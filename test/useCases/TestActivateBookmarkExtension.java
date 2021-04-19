@@ -81,7 +81,7 @@ class TestActivateBookmarkExtension {
 		
 		// Step 4.4.2.a
 		//check the error screen
-		Container pageContainer1 = mainWindow.getWindowManager().getMainDialog().getPageContainer();
+		Container pageContainer1 = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
 		Text pageErrorText = (Text) (pageContainer1.getElements().get(0));
 				
 		assertEquals("Error occured. Make sure you entered a valid URL.", pageErrorText.getText());
