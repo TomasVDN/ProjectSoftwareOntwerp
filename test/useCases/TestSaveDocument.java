@@ -164,6 +164,8 @@ private MyCanvasWindow mainWindow;
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertFalse(saveDialog.getTextBox().isActive());
+		assertFalse(saveButton.isActive());
 		
 		// Step 4.6.8
 		// check if the file is created
