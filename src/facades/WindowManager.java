@@ -29,7 +29,6 @@ public class WindowManager {
 	private int height;
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
-	//private GUIElement elementWithKeyboardFocus;
 	private GUIElement pressedElement;
 	
 	private EventReader eventReader;
@@ -171,27 +170,7 @@ public class WindowManager {
 	 * @param element - the new activeElement
 	 */
 	public void changeElementWithKeyboardFocus(GUIElement element) {
-		GUIElement elementWithKeyboardFocus = this.getElementWithKeyboardFocus();
-		if(element!= elementWithKeyboardFocus) {
-			//deactivate old activeElement
-			if (elementWithKeyboardFocus != null && this.getElementWithKeyboardFocus().isActive()) {
-				elementWithKeyboardFocus.setActive(false);
-			}
-			
-			//activate new activeElement
-			this.setElementWithKeyboardFocus(element);
-			
-			if (element != null) {
-				element.handleClick();
-				element.setActive(true);
-			}
-		}
-		else {
-			//if the given element is already the activeElement.
-			if(element!=null) {
-				element.handleClick();
-			}
-		}
+		this.getActiveDialog().changeElementWithKeyboardFocus(element);
 	}
 	
 	/**
@@ -207,7 +186,6 @@ public class WindowManager {
 	 * @return the elementWithKeyboardFocus
 	 */
 	public GUIElement getElementWithKeyboardFocus() {
-		//return elementWithKeyboardFocus;
 		return this.getActiveDialog().getKeyBoardFocus();
 	}
 
@@ -216,7 +194,6 @@ public class WindowManager {
 	 */
 	public void setElementWithKeyboardFocus(GUIElement elementWithKeyboardFocus) {
 		this.getActiveDialog().setKeyBoardFocus(elementWithKeyboardFocus);
-		//this.elementWithKeyboardFocus = elementWithKeyboardFocus;
 	}
 	
 	/**
@@ -344,13 +321,9 @@ public class WindowManager {
 		if (this.getActiveDialog() != this.getMainDialog() && type != "mainDialog") {
 			return;
 		}
-		
 		//TODO rename function/keep with strings?
-		//this.changeElementWithKeyboardFocus(null);
-		this.getMainDialog().setKeyBoardFocus(this.getElementWithKeyboardFocus());
 		switch (type) {
 		case "mainDialog":
-			this.changeElementWithKeyboardFocus(this.getMainDialog().getKeyBoardFocus());
 			setMainDialogToActive();
 			break;
 		case "saveDialog":
@@ -361,6 +334,7 @@ public class WindowManager {
 		default:
 			break;
 		}
+		this.getActiveDialog().getKeyBoardFocus();
 	}
 	
 	/**
