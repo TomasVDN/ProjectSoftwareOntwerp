@@ -85,7 +85,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		if(this.getRootGui()==null) {
 			return null;
 		}
-		return this.getRootGui().getGUIAtPosition(x, y);
+		return this.getRootGui().getGUIAtPosition(x-this.getX(), y-this.getY());
 	}
 
 
