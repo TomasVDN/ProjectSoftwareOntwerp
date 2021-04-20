@@ -82,10 +82,12 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
+		int relativeX= x - this.getX();
+		int relativeY= y - this.getY();
 		if(this.getRootGui()==null) {
 			return null;
 		}
-		return this.getRootGui().getGUIAtPosition(x, y);
+		return this.getRootGui().getGUIAtPosition(relativeX, relativeY);
 	}
 
 
