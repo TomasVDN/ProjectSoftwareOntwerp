@@ -38,6 +38,7 @@ class TestSaver {
 	@BeforeEach
 	void setup() {
 		saver.setHtmlCode(normalWebPage);
+		deleteFolderContent(directory);
 	}
 	
 	@AfterEach
