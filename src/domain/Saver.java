@@ -85,7 +85,7 @@ public class Saver {
 		return filename == null || filename == "";
 	}
 	
-	private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+	private static final String DATE_FORMAT_NOW = "yyyy-MM-dd_HH-mm-ss";
 
 	private String now() {
 		Calendar cal = Calendar.getInstance();
