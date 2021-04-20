@@ -258,14 +258,14 @@ public class WindowManager {
 		// Ctrl + s
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			if (keyCode == 83) {
-				this.setSaveDialogToActive();
+				this.setActiveDialog("saveDialog");
 			}
 		}
 		
 		// Ctrl + d
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			if (keyCode == 68) {
-				this.setBookmarkDialogToActive();
+				this.setActiveDialog("bookmarkDialog");
 			}
 		}
 		
