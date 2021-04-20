@@ -67,6 +67,14 @@ class TestAddBookmark {
 		// get amount of elements in bookmarkBar before adding the new bookmark
 		int amountOfElementsInBookmarkTableBefore = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();
 		
+		//Click out of the searchbar
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 200, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED,0, 200, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 0, 200, 1, MouseEvent.BUTTON1, 0);
+		
+		
+		
+		
 		// Step 4.5.1
 		// User presses Ctrl + D
 		// TODO die juiste combinaties vinden voor Ctrl + D
@@ -320,15 +328,15 @@ class TestAddBookmark {
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertFalse(bookmarkDialog.getNameTextBox().isActive());
-		assertFalse(bookmarkDialog.getUrlTextBox().isActive());
-		assertFalse(addBookmarkButton.isActive());
+
 		
 		// check if right title is shown
 		assertEquals("Browsr", mainWindow.getTitle());
 		
 		// check if the input TextBoxes of bookmarkDialog are not active
-		assertFalse(bookmarkDialog.getNameTextBox().isActive());
-		assertFalse(bookmarkDialog.getUrlTextBox().isActive());
+		assertNotEquals(bookmarkDialog.getNameTextBox(),mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertNotEquals(bookmarkDialog.getUrlTextBox(),mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		
 		
 		// check if the bookmarkBar is increased with one element
 		int amountOfElementsInBookmarkTableAfter = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();

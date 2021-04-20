@@ -65,6 +65,12 @@ class TestSaveDocumentExtension {
 		// check if right title is shown
 		assertEquals("Browsr", mainWindow.getTitle());
 		
+		//click outside searchBar
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 200, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 0, 200, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 0, 200, 1, MouseEvent.BUTTON1, 0);
+		
+		
 		// Step 4.6.1
 		// User presses Ctrl + S
 		// TODO die juiste combinaties vinden voor Ctrl + S
@@ -159,8 +165,9 @@ class TestSaveDocumentExtension {
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
-		assertFalse(saveDialog.getTextBox().isActive());
-		assertFalse(cancelButton.isActive());
+		assertNotEquals(saveDialog.getTextBox(),mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertNotEquals(cancelButton,mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		
 		
 		// Step 4.6.8
 		// check if the file is not created

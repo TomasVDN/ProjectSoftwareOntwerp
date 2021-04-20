@@ -235,15 +235,19 @@ private MyCanvasWindow mainWindow;
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertFalse(bookmarkDialog.getNameTextBox().isActive());
-		assertFalse(bookmarkDialog.getUrlTextBox().isActive());
-		assertFalse(cancelButton.isActive());
+		//assertFalse(bookmarkDialog.getUrlTextBox().isActive());
+		//assertFalse(cancelButton.isActive());
+		assertNotEquals(bookmarkDialog.getUrlTextBox(),mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertNotEquals(cancelButton,mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
 		// check if right title is shown
 		assertEquals("Browsr", mainWindow.getTitle());
 		
-		// check if the input TextBoxes of bookmarkDialog are not active
+		// check if the input TextBoxes of bookmarkDialog are not keyboardfocus
 		assertFalse(bookmarkDialog.getNameTextBox().isActive());
-		assertFalse(bookmarkDialog.getUrlTextBox().isActive());
+		assertNotEquals(bookmarkDialog.getNameTextBox(),mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertNotEquals(bookmarkDialog.getUrlTextBox(),mainWindow.getWindowManager().getElementWithKeyboardFocus());
+
 		
 		// check if the bookmarkBar has the same amount of elements
 		int amountOfElementsInBookmarkTableAfter = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();

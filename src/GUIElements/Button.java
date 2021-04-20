@@ -41,7 +41,14 @@ public class Button extends GUIElement implements ActionCreator {
 		this.setMustDrawBox(mustDrawBox);
 	}
 	
-	
+	/**
+	 * Constructor of the Button class. draws a button surrounding given box
+     * @param x - x coordinate of this Button
+     * @param y - y coordinate of this Button
+	 * @param text - content of this button
+	 * @param box - boolean to draw or not draw a surrounding box
+	 * @param color - the inner color of the button
+	 */
 	public Button(int x, int y, Text text, Boolean box, Color color) {
 		super(x, y);
 		this.setButtonColor(color);
@@ -51,13 +58,37 @@ public class Button extends GUIElement implements ActionCreator {
 		this.setHeight(text.getHeight());
 	}
 	
+	/**
+	 * This expresses the state in which the button is in
+	 * There are 2 states, the pressed state and the unpressedState
+	 * @author kobe
+	 *
+	 */
 	private static abstract class State {
+		/**
+		 * paints the button
+		 * @param g - the graphics for drawing
+		 */
 		abstract void paint(Graphics g);
+		/**
+		 * Method called when button is pressed
+		 */
 		abstract void handlePressClick();
+		/**
+		 * Method called when mouse is released on button
+		 * @param releasedOn - True if the mouse is released on the button
+		 *  otherwise is false
+		 */
 		abstract void handleReleaseClick(boolean releasedOn);
+		/**
+		 * Returns the current state as a string
+		 */
 		abstract String getStateName();
 		}
-	
+	/**
+	 * Unpressed state of the button
+	 *
+	 */
 	private class UnpressedState extends State {
 		void paint(Graphics g) {
 			if (mustDrawBox()) drawBox(g,getButtonColor());
@@ -76,6 +107,10 @@ public class Button extends GUIElement implements ActionCreator {
 		}
 	}
 	
+	/**
+	 * Pressed state of the button
+	 *
+	 */
 	private class PressedState extends State {
 		void paint(Graphics g) {
 			if (mustDrawBox()) drawBox(g,getButtonColor().darker());
@@ -109,6 +144,11 @@ public class Button extends GUIElement implements ActionCreator {
 		state.paint(g);
 	}
 	
+	/**
+	 * Draws a box in the given color with a black line surrounding it
+	 * @param g - the graphics to draw
+	 * @param buttonColor - the color of the rectangle
+	 */
 	private void drawBox(Graphics g,Color buttonColor) {
 		g.setColor(Color.black);
 		g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
@@ -117,7 +157,11 @@ public class Button extends GUIElement implements ActionCreator {
 		g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
 	}
 	
+	/**
+	 * Draws black text inside the button
+	 */
 	private void drawText(Graphics g) {
+		g.setColor(Color.black);
 		Shape oldClip = g.getClip();
 		g.setClip(getX(), getY(), getWidth(), getHeight());
 		this.getText().paint(g);
@@ -239,10 +283,16 @@ public class Button extends GUIElement implements ActionCreator {
 		listeners.remove(listener);
 	}
 	
+	/**
+	 * Returns the array of actionListeners to this button
+	 */
 	public List<ActionListener> getListeners() {
 		return listeners;
 	}
 
+	/**
+	 * Returns the string representing the state of the button
+	 */
 	public String getStateName() {
 		return state.getStateName();
 	}

@@ -193,12 +193,7 @@ public class WindowManager {
 		return this.getActiveDialog().getKeyBoardFocus();
 	}
 
-	/**
-	 * @param elementWithKeyboardFocus the elementWithKeyboardFocus to set
-	 */
-	public void setElementWithKeyboardFocus(GUIElement elementWithKeyboardFocus) {
-		this.getActiveDialog().setKeyBoardFocus(elementWithKeyboardFocus);
-	}
+
 	
 	/**
 	 * @return this.width

@@ -69,6 +69,12 @@ private MyCanvasWindow mainWindow;
 		// check if right title is shown
 		assertEquals("Browsr", mainWindow.getTitle());
 		
+		// Let searchBar lose focus
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 200, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 0, 200, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 0, 200, 1, MouseEvent.BUTTON1, 0);
+		
+		
 		// Step 4.6.1
 		// User presses Ctrl + S
 		// TODO die juiste combinaties vinden voor Ctrl + S
@@ -163,9 +169,10 @@ private MyCanvasWindow mainWindow;
 
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
-		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
-		assertFalse(saveDialog.getTextBox().isActive());
-		assertFalse(saveButton.isActive());
+		assertNotEquals(mainWindow.getWindowManager().getSearchbar(), mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertNotEquals(saveDialog.getTextBox(),mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		assertNotEquals(saveButton,mainWindow.getWindowManager().getElementWithKeyboardFocus());
+		
 		
 		// Step 4.6.8
 		// check if the file is created
