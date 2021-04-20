@@ -40,7 +40,7 @@ public class Saver {
 	 */
 	public void saveToFile(String filename) {
 		if (notValidFilename(filename)) {
-			filename = "output" ;//+ this.now();
+			filename = "output" + this.now();
 		}
 		
 		if (!filename.contains(".html")) {
