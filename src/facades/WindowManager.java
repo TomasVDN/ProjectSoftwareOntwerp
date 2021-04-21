@@ -122,13 +122,7 @@ public class WindowManager {
 	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers) {
-		try {
-			if(! ignoreClick) {
-				changeElementWithKeyboardFocus(getActiveDialog().getGUIAtPosition(x, y));
-			}
-		} catch (NullPointerException e) {
-			changeElementWithKeyboardFocus(null);
-		}		
+		this.getActiveDialog().handleClickLeftMouse(x, y, clickCount, modifiers);	
 	}
 	
 	/**
@@ -139,7 +133,7 @@ public class WindowManager {
 	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
 	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
-		this.ignoreClick=false;
+		//this.ignoreClick=false;
 		GUIElement guiPressed = this.getActiveDialog().getGUIAtPosition(x, y);
 		this.setPressedElement(guiPressed);
 		if(guiPressed!=null) {
@@ -167,22 +161,12 @@ public class WindowManager {
 		this.setPressedElement(null);
 	}
 	
-	
-	
-	/**
-	 * This method changes the activeElement to the given element, and invokes element.handleClick. If the given element is already the activeElement, it only invokes element.handleClick.
-	 * @param element - the new activeElement
-	 */
-	public void changeElementWithKeyboardFocus(GUIElement element) {
-		this.getActiveDialog().changeElementWithKeyboardFocus(element);
-	}
-	
 	/**
 	 * This handles hyperlinks.
 	 * @param url
 	 */
 	public void updateURL(String url) {
-		this.changeElementWithKeyboardFocus(null);
+		this.getActiveDialog().changeElementWithKeyboardFocus(null);
 		this.getMainDialog().getSearchbar().replaceBox(url);
 	}
 
@@ -192,8 +176,6 @@ public class WindowManager {
 	public GUIElement getElementWithKeyboardFocus() {
 		return this.getActiveDialog().getElementWithKeyBoardFocus();
 	}
-
-
 	
 	/**
 	 * @return this.width
@@ -249,10 +231,7 @@ public class WindowManager {
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx != 128) {
-			GUIElement element = this.getElementWithKeyboardFocus();
-			if (element != null) {
-				element.handleKeyEvent(keyCode, keyChar, modifiersEx);
-			}
+			this.getActiveDialog().handleKeyEvent(keyCode, keyChar, modifiersEx);
 		}
 		
 		// Ctrl + s
@@ -320,7 +299,7 @@ public class WindowManager {
 		if (this.getActiveDialog() != this.getMainDialog() && type != "mainDialog") {
 			return;
 		}
-		//TODO rename function/keep with strings?
+
 		switch (type) {
 		case "mainDialog":
 			setMainDialogToActive();

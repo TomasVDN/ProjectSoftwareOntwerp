@@ -55,5 +55,21 @@ public abstract class Dialog extends Container {
 			}
 		}
 	}
+
+	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
+		try {
+			//if(! ignoreClick) {
+				changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
+			//}
+		} catch (NullPointerException e) {
+			changeElementWithKeyboardFocus(null);
+		}
+	}
 	
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
+		if (elementWithKeyBoardFocus != null) {
+			elementWithKeyBoardFocus.handleKeyEvent(keyCode, keyChar, modifiersEx);
+		}
+	}
 }
