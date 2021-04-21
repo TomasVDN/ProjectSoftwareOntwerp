@@ -5,7 +5,6 @@ import java.util.List;
 
 import EventCreators.SearchBarEventCreator;
 import EventListeners.SearchBarListener;
-import events.EventReader;
 
 
 public class SearchBar extends TextBox implements SearchBarEventCreator {
@@ -18,6 +17,7 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 	 * @param y - y coordinate of the SearchBar
 	 * @param w - width of the SearchBar
 	 * @param h - height of the SearchBar
+	 * @param eventReader - the eventReader used for the SearchBarListener
 	 */
 	public SearchBar(int x, int y, int w, int h, SearchBarListener eventReader) {
 		super(x, y, w, h);
@@ -57,12 +57,10 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 		String URL = this.getText();
 		int index = URL.lastIndexOf("/");
 		//checks if two slashes used or no slashes are found at all, then don't remove anything
-		if(index<0 || URL.charAt(index-1)=='/') {
+		if(index < 0 || URL.charAt(index-1) == '/') {
 			return URL + "/"; //adds slash at the end of the string
 		}
 		return URL.substring(0, index+1);
-		
-		
 	}
 
 	@Override

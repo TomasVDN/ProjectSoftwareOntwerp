@@ -7,6 +7,13 @@ public class Container extends GUIElement {
 
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 
+	/**
+	 * Constructor of the Container class. It extends the GUIElement class.
+	 * @param x - x coordinate of this Container
+     * @param y - y coordinate of this Container
+     * @param w - width of this Container
+     * @param h - height of this Container
+	 */
 	public Container(int x, int y, int w, int h) {
 		super(x, y, w, h);
 	}

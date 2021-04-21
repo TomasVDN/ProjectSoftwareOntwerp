@@ -30,6 +30,12 @@ public class MainDialog extends Dialog {
 		this.addBookmark(hyperlinkTest2);
 	}
 	
+	/**
+	 * Initializes the containers.
+	 * @param documentArea
+	 * @param searchBarContainer
+	 * @param bookmarkBarContainer
+	 */
 	private void setContainers(Container documentArea, Container searchBarContainer, Container bookmarkBarContainer) {
 		this.documentArea = documentArea;
 		this.searchBarContainer = searchBarContainer;
@@ -41,12 +47,19 @@ public class MainDialog extends Dialog {
 		allContainers.add(documentArea);
 	}
 	
+	/**
+	 * Initializes the searchBar of this MainDialog.
+	 * @param eventReader
+	 */
 	private void initSearchBar(EventReader eventReader) {
 		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, eventReader);
 		this.setSearchbar(searchBar);
 		this.getSearchBarContainer().addElement(searchBar);
 	}
 	
+	/**
+	 * Initializes the bookmarkBar of this MainDialog. Uses a table to line up all the elements.
+	 */
 	private void initBookmarkBar() {
 		Text t = new Text(0, 0, "Bookmarks:");
 		TableCellGUI c = new TableCellGUI(t, 0, 0, 0, 0);
@@ -126,15 +139,18 @@ public class MainDialog extends Dialog {
 		this.bookmarkBar = bookmarkBar;
 	}
 	
+	/**
+	 * Adds a bookmark to the BookmarkBar of this MainDialog
+	 * @param newBookmark
+	 */
 	public void addBookmark(BookmarkHyperlink newBookmark) {
 		ArrayList<TableCellGUI> bookmarkCells = this.bookmarkBar.getGuiRows().get(0).getGuiElements();
-		TableCellGUI newBookmarkCell = new TableCellGUI(newBookmark, 0, 0, 0, 0); // TODO die posities misschien veranderen?
+		TableCellGUI newBookmarkCell = new TableCellGUI(newBookmark, 0, 0, 0, 0);
 		bookmarkCells.add(newBookmarkCell);
 		TableRowGUI updatedRow = new TableRowGUI(bookmarkCells, 0, 0);
 		ArrayList<TableRowGUI> updatedRows = new ArrayList<TableRowGUI>();
 		updatedRows.add(updatedRow);
-		this.getBookmarkBar().setGuiRows(updatedRows);; // TODO die get(0) misschien op een andere manier doen?
-		//this.getBookmarkBar().updateTableCells();
+		this.getBookmarkBar().setGuiRows(updatedRows);
 	}
 	
 	/**
@@ -162,6 +178,9 @@ public class MainDialog extends Dialog {
 		this.getDocumentArea().resetAllElements(guiList);
 	}
 	
+	/**
+	 * Paints all the components in this dialog.
+	 */
 	@Override
 	public void paint(Graphics g) {
 		g.translate(getX(), getY());
@@ -186,7 +205,7 @@ public class MainDialog extends Dialog {
 	}
 
 	/**
-	 * @return the allContainers
+	 * @return this.allContainers
 	 */
 	public ArrayList<Container> getAllContainers() {
 		return allContainers;

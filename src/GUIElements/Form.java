@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import EventCreators.ActionCreator;
 import EventCreators.FormEventCreator;
 import EventListeners.*;
-import events.EventReader;
-import htmlElement.ContentSpan;
 
 
 public class Form extends GUIElement implements ActionListener,FormEventCreator {

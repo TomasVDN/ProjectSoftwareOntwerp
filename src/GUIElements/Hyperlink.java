@@ -16,7 +16,6 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 	//Map for setting the underline in the font and Variable for the url
     private Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
 	private String url;
-	protected EventReader eventReader;
 
 	private ArrayList<HyperLinkListener> eventListener = new ArrayList<HyperLinkListener>();
 
@@ -27,6 +26,7 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 	 * @param y - y coordinate
 	 * @param text - Text element of the hyperlink
 	 * @param url - URL to which the hyperlink redirects
+	 * @param eventReader - eventReader for the listeners
 	 */
 	public Hyperlink(int x, int y, Text text, String url, EventReader eventReader) {
 		super(x, y,text);
@@ -37,15 +37,20 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 		initiateClickListeners();
 	}
 	
+	/**
+	 * Initializes the clickListeners
+	 */
 	protected void initiateClickListeners() {
 		this.addSingleClickListener(() ->{
-			System.out.println("CLICK OP HYPERLINK");
 			for(HyperLinkListener listener: this.getHyperListeners()) {
 				listener.handleHyperLinkClicked(this.getUrl());
 			}
 		});
 	}
 	
+	/**
+	 * Initializes the font to use for the Hyperlink
+	 */
 	private void initFont() {
 		fontAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		Font boldUnderline = this.getFont().deriveFont(fontAttributes);
@@ -85,25 +90,13 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 		return eventListener;
 	}
 
-
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}
 
 	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void handleUnselect() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void handleUnselect() {}
 
 	protected ArrayList<Runnable> clickListeners = new ArrayList<Runnable>();
-	
 
 	/**
 	 * adds a listener for a singleClick action
@@ -112,7 +105,6 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 	public void addSingleClickListener(Runnable f) {
 		clickListeners.add(f);
 	}
-	
 	
 	@Override
 	public void handleClick() {

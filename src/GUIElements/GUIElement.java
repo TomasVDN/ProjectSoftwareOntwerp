@@ -226,8 +226,6 @@ public abstract class GUIElement {
 		
 		return null;
 	}
-	
-	
 
 	/**
 	 * Returns all the elements of given GUI back into an array

@@ -30,6 +30,14 @@ public class TextBox extends GUIElement {
 		selectedText = "";
 	}
 	
+	/**
+	 * Constructor of the TextBox class
+	 * @param x - x coordinate of the TextBox
+	 * @param y - y coordinate of the TextBox
+	 * @param w - width of the TextBox
+	 * @param h - height of the TextBox
+	 * @param name - name of this textBox instance
+	 */
 	public TextBox(int x, int y, int w, int h,String name) {
 		super(x, y, w, h);
 		this.setName(name);
@@ -177,6 +185,10 @@ public class TextBox extends GUIElement {
 		g.setClip(oldClip);
 	}
 	
+	/**
+	 * Draws the content (backgroundColor)
+	 * @param g
+	 */
 	private void drawContent(Graphics g) {
 		if (isActive()) {
 			g.setColor(Color.gray);
@@ -187,6 +199,11 @@ public class TextBox extends GUIElement {
 		g.setColor(Color.black);
 	}
 	
+	/**
+	 * Draw the text from this textBox.
+	 * @param g
+	 * @param metrics
+	 */
 	private void drawText(Graphics g, FontMetrics metrics) {
 		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
 		
@@ -201,6 +218,11 @@ public class TextBox extends GUIElement {
 		g.drawString(this.getText(), super.getX()+10, y);
 	}
 	
+	/**
+	 * Draws the cursor.
+	 * @param g
+	 * @param metrics
+	 */
 	private void drawCursor(Graphics g, FontMetrics metrics) {
 		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
 		int x = super.getX() + metrics.stringWidth(leftText) + 10;
@@ -214,7 +236,7 @@ public class TextBox extends GUIElement {
 	 * Does the needed actions for the enter key.
 	 */
 	void handleEnter() {
-		this.setActive(false);// gewone textbox gaat inactief worden bij enter
+		this.setActive(false);
 	}
 	
 	/**
@@ -434,15 +456,23 @@ public class TextBox extends GUIElement {
 		this.setRigthText("");
 	}
 
-
+	/**
+	 * @return this.name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name new value of this.name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * Returns this TextBox under string format.
+	 */
 	@Override
 	public String toString() {
 		return this.getName() +"=" + this.getText();

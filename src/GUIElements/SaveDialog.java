@@ -13,6 +13,14 @@ public class SaveDialog extends Dialog implements ChangeDialogEventCreator, Save
 
 	private TextBox textBox;
 
+	/**
+	 * Constructor of the SaveDialog class. It extends the Dialog class and implements the SavePageEventCreator and ChangeDialogEventCreator.
+	  * @param x - x coordinate of this SaveDialog
+     * @param y - y coordinate of this SaveDialog
+     * @param w - width of this SaveDialog
+     * @param h - height of this SaveDialog
+	 * @param eventReader - eventReader of this SaveDialog
+	 */
 	public SaveDialog(int x, int y, int w, int h, EventReader eventReader) {
 		super(x, y, w, h);
 		
@@ -24,6 +32,10 @@ public class SaveDialog extends Dialog implements ChangeDialogEventCreator, Save
 		this.addSavePageListener(eventReader);
 	}
 	
+	/**
+	 * Initializes the textBox used for the file name input.
+	 * @param width - width of this dialog.
+	 */
 	private void initTextBox(int width) {
 		Text text = new Text(10, 15, "File name:");
 		this.addElement(text);
@@ -31,6 +43,10 @@ public class SaveDialog extends Dialog implements ChangeDialogEventCreator, Save
 		this.addElement(textBox);
 	}
 	
+	/**
+	 * Initializes the cancel button.
+	 * @param width - width of this dialog.
+	 */
 	private void initCancelButton(int width) {
 		int xPos = Math.floorDiv(width, 4);
 		Button cancelButton = new Button(xPos, 100, new Text(xPos, 100, "Cancel"), true, Color.lightGray);
@@ -44,6 +60,10 @@ public class SaveDialog extends Dialog implements ChangeDialogEventCreator, Save
 		this.addElement(cancelButton);
 	}
 	
+	/**
+	 * Initializes the save button.
+	 * @param width - width of this dialog.
+	 */
 	private void initSaveButton(int width) {
 		int xPos = 3 * Math.floorDiv(width, 4);
 		Button submitButton = new Button( xPos, 100, new Text(xPos , 100, "Save"), true, Color.lightGray);

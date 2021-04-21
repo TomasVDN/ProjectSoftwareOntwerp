@@ -201,25 +201,19 @@ public class TableCellGUI extends GUIElement {
 	public int getHeight() {
 		return this.height;
 	}
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}
+
+	@Override
+	protected void handleUnselect() {}
+
+	@Override
+	public void handleClick() {}
 	
-
-	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void handleUnselect() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void handleClick() {
-		// TODO Auto-generated method stub	
-	}
-	
+	/**
+	 * Returns an array with all the elements in this Container of the given class.
+	 */
 	@Override
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
 		return this.getGui().getGuiClass(cls, array);

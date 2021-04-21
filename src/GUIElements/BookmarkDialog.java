@@ -17,6 +17,14 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 	private ArrayList<AddBookmarkListener> eventListener = new ArrayList<AddBookmarkListener>();
 	private ArrayList<ChangeDialogListener> eventListener2 = new ArrayList<ChangeDialogListener>();
 	
+	/**
+	 * Constructor of the BookmarkDialog class. It extends the Dialog class and implements the AddBookmarkEventCreator and ChangeDialogEventCreator.
+	  * @param x - x coordinate of this BookmarkDialog
+     * @param y - y coordinate of this BookmarkDialog
+     * @param w - width of this BookmarkDialog
+     * @param h - height of this BookmarkDialog
+	 * @param eventReader - eventReader of this BookmarkDialog
+	 */
 	public BookmarkDialog(int x, int y, int w, int h, EventReader eventReader) {
 		super(x, y, w, h);
 
@@ -30,11 +38,18 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.addChangeDialogListener(eventReader);
 	}
 	
+	/**
+	 * Initialize the header.
+	 */
 	private void initHeader() {
 		Text headerText = new Text(10, 0, "Create a new bookmark");
 		this.addElement(headerText);
 	}
 	
+	/**
+	 * Initializes the textBox for the name input.
+	 * @param width - width of the dialog
+	 */
 	private void initNameInput(int width) {
 		Text bookmarkHyperlinkNameText = new Text(10, 40, "Name:");
 		this.addElement(bookmarkHyperlinkNameText);
@@ -43,6 +58,10 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.addElement(bookmarkHyperlinkNameTextBox);
 	}
 	
+	/**
+	 * Initializes the textBox for the url input.
+	 * @param width - width of the dialog
+	 */
 	private void initUrlInput(int width) {
 		Text bookmarkHyperlinkUrlText = new Text(10, 90, "URL:");
 		this.addElement(bookmarkHyperlinkUrlText);
@@ -51,6 +70,10 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.addElement(bookmarkHyperlinkUrlTextBox);
 	}
 	
+	/**
+	 * Initializes the cancel button.
+	 * @param width - width of the dialog
+	 */
 	private void initCancelButton(int width) {
 		int xPos = Math.floorDiv(width, 4);
 		Button cancelButton = new Button(xPos, 200, new Text(xPos, 200, "Cancel"), true, Color.lightGray);
@@ -63,6 +86,10 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.addElement(cancelButton);
 	}
 	
+	/**
+	 * Initializes the addBookmark button.
+	 * @param width - width of the dialog
+	 */
 	private void initAddBookmarkButton(int width) {
 		int xPos = 2 * Math.floorDiv(width, 4);
 		
@@ -111,6 +138,10 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.bookmarkHyperlinkUrlTextBox = urlTextBox;
 	}
 	
+	/**
+	 * Method used to set the suggested URL when loading the bookmark dialog.
+	 * @param suggestedUrl
+	 */
 	public void setSuggestedUrl(String suggestedUrl) {
 		this.getUrlTextBox().setLeftText(suggestedUrl);
 	}

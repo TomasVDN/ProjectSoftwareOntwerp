@@ -2,18 +2,31 @@ package GUIElements;
 
 public abstract class Dialog extends Container {
 
-	private GUIElement keyBoardFocus;
+	private GUIElement elementWithKeyBoardFocus;
 	
+	/**
+	 * Constructor of the Dialog class. It extends the Container class.
+	 * @param x - x coordinate of this Dialog
+     * @param y - y coordinate of this Dialog
+     * @param w - width of this Dialog
+     * @param h - height of this Dialog
+	 */
 	public Dialog(int x, int y, int w, int h) {
 		super(x, y, w, h);
 	}
 
-	public GUIElement getKeyBoardFocus() {
-		return keyBoardFocus;
+	/**
+	 * @return this.elementWithKeyBoardFocus
+	 */
+	public GUIElement getElementWithKeyBoardFocus() {
+		return elementWithKeyBoardFocus;
 	}
 
-	public void setKeyBoardFocus(GUIElement keyBoardFocus) {
-		this.keyBoardFocus = keyBoardFocus;
+	/**
+	 * @param elementWithKeyBoardFocus - new value of this.elementWithKeyBoardFocus
+	 */
+	public void setElementWithKeyBoardFocus(GUIElement elementWithKeyBoardFocus) {
+		this.elementWithKeyBoardFocus = elementWithKeyBoardFocus;
 	}
 	
 	/**
@@ -21,15 +34,15 @@ public abstract class Dialog extends Container {
 	 * @param element - the new activeElement
 	 */
 	public void changeElementWithKeyboardFocus(GUIElement element) {
-		GUIElement elementWithKeyboardFocus = this.getKeyBoardFocus();
+		GUIElement elementWithKeyboardFocus = this.getElementWithKeyBoardFocus();
 		if(element!= elementWithKeyboardFocus) {
 			//deactivate old activeElement
-			if (elementWithKeyboardFocus != null && this.getKeyBoardFocus().isActive()) {
+			if (elementWithKeyboardFocus != null && this.getElementWithKeyBoardFocus().isActive()) {
 				elementWithKeyboardFocus.setActive(false);
 			}
 			
 			//activate new activeElement
-			this.setKeyBoardFocus(element);
+			this.setElementWithKeyBoardFocus(element);
 			
 			if (element != null) {
 				element.handleClick();

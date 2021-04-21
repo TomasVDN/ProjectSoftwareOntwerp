@@ -32,10 +32,18 @@ public class Text extends GUIElement {
 		setWidth(fontMetrics.stringWidth(text));
 	}
 	
-	public Text(int x,int y,Text t) {
+	/**
+	 * Constructor of the Text class from another Text class.
+	 * @param x - x coordinate of the Text
+	 * @param y - y coordinate of the Text
+	 * @param t - Text to copy
+	 */
+	public Text(int x,int y, Text t) {
 		super(x,y);
+		
 		this.setText(t.getText());
 		this.setFont(t.getFont());
+		
 		FontMetricGetter f = FontMetricGetter.getInstance();
 		this.fontMetrics = f.getFontMetric(font);
 		
@@ -44,9 +52,7 @@ public class Text extends GUIElement {
 	}
 
 	/**
-	 * Draws this.text on coordinates (this.x + xContainer, y + yContainer)
-	 * @param xContainer - x coordinate of parent container
-	 * @param yContainer - y coordinate of parent container
+	 * Draws this class.
 	 * @param g - graphics object used to paint
 	 */
 	@Override
@@ -63,9 +69,7 @@ public class Text extends GUIElement {
 	}
 	
 	/**
-	 * Draws this.text on coordinates (this.x + xContainer, y + yContainer) in given color
-	 * @param xContainer - x coordinate of parent container
-	 * @param yContainer - y coordinate of parent container
+	 * Draws this class in the given color.
 	 * @param g - graphics object used to paint
 	 * @param color - color to draw content with
 	 */
@@ -77,6 +81,7 @@ public class Text extends GUIElement {
 		
 		g.setClip(getX(), getY(), getWidth(), getHeight());
 		super.drawCenteredText(g, this.getText());
+		
 		g.setClip(oldClip);
 	}
 	

@@ -25,6 +25,10 @@ public class TableGUI extends GUIElement {
 		return guiRows;
 	}
 
+	/**
+	 * @param guiElements - new value of this.guiRows
+	 * @throws IllegalArgumentException - thrown if guiElements is null
+	 */
 	public void setGuiRows(ArrayList<TableRowGUI> guiElements) throws IllegalArgumentException {
 		if(guiElements==null) {
 			throw new IllegalArgumentException("rows of guiTable can't be null");
@@ -33,6 +37,9 @@ public class TableGUI extends GUIElement {
 		updateTableCells();
 	}
 
+	/**
+	 * Paints all the components of this table.
+	 */
 	@Override
 	public void paint(Graphics g) {
 		g.translate(this.getX(), this.getY());		
@@ -202,8 +209,9 @@ public class TableGUI extends GUIElement {
 	public void handleClick() {		
 	}
 
-	
-	
+	/**
+	 * Returns an array with all the elements in this Container of the given class.
+	 */
 	@Override
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
 			for(GUIElement element: this.getGuiRows()) {

@@ -190,7 +190,7 @@ public class WindowManager {
 	 * @return the elementWithKeyboardFocus
 	 */
 	public GUIElement getElementWithKeyboardFocus() {
-		return this.getActiveDialog().getKeyBoardFocus();
+		return this.getActiveDialog().getElementWithKeyBoardFocus();
 	}
 
 
@@ -400,20 +400,37 @@ public class WindowManager {
 		return this.getMainDialog().getSearchbar();
 	}
 	
+	/**
+	 * Method to add a bookmark in the mainDialog.
+	 * @param bookmarkHyperlinkName - name of the bookmark
+	 * @param bookmarkHyperlinkUrl - url of the bookmark
+	 */
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
 		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl, this.getEventReader());
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 
+	/**
+	 * 
+	 * @return this.window
+	 */
 	public MyCanvasWindow getWindow() {
 		return window;
 	}
 
+	/**
+	 * Set this.window to the given window.
+	 * @param window - new value of this.window
+	 */
 	public void setWindow(MyCanvasWindow window) {
 		this.window = window;
 	}
 	
+	/**
+	 * Sets the title of this.window.
+	 * @param newTitle
+	 */
 	public void changeWindowTitle(String newTitle) {
 		this.window.setWindowTitle(newTitle);
 	}
