@@ -29,7 +29,6 @@ public class WindowManager {
 	private int height;
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
-	private GUIElement pressedElement;
 	boolean ignoreClick; //boolean if the next click shouldnt be reported (not press)
 	
 	private EventReader eventReader;
@@ -122,7 +121,9 @@ public class WindowManager {
 	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers) {
-		this.getActiveDialog().handleClickLeftMouse(x, y, clickCount, modifiers);	
+		if (!ignoreClick) {
+			this.getActiveDialog().handleClickLeftMouse(x, y, clickCount, modifiers);	
+		}
 	}
 	
 	/**
@@ -133,12 +134,8 @@ public class WindowManager {
 	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
 	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
-		//this.ignoreClick=false;
-		GUIElement guiPressed = this.getActiveDialog().getGUIAtPosition(x, y);
-		this.setPressedElement(guiPressed);
-		if(guiPressed!=null) {
-			guiPressed.handlePressClick();
-		}
+		this.ignoreClick=false;
+		this.getActiveDialog().handlePressLeftMouse(x, y, clickCount, modifiers);
 	}
 	
 	/**
@@ -149,16 +146,7 @@ public class WindowManager {
 	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
 	public void handleReleaseLeftMouse(int x, int y, int clickCount, int modifiers) {
-		if(this.getPressedElement()!=null) {
-			GUIElement releasedAt = this.getActiveDialog().getGUIAtPosition(x, y);
-			if(this.getPressedElement() == releasedAt ) {
-				this.getPressedElement().handleReleaseClick(true);
-			}
-			else {
-				this.getPressedElement().handleReleaseClick(false);
-			}
-		}
-		this.setPressedElement(null);
+		this.getActiveDialog().handleReleaseLeftMouse(x,y,clickCount,modifiers);
 	}
 	
 	/**
@@ -340,22 +328,6 @@ public class WindowManager {
 		newBookmarkDialog.setSuggestedUrl(suggestedUrl);
 		this.setActiveDialog(newBookmarkDialog);
 		this.changeWindowTitle("Add Bookmark");
-	}
-
-	/**
-	 * 
-	 * @return this.pressedElement
-	 */
-	public GUIElement getPressedElement() {
-		return pressedElement;
-	}
-
-	/**
-	 * Set this.pressedElement to the given element.
-	 * @param pressedElement
-	 */
-	public void setPressedElement(GUIElement pressedElement) {
-		this.pressedElement = pressedElement;
 	}
 
 	/**

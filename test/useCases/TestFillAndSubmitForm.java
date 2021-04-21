@@ -1,32 +1,17 @@
 package useCases;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.BookmarkDialog;
-import GUIElements.BookmarkHyperlink;
-import GUIElements.Button;
 import GUIElements.Container;
-import GUIElements.GUIElement;
-import GUIElements.Hyperlink;
-import GUIElements.TableCellGUI;
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
-import GUIElements.TextBox;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import canvaswindow.MyCanvasWindow;
 import helperFunctions.StringTyping;
 

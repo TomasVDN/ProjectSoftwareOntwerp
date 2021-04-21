@@ -3,6 +3,7 @@ package GUIElements;
 public abstract class Dialog extends Container {
 
 	private GUIElement elementWithKeyBoardFocus;
+	private GUIElement pressedElement;
 	
 	/**
 	 * Constructor of the Dialog class. It extends the Container class.
@@ -58,9 +59,7 @@ public abstract class Dialog extends Container {
 
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
 		try {
-			//if(! ignoreClick) {
-				changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
-			//}
+			changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
 		} catch (NullPointerException e) {
 			changeElementWithKeyboardFocus(null);
 		}
@@ -72,4 +71,42 @@ public abstract class Dialog extends Container {
 			elementWithKeyBoardFocus.handleKeyEvent(keyCode, keyChar, modifiersEx);
 		}
 	}
+
+	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
+		GUIElement guiPressed = this.getGUIAtPosition(x, y);
+		this.setPressedElement(guiPressed);
+		if(guiPressed!=null) {
+			guiPressed.handlePressClick();
+		}
+	}
+	
+	/**
+	 * 
+	 * @return this.pressedElement
+	 */
+	public GUIElement getPressedElement() {
+		return pressedElement;
+	}
+
+	/**
+	 * Set this.pressedElement to the given element.
+	 * @param pressedElement
+	 */
+	public void setPressedElement(GUIElement pressedElement) {
+		this.pressedElement = pressedElement;
+	}
+
+	public void handleReleaseLeftMouse(int x, int y, int clickCount, int modifiers) {
+		if(this.getPressedElement()!=null) {
+			GUIElement releasedAt = this.getGUIAtPosition(x, y);
+			if(this.getPressedElement() == releasedAt ) {
+				this.getPressedElement().handleReleaseClick(true);
+			}
+			else {
+				this.getPressedElement().handleReleaseClick(false);
+			}
+		}
+		this.setPressedElement(null);
+	}
+	
 }
