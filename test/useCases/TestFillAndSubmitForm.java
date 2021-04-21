@@ -1,32 +1,17 @@
 package useCases;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.BookmarkDialog;
-import GUIElements.BookmarkHyperlink;
-import GUIElements.Button;
 import GUIElements.Container;
-import GUIElements.GUIElement;
-import GUIElements.Hyperlink;
-import GUIElements.TableCellGUI;
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
-import GUIElements.TextBox;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import canvaswindow.MyCanvasWindow;
 import helperFunctions.StringTyping;
 
@@ -66,17 +51,17 @@ class TestFillAndSubmitForm {
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 200, 200, 1, MouseEvent.BUTTON1, 0);
 		
 		// make select first text box
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 360, 155, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 360, 155, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 360, 155, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 380, 155, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 380, 155, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 380, 155, 1, MouseEvent.BUTTON1, 0);
 		
 		//fill the text box
 		StringTyping.generateKeyEventsForString(mainWindow, "t");
 		
 		// make select second text box
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 360, 175, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 360, 175, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 360, 175, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 380, 175, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 380, 175, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 380, 175, 1, MouseEvent.BUTTON1, 0);
 		
 		//fill the text box
 		StringTyping.generateKeyEventsForString(mainWindow, "5");

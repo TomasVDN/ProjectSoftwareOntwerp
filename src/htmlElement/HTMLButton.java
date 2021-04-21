@@ -25,7 +25,6 @@ public class HTMLButton extends HTMLInput{
 		Text guiText = textInButton.transformToGUI(x, y, width, height, eventReader);
 		Button button = new Button(x, y, guiText, true, Color.LIGHT_GRAY);
 		button.addSingleClickListener(() ->{
-			System.out.println("CLICK OP BUTTON");
 			for(ActionListener listener: button.getListeners()) {
 				listener.clickButton();
 			}
