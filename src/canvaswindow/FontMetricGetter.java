@@ -23,7 +23,7 @@ public final class FontMetricGetter {
 	
 	/**
 	 * Returns the metric corresponding to the given font.
-	 * @param font
+	 * @param font - font to get the metric from
 	 * @return metric corresponding to the given font
 	 */
 	@SuppressWarnings("deprecation")

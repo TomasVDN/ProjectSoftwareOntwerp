@@ -14,18 +14,11 @@ public class TableRowGUI extends GUIElement {
 	 * @param cells - list of TableCellGUI
 	 * @param x - x coordinate of the TableRowGUI
 	 * @param y - y coordinate of the TableRowGUI
-	 * @param w - width of the TableRowGUI
-	 * @param h - height of the TableRowGUI
 	 */
 	public TableRowGUI(ArrayList<TableCellGUI> cells, int x, int y) {
 		super(x,y);
-		//this.setX(x);
-		//this.setY(y);
 		this.setGuiElements(cells);
 	}
-
-	
-	
 	
 	/**
 	 * Paint all the TableCellGUI while updating the relative x.
@@ -137,7 +130,6 @@ public class TableRowGUI extends GUIElement {
 		this.tableCellList = cells;
 	}
 
-
 	@Override
 	public  <T> ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array) {
 		for(GUIElement element: this.getGuiElements()) {
@@ -146,30 +138,41 @@ public class TableRowGUI extends GUIElement {
 		return array;
 	}
 
-
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}
 
 	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
-		// TODO Auto-generated method stub
-		
+	protected void handleUnselect() {}
+	
+	@Override
+	public void handleClick() {}
+
+	/**
+	 * @return the xPos
+	 */
+	public int getxPos() {
+		return xPos;
 	}
 
-
-
-
-	@Override
-	protected void handleUnselect() {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * @param xPos the xPos to set
+	 */
+	public void setxPos(int xPos) {
+		this.xPos = xPos;
 	}
 
+	/**
+	 * @return the yPos
+	 */
+	public int getyPos() {
+		return yPos;
+	}
 
-
-
-	@Override
-	public void handleClick() {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * @param yPos the yPos to set
+	 */
+	public void setyPos(int yPos) {
+		this.yPos = yPos;
 	}
 	
 }

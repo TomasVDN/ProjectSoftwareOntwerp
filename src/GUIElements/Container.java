@@ -67,7 +67,7 @@ public class Container extends GUIElement {
 	}
 	
 	/**
-	 * @param element the element to add
+	 * @param guiList the elements to add
 	 */
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
 		if(guiList==null) {

@@ -118,7 +118,7 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 	}
 
 	/**
-	 * @param textBox the textBox to set
+	 * @param nameTextBox the nameTextBox to set
 	 */
 	public void setNameTextBox(TextBox nameTextBox) {
 		this.bookmarkHyperlinkNameTextBox = nameTextBox;
@@ -132,7 +132,7 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 	}
 
 	/**
-	 * @param textBox the textBox to set
+	 * @param urlTextBox the textBox to set
 	 */
 	public void setUrlTextBox(TextBox urlTextBox) {
 		this.bookmarkHyperlinkUrlTextBox = urlTextBox;

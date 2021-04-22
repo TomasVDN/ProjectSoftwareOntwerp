@@ -11,13 +11,17 @@ public class InputReader {
 	
 	private HTMLDecoder decoder;
 	
+	/**
+	 * Constructor of the inputReader class
+	 */
 	public InputReader() {
 	}
 
 	/**
 	 * Opens the url, and return an array of ContentSpans describing the HTML layout. If an error occur, return an array with Error 404 content.
 	 * @param path - url to open
-	 * @return ArrayList<ContentSpan>
+	 * @param saver - saver to send the HTML code to
+	 * @return ArrayList of ContentSpan
 	 */
 	public ArrayList<ContentSpan> readFile(String path, Saver saver) {
 

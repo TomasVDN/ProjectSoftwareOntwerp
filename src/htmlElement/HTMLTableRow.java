@@ -38,7 +38,7 @@ public class HTMLTableRow {
 	}
 	
 	/**
-	 * @param cells the cells to set
+	 * @return this.cells
 	 */
 	public ArrayList<HTMLTableCell> getRow() {
 		return this.cells;

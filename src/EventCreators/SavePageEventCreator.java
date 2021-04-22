@@ -7,9 +7,15 @@ import EventListeners.SavePageListener;
  */
 public interface SavePageEventCreator {
 
+	/**
+	 * Adds the given listener to the listeners.
+	 * @param listener
+	 */
 	public void addSavePageListener(SavePageListener listener);
 
+	/**
+	 * Removes the given listener from the listeners.
+	 * @param listener
+	 */
 	public void removeSavePageListener(SavePageListener listener) ;
-
-	
 }

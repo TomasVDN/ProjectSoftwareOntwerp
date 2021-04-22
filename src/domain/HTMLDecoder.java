@@ -88,6 +88,10 @@ public class HTMLDecoder {
 		return new HTMLHyperlink(url, htmlText);
 	}
 	
+	/**
+	 * Eats one token and returns its type
+	 * @return the type of the eaten token.
+	 */
 	private HtmlLexer.TokenType eat() {
 		HtmlLexer.TokenType t = lexer.getTokenType();
 		lexer.eatToken();
@@ -187,7 +191,10 @@ public class HTMLDecoder {
 		return new HTMLForm(action,element);
 	}
 	
-	
+	/**
+	 * Eats the tokens until a given type.
+	 * @param type - the type to stop eating when encountered
+	 */
 	private void eatUntillType(HtmlLexer.TokenType type) {
 		while(lexer.getTokenType() != type) {
 			lexer.eatToken();
@@ -195,7 +202,7 @@ public class HTMLDecoder {
 	}
 	
 	/**
-	 * Creates an htmlElement coresponding to its input tag
+	 * Creates an htmlElement corresponding to its input tag
 	 * @return
 	 */
 	private ContentSpan createInput() {
@@ -226,6 +233,12 @@ public class HTMLDecoder {
 		return constructInput(name, type);
 	}
 	
+	/**
+	 * Makes an HTMLInput type HTMLelement.
+	 * @param name - name of the HTMLInputElement
+	 * @param type - type of the HTMLInputElement
+	 * @return the HTMLElement if button or textBox, null otherwise
+	 */
 	private HTMLInput constructInput(String name,String type) {
 		switch(type) {
 		case "text":
@@ -237,10 +250,18 @@ public class HTMLDecoder {
 		}
 	}
 	
-	public boolean isInsideForm() {
+	/**
+	 * Checks if element is inside a Form
+	 * @return this.insideForm
+	 */
+	private boolean isInsideForm() {
 		return insideForm;
 	}
 
+	/**
+	 * Sets the isInsideForm variable to the given value.
+	 * @param insideForm - the new value of isInsideForm
+	 */
 	public void setInsideForm(boolean insideForm) {
 		this.insideForm = insideForm;
 	}

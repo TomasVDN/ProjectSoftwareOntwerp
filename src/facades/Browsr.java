@@ -41,7 +41,7 @@ public class Browsr {
 	 * @param path - the URL to process.
 	 */
 	public void runUrl(String path) {
-		ArrayList<ContentSpan> htmlList=domainFacade.runUrl(path);
+		ArrayList<ContentSpan> htmlList = domainFacade.runUrl(path);
 		this.getWindowManager().updateURL(path);
 		this.draw(htmlList);	
 	}

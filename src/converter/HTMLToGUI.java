@@ -18,6 +18,9 @@ public class HTMLToGUI {
 	 */
 	private static int XSPACE= 10;
 	
+	/**
+	 * @return this.XSPACE
+	 */
 	public static int getXSPACE() {
 		return XSPACE;
 	}
@@ -28,28 +31,29 @@ public class HTMLToGUI {
 	 */
 	private static int YSPACE= 3;
 	
+	/**
+	 * @return this.YSPACE
+	 */
 	public static int getYSPACE() {
 		return YSPACE;
 	}
 
 	/**
-	 * 
-	 * @param x
-	 *  x = The X position to start drawing
-	 * @param y
-	 *  y= The Y position to start drawing
+	 * Constructor of this class.
 	 */
 	public HTMLToGUI() {
 		
 	}
 	
 	/**
-	 * Turn the given html elements to a container and returns them
-	 * 
-	 * @param
-	 * g = graphics needed to find the height of a string,...
-	 * width= width of the drawing window
-	 * height = height of the drawing window
+	 * Transforms the given htmlElements to GUIElements
+	 * @param htmlElements - htmlElements to transform
+	 * @param width - width of the new container
+	 * @param height - height of the new container
+	 * @param relativeX - x coordinate of the new container
+	 * @param relativeY - y coordinate of the new container
+	 * @param eventReader - eventReader of the new container
+	 * @return container with the GUIElements corresponding to the given htmlElements
 	 */
 	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements,EventReader eventReader) {
 		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
@@ -66,11 +70,13 @@ public class HTMLToGUI {
 
 	/**
 	 * Transforms the given html to a GUI
-	 * @param contentSpan
-	 * @param width
-	 * @param height
-	 * @param relativeY
-	 * @return
+	 * @param contentSpan - contentSpan to transform
+	 * @param width - width of the GUIElement
+	 * @param height - height of the GUIElement
+	 * @param relativeX - x coordinate of the GUIElement
+	 * @param relativeY - y coordinate of the GUIElement
+	 * @param eventReader - eventReader of the GUIElement
+	 * @return GUIElement corresponding to the given contentSpan
 	 */
 	public GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height,EventReader eventReader) {
 		return contentSpan.transformToGUI(relativeX, relativeY, width, height,eventReader);

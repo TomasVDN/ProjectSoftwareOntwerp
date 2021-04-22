@@ -167,7 +167,7 @@ public abstract class GUIElement {
 
 	/**
 	 * Sets if this GUIElement is active or not. If it is set to inactive, execute corresponding code.
-	 * @param isActive - the isActive to set
+	 * @param newIsActive - the new value of isActive to set
 	 */
 	public void setActive(boolean newIsActive) {
 		this.isActive = newIsActive;

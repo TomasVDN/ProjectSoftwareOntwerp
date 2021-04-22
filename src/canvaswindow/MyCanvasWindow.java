@@ -24,6 +24,9 @@ public class MyCanvasWindow extends CanvasWindow {
 		return windowManager;
 	}
 	
+	/**
+	 * @return this.title
+	 */
 	public String getTitle() {
 		return this.title;
 	}
@@ -75,6 +78,10 @@ public class MyCanvasWindow extends CanvasWindow {
 		repaint();
 	}
 	
+	/**
+	 * Sets the title of this window to the newTitle
+	 * @param newTitle - the new title
+	 */
 	public void setWindowTitle(String newTitle) {
 		this.title = newTitle;
 	}

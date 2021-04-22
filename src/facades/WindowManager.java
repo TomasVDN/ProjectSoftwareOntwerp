@@ -35,8 +35,7 @@ public class WindowManager {
 	
 	/**
 	 * Constructor of the WindowManager class.
-	 * @param width - the width of the linked window
-	 * @param height - the height of the linked window
+	 * @param window - CanvasWindow linked to this windowManager
 	 */
 	public WindowManager (MyCanvasWindow window) {
 		
@@ -281,7 +280,7 @@ public class WindowManager {
 	}
 	
 	/**
-	 * @param activeDialog - the activeDialog to set (String version)
+	 * @param type - the activeDialog to set (String version)
 	 */
 	public void setActiveDialog(String type) {
 		if (this.getActiveDialog() != this.getMainDialog() && type != "mainDialog") {

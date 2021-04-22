@@ -162,7 +162,7 @@ public class MainDialog extends Dialog {
 	}
 	
 	/**
-	 * @param element the element to add
+	 * @param guiList the elements to add
 	 */
 	@Override
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
