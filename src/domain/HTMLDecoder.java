@@ -3,8 +3,6 @@ package domain;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-//import com.sun.tools.javac.parser.Tokens.TokenKind; TODO ik krijg hier een error
-
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
 import htmlElement.*;
@@ -172,7 +170,7 @@ public class HTMLDecoder {
 		this.setInsideForm(true);
 		this.eat();
 		
-		String action ="";//TODO aanpassen
+		String action ="";
 		if(lexer.getTokenValue().equals("action")) {
 			while(lexer.getTokenType() != TokenType.QUOTED_STRING) {
 				lexer.eatToken();
@@ -207,7 +205,7 @@ public class HTMLDecoder {
 	 */
 	private ContentSpan createInput() {
 		if(! lexer.getTokenValue().equals("input")) {
-			throw new IllegalArgumentException("not an input"); // TODO veranderen naar de juiste input
+			throw new IllegalArgumentException("not an input");
 		}
 		this.eat(); // removes the start tag
 		String type=null;
@@ -246,7 +244,7 @@ public class HTMLDecoder {
 		case "submit":
 			return new HTMLButton();
 		default:
-			return null; //TODO type not available
+			return null;
 		}
 	}
 	

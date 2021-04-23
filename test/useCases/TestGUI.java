@@ -1,35 +1,18 @@
 package useCases;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.times;
 
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
-import java.awt.event.MouseEvent;
-import java.lang.reflect.InvocationTargetException;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import GUIElements.Hyperlink;
-import GUIElements.SearchBar;
-import GUIElements.TableGUI;
-import GUIElements.TableRowGUI;
-import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import GUIElements.Container;
 
 
 

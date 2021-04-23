@@ -236,7 +236,7 @@ public abstract class GUIElement {
 	 */
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
 		if(cls.isInstance(this)) {
-			array.add( (T) this); //TODO dit is niet veilig blijkbaar
+			array.add( (T) this); //TODO dit is niet veilig blijkbaar. Hoe fixen?
 		}
 		return array;
 	}

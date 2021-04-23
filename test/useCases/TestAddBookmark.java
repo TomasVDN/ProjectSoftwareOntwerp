@@ -77,7 +77,6 @@ class TestAddBookmark {
 		
 		// Step 4.5.1
 		// User presses Ctrl + D
-		// TODO die juiste combinaties vinden voor Ctrl + D
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 68, 'd', 128);
@@ -123,7 +122,7 @@ class TestAddBookmark {
 					containsAtLeastOneTextBox = true;
 					firstTextBox = (TextBox) element;
 				}
-				else if (!containsAtLeastTwoTextBoxes && !firstTextBox.equals((TextBox) element)) { // check if there are at least two TextBoxes and both TextBoxes are different from each other
+				else if (!containsAtLeastTwoTextBoxes && !firstTextBox.equals(element)) { // check if there are at least two TextBoxes and both TextBoxes are different from each other
 					containsAtLeastTwoTextBoxes = true;
 				}
 			} else if (element.getClass().equals(Button.class)) {

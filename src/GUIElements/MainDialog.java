@@ -21,13 +21,13 @@ public class MainDialog extends Dialog {
 		this.initSearchBar(eventReader);
 		this.initBookmarkBar();
 		
-		//Used for testing purpose TODO
-		Text t2 = new Text(0, 0, "link");
-		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
-		this.addBookmark(hyperlinkTest);
-		Text t3 = new Text(0, 0, "form");
-		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html", eventReader);
-		this.addBookmark(hyperlinkTest2);
+		//Used for testing purpose
+//		Text t2 = new Text(0, 0, "link");
+//		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
+//		this.addBookmark(hyperlinkTest);
+//		Text t3 = new Text(0, 0, "form");
+//		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html", eventReader);
+//		this.addBookmark(hyperlinkTest2);
 	}
 	
 	/**

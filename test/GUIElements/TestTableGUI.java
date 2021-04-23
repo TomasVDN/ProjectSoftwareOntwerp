@@ -67,7 +67,7 @@ class TestTableGUI {
 		ArrayList<TableRowGUI> tableRowList= new ArrayList<>();
 		tableRowList.add(row);
 		TableGUI guiTable = new TableGUI(tableRowList, 0, 0);
-		assertEquals(guiTable.getHeight(),textGUI.getHeight()); //TODO lege cell ook een hoogte?
+		assertEquals(guiTable.getHeight(),textGUI.getHeight());
 	}
 
 	@Test

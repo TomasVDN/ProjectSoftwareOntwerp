@@ -166,7 +166,7 @@ public class TableGUI extends GUIElement {
 	 * 		width is the max width in the column
 	 * Furthermore their relative positions are also updated
 	 */
-	public void updateTableCells() { // TODO terug private maken, even public gemaakt om table van bookmarks juist te tekenen in de MainDialog
+	protected void updateTableCells() {
 		ArrayList<Integer> rowHeight =this.getAllRowHeight();
 		ArrayList<Integer> colomnWidth =this.getAllColumnWidth();
 		int yPosition=0;

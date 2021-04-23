@@ -203,7 +203,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	 * Returns a list of all the listeners of given form
 	 */
 	public ArrayList<FormListener> getListeners() {
-		return this.listeners; //TODO clone this
+		return this.listeners;
 	}
 
 

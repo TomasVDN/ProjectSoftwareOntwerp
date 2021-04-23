@@ -2,16 +2,10 @@ package htmlElement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.Hyperlink;
-import GUIElements.TableCellGUI;
 import GUIElements.Text;
-import canvaswindow.MyCanvasWindow;
 
 class TestHTMLText {
 	
@@ -21,7 +15,7 @@ class TestHTMLText {
 	Text guiTextReference;
 	
 	void setUpReference() {
-		guiTextReference = new Text(10, 20, textValue); //TODO heb dit aangepast ma ik weet nie of dat da juist is
+		guiTextReference = new Text(10, 20, textValue);
 	}
 	
 	@Test

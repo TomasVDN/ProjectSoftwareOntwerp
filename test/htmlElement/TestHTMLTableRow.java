@@ -2,15 +2,12 @@ package htmlElement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import GUIElements.TableRowGUI;
-import canvaswindow.MyCanvasWindow;
-import GUIElements.TableCellGUI;
 
 class TestHTMLTableRow {
 
@@ -49,7 +46,6 @@ class TestHTMLTableRow {
 		rowData.add(htmlCell3);
 		htmlRow.setRow(rowData);
 		htmlRow.transformToGUI(10, 20, 30, 40, null);
-		// TODO juiste testen toevoegen
 	}
 	
 	@Test

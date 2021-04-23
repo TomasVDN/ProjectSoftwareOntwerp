@@ -15,11 +15,7 @@ import org.junit.jupiter.api.Test;
 import GUIElements.BookmarkHyperlink;
 import GUIElements.Container;
 import GUIElements.GUIElement;
-import GUIElements.Hyperlink;
-import GUIElements.SearchBar;
 import GUIElements.TableCellGUI;
-import GUIElements.TableGUI;
-import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import events.EventReader;
@@ -49,7 +45,7 @@ class TestActivateBookmarkExtension {
 		// add it to the bookmarkBar
 		mainWindow.getWindowManager().getMainDialog().addBookmark(newBookmarkHyperlink);
 		
-		// get positions to click TODO misschien een betere manier vinden voor dit?
+		// get positions to click
 		// get Y position
 		int yPosOfBookmarkBarContainer = mainWindow.getWindowManager().getMainDialog().getBookmarkBarContainer().getY();
 		int yPosOfBookmarkBar = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getY();

@@ -7,7 +7,6 @@ import java.awt.Color;
 import org.junit.jupiter.api.Test;
 
 import EventListeners.ActionListener;
-import EventListeners.FormListener;
 
 class TestButton {
 	
@@ -73,12 +72,6 @@ class TestButton {
 		testButton.handlePressClick();
 		assertEquals("PressedState",testButton.getStateName());
 	}
-
-	@Test
-	void testPaint() { //TODO william
-		//fail("Not yet implemented"); 
-	}
-
 
 	@Test
 	void testAddSingleClickListener() {

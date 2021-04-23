@@ -1,19 +1,12 @@
 package GUIElements;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
 import GUIElements.TestForm.FormListenerClass;
-import events.EventReader;
-import facades.Browsr;
-
 import static org.mockito.Mockito.*;
 
 class TestPaintTableGUI {

@@ -251,7 +251,6 @@ public class Button extends GUIElement implements ActionCreator {
 
 	@Override
 	public void handleClick() {
-		//new ArrayList<>(clickListeners).stream().forEach(l -> l.run()); TODO
 	}
 	
 	@Override

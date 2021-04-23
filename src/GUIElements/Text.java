@@ -65,7 +65,7 @@ public class Text extends GUIElement {
 		g.setClip(getX(), getY(), getWidth(), getHeight());
 		super.drawCenteredText(g, this.getText());
 		g.setClip(oldClip);
-		g.setColor(Color.black); //TODO ik weet niet of dit nog nodig is
+		g.setColor(Color.black);
 	}
 	
 	/**

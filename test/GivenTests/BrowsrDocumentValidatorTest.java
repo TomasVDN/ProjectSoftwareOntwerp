@@ -1,16 +1,12 @@
 package GivenTests;
 
 import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.awt.Color;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.junit.jupiter.api.Test;
 
-import GUIElements.Button;
 import browsrhtml.BrowsrDocumentValidator;
 
 class BrowsrDocumentValidatorTest {

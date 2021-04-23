@@ -2,14 +2,11 @@ package converter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.*;
-import canvaswindow.MyCanvasWindow;
 import htmlElement.*;
 
 class TestHTMLToGUI {
