@@ -190,6 +190,8 @@ public abstract class GUIElement {
 	
 	public void handleReleaseClick(boolean releasedOn) {}
 	
+	public void handleDragMouse(int x, int y, int clickCount, int modifiers) {}
+	
 	public abstract void paint(Graphics g);
 	
 	/**

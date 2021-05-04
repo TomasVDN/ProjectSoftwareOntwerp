@@ -96,6 +96,16 @@ public abstract class Dialog extends Container {
 		this.pressedElement = pressedElement;
 	}
 
+	/**
+	 * Handles the drag operation on the pressed element
+	 */
+	@Override
+	public void handleDragMouse(int x, int y, int clickCount, int modifiers) {
+		if(this.getPressedElement()!=null) {
+			this.getPressedElement().handleDragMouse(x, y, clickCount, modifiers);
+		}
+	}
+	
 	public void handleReleaseLeftMouse(int x, int y, int clickCount, int modifiers) {
 		if(this.getPressedElement()!=null) {
 			GUIElement releasedAt = this.getGUIAtPosition(x, y);

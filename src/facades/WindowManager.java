@@ -138,6 +138,18 @@ public class WindowManager {
 	}
 	
 	/**
+	 * Handles the drag operation on the pressed element (x,y) is the position where the element is dragged to
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param clickCount - the amount of clicks
+	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
+	 */
+	public void handleDragLeftMouse(int x, int y, int clickCount, int modifiers) {
+		this.getActiveDialog().handleDragMouse(x, y, clickCount, modifiers);
+	}
+	
+	
+	/**
 	 * Checks if there is a GUIElement at coordinates (x,y) when the mouse is released, and calls the handleReleaseClick method on that element (if there is).
 	 * @param x - x coordinate
 	 * @param y - y coordinate

@@ -28,6 +28,7 @@ public class MainDialog extends Dialog {
 		Text t3 = new Text(0, 0, "form");
 		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html", eventReader);
 		this.addBookmark(hyperlinkTest2);
+		
 	}
 	
 	/**
@@ -41,6 +42,9 @@ public class MainDialog extends Dialog {
 		this.searchBarContainer = searchBarContainer;
 		this.bookmarkBarContainer = bookmarkBarContainer;
 		this.allContainers = new ArrayList<Container>();
+		
+		int[] middleContainer = new int[] {documentArea.getWidth()/2,documentArea.getHeight()/2};
+		documentArea.addElement(new SeperatorBar(documentArea, middleContainer, Direction.VERTICAL));//TODO haal weg
 		
 		allContainers.add(searchBarContainer);
 		allContainers.add(bookmarkBarContainer);

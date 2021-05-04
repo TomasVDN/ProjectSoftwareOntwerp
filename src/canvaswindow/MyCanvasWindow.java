@@ -62,8 +62,8 @@ public class MyCanvasWindow extends CanvasWindow {
 			windowManager.handleReleaseLeftMouse(x, y, clickCount, modifiersEx);
 		}
 		//mouse drag
-		if (id == MouseEvent.MOUSE_DRAGGED && button == MouseEvent.BUTTON1) {
-			
+		if (id == MouseEvent.MOUSE_DRAGGED) { //&& button == MouseEvent.BUTTON1) {
+			windowManager.handleDragLeftMouse(x, y, clickCount, modifiersEx);
 		}
 		
 		repaint();
