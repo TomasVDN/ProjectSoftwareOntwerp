@@ -22,7 +22,6 @@ import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import events.EventReader;
 
 class TestActivateBookmarkExtension {
 
@@ -43,8 +42,8 @@ class TestActivateBookmarkExtension {
 		String newBookmarkyperlinkString = "New Bookmark";
 		Text newBookmarkHyperlinkText = new Text(0, 0, newBookmarkyperlinkString);
 		String newBookmarkUrl = "A wrong url";
-		EventReader eventReader = mainWindow.getWindowManager().getEventReader();
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, newBookmarkHyperlinkText, newBookmarkUrl, eventReader);
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, newBookmarkHyperlinkText, newBookmarkUrl);
+		newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
 		
 		// add it to the bookmarkBar
 		mainWindow.getWindowManager().getMainDialog().addBookmark(newBookmarkHyperlink);

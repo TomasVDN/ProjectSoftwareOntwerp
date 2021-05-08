@@ -5,13 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import GUIElements.Hyperlink;
 import GUIElements.SearchBar;
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
+import canvaswindow.CanvasWindow;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
 
@@ -32,7 +31,7 @@ class TestEnterURLWithRecording {
 				int referenceBarContainerY = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getY();
 				
 				//replay the recording
-				MyCanvasWindow.replayRecording("recordings/recordEnterUrlSuccess/recording", mainWindow);
+				CanvasWindow.replayRecording("recordings/recordEnterUrlSuccess/recording", mainWindow);
 				
 				int mainBarContainerHeight = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getHeight();
 				int mainBarContainerWidth = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getWidth();

@@ -13,7 +13,7 @@ class TestTableGUI {
 	Text mediumText2 = new Text(0,0,"blabla");
 	Text textGUIaLotOfText = new Text(0, 0, "blablablablabla");
 	Text hyperText = new Text(0,0,"This is a hyperlink");
-	Hyperlink hyper = new Hyperlink(0, 0, hyperText, "https://blabla.com", null);
+	Hyperlink hyper = new Hyperlink(0, 0, hyperText, "https://blabla.com");
 	TableCellGUI cell1 = new TableCellGUI(textGUI, 0, 0, 0, 0);
 	TableCellGUI cell2 = new TableCellGUI(textGUI, 0, 0, 0, 0);
 	TableCellGUI cell3 = new TableCellGUI(textGUI, 0, 0, 0, 0);

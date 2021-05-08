@@ -13,7 +13,6 @@ import GUIElements.Hyperlink;
 import GUIElements.TableCellGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import events.EventReader;
 
 class TestHTMLTableCell {
 	
@@ -30,7 +29,7 @@ class TestHTMLTableCell {
 	
 	void setUpReference() {
 		guiTextReference = new Text(10, 20, "Hyperlink Text");
-		guiHyperlinkReference = new Hyperlink(10, 20, guiTextReference, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", null);
+		guiHyperlinkReference = new Hyperlink(10, 20, guiTextReference, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
 		guiTableCellReference = new TableCellGUI(guiHyperlinkReference, 10, 20, 30, 40);
 	}
 	
@@ -42,7 +41,7 @@ class TestHTMLTableCell {
 		url = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 		htmlHyperlink = new HTMLHyperlink(url, htmlText);
 		htmlCell = new HTMLTableCell(htmlHyperlink);
-		guiTableCell = htmlCell.transformToGUI(10, 20, 30, 40, null);
+		guiTableCell = htmlCell.transformToGUI(10, 20, 30, 40);
 		setUpReference();
 		assertEquals(guiHyperlinkReference.getUrl(), ((Hyperlink) guiTableCell.getGui()).getUrl());
 		assertEquals(guiHyperlinkReference.getText(), ((Hyperlink) guiTableCell.getGui()).getText());

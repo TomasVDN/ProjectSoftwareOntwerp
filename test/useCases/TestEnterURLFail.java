@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import GUIElements.Container;
 
 class TestEnterURLFail {
 	

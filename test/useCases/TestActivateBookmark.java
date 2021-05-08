@@ -23,7 +23,6 @@ import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import events.EventReader;
 
 class TestActivateBookmark {
 	
@@ -44,8 +43,8 @@ class TestActivateBookmark {
 		String newBookmarkyperlinkString = "New Bookmark";
 		Text newBookmarkHyperlinkText = new Text(0, 0, newBookmarkyperlinkString);
 		String newBookmarkUrl = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
-		EventReader eventReader = mainWindow.getWindowManager().getEventReader();
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, newBookmarkHyperlinkText, newBookmarkUrl, eventReader);
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, newBookmarkHyperlinkText, newBookmarkUrl);
+		newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
 		
 		// add it to the bookmarkBar
 		mainWindow.getWindowManager().getMainDialog().addBookmark(newBookmarkHyperlink);

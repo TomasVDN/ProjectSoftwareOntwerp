@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 
 import EventListeners.ActionListener;
 import EventListeners.FormListener;
@@ -20,29 +22,32 @@ public class TestForm {
 		public String textForm;
 
 		@Override
-		public void handleFormSubmit(String action) {
+		public void runUrlAttribute(String action) {
 			this.textForm=action;
 		}
 	};
 
 	FormListenerClass formListener = new FormListenerClass();
 	Text hyperText = new Text(0,0,"This is a hyperlink");
-	Hyperlink hyper = new Hyperlink(0, 0, hyperText, "https://blabla.com", null);
+	Hyperlink hyper = new Hyperlink(0, 0, hyperText, "https://blabla.com");
 	Button button = new Button(0, 0, hyperText, true, Color.black);
-	Form noElementForm = new Form(null, 0, 0, "action",null);
-	Form formWithButton = new Form(button, 0, 0, "action", formListener);
+	Form noElementForm = new Form(null, 0, 0, "action");
+	Form formWithButton = new Form(button, 0, 0, "action");
 	Container cont = new Container(0, 0, 0, 0);
 	TextBox streetNumber = new TextBox(0, 0, 0, 0, "streetNumber");
 	TextBox postCode = new TextBox(0, 0, 0, 0, "postCode");
-	Form streetForm = new Form(cont, 0, 0, "searchAdress", formListener);
+	Form streetForm = new Form(cont, 0, 0, "searchAdress");
 	
-
-
+	@Before
+	public void init() {
+		formWithButton.addFormListener(formListener);
+		streetForm.addFormListener(formListener);
+	}
 	
 	@Test
 	public void testNoAction() {
 		Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
-			Form guiCell = new Form(hyper, 0, 0, null,null);
+			Form guiCell = new Form(hyper, 0, 0, null);
 		});
 		assertTrue(exception2.getMessage().contains("not a valid action"));
 	}

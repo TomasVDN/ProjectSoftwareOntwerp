@@ -1,18 +1,14 @@
 package htmlElement;
 
-import htmlElement.HTMLTable;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.*;
-import canvaswindow.MyCanvasWindow;
 
 class TestHTMLTable {
 	
@@ -120,7 +116,7 @@ class TestHTMLTable {
 		rows.add(row2);
 		rows.add(row3);
 		table.setRows(rows);
-		TableGUI tableGui = table.transformToGUI(10, 10,100, 100, null);
+		TableGUI tableGui = table.transformToGUI(10, 10,100, 100);
 		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(0) instanceof Text);
 		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(1) instanceof Text);
 		assertTrue(tableGui.getGuiRows().get(0).getGUIAtGivenIndex(2) instanceof Text);

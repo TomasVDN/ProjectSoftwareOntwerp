@@ -10,7 +10,7 @@ class TestGUIElement {
 
 	Container cont = new Container(0, 0, 10, 10);
 	Text text = new Text(0, 0, "");
-	Hyperlink hyper = new Hyperlink(0, 0, text,"", null);
+	Hyperlink hyper = new Hyperlink(0, 0, text,"");
 	
 	@Test
 	void testContainsPoint() {

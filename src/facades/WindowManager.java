@@ -32,7 +32,7 @@ public class WindowManager {
 	private int height;
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
-	boolean ignoreClick; //boolean if the next click shouldnt be reported (not press)
+	boolean ignoreClick;
 	
 	
 	/**
@@ -410,5 +410,9 @@ public class WindowManager {
 	 */
 	public void changeWindowTitle(String newTitle) {
 		this.window.setWindowTitle(newTitle);
+	}
+	
+	public Browsr getBrowsr() {
+		return this.browsr;
 	}
 }

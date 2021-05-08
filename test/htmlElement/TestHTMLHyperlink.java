@@ -13,7 +13,6 @@ import GUIElements.Hyperlink;
 import canvaswindow.FontMetricGetter;
 import canvaswindow.MyCanvasWindow;
 
-import events.EventReader;
 import facades.Browsr;
 import facades.WindowManager;
 
@@ -30,7 +29,7 @@ class TestHTMLHyperlink {
 	
 	void setUpReference() {
 		htmlText = new HTMLText(textValue);
-		guiHyperlinkReference = new Hyperlink(10, 20, htmlText.transformToGUI(10, 20, 30, 40, null), url, null);
+		guiHyperlinkReference = new Hyperlink(10, 20, htmlText.transformToGUI(10, 20, 30, 40), url);
 	}
 
 	@Test
@@ -38,7 +37,7 @@ class TestHTMLHyperlink {
 	void testNormalBehaviour() {
 		htmlText = new HTMLText(textValue);
 		htmlHyperlink = new HTMLHyperlink(url, htmlText);
-		guiHyperlink = htmlHyperlink.transformToGUI(10, 20, 30, 40, null);
+		guiHyperlink = htmlHyperlink.transformToGUI(10, 20, 30, 40);
 		setUpReference();
 		assert guiHyperlink.getX() == guiHyperlinkReference.getX();
 		assert guiHyperlink.getY() == guiHyperlinkReference.getY();

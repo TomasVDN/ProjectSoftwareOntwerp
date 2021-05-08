@@ -123,7 +123,7 @@ class TestAddBookmark {
 					containsAtLeastOneTextBox = true;
 					firstTextBox = (TextBox) element;
 				}
-				else if (!containsAtLeastTwoTextBoxes && !firstTextBox.equals((TextBox) element)) { // check if there are at least two TextBoxes and both TextBoxes are different from each other
+				else if (!containsAtLeastTwoTextBoxes && !firstTextBox.equals(element)) { // check if there are at least two TextBoxes and both TextBoxes are different from each other
 					containsAtLeastTwoTextBoxes = true;
 				}
 			} else if (element.getClass().equals(Button.class)) {

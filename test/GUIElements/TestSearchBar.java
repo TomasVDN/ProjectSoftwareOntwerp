@@ -4,18 +4,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import EventListeners.ActionListener;
 import EventListeners.SearchBarListener;
-import GUIElements.TestButton.ActionListenerClass;
 
 class TestSearchBar {
 
 	public static class SearchBarListenerClass implements SearchBarListener {
 
 		public String urlRecieved;
-		
+
 		@Override
-		public void searchBarLoseFocus(String url) {
+		public void runUrl(String url) {
 			this.urlRecieved =url;
 		}
 

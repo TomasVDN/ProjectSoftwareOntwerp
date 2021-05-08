@@ -30,7 +30,7 @@ class testHTMLButton {
 	
 	@Test
 	void testTransformToGUI() {
-		Button button = htmlButton.transformToGUI(0, 0, 0, 0, null);
+		Button button = htmlButton.transformToGUI(0, 0, 0, 0);
 		assertEquals("Submit",button.getText().getText());
 		button.addListener(actionListener);
 		button.handlePressClick();

@@ -1,19 +1,12 @@
 package GUIElements;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Shape;
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
 import GUIElements.TestForm.FormListenerClass;
-import events.EventReader;
-import facades.Browsr;
-
 import static org.mockito.Mockito.*;
 
 class TestPaintTableGUI {
@@ -25,7 +18,7 @@ class TestPaintTableGUI {
 	Text textOfButton = new Text(0, 0, "click");
 	Button button1 = new Button(0, 0,textOfButton,true ,Color.black);
 	FormListenerClass formListener = new FormListenerClass();
-	Form streetForm = new Form(container1, 0, 0, "searchAdress", formListener);
+	Form streetForm = new Form(container1, 0, 0, "searchAdress");
 
 
 	@Test

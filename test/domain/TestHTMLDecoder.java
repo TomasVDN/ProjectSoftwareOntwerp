@@ -3,13 +3,10 @@ package domain;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import GUIElements.Button;
-import browsrhtml.BrowsrDocumentValidator;
 import htmlElement.*;
 
 class TestHTMLDecoder {

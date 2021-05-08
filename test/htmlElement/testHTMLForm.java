@@ -29,7 +29,7 @@ class testHTMLForm {
 	@Test
 	void testTransformToGUI() {
 		HTMLForm formHtml = new HTMLForm("action",submitButton);
-		Form form = formHtml.transformToGUI(0, 0, 0, 0, null);
+		Form form = formHtml.transformToGUI(0, 0, 0, 0);
 		assertTrue( form.getRootGui() instanceof Button);
 		Button button = (Button) form.getRootGui();
 		assertTrue(button.getListeners().contains(form));

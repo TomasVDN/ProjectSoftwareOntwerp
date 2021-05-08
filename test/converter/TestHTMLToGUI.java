@@ -2,14 +2,11 @@ package converter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.*;
-import canvaswindow.MyCanvasWindow;
 import htmlElement.*;
 
 class TestHTMLToGUI {
@@ -70,7 +67,7 @@ class TestHTMLToGUI {
 	
 	@Test
 	void testTextToGUI() {
-		GUIElement gui =converter.toGUI(text1,0, 0, 500, 500, null);
+		GUIElement gui =converter.toGUI(text1,0, 0, 500, 500);
 		assertTrue(gui instanceof Text);
 		Text textGui = (Text) gui;
 		assertEquals(textGui.getText(),"this is a text");
@@ -80,7 +77,7 @@ class TestHTMLToGUI {
 
 	@Test
 	void testHyperlinkToGUI() {
-		GUIElement gui =converter.toGUI(hyp1,0, 0, 500, 500, null);
+		GUIElement gui =converter.toGUI(hyp1,0, 0, 500, 500);
 		assertTrue(gui instanceof Hyperlink);
 		Hyperlink hyperGui = (Hyperlink) gui;
 		assertEquals(hyperGui.getText(),"hyperlink1");
@@ -91,7 +88,7 @@ class TestHTMLToGUI {
 	
 	@Test
 	void testTableToGUI() {
-		GUIElement gui =converter.toGUI(createSmallTable(),0, 0, 500, 500, null);
+		GUIElement gui =converter.toGUI(createSmallTable(),0, 0, 500, 500);
 		assertTrue(gui instanceof TableGUI);
 		TableGUI tableGui = (TableGUI) gui;
 		assertEquals(tableGui.getAllColumns().size(),2);
@@ -117,7 +114,7 @@ class TestHTMLToGUI {
 		list.add(hyp1);
 		list.add(createBigTable());
 		list.add(text2);
-		ArrayList<GUIElement> listOfGui= converter.transformToGUI(0, 0, 500, 500, list, null);
+		ArrayList<GUIElement> listOfGui= converter.transformToGUI(0, 0, 500, 500, list);
 		int xspace = HTMLToGUI.getXSPACE();
 		int yspace = HTMLToGUI.getYSPACE();
 		assertEquals( listOfGui.get(0).getX(),xspace);
