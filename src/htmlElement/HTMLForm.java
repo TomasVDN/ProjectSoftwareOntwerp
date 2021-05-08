@@ -36,12 +36,12 @@ public class HTMLForm extends ContentSpan {
 	}
 
 	@Override
-	public Form transformToGUI(int x, int y, int width, int height, Browsr browsr) {
+	public Form transformToGUI(int x, int y, int width, int height) {
 		GUIElement gui =null;
 		if(this.element!=null) {
-			gui= element.transformToGUI(x, y, width, height, browsr);
+			gui= element.transformToGUI(x, y, width, height);
 		}
-		return new Form(gui,x,y,action,browsr);
+		return new Form(gui,x,y,action);
 	}
 
 }

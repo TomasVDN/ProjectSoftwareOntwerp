@@ -23,10 +23,12 @@ public class MainDialog extends Dialog {
 		
 		//Used for testing purpose TODO
 		Text t2 = new Text(0, 0, "link");
-		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", browsr);
+		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/");
+		hyperlinkTest.addHyperLinkListener(browsr);
 		this.addBookmark(hyperlinkTest);
 		Text t3 = new Text(0, 0, "form");
-		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html", browsr);
+		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
+		hyperlinkTest2.addHyperLinkListener(browsr);
 		this.addBookmark(hyperlinkTest2);
 		
 	}

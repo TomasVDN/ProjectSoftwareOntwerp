@@ -28,12 +28,11 @@ public class Form extends GUIElement implements ActionListener {
 	 * @param listener
 	 * 	the initialized listener, if no listener in the beginning is applied to it use null
 	 */
-	public Form(GUIElement gui, int x, int y,String action,FormListener listener){
+	public Form(GUIElement gui, int x, int y,String action){
 		super(x,y);
 		this.setGui(gui);
 		this.setAction(action);
 		this.addSelfToRootGui(); // adds the form as listener to the gui
-		this.addFormListener(listener);
 	}
 	
 	/**
@@ -167,13 +166,14 @@ public class Form extends GUIElement implements ActionListener {
 
 	@Override
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
+		if(cls.isInstance(this)) {
+			array.add( (T) this); //TODO dit is niet veilig blijkbaar
+		}
 		if(this.getRootGui()==null) {
 			return array;
 		}
 		return this.getRootGui().getGuiClass(cls, array);
 	}
-
-
 
 	@Override
 	public void clickButton() {
@@ -196,11 +196,5 @@ public class Form extends GUIElement implements ActionListener {
 	public ArrayList<FormListener> getListeners() {
 		return this.listeners; //TODO clone this
 	}
-
-
-
-
-
-	
 	
 	}

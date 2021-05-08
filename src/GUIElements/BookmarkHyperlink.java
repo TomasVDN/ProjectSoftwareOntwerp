@@ -13,8 +13,8 @@ public class BookmarkHyperlink extends Hyperlink {
      * @param url - url of this BookmarkHyperlink
 	 * @param eventReader - eventReader of this BookmarkHyperlink
 	 */
-	public BookmarkHyperlink(int x, int y, Text text, String url, Browsr browsr) {
-		super(x, y, text, url, browsr);
+	public BookmarkHyperlink(int x, int y, Text text, String url) {
+		super(x, y, text, url);
 	}
 	
 	@Override

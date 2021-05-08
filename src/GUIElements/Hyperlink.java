@@ -27,13 +27,11 @@ public class Hyperlink extends Text {
 	 * @param url - URL to which the hyperlink redirects
 	 * @param eventReader - eventReader for the listeners
 	 */
-	public Hyperlink(int x, int y, Text text, String url, Browsr browsr) {
+	public Hyperlink(int x, int y, Text text, String url) {
 		super(x, y,text);
 		this.setColor(Color.blue);
 		this.setUrl(url);
 		this.initFont();
-		this.addHyperLinkListener(browsr);
-		this.initiateClickListeners();
 	}
 	
 	/**
@@ -76,6 +74,7 @@ public class Hyperlink extends Text {
 
 	public void addHyperLinkListener(HyperLinkListener listener) {
 		this.getHyperListeners().add(listener);
+		initiateClickListeners();
 	}
 
 	public void removeHyperLinkListener(HyperLinkListener listener) {

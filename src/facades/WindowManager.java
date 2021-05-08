@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
+import GUIElements.Hyperlink;
 import GUIElements.MainDialog;
 import GUIElements.SaveDialog;
 import GUIElements.SearchBar;
@@ -12,8 +13,10 @@ import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
+import GUIElements.Button;
 import GUIElements.Container;
 import GUIElements.Dialog;
+import GUIElements.Form;
 import converter.HTMLToGUI;
 import htmlElement.ContentSpan;
 
@@ -88,8 +91,31 @@ public class WindowManager {
 	public void draw(ArrayList<ContentSpan> htmlElements) {
 		HTMLToGUI converter = new HTMLToGUI();
 		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements, browsr);
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
+		
+		addListenersToGUIElements(list);
+		
 		this.getActiveDialog().resetAllElements(list);
+	}
+
+	private void addListenersToGUIElements(ArrayList<GUIElement> list) {
+		ArrayList<Hyperlink> hyperlinkArray = new ArrayList<>();
+		ArrayList<Form> formArray = new ArrayList<>();
+		ArrayList<Button> buttonArray = new ArrayList<>();
+		for (GUIElement element: list) {
+			element.getGuiClass(Hyperlink.class, hyperlinkArray);
+			element.getGuiClass(Form.class, formArray);
+			element.getGuiClass(Button.class, buttonArray);
+		}
+		
+		for(Hyperlink hyperlink : hyperlinkArray) {
+			hyperlink.addHyperLinkListener(browsr);
+		}
+
+		for (Form form: formArray) {
+			form.addFormListener(browsr);
+		}
+		
 	}
 	
 	/**
@@ -358,7 +384,7 @@ public class WindowManager {
 	 */
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl, browsr);
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 

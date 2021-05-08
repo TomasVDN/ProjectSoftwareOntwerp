@@ -59,10 +59,10 @@ public class HTMLTableRow {
 		return row.substring(0, row.length() - 1) + ")";
 	}
 	
-	public TableRowGUI transformToGUI(int x, int y, int width, int heigth, Browsr browsr) {
+	public TableRowGUI transformToGUI(int x, int y, int width, int heigth) {
 		ArrayList<TableCellGUI> cells = new ArrayList<TableCellGUI>();
 		for(int i=0; i<this.getRow().size();i++) {
-			TableCellGUI gui = this.getRow().get(i).transformToGUI(0, 0, width, heigth, browsr);
+			TableCellGUI gui = this.getRow().get(i).transformToGUI(0, 0, width, heigth);
 			cells.add(gui);
 		}
 		return new TableRowGUI(cells, x, y);

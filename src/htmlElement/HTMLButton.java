@@ -21,8 +21,8 @@ public class HTMLButton extends HTMLInput{
 	}
 
 	@Override
-	public Button transformToGUI(int x, int y, int width, int height, Browsr browsr) {
-		Text guiText = textInButton.transformToGUI(x, y, width, height, browsr);
+	public Button transformToGUI(int x, int y, int width, int height) {
+		Text guiText = textInButton.transformToGUI(x, y, width, height);
 		Button button = new Button(x, y, guiText, true, Color.LIGHT_GRAY);
 		button.addSingleClickListener(() ->{
 			for(ActionListener listener: button.getListeners()) {

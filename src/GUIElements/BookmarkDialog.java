@@ -152,6 +152,7 @@ public class BookmarkDialog extends Dialog {
 		this.getAddBookmarkListeners().remove(listener);
 	}
 	
+
 	protected ArrayList<AddBookmarkListener> getAddBookmarkListeners() {
 		return eventListener;
 	}
