@@ -3,7 +3,7 @@ package converter;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
-import events.EventReader;
+import facades.Browsr;
 import htmlElement.ContentSpan;
 
 /**
@@ -55,13 +55,13 @@ public class HTMLToGUI {
 	 * @param eventReader - eventReader of the new container
 	 * @return container with the GUIElements corresponding to the given htmlElements
 	 */
-	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements,EventReader eventReader) {
+	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements,Browsr browsr) {
 		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
 		int relativeY = y;
 		int relativeX = x + XSPACE;
 		
 		for(int i = 0 ; i < htmlElements.size(); i++) {
-			GUIElement gui = toGUI(htmlElements.get(i), relativeX, relativeY, width, height,eventReader);
+			GUIElement gui = toGUI(htmlElements.get(i), relativeX, relativeY, width, height,browsr);
 			relativeY+=gui.getHeight() +YSPACE;
 			cont.add(gui);
 		}
@@ -78,7 +78,7 @@ public class HTMLToGUI {
 	 * @param eventReader - eventReader of the GUIElement
 	 * @return GUIElement corresponding to the given contentSpan
 	 */
-	public GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height,EventReader eventReader) {
-		return contentSpan.transformToGUI(relativeX, relativeY, width, height,eventReader);
+	public GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height, Browsr browsr) {
+		return contentSpan.transformToGUI(relativeX, relativeY, width, height,browsr);
 	}
 }

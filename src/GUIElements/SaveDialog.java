@@ -7,7 +7,7 @@ import EventCreators.ChangeDialogEventCreator;
 import EventCreators.SavePageEventCreator;
 import EventListeners.ChangeDialogListener;
 import EventListeners.SavePageListener;
-import events.EventReader;
+import facades.Browsr;
 
 public class SaveDialog extends Dialog implements ChangeDialogEventCreator, SavePageEventCreator{
 
@@ -21,15 +21,15 @@ public class SaveDialog extends Dialog implements ChangeDialogEventCreator, Save
      * @param h - height of this SaveDialog
 	 * @param eventReader - eventReader of this SaveDialog
 	 */
-	public SaveDialog(int x, int y, int w, int h, EventReader eventReader) {
+	public SaveDialog(int x, int y, int w, int h, Browsr browsr) {
 		super(x, y, w, h);
 		
 		this.initTextBox(w);
 		this.initCancelButton(w);
 		this.initSaveButton(w);
 		
-		this.addChangeDialogListener(eventReader);
-		this.addSavePageListener(eventReader);
+		this.addChangeDialogListener(browsr);
+		this.addSavePageListener(browsr);
 	}
 	
 	/**

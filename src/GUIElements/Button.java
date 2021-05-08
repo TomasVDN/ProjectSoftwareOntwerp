@@ -90,18 +90,22 @@ public class Button extends GUIElement implements ActionCreator {
 	 *
 	 */
 	private class UnpressedState extends State {
+		@Override
 		void paint(Graphics g) {
 			if (mustDrawBox()) drawBox(g,getButtonColor());
 			drawText(g);	
 		}
 		
+		@Override
 		void handlePressClick() {
 			state=new PressedState();
 		}
 		
+		@Override
 		void handleReleaseClick(boolean releasedOn) {
 			
 		}
+		@Override
 		String getStateName() {
 			return "UnpressedState";
 		}
@@ -112,15 +116,18 @@ public class Button extends GUIElement implements ActionCreator {
 	 *
 	 */
 	private class PressedState extends State {
+		@Override
 		void paint(Graphics g) {
 			if (mustDrawBox()) drawBox(g,getButtonColor().darker());
 			drawText(g);	
 		}
 		
+		@Override
 		void handlePressClick() {
 			
 		}
 		
+		@Override
 		void handleReleaseClick(boolean releasedOn) {
 			state = new UnpressedState();
 			if(releasedOn) {
@@ -128,6 +135,7 @@ public class Button extends GUIElement implements ActionCreator {
 			}
 		}
 		
+		@Override
 		String getStateName() {
 			return "PressedState";
 		}

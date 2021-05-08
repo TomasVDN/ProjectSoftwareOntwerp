@@ -9,7 +9,7 @@ import java.util.Map;
 
 import EventCreators.HyperLinkEventCreator;
 import EventListeners.HyperLinkListener;
-import events.EventReader;
+import facades.Browsr;
 
 public class Hyperlink extends Text implements HyperLinkEventCreator  {
 
@@ -28,22 +28,22 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 	 * @param url - URL to which the hyperlink redirects
 	 * @param eventReader - eventReader for the listeners
 	 */
-	public Hyperlink(int x, int y, Text text, String url, EventReader eventReader) {
+	public Hyperlink(int x, int y, Text text, String url, Browsr browsr) {
 		super(x, y,text);
 		this.setColor(Color.blue);
 		this.setUrl(url);
 		this.initFont();
-		this.addHyperLinkListener(eventReader);
-		initiateClickListeners();
+		this.addHyperLinkListener(browsr);
+		this.initiateClickListeners();
 	}
 	
 	/**
 	 * Initializes the clickListeners
 	 */
-	protected void initiateClickListeners() {
+	protected void initiateClickListeners() { //TODO
 		this.addSingleClickListener(() ->{
 			for(HyperLinkListener listener: this.getHyperListeners()) {
-				listener.handleHyperLinkClicked(this.getUrl());
+				listener.runUrlAttribute(this.getUrl());
 			}
 		});
 	}

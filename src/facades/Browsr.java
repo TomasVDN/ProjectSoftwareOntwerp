@@ -2,13 +2,19 @@ package facades;
 
 import java.util.ArrayList;
 
+import EventListeners.AddBookmarkListener;
+import EventListeners.ChangeDialogListener;
+import EventListeners.FormListener;
+import EventListeners.HyperLinkListener;
+import EventListeners.SavePageListener;
+import EventListeners.SearchBarListener;
 import htmlElement.ContentSpan;
 
 /**
  * Controller type class. Used to connect DomainFacade (facade for the domain) and WindowManager (facade for the UI).
  *
  */
-public class Browsr {
+public class Browsr implements SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
 	
 	private DomainFacade domainFacade;
 	private WindowManager windowManager;
@@ -40,6 +46,7 @@ public class Browsr {
 	 * Used to process a URL. Calls the runUrl method in this.domainFacade, updates the url displayed in this.windowManager and calls the draw Method.
 	 * @param path - the URL to process.
 	 */
+	@Override
 	public void runUrl(String path) {
 		ArrayList<ContentSpan> htmlList = domainFacade.runUrl(path);
 		this.getWindowManager().updateURL(path);
@@ -66,6 +73,7 @@ public class Browsr {
 	 * Handler for the hyperlinks.
 	 * @param URLAttribute
 	 */
+	@Override
 	public void runUrlAttribute(String URLAttribute) {
 		runUrl(getBaseURLFromSearchBar() + URLAttribute);
 	}
@@ -74,6 +82,7 @@ public class Browsr {
 	 * Asks the domainFacade to save the last loaded HTML code.
 	 * @param filename - file name under wich to save the HTML code.
 	 */
+	@Override
 	public void savePage(String filename) {
 		domainFacade.savePage(filename);
 	}
@@ -83,6 +92,7 @@ public class Browsr {
 	 * @param bookmarkHyperlinkName - name to be displayed of the bookmark
 	 * @param bookmarkHyperlinkUrl - corresponding url
 	 */
+	@Override
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl);
 	}
@@ -91,7 +101,9 @@ public class Browsr {
 	 * Changes the dialog to the given dialog.
 	 * @param type
 	 */
-	public void changeActiveDialog(String type) {
+	@Override
+	public void changeDialog(String type) {
 		this.windowManager.setActiveDialog(type);
 	}
 }
+

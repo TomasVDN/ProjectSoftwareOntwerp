@@ -15,12 +15,12 @@ import GUIElements.BookmarkHyperlink;
 import GUIElements.Container;
 import GUIElements.Dialog;
 import converter.HTMLToGUI;
-import events.EventReader;
 import htmlElement.ContentSpan;
 
 public class WindowManager {
 	
 	private MyCanvasWindow window;
+	private Browsr browsr;
 
 	private Dialog activeDialog;
 	private MainDialog mainDialog;
@@ -31,7 +31,6 @@ public class WindowManager {
 	private final int BOOKMARK_SIZE = 60;
 	boolean ignoreClick; //boolean if the next click shouldnt be reported (not press)
 	
-	private EventReader eventReader;
 	
 	/**
 	 * Constructor of the WindowManager class.
@@ -42,14 +41,11 @@ public class WindowManager {
 		this.window = window;
 		
 		//Make new Browsr object.
-		Browsr browsr = new Browsr(this);
+		this.browsr = new Browsr(this);
 		
 		//Set width/height.
 		this.setWidth(600);
 		this.setHeight(600);
-		
-		//Initialize EventReader
-		this.eventReader = new EventReader(browsr);
 		
 		//Make the bar and page containers
 		initMainDialog();
@@ -68,7 +64,7 @@ public class WindowManager {
 		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
 		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
 
-		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer, eventReader);
+		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer, browsr);
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
 	}
@@ -92,7 +88,7 @@ public class WindowManager {
 	public void draw(ArrayList<ContentSpan> htmlElements) {
 		HTMLToGUI converter = new HTMLToGUI();
 		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements,this.getEventReader());
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements, browsr);
 		this.getActiveDialog().resetAllElements(list);
 	}
 	
@@ -215,13 +211,6 @@ public class WindowManager {
 	}
 
 	/**
-	 * @return this.eventReader
-	 */
-	public EventReader getEventReader() {
-		return eventReader;
-	}
-
-	/**
 	 * Transmits the keyEvent to the ElementWithKeyboardFocus. If a modifier (such as ctrl+s) is used, calls the setActiveDialog method. 
 	 * @param id
 	 * @param keyCode
@@ -326,7 +315,7 @@ public class WindowManager {
 	 * Creates a saveDialog and set it as the active dialog.
 	 */
 	private void setSaveDialogToActive() {
-		this.setActiveDialog(new SaveDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader()));
+		this.setActiveDialog(new SaveDialog(0, 0, this.getWidth(), this.getHeight(), browsr));
 		this.changeWindowTitle("Save As");
 	}
 	
@@ -334,7 +323,7 @@ public class WindowManager {
 	 * Creates a bookmarkDialog and set it as the active dialog.
 	 */
 	private void setBookmarkDialogToActive() {
-		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), this.getEventReader());
+		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), browsr); //TODO
 		String suggestedUrl = this.getURLFromSearchBar();
 		newBookmarkDialog.setSuggestedUrl(suggestedUrl);
 		this.setActiveDialog(newBookmarkDialog);
@@ -369,7 +358,7 @@ public class WindowManager {
 	 */
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl, this.getEventReader());
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl, browsr);
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 

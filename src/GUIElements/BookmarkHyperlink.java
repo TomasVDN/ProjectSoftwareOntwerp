@@ -1,7 +1,7 @@
 package GUIElements;
 
 import EventListeners.HyperLinkListener;
-import events.EventReader;
+import facades.Browsr;
 
 public class BookmarkHyperlink extends Hyperlink {
 
@@ -13,15 +13,15 @@ public class BookmarkHyperlink extends Hyperlink {
      * @param url - url of this BookmarkHyperlink
 	 * @param eventReader - eventReader of this BookmarkHyperlink
 	 */
-	public BookmarkHyperlink(int x, int y, Text text, String url, EventReader eventReader) {
-		super(x, y, text, url, eventReader);
+	public BookmarkHyperlink(int x, int y, Text text, String url, Browsr browsr) {
+		super(x, y, text, url, browsr);
 	}
 	
 	@Override
 	protected void initiateClickListeners() {
 		this.addSingleClickListener(() ->{
 			for(HyperLinkListener listener: this.getHyperListeners()) {
-				listener.handleBookmarkHyperLinkClicked(this.getUrl());
+				listener.runUrl(this.getUrl());
 			}
 		});
 	}

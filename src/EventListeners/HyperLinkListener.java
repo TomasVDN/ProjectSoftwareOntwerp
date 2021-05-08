@@ -5,7 +5,7 @@ package EventListeners;
  */
 public interface HyperLinkListener extends EventListener {
 
-	void handleHyperLinkClicked(String urlAttribute);
+	void runUrlAttribute(String urlAttribute);
 	
-	void handleBookmarkHyperLinkClicked(String url);
+	void runUrl(String url);
 }

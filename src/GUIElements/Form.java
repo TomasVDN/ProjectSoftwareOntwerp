@@ -97,7 +97,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		result+=this.getAction() + "?";
 		result+=this.getTextResults();
 		for(FormListener reader: this.getListeners()) {
-			reader.handleFormSubmit(result);
+			reader.runUrlAttribute(result);
 		}
 	}
 	

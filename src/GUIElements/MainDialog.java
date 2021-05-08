@@ -2,7 +2,7 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import events.EventReader;
+import facades.Browsr;
 
 public class MainDialog extends Dialog {
 	
@@ -14,19 +14,19 @@ public class MainDialog extends Dialog {
 	private SearchBar searchbar;
 	private TableGUI bookmarkBar;
 
-	public MainDialog(int x, int y, int w, int h, Container pageContainer, Container searchBarContainer, Container bookmarkBarContainer, EventReader eventReader) {
+	public MainDialog(int x, int y, int w, int h, Container pageContainer, Container searchBarContainer, Container bookmarkBarContainer, Browsr browsr) {
 		super(x, y, w, h);
 		
 		this.setContainers(pageContainer, searchBarContainer, bookmarkBarContainer);
-		this.initSearchBar(eventReader);
+		this.initSearchBar(browsr);
 		this.initBookmarkBar();
 		
 		//Used for testing purpose TODO
 		Text t2 = new Text(0, 0, "link");
-		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", eventReader);
+		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/", browsr);
 		this.addBookmark(hyperlinkTest);
 		Text t3 = new Text(0, 0, "form");
-		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html", eventReader);
+		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html", browsr);
 		this.addBookmark(hyperlinkTest2);
 		
 	}
@@ -53,10 +53,10 @@ public class MainDialog extends Dialog {
 	
 	/**
 	 * Initializes the searchBar of this MainDialog.
-	 * @param eventReader
+	 * @param browsr
 	 */
-	private void initSearchBar(EventReader eventReader) {
-		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, eventReader);
+	private void initSearchBar(Browsr browsr) {
+		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, browsr);
 		this.setSearchbar(searchBar);
 		this.getSearchBarContainer().addElement(searchBar);
 	}

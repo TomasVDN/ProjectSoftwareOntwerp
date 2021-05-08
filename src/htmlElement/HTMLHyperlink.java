@@ -1,7 +1,7 @@
 package htmlElement;
 
 import GUIElements.Hyperlink;
-import events.EventReader;
+import facades.Browsr;
 
 
 public class HTMLHyperlink extends ContentSpan{
@@ -44,8 +44,8 @@ public class HTMLHyperlink extends ContentSpan{
 	}
 
 	@Override
-	public Hyperlink transformToGUI(int x, int y, int width, int height, EventReader eventReader) {
-		return new Hyperlink(x, y, this.getText().transformToGUI(x, y, width, height, eventReader), this.getUrl(), eventReader);
+	public Hyperlink transformToGUI(int x, int y, int width, int height, Browsr browsr) {
+		return new Hyperlink(x, y, this.getText().transformToGUI(x, y, width, height, browsr), this.getUrl(), browsr);
 	}
 
 }

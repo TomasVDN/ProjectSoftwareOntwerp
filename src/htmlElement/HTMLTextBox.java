@@ -2,7 +2,7 @@ package htmlElement;
 
 import GUIElements.GUIElement;
 import GUIElements.TextBox;
-import events.EventReader;
+import facades.Browsr;
 
 public class HTMLTextBox extends HTMLInput {
 
@@ -21,7 +21,7 @@ public class HTMLTextBox extends HTMLInput {
 	}
 
 	@Override
-	public GUIElement transformToGUI(int x, int y, int width, int height, EventReader eventReader) {
+	public GUIElement transformToGUI(int x, int y, int width, int height, Browsr browsr) {
 		return new TextBox(x, y, WIDTH, HEIGHT,this.name);
 	}
 

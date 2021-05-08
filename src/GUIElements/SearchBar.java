@@ -45,7 +45,7 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 	 */
 	private void runUrlEvent() {
 		for(SearchBarListener listener: this.getListeners()) {
-			listener.searchBarLoseFocus(this.getText());
+			listener.runUrl(this.getText());
 		}
 	}
 	

@@ -7,7 +7,7 @@ import EventCreators.AddBookmarkEventCreator;
 import EventCreators.ChangeDialogEventCreator;
 import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
-import events.EventReader;
+import facades.Browsr;
 
 public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, ChangeDialogEventCreator{
 	
@@ -25,7 +25,7 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
      * @param h - height of this BookmarkDialog
 	 * @param eventReader - eventReader of this BookmarkDialog
 	 */
-	public BookmarkDialog(int x, int y, int w, int h, EventReader eventReader) {
+	public BookmarkDialog(int x, int y, int w, int h, Browsr browsr) {
 		super(x, y, w, h);
 
 		this.initHeader();
@@ -34,8 +34,8 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.initCancelButton(w);
 		this.initAddBookmarkButton(w);
 		
-		this.addAddBookmarkListener(eventReader);
-		this.addChangeDialogListener(eventReader);
+		this.addAddBookmarkListener(browsr);
+		this.addChangeDialogListener(browsr);
 	}
 	
 	/**
