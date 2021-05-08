@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import EventCreators.HyperLinkEventCreator;
 import EventListeners.HyperLinkListener;
 import facades.Browsr;
 
-public class Hyperlink extends Text implements HyperLinkEventCreator  {
+public class Hyperlink extends Text {
 
 	//Map for setting the underline in the font and Variable for the url
     private Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
@@ -75,17 +74,14 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 		this.url = url;
 	}
 
-	@Override
 	public void addHyperLinkListener(HyperLinkListener listener) {
 		this.getHyperListeners().add(listener);
 	}
 
-	@Override
 	public void removeHyperLinkListener(HyperLinkListener listener) {
 		this.getHyperListeners().remove(listener);
 	}
 	
-
 	protected ArrayList<HyperLinkListener> getHyperListeners() {
 		return eventListener;
 	}

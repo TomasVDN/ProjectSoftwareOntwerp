@@ -7,14 +7,13 @@ import java.awt.Shape;
 
 import java.util.List;
 
-import EventCreators.ActionCreator;
 import EventListeners.ActionListener;
 
 
 import java.util.ArrayList;
 
 
-public class Button extends GUIElement implements ActionCreator {
+public class Button extends GUIElement {
 
 	private Text text;
     private Color buttonColor =  Color.BLACK;
@@ -276,7 +275,6 @@ public class Button extends GUIElement implements ActionCreator {
 	 * Add the given EventListener to a list of EventListeners
 	 * @param listener
 	 */
-	@Override
 	public void addListener(ActionListener listener) {
 		if(listener!=null) {
 			listeners.add(listener);
@@ -286,7 +284,6 @@ public class Button extends GUIElement implements ActionCreator {
 	/**
 	 * removes the given EventListener form a list of EventListeners
 	 */
-	@Override
 	public void removeListener(ActionListener listener) {
 		listeners.remove(listener);
 	}

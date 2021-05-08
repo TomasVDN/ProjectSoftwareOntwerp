@@ -6,12 +6,10 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import EventCreators.ActionCreator;
-import EventCreators.FormEventCreator;
 import EventListeners.*;
 
 
-public class Form extends GUIElement implements ActionListener,FormEventCreator {
+public class Form extends GUIElement implements ActionListener {
 
 	private GUIElement rootGui;
 	private String action;
@@ -42,9 +40,9 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	 * Add itself as listener to all action creators
 	 */
 	private void addSelfToRootGui() {
-		ArrayList<ActionCreator> array = new ArrayList<>();
-		this.getGuiClass( ActionCreator.class, array);
-		for(ActionCreator ac : array) {
+		ArrayList<Button> array = new ArrayList<>();
+		this.getGuiClass( Button.class, array);
+		for(Button ac : array) {
 			ac.addListener(this);
 		}
 	}
@@ -182,19 +180,12 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		this.submit();
 	}
 
-
-
-
-	@Override
 	public void addFormListener(FormListener listener) {
 		if(listener!=null) {
 			this.listeners.add(listener);
 		}
 	}
 
-
-
-	@Override
 	public  void removeFormListener(FormListener listener) {
 		this.listeners.remove(listener);
 	}

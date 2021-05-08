@@ -3,13 +3,11 @@ package GUIElements;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import EventCreators.AddBookmarkEventCreator;
-import EventCreators.ChangeDialogEventCreator;
 import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
 import facades.Browsr;
 
-public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, ChangeDialogEventCreator{
+public class BookmarkDialog extends Dialog {
 	
 	private TextBox bookmarkHyperlinkNameTextBox;
 	private TextBox bookmarkHyperlinkUrlTextBox;
@@ -146,31 +144,25 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.getUrlTextBox().setLeftText(suggestedUrl);
 	}
 
-	@Override
 	public void addAddBookmarkListener(AddBookmarkListener listener) {
 		this.getAddBookmarkListeners().add(listener);
 	}
 
-	@Override
 	public void removeAddBookmarkListener(AddBookmarkListener listener) {
 		this.getAddBookmarkListeners().remove(listener);
 	}
 	
-
 	protected ArrayList<AddBookmarkListener> getAddBookmarkListeners() {
 		return eventListener;
 	}
 
-	@Override
 	public void addChangeDialogListener(ChangeDialogListener listener) {
 		this.getChangeDialogListeners().add(listener);
 	}
 
-	@Override
 	public void removeChangeDialogListener(ChangeDialogListener listener) {
 		this.getChangeDialogListeners().remove(listener);
 	}
-	
 
 	protected ArrayList<ChangeDialogListener> getChangeDialogListeners() {
 		return eventListener2;
