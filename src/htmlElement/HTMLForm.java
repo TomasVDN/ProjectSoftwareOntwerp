@@ -2,7 +2,7 @@ package htmlElement;
 
 import GUIElements.Form;
 import GUIElements.GUIElement;
-import events.EventReader;
+import facades.Browsr;
 
 public class HTMLForm extends ContentSpan {
 	
@@ -36,12 +36,12 @@ public class HTMLForm extends ContentSpan {
 	}
 
 	@Override
-	public Form transformToGUI(int x, int y, int width, int height,EventReader eventReader) {
+	public Form transformToGUI(int x, int y, int width, int height) {
 		GUIElement gui =null;
 		if(this.element!=null) {
-			gui= element.transformToGUI(x, y, width, height,eventReader);
+			gui= element.transformToGUI(x, y, width, height);
 		}
-		return new Form(gui,x,y,action,eventReader);
+		return new Form(gui,x,y,action);
 	}
 
 }

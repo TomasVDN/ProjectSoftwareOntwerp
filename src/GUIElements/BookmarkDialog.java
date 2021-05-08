@@ -3,13 +3,11 @@ package GUIElements;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import EventCreators.AddBookmarkEventCreator;
-import EventCreators.ChangeDialogEventCreator;
 import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
-import events.EventReader;
+import facades.Browsr;
 
-public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, ChangeDialogEventCreator{
+public class BookmarkDialog extends Dialog {
 	
 	private TextBox bookmarkHyperlinkNameTextBox;
 	private TextBox bookmarkHyperlinkUrlTextBox;
@@ -25,7 +23,7 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
      * @param h - height of this BookmarkDialog
 	 * @param eventReader - eventReader of this BookmarkDialog
 	 */
-	public BookmarkDialog(int x, int y, int w, int h, EventReader eventReader) {
+	public BookmarkDialog(int x, int y, int w, int h, Browsr browsr) {
 		super(x, y, w, h);
 
 		this.initHeader();
@@ -34,8 +32,8 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.initCancelButton(w);
 		this.initAddBookmarkButton(w);
 		
-		this.addAddBookmarkListener(eventReader);
-		this.addChangeDialogListener(eventReader);
+		this.addAddBookmarkListener(browsr);
+		this.addChangeDialogListener(browsr);
 	}
 	
 	/**
@@ -146,12 +144,10 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		this.getUrlTextBox().setLeftText(suggestedUrl);
 	}
 
-	@Override
 	public void addAddBookmarkListener(AddBookmarkListener listener) {
 		this.getAddBookmarkListeners().add(listener);
 	}
 
-	@Override
 	public void removeAddBookmarkListener(AddBookmarkListener listener) {
 		this.getAddBookmarkListeners().remove(listener);
 	}
@@ -161,16 +157,13 @@ public class BookmarkDialog extends Dialog implements AddBookmarkEventCreator, C
 		return eventListener;
 	}
 
-	@Override
 	public void addChangeDialogListener(ChangeDialogListener listener) {
 		this.getChangeDialogListeners().add(listener);
 	}
 
-	@Override
 	public void removeChangeDialogListener(ChangeDialogListener listener) {
 		this.getChangeDialogListeners().remove(listener);
 	}
-	
 
 	protected ArrayList<ChangeDialogListener> getChangeDialogListeners() {
 		return eventListener2;

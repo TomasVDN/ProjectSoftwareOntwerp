@@ -3,11 +3,9 @@ package GUIElements;
 import java.util.ArrayList;
 import java.util.List;
 
-import EventCreators.SearchBarEventCreator;
 import EventListeners.SearchBarListener;
 
-
-public class SearchBar extends TextBox implements SearchBarEventCreator {
+public class SearchBar extends TextBox {
 
 	private List<SearchBarListener > listeners = new ArrayList<SearchBarListener>();
 	
@@ -45,7 +43,7 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 	 */
 	private void runUrlEvent() {
 		for(SearchBarListener listener: this.getListeners()) {
-			listener.searchBarLoseFocus(this.getText());
+			listener.runUrl(this.getText());
 		}
 	}
 	
@@ -63,14 +61,12 @@ public class SearchBar extends TextBox implements SearchBarEventCreator {
 		return URL.substring(0, index+1);
 	}
 
-	@Override
 	public void addSearchBarListener(SearchBarListener listener) {
 		if(listener!=null) {
 			this.listeners.add(listener);
 		}
 	}
 
-	@Override
 	public void removeSearchBarListener(SearchBarListener listener) {
 		this.listeners.remove(listener);
 	}

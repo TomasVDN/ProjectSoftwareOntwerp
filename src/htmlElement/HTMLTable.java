@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
-import events.EventReader;
+import facades.Browsr;
 
 
 public class HTMLTable extends ContentSpan {
@@ -57,10 +57,10 @@ public class HTMLTable extends ContentSpan {
 	 * x and y are the relative top left side, creates a TableGUI element
 	 */
 	@Override
-	public TableGUI transformToGUI(int x, int y, int width, int height, EventReader eventReader) {
+	public TableGUI transformToGUI(int x, int y, int width, int height) {
 		ArrayList<TableRowGUI> GUIRows= new ArrayList<TableRowGUI>();
 		for(int i=0; i<this.getRows().size();i++) {
-			TableRowGUI gui = this.getRows().get(i).transformToGUI(0, 0, width, height, eventReader);
+			TableRowGUI gui = this.getRows().get(i).transformToGUI(0, 0, width, height);
 			GUIRows.add(gui);
 		}
 		return new TableGUI(GUIRows, x, y);

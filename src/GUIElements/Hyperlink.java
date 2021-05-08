@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import EventCreators.HyperLinkEventCreator;
 import EventListeners.HyperLinkListener;
-import events.EventReader;
+import facades.Browsr;
 
-public class Hyperlink extends Text implements HyperLinkEventCreator  {
+public class Hyperlink extends Text {
 
 	//Map for setting the underline in the font and Variable for the url
     private Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
@@ -28,22 +27,20 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 	 * @param url - URL to which the hyperlink redirects
 	 * @param eventReader - eventReader for the listeners
 	 */
-	public Hyperlink(int x, int y, Text text, String url, EventReader eventReader) {
+	public Hyperlink(int x, int y, Text text, String url) {
 		super(x, y,text);
 		this.setColor(Color.blue);
 		this.setUrl(url);
 		this.initFont();
-		this.addHyperLinkListener(eventReader);
-		initiateClickListeners();
 	}
 	
 	/**
 	 * Initializes the clickListeners
 	 */
-	protected void initiateClickListeners() {
+	protected void initiateClickListeners() { //TODO
 		this.addSingleClickListener(() ->{
 			for(HyperLinkListener listener: this.getHyperListeners()) {
-				listener.handleHyperLinkClicked(this.getUrl());
+				listener.runUrlAttribute(this.getUrl());
 			}
 		});
 	}
@@ -75,17 +72,15 @@ public class Hyperlink extends Text implements HyperLinkEventCreator  {
 		this.url = url;
 	}
 
-	@Override
 	public void addHyperLinkListener(HyperLinkListener listener) {
 		this.getHyperListeners().add(listener);
+		initiateClickListeners();
 	}
 
-	@Override
 	public void removeHyperLinkListener(HyperLinkListener listener) {
 		this.getHyperListeners().remove(listener);
 	}
 	
-
 	protected ArrayList<HyperLinkListener> getHyperListeners() {
 		return eventListener;
 	}

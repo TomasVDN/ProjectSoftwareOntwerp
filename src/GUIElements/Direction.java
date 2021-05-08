@@ -3,6 +3,7 @@ package GUIElements;
 public enum Direction {
 
 	HORIZONTAL{
+		@Override
 		public int[] getPosition(int[] position) {
 			//Horizontal means that position is an y value
 			return new int[]{0,position[1]};
@@ -16,7 +17,8 @@ public enum Direction {
 
     },
 	VERTICAL{
-    	public int[] getPosition(int[] position) {
+    	@Override
+		public int[] getPosition(int[] position) {
 			//Vertical means that position is an x value
 			return new int[]{position[0],0};
 		}

@@ -6,12 +6,10 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import EventCreators.ActionCreator;
-import EventCreators.FormEventCreator;
 import EventListeners.*;
 
 
-public class Form extends GUIElement implements ActionListener,FormEventCreator {
+public class Form extends GUIElement implements ActionListener {
 
 	private GUIElement rootGui;
 	private String action;
@@ -30,21 +28,20 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	 * @param listener
 	 * 	the initialized listener, if no listener in the beginning is applied to it use null
 	 */
-	public Form(GUIElement gui, int x, int y,String action,FormListener listener){
+	public Form(GUIElement gui, int x, int y,String action){
 		super(x,y);
 		this.setGui(gui);
 		this.setAction(action);
 		this.addSelfToRootGui(); // adds the form as listener to the gui
-		this.addFormListener(listener);
 	}
 	
 	/**
 	 * Add itself as listener to all action creators
 	 */
 	private void addSelfToRootGui() {
-		ArrayList<ActionCreator> array = new ArrayList<>();
-		this.getGuiClass( ActionCreator.class, array);
-		for(ActionCreator ac : array) {
+		ArrayList<Button> array = new ArrayList<>();
+		this.getGuiClass( Button.class, array);
+		for(Button ac : array) {
 			ac.addListener(this);
 		}
 	}
@@ -97,7 +94,7 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 		result+=this.getAction() + "?";
 		result+=this.getTextResults();
 		for(FormListener reader: this.getListeners()) {
-			reader.handleFormSubmit(result);
+			reader.runUrlAttribute(result);
 		}
 	}
 	
@@ -169,32 +166,26 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 
 	@Override
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
+		if(cls.isInstance(this)) {
+			array.add( (T) this); //TODO dit is niet veilig blijkbaar
+		}
 		if(this.getRootGui()==null) {
 			return array;
 		}
 		return this.getRootGui().getGuiClass(cls, array);
 	}
 
-
-
 	@Override
 	public void clickButton() {
 		this.submit();
 	}
 
-
-
-
-	@Override
 	public void addFormListener(FormListener listener) {
 		if(listener!=null) {
 			this.listeners.add(listener);
 		}
 	}
 
-
-
-	@Override
 	public  void removeFormListener(FormListener listener) {
 		this.listeners.remove(listener);
 	}
@@ -205,11 +196,5 @@ public class Form extends GUIElement implements ActionListener,FormEventCreator 
 	public ArrayList<FormListener> getListeners() {
 		return this.listeners; //TODO clone this
 	}
-
-
-
-
-
-	
 	
 	}
