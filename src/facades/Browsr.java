@@ -50,15 +50,7 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 	public void runUrl(String path) {
 		ArrayList<ContentSpan> htmlList = domainFacade.runUrl(path);
 		this.getWindowManager().updateURL(path);
-		this.draw(htmlList);	
-	}
-	
-	/**
-	 * Asks this.windowManager to process and display the given list of HTMLElements.
-	 * @param htmlElements - list to transmit.
-	 */
-	public void draw(ArrayList<ContentSpan> htmlElements) {
-		windowManager.draw(htmlElements);
+		windowManager.draw(htmlList);	
 	}
 	
 	/**
