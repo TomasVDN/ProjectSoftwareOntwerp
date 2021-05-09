@@ -6,15 +6,17 @@ import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
+import EventListeners.RedrawListener;
 import EventListeners.SavePageListener;
 import EventListeners.SearchBarListener;
+import GUIElements.Container;
 import htmlElement.ContentSpan;
 
 /**
  * Controller type class. Used to connect DomainFacade (facade for the domain) and WindowManager (facade for the UI).
  *
  */
-public class Browsr implements SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
+public class Browsr implements SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener, RedrawListener{
 	
 	private DomainFacade domainFacade;
 	private WindowManager windowManager;
@@ -96,6 +98,12 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 	@Override
 	public void changeDialog(String type) {
 		this.windowManager.setActiveDialog(type);
+	}
+
+	@Override
+	public void redraw(Container container, String url) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

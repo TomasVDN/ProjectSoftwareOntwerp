@@ -126,5 +126,43 @@ public class Container extends GUIElement {
 	@Override
 	public void handleClick() {}
 
+	
+	private String loadedUrl;
+	
+	/**
+	 * @return the loadedUrl
+	 */
+	public String getLoadedUrl() {
+		return loadedUrl;
+	}
+
+	/**
+	 * @param loadedUrl the loadedUrl to set
+	 */
+	public void setLoadedUrl(String loadedUrl) {
+		this.loadedUrl = loadedUrl;
+	}
+	
+	private ArrayList<RedrawListener> eventListener = new ArrayList<RedrawListener>();
+
+
+	@Override
+	public void addRedrawListener(RedrawListener listener) {
+		this.getRedrawListeners().add(listener);
+	}
+
+	@Override
+	public void removeRedrawListener(RedrawListener listener) {
+		this.getRedrawListeners().remove(listener);
+	}
+	protected ArrayList<RedrawListener> getRedrawListeners() {
+		return eventListener;
+	}
+	
+	public void redraw() {
+		for (RedrawListener listener: this.getRedrawListeners()) {
+			listener.redraw(this, loadedUrl);
+		}
+	}
 
 }
