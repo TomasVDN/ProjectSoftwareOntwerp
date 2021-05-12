@@ -74,7 +74,7 @@ public class BookmarkDialog extends Dialog {
 	 */
 	private void initCancelButton(int width) {
 		int xPos = Math.floorDiv(width, 4);
-		Button cancelButton = new Button(xPos, 200, new Text(xPos, 200, "Cancel"), true, Color.lightGray);
+		Button cancelButton = new Button(xPos, 200, new Text(0, 0, "Cancel"), true, Color.lightGray);
 		cancelButton.addSingleClickListener(() -> {
 			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
 				listener.changeDialog("mainDialog");
@@ -91,7 +91,7 @@ public class BookmarkDialog extends Dialog {
 	private void initAddBookmarkButton(int width) {
 		int xPos = 2 * Math.floorDiv(width, 4);
 		
-		Button addBookmarkButton = new Button(xPos, 200, new Text(xPos, 200, "Add Bookmark"), true, Color.lightGray);
+		Button addBookmarkButton = new Button(xPos, 200, new Text(0, 0, "Add Bookmark"), true, Color.lightGray);
 		addBookmarkButton.addSingleClickListener(() ->{
 			String bookmarkHyperlinkName = this.getNameTextBox().getText();
 			String bookmarkHyperlinkUrlTextBox = this.getUrlTextBox().getText();

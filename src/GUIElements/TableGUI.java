@@ -61,7 +61,7 @@ public class TableGUI extends GUIElement {
 		if(this.getHeight()==104) {
 			System.out.println("ALARM");
 		}
-		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+79);//TODO dit 52+26 maar waarom dit getal
+		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);//TODO dit 52+26 maar waarom dit getal
 		for(int i=0; i< this.getGuiRows().size();i++) {
 			this.getGuiRows().get(i).paint(newG);
 		}

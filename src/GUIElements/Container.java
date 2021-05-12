@@ -24,7 +24,7 @@ public class Container extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
+		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
 		elements.stream().forEach(element -> element.paint(newG));
 	}
 	

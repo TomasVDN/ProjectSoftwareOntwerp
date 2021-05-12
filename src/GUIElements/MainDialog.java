@@ -58,7 +58,7 @@ public class MainDialog extends Dialog {
 	 * @param browsr
 	 */
 	private void initSearchBar(Browsr browsr) {
-		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 50, browsr);
+		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 40, browsr);
 		this.setSearchbar(searchBar);
 		this.getSearchBarContainer().addElement(searchBar);
 	}
@@ -183,7 +183,7 @@ public class MainDialog extends Dialog {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
+		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
 		allContainers.stream().forEach(element -> element.paint(newG));
 	}
 	

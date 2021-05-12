@@ -91,8 +91,11 @@ public class Button extends GUIElement {
 	private class UnpressedState extends State {
 		@Override
 		void paint(Graphics g) {
-			if (mustDrawBox()) drawBox(g,getButtonColor());
-			drawText(g);	
+			if (mustDrawBox()) {
+				drawBox(g,getButtonColor());
+			}
+			Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
+			drawText(newG);		
 		}
 		
 		@Override
@@ -117,8 +120,11 @@ public class Button extends GUIElement {
 	private class PressedState extends State {
 		@Override
 		void paint(Graphics g) {
-			if (mustDrawBox()) drawBox(g,getButtonColor().darker());
-			drawText(g);	
+			if (mustDrawBox()) {
+				drawBox(g,getButtonColor().darker());
+			}
+			Graphics newG= g.create(getX(), getY(), getWidth()+100, getHeight()+100);
+			drawText(newG);	
 		}
 		
 		@Override
@@ -169,10 +175,7 @@ public class Button extends GUIElement {
 	 */
 	private void drawText(Graphics g) {
 		g.setColor(Color.black);
-		Shape oldClip = g.getClip();
-		g.setClip(getX(), getY(), getWidth(), getHeight());
 		this.getText().paint(g);
-		g.setClip(oldClip);
 	}
 
 	/**

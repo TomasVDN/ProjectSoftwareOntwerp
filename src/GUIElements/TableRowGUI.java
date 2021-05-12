@@ -54,7 +54,7 @@ public class TableRowGUI extends GUIElement {
 				TableCellGUI prevCell =  this.getGuiElements().get(index-1);
 				xPrevious += prevCell.getX() + prevCell.getWidth();
 			}
-			this.getGuiElements().get(index).setPosition(xPrevious,this.getY());
+			this.getGuiElements().get(index).setPosition(xPrevious,0);
 			this.getGuiElements().get(index).setWidth(maxWidth);
 		}
 	}
