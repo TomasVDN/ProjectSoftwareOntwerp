@@ -183,7 +183,6 @@ public class TextBox extends GUIElement {
 		
 		//cursor
 		if (isActive()) this.drawCursor(newG, metrics);
-
 	}
 	
 	/**

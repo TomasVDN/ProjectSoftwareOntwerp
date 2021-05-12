@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class TableGUI extends GUIElement {
 
 	private ArrayList<TableRowGUI> guiRows;
-	int offSet;
+	int offSet=0;
 	
 	/**
 	 * Constructor of the table GUI class.
@@ -58,10 +58,18 @@ public class TableGUI extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g) {		
-		Graphics newG= g.create(getX(), getY(), getWidth()+10, getHeight());//TODO
+		if(this.getHeight()==104) {
+			System.out.println("ALARM");
+		}
+		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+79);//TODO dit 52+26 maar waarom dit getal
 		for(int i=0; i< this.getGuiRows().size();i++) {
 			this.getGuiRows().get(i).paint(newG);
 		}
+		/*g.translate(this.getX(), this.getY());		
+		for(int i=0; i< this.getGuiRows().size();i++) {
+			this.getGuiRows().get(i).paint(g);
+		}
+		g.translate(-this.getX(), -this.getY());*/
 	}
 	
 	/**
@@ -72,6 +80,9 @@ public class TableGUI extends GUIElement {
 		int totalHeight=0;
 		for(int i=0; i<this.getGuiRows().size();i++) {
 			int height = this.getGuiRows().get(i).getHeight();
+			if(i!=0) {
+				height+=this.getOffSet();
+			}
 			totalHeight+=height;
 		}
 		return totalHeight;
