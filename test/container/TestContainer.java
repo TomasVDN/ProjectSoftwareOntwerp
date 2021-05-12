@@ -15,7 +15,7 @@ import GUIElements.Text;
 class TestContainer {
 
 	
-	Container container = new Container(100, 100, 500, 500, null);
+	Container container = new Container(100, 100, 500, 500);
 	Text text1;
 	Text text2;
 	Button button1;

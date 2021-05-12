@@ -13,7 +13,7 @@ public abstract class Dialog extends Container {
      * @param h - height of this Dialog
 	 */
 	public Dialog(int x, int y, int w, int h) {
-		super(x, y, w, h, null);
+		super(x, y, w, h);
 	}
 
 	/**

@@ -3,8 +3,6 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import EventListeners.RedrawListener;
-
 public class Container extends GUIElement {
 
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
@@ -16,10 +14,8 @@ public class Container extends GUIElement {
      * @param w - width of this Container
      * @param h - height of this Container
 	 */
-	public Container(int x, int y, int w, int h, String url) {
+	public Container(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		
-		this.loadedUrl = url;
 	}
 
 	/**
@@ -129,32 +125,6 @@ public class Container extends GUIElement {
 
 	@Override
 	public void handleClick() {}
-	
-	private ArrayList<RedrawListener> listeners = new ArrayList<RedrawListener>();
-	
-	public void addListener(RedrawListener listener) {
-		listeners.add(listener);
-	}
-	
-	public void redraw() {
-		for (RedrawListener lis: listeners) {
-			lis.runUrlWithContainer(this, loadedUrl);
-		}
-	}
 
-	private String loadedUrl = "";
-	
-	/**
-	 * @return the loadedUrl
-	 */
-	public String getLoadedUrl() {
-		return loadedUrl;
-	}
 
-	/**
-	 * @param loadedUrl the loadedUrl to set
-	 */
-	public void setLoadedUrl(String loadedUrl) {
-		this.loadedUrl = loadedUrl;
-	}
 }

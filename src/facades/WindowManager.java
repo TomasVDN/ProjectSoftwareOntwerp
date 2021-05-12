@@ -63,9 +63,9 @@ public class WindowManager {
 	 * Initialize the mainDialog. Adds three containers (one for the searchbar, one for the bookmarks and one for the htmlCode).
 	 */
 	private void initMainDialog() {
-		Container searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE, "");
-		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE, "");
-		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE, "");
+		Container searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
+		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
+		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
 
 		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer, browsr);
 		this.setMainDialog(mainDialog);
@@ -96,20 +96,6 @@ public class WindowManager {
 		addListenersToGUIElements(list);
 		
 		this.getActiveDialog().resetAllElements(list);
-	}
-	
-	/**
-	 * Transforms the given HTMLElements to GUIElements, and adds them to the active page.
-	 * @param htmlElements - the list of HTMLElements to add to the active page.
-	 */
-	public void draw(ArrayList<ContentSpan> htmlElements, Container container) {
-		HTMLToGUI converter = new HTMLToGUI();
-		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
-		
-		addListenersToGUIElements(list);
-		
-		container.resetAllElements(list);
 	}
 
 	private void addListenersToGUIElements(ArrayList<GUIElement> list) {
