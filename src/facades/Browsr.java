@@ -43,7 +43,7 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 	public WindowManager getWindowManager() {
 		return windowManager;
 	}
-
+	
 	/**
 	 * Used to process a URL. Calls the runUrl method in this.domainFacade, updates the url displayed in this.windowManager and calls the draw Method.
 	 * @param path - the URL to process.
@@ -53,6 +53,17 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 		ArrayList<ContentSpan> htmlList = domainFacade.runUrl(path);
 		this.getWindowManager().updateURL(path);
 		windowManager.draw(htmlList);	
+	}
+
+	/**
+	 * Used to process a URL. Calls the runUrl method in this.domainFacade, updates the url displayed in this.windowManager and calls the draw Method.
+	 * @param path - the URL to process.
+	 */
+	@Override
+	public void runUrlWithContainer(Container container, String path) {
+		ArrayList<ContentSpan> htmlList = domainFacade.runUrl(path);
+		this.getWindowManager().updateURL(path);
+		windowManager.draw(htmlList, container);	
 	}
 	
 	/**
@@ -98,12 +109,6 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 	@Override
 	public void changeDialog(String type) {
 		this.windowManager.setActiveDialog(type);
-	}
-
-	@Override
-	public void redraw(Container container, String url) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

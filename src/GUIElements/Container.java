@@ -3,6 +3,8 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import EventListeners.RedrawListener;
+
 public class Container extends GUIElement {
 
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
@@ -14,8 +16,10 @@ public class Container extends GUIElement {
      * @param w - width of this Container
      * @param h - height of this Container
 	 */
-	public Container(int x, int y, int w, int h) {
+	public Container(int x, int y, int w, int h, String url) {
 		super(x, y, w, h);
+		
+		this.loadedUrl = url;
 	}
 
 	/**
@@ -125,9 +129,20 @@ public class Container extends GUIElement {
 
 	@Override
 	public void handleClick() {}
-
 	
-	private String loadedUrl;
+	private ArrayList<RedrawListener> listeners = new ArrayList<RedrawListener>();
+	
+	public void addListener(RedrawListener listener) {
+		listeners.add(listener);
+	}
+	
+	public void redraw() {
+		for (RedrawListener lis: listeners) {
+			lis.runUrlWithContainer(this, loadedUrl);
+		}
+	}
+
+	private String loadedUrl = "";
 	
 	/**
 	 * @return the loadedUrl
@@ -142,27 +157,4 @@ public class Container extends GUIElement {
 	public void setLoadedUrl(String loadedUrl) {
 		this.loadedUrl = loadedUrl;
 	}
-	
-	private ArrayList<RedrawListener> eventListener = new ArrayList<RedrawListener>();
-
-
-	@Override
-	public void addRedrawListener(RedrawListener listener) {
-		this.getRedrawListeners().add(listener);
-	}
-
-	@Override
-	public void removeRedrawListener(RedrawListener listener) {
-		this.getRedrawListeners().remove(listener);
-	}
-	protected ArrayList<RedrawListener> getRedrawListeners() {
-		return eventListener;
-	}
-	
-	public void redraw() {
-		for (RedrawListener listener: this.getRedrawListeners()) {
-			listener.redraw(this, loadedUrl);
-		}
-	}
-
 }

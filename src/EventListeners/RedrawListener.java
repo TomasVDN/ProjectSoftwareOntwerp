@@ -7,6 +7,6 @@ import GUIElements.Container;
  */
 public interface RedrawListener extends EventListener {
 	
-	void redraw(Container container, String url);
+	void runUrlWithContainer(Container container, String url);
 	
 }
