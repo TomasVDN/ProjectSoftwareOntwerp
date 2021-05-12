@@ -15,6 +15,8 @@ public class TextBox extends GUIElement {
 	private Boolean cursorOnTheRightOfSelectedText = false;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	private String name;
+	private int XOFFSET=2;
+	private int YOFFSET=0;
 	
 	/**
 	 * Constructor of the TextBox class
@@ -172,17 +174,16 @@ public class TextBox extends GUIElement {
 		this.drawContent(g);
 					
 		//Border
+		g.setColor(Color.black);
 		g.drawRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
 		
 		//Text
-		Shape oldClip = g.getClip();
-		g.setClip(getX(), getY(), getWidth(), getHeight());
-		this.drawText(g, metrics);
+		Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
+		this.drawText(newG, metrics);
 		
 		//cursor
-		if (isActive()) this.drawCursor(g, metrics);
-			
-		g.setClip(oldClip);
+		if (isActive()) this.drawCursor(newG, metrics);
+
 	}
 	
 	/**
@@ -196,7 +197,6 @@ public class TextBox extends GUIElement {
 			g.setColor(Color.white);
 		}
 		g.fillRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
-		g.setColor(Color.black);
 	}
 	
 	/**
@@ -208,14 +208,14 @@ public class TextBox extends GUIElement {
 		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
 		
 		if (selectedText != "") {
-			int x = super.getX() + 10 + metrics.stringWidth(this.leftText);
+			int x = super.getX() + XOFFSET + metrics.stringWidth(this.leftText);
 			g.setColor(Color.blue);
 			g.fillRect(x, y, metrics.stringWidth(selectedText), metrics.getHeight());
 			g.setColor(Color.black);
 		}
 		
 		y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
-		g.drawString(this.getText(), super.getX()+10, y);
+		g.drawString(this.getText(), super.getX(), y);
 	}
 	
 	/**
@@ -225,7 +225,7 @@ public class TextBox extends GUIElement {
 	 */
 	private void drawCursor(Graphics g, FontMetrics metrics) {
 		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
-		int x = super.getX() + metrics.stringWidth(leftText) + 10;
+		int x = super.getX() + metrics.stringWidth(leftText);
 		if (cursorOnTheRightOfSelectedText()) {
 			x += metrics.stringWidth(selectedText); 
 		}

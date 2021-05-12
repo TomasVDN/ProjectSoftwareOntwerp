@@ -6,10 +6,6 @@ import java.util.ArrayList;
 public class TableCellGUI extends GUIElement {
 
 	private GUIElement gui;
-	private int xPos;
-	private int yPos;
-	private int width;
-	private int height;
 	
 	/**
 	 * Constructor of the TableCellGUI class
@@ -29,9 +25,8 @@ public class TableCellGUI extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		g.translate(this.getX(), this.getY());
-		this.getGui().paint(g);
-		g.translate(-this.getX(), -this.getY());
+		Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
+		this.getGui().paint(newG);
 	}
 
 	/**
@@ -90,117 +85,7 @@ public class TableCellGUI extends GUIElement {
 		this.setY(y);
 	}
 	
-	/**
-	 * Sets the value xPos of this class.
-	 * 
-	 * @param x - new value of this.xPos
-	 */
-	@Override
-	public void setX(int x) {
-		if (x < 0) {
-			throw new IllegalArgumentException("invalid position tableCell");
-		}
-		this.xPos = x;
-	}
 	
-	/**
-	 * Returns the value xPos of this class
-	 * 
-	 * @return this.xPos
-	 */
-	@Override
-	public int getX() {
-		return this.xPos;
-	}
-	
-	/**
-	 * Returns the value of xPos + width of this class
-	 * 
-	 * @return this.xPos + this.width
-	 */
-	@Override
-	public int getEndX() {
-		return this.getX() + this.getWidth();
-	}	
-	
-	/**
-	 * Sets the value yPos of this class
-	 * 
-	 * @param y - new value of this.yPos
-	 */
-	@Override
-	public void setY(int y) {
-		if (y < 0) {
-			throw new IllegalArgumentException("invalid position tableCell");
-		}
-		this.yPos = y;
-	}
-
-	/**
-	 * Returns the value yPos of this class
-	 * 
-	 * @return this.yPos
-	 */
-	@Override
-	public int getY() {
-		return this.yPos;
-	}
-	
-	/**
-	 * Returns the value of xPos + height of this class
-	 * 
-	 * @return this.yPos + this.height
-	 */
-	@Override
-	public int getEndY() {
-		return this.getY() + this.getHeight();
-	}
-	
-	/**
-	 * Sets the value width of this class. If the new value is negative, set it to 0 instead.
-	 * 
-	 * @param width - new value of this.width
-	 */
-	@Override
-	public void setWidth(int width) {
-		if (width < 0) {
-			throw new IllegalArgumentException("invalid size tableCell");
-		}
-		this.width = width;
-	}
-	
-	/**
-	 * Returns the value width of this class
-	 * 
-	 * @return this.width
-	 */
-	@Override
-	public int getWidth() {
-		return this.width;
-	}
-	
-	/**
-	 * Sets the value height of this class. If the new value is negative, set it to 0 instead.
-	 * 
-	 * @param height - new value of this.height
-	 */
-	@Override
-	public void setHeight(int height) {
-		if (height < 0) {
-			throw new IllegalArgumentException("invalid size tableCell");
-		}
-		this.height = height;
-	}
-	
-	/**
-	 * Returns the value height of this class
-	 * 
-	 * @return this.height
-	 */
-	@Override
-	public int getHeight() {
-		return this.height;
-	}
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}

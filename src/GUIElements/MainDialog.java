@@ -71,10 +71,10 @@ public class MainDialog extends Dialog {
 		TableCellGUI c = new TableCellGUI(t, 0, 0, 0, 0);
 		ArrayList<TableCellGUI> bookmarkCells = new ArrayList<TableCellGUI>();
 		bookmarkCells.add(c);
-		TableRowGUI emptyTableRow = new TableRowGUI(bookmarkCells, 0, 0);
+		TableRowGUI emptyTableRow = new TableRowGUI(bookmarkCells, 0, 0,5);
 		ArrayList<TableRowGUI> bookmarkRow = new ArrayList<TableRowGUI>();
 		bookmarkRow.add(emptyTableRow);
-		TableGUIWithOffset bookmarkBar = new TableGUIWithOffset(bookmarkRow, 10, 10, 5);
+		TableGUI bookmarkBar = new TableGUI(bookmarkRow, 10, 10);//new TableGUIWithOffset(bookmarkRow, 10, 10, 5);
 		this.setBookmarkBar(bookmarkBar);
 		this.getBookmarkBarContainer().addElement(this.getBookmarkBar());
 	}
@@ -150,13 +150,7 @@ public class MainDialog extends Dialog {
 	 * @param newBookmark
 	 */
 	public void addBookmark(BookmarkHyperlink newBookmark) {
-		ArrayList<TableCellGUI> bookmarkCells = this.bookmarkBar.getGuiRows().get(0).getGuiElements();
-		TableCellGUI newBookmarkCell = new TableCellGUI(newBookmark, 0, 0, 0, 0);
-		bookmarkCells.add(newBookmarkCell);
-		TableRowGUI updatedRow = new TableRowGUI(bookmarkCells, 0, 0);
-		ArrayList<TableRowGUI> updatedRows = new ArrayList<TableRowGUI>();
-		updatedRows.add(updatedRow);
-		this.getBookmarkBar().setGuiRows(updatedRows);
+		this.bookmarkBar.addGUITo(newBookmark, 0);
 	}
 	
 	/**
@@ -189,9 +183,8 @@ public class MainDialog extends Dialog {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		g.translate(getX(), getY());
-		allContainers.stream().forEach(element -> element.paint(g));
-		g.translate(-getX(), -getY());
+		Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
+		allContainers.stream().forEach(element -> element.paint(newG));
 	}
 	
 	/**
