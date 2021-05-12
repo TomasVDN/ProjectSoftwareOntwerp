@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
+import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
 import GUIElements.MainDialog;
 import GUIElements.SaveDialog;
@@ -65,8 +66,9 @@ public class WindowManager {
 	private void initMainDialog() {
 		Container searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
-		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
-
+		HTMLDocument pageContainer = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
+		pageContainer.setActive(true);
+		
 		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer, browsr);
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
@@ -244,7 +246,7 @@ public class WindowManager {
 	 * @param modifiersEx
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-		if (id == KeyEvent.KEY_PRESSED & modifiersEx != 128) {
+		if (id == KeyEvent.KEY_PRESSED) {
 			this.getActiveDialog().handleKeyEvent(keyCode, keyChar, modifiersEx);
 		}
 		
