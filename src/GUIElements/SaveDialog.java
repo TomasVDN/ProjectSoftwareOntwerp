@@ -47,7 +47,7 @@ public class SaveDialog extends Dialog {
 	 */
 	private void initCancelButton(int width) {
 		int xPos = Math.floorDiv(width, 4);
-		Button cancelButton = new Button(xPos, 100, new Text(xPos, 100, "Cancel"), true, Color.lightGray);
+		Button cancelButton = new Button(xPos, 100, new Text(0, 0, "Cancel"), true, Color.lightGray);
 		
 		cancelButton.addSingleClickListener(() -> {
 			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
@@ -64,7 +64,7 @@ public class SaveDialog extends Dialog {
 	 */
 	private void initSaveButton(int width) {
 		int xPos = 3 * Math.floorDiv(width, 4);
-		Button submitButton = new Button( xPos, 100, new Text(xPos , 100, "Save"), true, Color.lightGray);
+		Button submitButton = new Button( xPos, 100, new Text(0 , 0, "Save"), true, Color.lightGray);
 		
 		submitButton.addSingleClickListener(() ->{
 			String filename = this.getTextBox().getText();

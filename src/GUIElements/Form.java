@@ -65,11 +65,10 @@ public class Form extends GUIElement implements ActionListener {
 
 	@Override
 	public void paint(Graphics g) {
-		g.translate(this.getX(), this.getY());
 		if(this.getRootGui()!=null) {
-			this.getRootGui().paint(g);
+			Graphics newG= g.create(getX(), getY(), this.getRootGui().getWidth()+1, this.getRootGui().getHeight()+1);
+			this.getRootGui().paint(newG);
 		}
-		g.translate(-this.getX(), -this.getY());
 	}
 	
 	/**

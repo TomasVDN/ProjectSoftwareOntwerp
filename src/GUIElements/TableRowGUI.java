@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class TableRowGUI extends GUIElement {
 
 	private int xPos, yPos;
-	
+	private int offSet;
 	private ArrayList<TableCellGUI> tableCellList;
 	
 	/**
@@ -21,10 +21,60 @@ public class TableRowGUI extends GUIElement {
 	}
 	
 	/**
+	 * Constructor of the TableRowGUI class
+	 * @param cells - list of TableCellGUI
+	 * @param x - x coordinate of the TableRowGUI
+	 * @param y - y coordinate of the TableRowGUI
+	 * @param offset - the offset between two tablecells
+	 */
+	public TableRowGUI(ArrayList<TableCellGUI> cells, int x, int y,int offset) {
+		super(x,y);
+		this.setGuiElements(cells);
+		this.setOffSet(offset);
+	}
+	
+	public void setOffSet(int newOffset) {
+		this.offSet = newOffset;
+	}
+	
+	public int getOffSet() {
+		return this.offSet;
+	}
+	
+	/**
+	 * Updates the tableCell at given index to the given width.
+	 * @param maxWidth - The given width
+	 * @param index - the index of the element that needs to be changed
+	 */
+	public void updateTableCells(int maxWidth,int index) {
+		int xPrevious=0;
+		if(index<this.size()) {
+			if(index!=0) {
+				xPrevious=this.getOffSet();
+				TableCellGUI prevCell =  this.getGuiElements().get(index-1);
+				xPrevious += prevCell.getX() + prevCell.getWidth();
+			}
+			this.getGuiElements().get(index).setPosition(xPrevious,0);
+			this.getGuiElements().get(index).setWidth(maxWidth);
+		}
+	}
+	
+	public void addTableCell(TableCellGUI cell) {
+		if (cell!=null) {
+			this.getGuiElements().add(cell);
+		}
+	}
+	
+	
+	/**
 	 * Paint all the TableCellGUI while updating the relative x.
 	 */
 	@Override
 	public void paint(Graphics g) {
+		/*Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());//TODO
+		for(int i=0; i< this.getGuiElements().size();i++) {
+			this.getGuiElements().get(i).paint(newG);
+		}*/
 		g.translate(this.getX(), this.getY());
 		for(int i=0; i< this.getGuiElements().size();i++) {
 			this.getGuiElements().get(i).paint(g);
@@ -79,6 +129,9 @@ public class TableRowGUI extends GUIElement {
 	public int getWidth(){
 		int totalWidth=0;
 		for(int i=0; i<this.getGuiElements().size();i++) {
+			if(i!=0) {
+				totalWidth+=this.getOffSet();
+			}
 			int width = this.getGuiElements().get(i).getWidth();
 			totalWidth+=width;
 		}
@@ -137,6 +190,7 @@ public class TableRowGUI extends GUIElement {
 		}
 		return array;
 	}
+	
 
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}

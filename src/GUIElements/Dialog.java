@@ -2,7 +2,7 @@ package GUIElements;
 
 public abstract class Dialog extends Container {
 
-	protected GUIElement elementWithKeyBoardFocus;
+	private GUIElement elementWithKeyBoardFocus;
 	private GUIElement pressedElement;
 	
 	/**

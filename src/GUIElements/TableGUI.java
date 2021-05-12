@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class TableGUI extends GUIElement {
 
 	private ArrayList<TableRowGUI> guiRows;
+	int offSet=0;
 	
 	/**
 	 * Constructor of the table GUI class.
@@ -17,6 +18,21 @@ public class TableGUI extends GUIElement {
 		super(x, y);
 		this.setGuiRows(guiRows);
 	}
+	
+	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y, int offSet) {
+		super(x,y);
+		this.setGuiRows(guiRows);
+		this.offSet = offSet;
+	}
+	
+	public void setOffSet(int newOffset) {
+		this.offSet = newOffset;
+	}
+	
+	public int getOffSet() {
+		return this.offSet;
+	}
+	
 
 	/**
 	 * @return this.guiRows
@@ -41,12 +57,19 @@ public class TableGUI extends GUIElement {
 	 * Paints all the components of this table.
 	 */
 	@Override
-	public void paint(Graphics g) {
-		g.translate(this.getX(), this.getY());		
+	public void paint(Graphics g) {		
+		if(this.getHeight()==104) {
+			System.out.println("ALARM");
+		}
+		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);//TODO dit 52+26 maar waarom dit getal
+		for(int i=0; i< this.getGuiRows().size();i++) {
+			this.getGuiRows().get(i).paint(newG);
+		}
+		/*g.translate(this.getX(), this.getY());		
 		for(int i=0; i< this.getGuiRows().size();i++) {
 			this.getGuiRows().get(i).paint(g);
 		}
-		g.translate(-this.getX(), -this.getY());
+		g.translate(-this.getX(), -this.getY());*/
 	}
 	
 	/**
@@ -57,6 +80,9 @@ public class TableGUI extends GUIElement {
 		int totalHeight=0;
 		for(int i=0; i<this.getGuiRows().size();i++) {
 			int height = this.getGuiRows().get(i).getHeight();
+			if(i!=0) {
+				height+=this.getOffSet();
+			}
 			totalHeight+=height;
 		}
 		return totalHeight;
@@ -166,21 +192,33 @@ public class TableGUI extends GUIElement {
 	 * 		width is the max width in the column
 	 * Furthermore their relative positions are also updated
 	 */
-	public void updateTableCells() { // TODO terug private maken, even public gemaakt om table van bookmarks juist te tekenen in de MainDialog
+	private void updateTableCells() { // TODO terug private maken, even public gemaakt om table van bookmarks juist te tekenen in de MainDialog
 		ArrayList<Integer> rowHeight =this.getAllRowHeight();
 		ArrayList<Integer> colomnWidth =this.getAllColumnWidth();
 		int yPosition=0;
 		for(int i=0;i<rowHeight.size();i++) {//row
-			int xPosition=0;
+			if(i!=0) {
+				yPosition+=this.getOffSet();
+			}
 			this.getGuiRows().get(i).setPosition(0, yPosition);// set the row to the new position
 			this.getGuiRows().get(i).setHeight(rowHeight.get(i));
 			yPosition+=rowHeight.get(i); // add the height 
 			for(int j=0; j<this.getGuiRows().get(i).size();j++) { // column
-				this.getGuiRows().get(i).getGuiElements().get(j).setPosition(xPosition,0);
-				this.getGuiRows().get(i).getGuiElements().get(j).setWidth(colomnWidth.get(j));
-				xPosition+=colomnWidth.get(j);// add the column width to the position
+				this.getGuiRows().get(i).updateTableCells(colomnWidth.get(j), j);
 			}
 		}
+	}
+	
+	/**
+	 * Put the given GUI in a TableCell
+	 * Then adds this table cell to the tableRow at the given index
+	 * @param cell - the given cell to ad
+	 * @param index
+	 */
+	public void addGUITo(GUIElement gui,int index) {
+		TableCellGUI cell = new TableCellGUI(gui, 0, 0, 0, 0); // Values aren't important because an update is going to happen
+		this.getGuiRows().get(index).addTableCell(cell);
+		this.updateTableCells();
 	}
 	
 	/**
