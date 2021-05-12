@@ -1,7 +1,5 @@
 package GUIElements;
 
-import java.awt.Graphics;
-
 public abstract class Panel extends Container {
 
 	public Panel(int x, int y, int w, int h) {

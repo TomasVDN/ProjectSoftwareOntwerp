@@ -77,4 +77,15 @@ public class SplitHTMLDocument extends Panel {
 		return this;
 	}
 	
+	@Override
+	public GUIElement getGUIAtPosition(int x, int y) {
+		this.changeActiveHTMLDocument(x, y);
+		
+		if (activeOnLeft) {
+			return leftPanel.getGUIAtPosition(x, y);
+		} else {
+			return rightPanel.getGUIAtPosition(x, y);
+		}
+	}
+	
 }
