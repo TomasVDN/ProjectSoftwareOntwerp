@@ -6,7 +6,8 @@ import facades.Browsr;
 
 public class MainDialog extends Dialog {
 	
-	private Container documentArea;
+	private Panel documentArea;
+	private HTMLDocument originalDocumentArea;
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
@@ -14,7 +15,7 @@ public class MainDialog extends Dialog {
 	private SearchBar searchbar;
 	private TableGUI bookmarkBar;
 
-	public MainDialog(int x, int y, int w, int h, Container pageContainer, Container searchBarContainer, Container bookmarkBarContainer, Browsr browsr) {
+	public MainDialog(int x, int y, int w, int h, HTMLDocument pageContainer, Container searchBarContainer, Container bookmarkBarContainer, Browsr browsr) {
 		super(x, y, w, h);
 		
 		this.setContainers(pageContainer, searchBarContainer, bookmarkBarContainer);
@@ -39,8 +40,10 @@ public class MainDialog extends Dialog {
 	 * @param searchBarContainer
 	 * @param bookmarkBarContainer
 	 */
-	private void setContainers(Container documentArea, Container searchBarContainer, Container bookmarkBarContainer) {
+	private void setContainers(HTMLDocument documentArea, Container searchBarContainer, Container bookmarkBarContainer) {
 		this.documentArea = documentArea;
+		this.originalDocumentArea = documentArea;
+		
 		this.searchBarContainer = searchBarContainer;
 		this.bookmarkBarContainer = bookmarkBarContainer;
 		this.allContainers = new ArrayList<Container>();
@@ -82,14 +85,14 @@ public class MainDialog extends Dialog {
 	/**
 	 * @return the page
 	 */
-	public Container getDocumentArea() {
+	public Panel getDocumentArea() {
 		return documentArea;
 	}
 
 	/**
 	 * @param page the page to set
 	 */
-	public void setDocumentArea(Container page) {
+	public void setDocumentArea(Panel page) {
 		this.documentArea = page;
 	}
 
@@ -164,7 +167,7 @@ public class MainDialog extends Dialog {
 	 */
 	@Override
 	public void addElement(GUIElement element) {
-		this.getDocumentArea().addElement(element);
+		this.getDocumentArea().getActiveHTMLDocument().addElement(element);
 	}
 	
 	/**
@@ -172,7 +175,7 @@ public class MainDialog extends Dialog {
 	 */
 	@Override
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
-		this.getDocumentArea().addMultipleElements(guiList);
+		this.getDocumentArea().getActiveHTMLDocument().addMultipleElements(guiList);
 	}
 	
 	/**
@@ -181,7 +184,7 @@ public class MainDialog extends Dialog {
 	 */
 	@Override
 	public void resetAllElements(ArrayList<GUIElement> guiList) {
-		this.getDocumentArea().resetAllElements(guiList);
+		this.getDocumentArea().getActiveHTMLDocument().resetAllElements(guiList);
 	}
 	
 	/**
@@ -190,7 +193,7 @@ public class MainDialog extends Dialog {
 	@Override
 	public void paint(Graphics g) {
 		g.translate(getX(), getY());
-		allContainers.stream().forEach(element -> element.paint(g));
+		allContainers.stream().forEach(container -> container.paint(g));
 		g.translate(-getX(), -getY());
 	}
 	
@@ -217,6 +220,30 @@ public class MainDialog extends Dialog {
 		return allContainers;
 	}
 
-
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
+		if (modifiersEx == 128) {
+			if (keyCode == 72) {
+				allContainers.remove(documentArea);
+				documentArea = documentArea.splitActiveHTMLDocument();
+				allContainers.add(documentArea);
+			}
+		}
+		
+		if (modifiersEx == 128) {
+			if (keyCode == 88) {
+				allContainers.remove(documentArea);
+				documentArea = documentArea.deleteActiveHTMLDocument();
+				if (documentArea == null) {//TODO fix
+					documentArea = new HTMLDocument(originalDocumentArea.getX(), originalDocumentArea.getY(), originalDocumentArea.getWidth(), originalDocumentArea.getHeight(), originalDocumentArea.getUrl(), originalDocumentArea.getHTMLCode());
+				}
+				allContainers.add(documentArea);
+			}
+		}
+				
+		if (super.elementWithKeyBoardFocus != null & modifiersEx != 128) {
+			super.elementWithKeyBoardFocus.handleKeyEvent(keyCode, keyChar, modifiersEx);
+		}
+	}
 
 }
