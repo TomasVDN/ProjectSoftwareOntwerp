@@ -15,8 +15,8 @@ public class TextBox extends GUIElement {
 	private Boolean cursorOnTheRightOfSelectedText = false;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	private String name;
-	private int XOFFSET=2;
-	private int YOFFSET=0;
+	private int XOFFSET=10;
+	private int YOFFSET=2;
 	
 	/**
 	 * Constructor of the TextBox class
@@ -204,18 +204,19 @@ public class TextBox extends GUIElement {
 	 * @param metrics
 	 */
 	private void drawText(Graphics g, FontMetrics metrics) {
-		int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2);
+
 		
 		if (selectedText != "") {
-			int x = metrics.stringWidth(this.leftText);
+			int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2) -YOFFSET;
+			int x = metrics.stringWidth(this.leftText)+XOFFSET;
 			g.setColor(Color.blue);
 			g.fillRect(x, y, metrics.stringWidth(selectedText), metrics.getHeight());
 			g.setColor(Color.black);
 		}
 		
-		y = ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+		int y = ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent()-YOFFSET;
 		//g.drawString(this.getText(), super.getX(), y);
-		g.drawString(this.getText(), 0, y);
+		g.drawString(this.getText(), XOFFSET, y);
 	}
 	
 	/**
@@ -225,7 +226,7 @@ public class TextBox extends GUIElement {
 	 */
 	private void drawCursor(Graphics g, FontMetrics metrics) {
 		int y = ((this.getHeight() - metrics.getHeight()) / 2);
-		int x = metrics.stringWidth(leftText);
+		int x = metrics.stringWidth(leftText)+XOFFSET;
 		if (cursorOnTheRightOfSelectedText()) {
 			x += metrics.stringWidth(selectedText); 
 		}
