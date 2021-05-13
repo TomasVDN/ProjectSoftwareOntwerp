@@ -108,7 +108,10 @@ public class HTMLDocument extends Pane {
 	}
 	
 	public HTMLDocument copy() {
-		return new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
+		HTMLDocument copy = new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
+		listeners.forEach(listener -> copy.addRedrawListener(listener));
+		listenersSearchBar.forEach(listener -> copy.addChangeSearchBarURLListener(listener));
+		return copy;
 	}
 	
 	public void redraw() {

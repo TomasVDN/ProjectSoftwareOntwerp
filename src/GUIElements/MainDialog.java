@@ -241,7 +241,9 @@ public class MainDialog extends Dialog {
 				allContainers.remove(documentArea);
 				documentArea = documentArea.deleteActiveHTMLDocument();
 				if (documentArea == null) { //TODO bug & smelly code
-					documentArea = new HTMLDocument(originalDocumentArea.getX(), originalDocumentArea.getY(), originalDocumentArea.getWidth(), originalDocumentArea.getHeight(), originalDocumentArea.getUrl(), originalDocumentArea.getHTMLCode());
+					documentArea = originalDocumentArea.copy();
+					((HTMLDocument) documentArea).redraw();
+					
 					documentArea.setActive(true);
 				}
 				allContainers.add(documentArea);

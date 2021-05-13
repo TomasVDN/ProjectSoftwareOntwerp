@@ -27,13 +27,14 @@ public class SplitHTMLDocument extends Pane {
 	}
 
 	private void initHorizontalPanels(HTMLDocument original) {
-		HTMLDocument tempLeftPanel = original;
+		HTMLDocument tempLeftPanel = original.copy();
+		HTMLDocument tempRightPanel = original.copy();
+		
 		tempLeftPanel.setHeight(Math.floorDiv(getHeight(), 2));
 		tempLeftPanel.setActive(true);
-		HTMLDocument tempRightPanel = new HTMLDocument(getX(), getY() + Math.floorDiv(getHeight(), 2), getWidth(), Math.floorDiv(getHeight(), 2), original.getUrl(), original.getHTMLCode());
-	
-		original.getListeners().forEach(listener -> tempRightPanel.addRedrawListener(listener));
-		original.getChangeSearchBarURLListeners().forEach(listener -> tempRightPanel.addChangeSearchBarURLListener(listener));
+		
+		tempRightPanel.setY(getY() + Math.floorDiv(getHeight(), 2));
+		tempRightPanel.setHeight(Math.floorDiv(getHeight(), 2));	
 		
 		tempLeftPanel.redraw();
 		tempRightPanel.redraw();
@@ -43,14 +44,15 @@ public class SplitHTMLDocument extends Pane {
 	}
 
 	private void initVerticalPanels(HTMLDocument original) {
-		HTMLDocument tempLeftPanel = original;
+		HTMLDocument tempLeftPanel = original.copy();
+		HTMLDocument tempRightPanel = original.copy();
+		
 		tempLeftPanel.setWidth(Math.floorDiv(getWidth(), 2));
 		tempLeftPanel.setActive(true);
-		HTMLDocument tempRightPanel = new HTMLDocument(getX() + Math.floorDiv(getWidth(), 2), getY(), Math.floorDiv(getWidth(), 2), getHeight(), original.getUrl(), original.getHTMLCode());
-	
-		original.getListeners().forEach(listener -> tempRightPanel.addRedrawListener(listener));
-		original.getChangeSearchBarURLListeners().forEach(listener -> tempRightPanel.addChangeSearchBarURLListener(listener));
-
+		
+		tempRightPanel.setX(getX() + Math.floorDiv(getWidth(), 2));
+		tempRightPanel.setWidth(Math.floorDiv(getWidth(), 2));	
+		
 		tempLeftPanel.redraw();
 		tempRightPanel.redraw();
 		
@@ -111,7 +113,7 @@ public class SplitHTMLDocument extends Pane {
 	public void paint(Graphics g) {
 		leftPanel.paint(g);
 		rightPanel.paint(g);
-		Graphics newG = g.create(getX(), getY(), getWidth()+1, getHeight()+1);
+		//Graphics newG = g.create(getX(), getY(), getWidth()+1, getHeight()+1);
 		//bar.paint(newG);
 	}
 

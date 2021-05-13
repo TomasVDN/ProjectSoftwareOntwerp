@@ -106,14 +106,16 @@ public class WindowManager {
 		htmlDocument.resetAllElements(list, path, code);
 	}
 
+	/**
+	 * Adds a listener of a given class to all hyperlinks and forms
+	 * @param list
+	 */
 	private void addListenersToGUIElements(ArrayList<GUIElement> list) {
 		ArrayList<Hyperlink> hyperlinkArray = new ArrayList<>();
 		ArrayList<Form> formArray = new ArrayList<>();
-		ArrayList<Button> buttonArray = new ArrayList<>();
 		for (GUIElement element: list) {
 			element.getGuiClass(Hyperlink.class, hyperlinkArray);
 			element.getGuiClass(Form.class, formArray);
-			element.getGuiClass(Button.class, buttonArray);
 		}
 		
 		for(Hyperlink hyperlink : hyperlinkArray) {
@@ -123,7 +125,6 @@ public class WindowManager {
 		for (Form form: formArray) {
 			form.addFormListener(browsr);
 		}
-		
 	}
 	
 	/**
