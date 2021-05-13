@@ -207,7 +207,7 @@ public class TextBox extends GUIElement {
 
 		
 		if (selectedText != "") {
-			int y = this.getY() +  ((this.getHeight() - metrics.getHeight()) / 2) -YOFFSET;
+			int y =((this.getHeight() - metrics.getHeight()) / 2) -YOFFSET;
 			int x = metrics.stringWidth(this.leftText)+XOFFSET;
 			g.setColor(Color.blue);
 			g.fillRect(x, y, metrics.stringWidth(selectedText), metrics.getHeight());
