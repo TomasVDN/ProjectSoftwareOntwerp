@@ -3,7 +3,6 @@ package converter;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
-import facades.Browsr;
 import htmlElement.ContentSpan;
 
 /**

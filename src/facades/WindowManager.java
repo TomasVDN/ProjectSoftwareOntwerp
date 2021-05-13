@@ -16,7 +16,6 @@ import canvaswindow.MyCanvasWindow;
 import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
 import GUIElements.Button;
-import GUIElements.Container;
 import GUIElements.Dialog;
 import GUIElements.Form;
 import converter.HTMLToGUI;

@@ -17,7 +17,7 @@ import domain.Saver;
 import htmlElement.ContentSpan;
 
 /**
- * Controller type class. Used to connect DomainFacade (facade for the domain) and WindowManager (facade for the UI).
+ * Controller type class. Used to connect the domain and WindowManager (facade for the UI).
  *
  */
 public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener, ChangeSearchBarURLListener{
@@ -25,7 +25,7 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 	private WindowManager windowManager;
 
 	/**
-	 * Constructor of the Browsr class. Makes a new DomainFacade.
+	 * Constructor of the Browsr class.
 	 * @param windowManager - the corresponding windowManager.
 	 */
 	public Browsr(WindowManager windowManager) {
@@ -45,14 +45,21 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void runUrl(String path) {
-		InputReader reader = new InputReader();
-		String code = reader.readFile(path);		
+		String code = new InputReader().readFile(path);		
 
 		HTMLDecoder decoder = new HTMLDecoder(code);
 		ArrayList<ContentSpan> htmlList = decoder.createElements();
 		
 		this.getWindowManager().updateURL(path);
 		windowManager.draw(htmlList, path, code);	
+	}
+	
+	@Override
+	public void redraw(HTMLDocument HTMLDocument, String path, String code) {
+		HTMLDecoder decoder = new HTMLDecoder(code);
+		ArrayList<ContentSpan> htmlList = decoder.createElements();
+		
+		windowManager.redraw(HTMLDocument, htmlList, path, code);
 	}
 	
 	@Override
@@ -78,7 +85,7 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 	}
 	
 	/**
-	 * Asks the domainFacade to save the last loaded HTML code. //TODO update
+	 * Retrieves the HTML code from the active HTMLDocument, and saves it under the given name. //TODO update
 	 * @param filename - file name under wich to save the HTML code.
 	 */
 	@Override
@@ -104,14 +111,6 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 	@Override
 	public void changeDialog(String type) {
 		this.windowManager.setActiveDialog(type);
-	}
-
-	@Override
-	public void redraw(HTMLDocument HTMLDocument, String path, String code) {
-		HTMLDecoder decoder = new HTMLDecoder(code);
-		ArrayList<ContentSpan> htmlList = decoder.createElements();
-		
-		windowManager.redraw(HTMLDocument, htmlList, path, code);
 	}
 }
 

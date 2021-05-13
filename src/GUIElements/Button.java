@@ -3,15 +3,9 @@ package GUIElements;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Shape;
-
 import java.util.List;
-
 import EventListeners.ActionListener;
-
-
 import java.util.ArrayList;
-
 
 public class Button extends GUIElement {
 

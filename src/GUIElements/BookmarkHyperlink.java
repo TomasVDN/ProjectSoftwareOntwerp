@@ -1,7 +1,6 @@
 package GUIElements;
 
 import EventListeners.HyperLinkListener;
-import facades.Browsr;
 
 public class BookmarkHyperlink extends Hyperlink {
 

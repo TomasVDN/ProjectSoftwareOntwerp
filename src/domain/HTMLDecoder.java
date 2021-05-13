@@ -12,7 +12,7 @@ import htmlElement.*;
 public class HTMLDecoder {
 
 	private HtmlLexer lexer;
-	private boolean insideForm= false;
+	private boolean insideForm = false;
 	
 
 	/**
