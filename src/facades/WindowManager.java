@@ -8,6 +8,7 @@ import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
 import GUIElements.MainDialog;
+import GUIElements.Pane;
 import GUIElements.SaveDialog;
 import GUIElements.SearchBar;
 import GUIElements.Text;
@@ -422,5 +423,11 @@ public class WindowManager {
 	
 	public Browsr getBrowsr() {
 		return this.browsr;
+	}
+	
+	public String getHTMLCodeFromActiveHTMLDocument() {
+		Pane htmlDocumentContainer = this.mainDialog.getDocumentArea();
+		HTMLDocument activeHTMLDocument = htmlDocumentContainer.getActiveHTMLDocument();
+		return activeHTMLDocument.getHTMLCode();
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
+import EventListeners.ChangeSearchBarURLListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
 import EventListeners.RedrawListener;
@@ -12,13 +13,14 @@ import EventListeners.SearchBarListener;
 import GUIElements.HTMLDocument;
 import domain.HTMLDecoder;
 import domain.InputReader;
+import domain.Saver;
 import htmlElement.ContentSpan;
 
 /**
  * Controller type class. Used to connect DomainFacade (facade for the domain) and WindowManager (facade for the UI).
  *
  */
-public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
+public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener, ChangeSearchBarURLListener{
 	
 	private WindowManager windowManager;
 
@@ -53,6 +55,11 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 		windowManager.draw(htmlList, path, code);	
 	}
 	
+	@Override
+	public void changeSearchBarURL(String url) {
+		this.getWindowManager().updateURL(url);
+	}
+	
 	/**
 	 * Asks the windowManager to return the baseUrl (domain without resource).
 	 * @return this.windowManager.getBaseURLFromSearchBar
@@ -75,8 +82,9 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 	 * @param filename - file name under wich to save the HTML code.
 	 */
 	@Override
-	public void savePage(String code) {
-		//TODO
+	public void savePage(String filename) {
+		String code = this.windowManager.getHTMLCodeFromActiveHTMLDocument();
+		new Saver().saveToFile(filename, code);
 	}
 	
 	/**

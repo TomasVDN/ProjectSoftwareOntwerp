@@ -5,12 +5,6 @@ import java.net.URL;
 import browsrhtml.BrowsrDocumentValidator;
 
 public class InputReader {
-	
-	/**
-	 * Constructor of the inputReader class
-	 */
-	public InputReader() {
-	}
 
 	/**
 	 * Opens the url, and return a String with the HTMLCode. If an error occur, return an array with Error 404 content.

@@ -13,32 +13,12 @@ import java.util.Calendar;
  *
  */
 public class Saver {
-
-	private String htmlCode;
 	
-	/**
-	 * Constructor of Saver class.
-	 */
-	public Saver() {
-		this.htmlCode = "";
-	}
-	
-	/**
-	 * Method to set the saved HTML code.
-	 * @param htmlCode - the HTML code to save.
-	 */
-	public void setHtmlCode(String htmlCode) {
-		if (htmlCode == null) {
-			return;
-		}
-		this.htmlCode = htmlCode;
-	}
-
 	/**
 	 * Saves the code saved in this.htmlCode to the file with the given name.
 	 * @param filename - name of the output file. If this is null or empty, it defaults to output.html.
 	 */
-	public void saveToFile(String filename) {
+	public void saveToFile(String filename, String htmlCode) {
 		if (notValidFilename(filename)) {
 			filename = "output" + this.now();
 		}
@@ -55,7 +35,7 @@ public class Saver {
 		File yourFile = new File("savedPages/" + filename);
 		
 		try {
-			writeHTMLCodeToFile(yourFile);
+			writeHTMLCodeToFile(yourFile, htmlCode);
 		} catch (IOException e) {
 			System.out.print("Could not create file");
 			e.printStackTrace();
@@ -69,7 +49,7 @@ public class Saver {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	private void writeHTMLCodeToFile(File yourFile) throws IOException, FileNotFoundException {
+	private void writeHTMLCodeToFile(File yourFile, String htmlCode) throws IOException, FileNotFoundException {
 		yourFile.createNewFile();
 		FileOutputStream outputFile = new FileOutputStream(yourFile, false); 
 		outputFile.write(htmlCode.getBytes());

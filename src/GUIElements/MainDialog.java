@@ -49,6 +49,7 @@ public class MainDialog extends Dialog {
 		HTMLDocument documentArea = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), this.getHeight() - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
 		documentArea.setActive(true);
 		documentArea.addRedrawListener(browsr);
+		documentArea.addChangeSearchBarURLListener(browsr);
 		
 		this.originalDocumentArea = documentArea.copy();
 		this.documentArea = documentArea;
@@ -239,7 +240,7 @@ public class MainDialog extends Dialog {
 			if (keyCode == 88) {
 				allContainers.remove(documentArea);
 				documentArea = documentArea.deleteActiveHTMLDocument();
-				if (documentArea == null) {
+				if (documentArea == null) { //TODO bug & smelly code
 					documentArea = new HTMLDocument(originalDocumentArea.getX(), originalDocumentArea.getY(), originalDocumentArea.getWidth(), originalDocumentArea.getHeight(), originalDocumentArea.getUrl(), originalDocumentArea.getHTMLCode());
 					documentArea.setActive(true);
 				}

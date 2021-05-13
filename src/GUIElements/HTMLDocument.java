@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import EventListeners.ChangeSearchBarURLListener;
 import EventListeners.RedrawListener;
 
 public class HTMLDocument extends Pane {
@@ -13,7 +14,8 @@ public class HTMLDocument extends Pane {
 	private String HTMLCode;
 	private boolean isActiveHTMLDocument;
 	private List<RedrawListener > listeners = new ArrayList<RedrawListener>();
-
+	private List<ChangeSearchBarURLListener> listenersSearchBar = new ArrayList<ChangeSearchBarURLListener>();
+	
 	public HTMLDocument(int x, int y, int w, int h, String url, String HTMLCode) {
 		super(x, y, w, h);
 		this.setUrl(url);
@@ -49,18 +51,18 @@ public class HTMLDocument extends Pane {
 	}
 
 	@Override
-	public Pane getActiveHTMLDocument() {
+	public HTMLDocument getActiveHTMLDocument() {
 		return this;
 	}
 
 	@Override
 	public void changeActiveHTMLDocument(int x, int y) {
-		this.isActiveHTMLDocument = true;
+		this.setActive(true);
 	}
 
 	@Override
 	public void resetActiveHTMLDocument() {
-		this.isActiveHTMLDocument = false;
+		this.setActive(false);
 	}
 
 	@Override
@@ -100,6 +102,9 @@ public class HTMLDocument extends Pane {
 	
 	public void setActive(boolean active) {
 		this.isActiveHTMLDocument = active;
+		if (active) {
+			listenersSearchBar.forEach(listener -> listener.changeSearchBarURL(url));
+		}
 	}
 	
 	public HTMLDocument copy() {
@@ -130,6 +135,22 @@ public class HTMLDocument extends Pane {
 	public List<RedrawListener> getListeners() {
 		return listeners;
 	}
+	
+	public void addChangeSearchBarURLListener(ChangeSearchBarURLListener listener) {
+		if(listener!=null) {
+			this.listenersSearchBar.add(listener);
+		}
+	}
+
+	public void removeChangeSearchBarURLListener(ChangeSearchBarURLListener listener) {
+		this.listenersSearchBar.remove(listener);
+	}
+
+	public List<ChangeSearchBarURLListener> getChangeSearchBarURLListeners() {
+		return listenersSearchBar;
+	}
+	
+	
 
 	
 }

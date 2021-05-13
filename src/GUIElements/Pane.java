@@ -6,7 +6,7 @@ public abstract class Pane extends Container {
 		super(x, y, w, h);
 	}
 
-	public abstract Pane getActiveHTMLDocument();
+	public abstract HTMLDocument getActiveHTMLDocument();
 	public abstract void changeActiveHTMLDocument(int x, int y);
 	public abstract void resetActiveHTMLDocument();
 	public abstract Pane splitActiveHTMLDocumentHorizontal();

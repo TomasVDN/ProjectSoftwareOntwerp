@@ -33,6 +33,7 @@ public class SplitHTMLDocument extends Pane {
 		HTMLDocument tempRightPanel = new HTMLDocument(getX(), getY() + Math.floorDiv(getHeight(), 2), getWidth(), Math.floorDiv(getHeight(), 2), original.getUrl(), original.getHTMLCode());
 	
 		original.getListeners().forEach(listener -> tempRightPanel.addRedrawListener(listener));
+		original.getChangeSearchBarURLListeners().forEach(listener -> tempRightPanel.addChangeSearchBarURLListener(listener));
 		
 		tempLeftPanel.redraw();
 		tempRightPanel.redraw();
@@ -48,7 +49,8 @@ public class SplitHTMLDocument extends Pane {
 		HTMLDocument tempRightPanel = new HTMLDocument(getX() + Math.floorDiv(getWidth(), 2), getY(), Math.floorDiv(getWidth(), 2), getHeight(), original.getUrl(), original.getHTMLCode());
 	
 		original.getListeners().forEach(listener -> tempRightPanel.addRedrawListener(listener));
-		
+		original.getChangeSearchBarURLListeners().forEach(listener -> tempRightPanel.addChangeSearchBarURLListener(listener));
+
 		tempLeftPanel.redraw();
 		tempRightPanel.redraw();
 		
@@ -57,7 +59,7 @@ public class SplitHTMLDocument extends Pane {
 	}
 
 	@Override
-	public Pane getActiveHTMLDocument() {
+	public HTMLDocument getActiveHTMLDocument() {
 		if (activeOnLeft) {
 			return leftPanel.getActiveHTMLDocument();
 		} else {
