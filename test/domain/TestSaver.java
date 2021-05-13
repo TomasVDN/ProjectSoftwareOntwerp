@@ -33,7 +33,6 @@ class TestSaver {
 	
 	@BeforeEach
 	void setup() {
-		saver.setHtmlCode(normalWebPage);
 		deleteFolderContent(directory);
 	}
 	
@@ -45,7 +44,7 @@ class TestSaver {
 	
 	@Test
 	void testValidFileName() {
-		saver.saveToFile(filename);
+		saver.saveToFile(filename, normalWebPage);
 		
 		File file = new File(filePath);
 		assertTrue(file.exists());
@@ -54,18 +53,19 @@ class TestSaver {
 	
 	@Test
 	void testEmptyFileName() {
-		saver.saveToFile("");
+		saver.saveToFile("", normalWebPage);
 		int fileCount = directory.list().length;
 		assertEquals(1, fileCount);
 	}
 	
 	@Test
 	void testNullFileName() {
-		saver.saveToFile(null);
+		saver.saveToFile(null, normalWebPage);
 		int fileCount = directory.list().length;
 		assertEquals(1, fileCount);
 	}
 	
+	//TODO test when htmlCode is null && add safeguard for it in Saver class
 	
 	//https://stackoverflow.com/questions/7768071/how-to-delete-directory-content-in-java/8632891
 	private static void deleteFolderContent(File folder) {

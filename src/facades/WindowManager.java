@@ -5,8 +5,10 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import GUIElements.GUIElement;
+import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
 import GUIElements.MainDialog;
+import GUIElements.Pane;
 import GUIElements.SaveDialog;
 import GUIElements.SearchBar;
 import GUIElements.Text;
@@ -30,8 +32,6 @@ public class WindowManager {
 
 	private int width;
 	private int height;
-	private final int BAR_SIZE = 60;
-	private final int BOOKMARK_SIZE = 60;
 	boolean ignoreClick;
 	
 	
@@ -63,11 +63,7 @@ public class WindowManager {
 	 * Initialize the mainDialog. Adds three containers (one for the searchbar, one for the bookmarks and one for the htmlCode).
 	 */
 	private void initMainDialog() {
-		Container searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
-		Container bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),height - BAR_SIZE);
-		Container pageContainer = new Container(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), height - BAR_SIZE - BOOKMARK_SIZE);
-
-		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, pageContainer, searchBarContainer, bookmarkBarContainer, browsr);
+		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, browsr);
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
 	}
@@ -87,15 +83,28 @@ public class WindowManager {
 	/**
 	 * Transforms the given HTMLElements to GUIElements, and adds them to the active page.
 	 * @param htmlElements - the list of HTMLElements to add to the active page.
+	 * @param code 
+	 * @param path 
 	 */
-	public void draw(ArrayList<ContentSpan> htmlElements) {
+	public void draw(ArrayList<ContentSpan> htmlElements, String path, String code) {
 		HTMLToGUI converter = new HTMLToGUI();
 		
 		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
 		
 		addListenersToGUIElements(list);
 		
-		this.getActiveDialog().resetAllElements(list);
+		this.getActiveDialog().resetAllElements(list, path, code);
+	}
+	
+
+	public void redraw(HTMLDocument htmlDocument, ArrayList<ContentSpan> htmlElements, String path, String code) {
+		HTMLToGUI converter = new HTMLToGUI();
+		
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
+		
+		addListenersToGUIElements(list);
+		
+		htmlDocument.resetAllElements(list, path, code);
 	}
 
 	private void addListenersToGUIElements(ArrayList<GUIElement> list) {
@@ -244,7 +253,7 @@ public class WindowManager {
 	 * @param modifiersEx
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-		if (id == KeyEvent.KEY_PRESSED & modifiersEx != 128) {
+		if (id == KeyEvent.KEY_PRESSED) {
 			this.getActiveDialog().handleKeyEvent(keyCode, keyChar, modifiersEx);
 		}
 		
@@ -414,5 +423,11 @@ public class WindowManager {
 	
 	public Browsr getBrowsr() {
 		return this.browsr;
+	}
+	
+	public String getHTMLCodeFromActiveHTMLDocument() {
+		Pane htmlDocumentContainer = this.mainDialog.getDocumentArea();
+		HTMLDocument activeHTMLDocument = htmlDocumentContainer.getActiveHTMLDocument();
+		return activeHTMLDocument.getHTMLCode();
 	}
 }
