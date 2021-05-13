@@ -6,17 +6,20 @@ import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
+import EventListeners.RedrawListener;
 import EventListeners.SavePageListener;
 import EventListeners.SearchBarListener;
+import GUIElements.HTMLDocument;
+import domain.HTMLDecoder;
+import domain.InputReader;
 import htmlElement.ContentSpan;
 
 /**
  * Controller type class. Used to connect DomainFacade (facade for the domain) and WindowManager (facade for the UI).
  *
  */
-public class Browsr implements SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
+public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
 	
-	private DomainFacade domainFacade;
 	private WindowManager windowManager;
 
 	/**
@@ -24,15 +27,7 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 	 * @param windowManager - the corresponding windowManager.
 	 */
 	public Browsr(WindowManager windowManager) {
-		domainFacade = new DomainFacade();
 		this.windowManager = windowManager;
-	}
-
-	/**
-	 * @return the domainFacade
-	 */
-	public DomainFacade getDomainFacade() {
-		return domainFacade;
 	}
 
 	/**
@@ -48,9 +43,14 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 	 */
 	@Override
 	public void runUrl(String path) {
-		ArrayList<ContentSpan> htmlList = domainFacade.runUrl(path);
+		InputReader reader = new InputReader();
+		String code = reader.readFile(path);		
+
+		HTMLDecoder decoder = new HTMLDecoder(code);
+		ArrayList<ContentSpan> htmlList = decoder.createElements();
+		
 		this.getWindowManager().updateURL(path);
-		windowManager.draw(htmlList);	
+		windowManager.draw(htmlList, path, code);	
 	}
 	
 	/**
@@ -71,12 +71,12 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 	}
 	
 	/**
-	 * Asks the domainFacade to save the last loaded HTML code.
+	 * Asks the domainFacade to save the last loaded HTML code. //TODO update
 	 * @param filename - file name under wich to save the HTML code.
 	 */
 	@Override
-	public void savePage(String filename) {
-		domainFacade.savePage(filename);
+	public void savePage(String code) {
+		//TODO
 	}
 	
 	/**
@@ -96,6 +96,14 @@ public class Browsr implements SearchBarListener, HyperLinkListener, FormListene
 	@Override
 	public void changeDialog(String type) {
 		this.windowManager.setActiveDialog(type);
+	}
+
+	@Override
+	public void redraw(HTMLDocument HTMLDocument, String path, String code) {
+		HTMLDecoder decoder = new HTMLDecoder(code);
+		ArrayList<ContentSpan> htmlList = decoder.createElements();
+		
+		windowManager.redraw(HTMLDocument, htmlList, path, code);
 	}
 }
 

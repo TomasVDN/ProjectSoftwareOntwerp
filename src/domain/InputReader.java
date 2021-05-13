@@ -2,14 +2,9 @@ package domain;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-
 import browsrhtml.BrowsrDocumentValidator;
-import htmlElement.ContentSpan;
 
 public class InputReader {
-	
-	private HTMLDecoder decoder;
 	
 	/**
 	 * Constructor of the inputReader class
@@ -18,12 +13,12 @@ public class InputReader {
 	}
 
 	/**
-	 * Opens the url, and return an array of ContentSpans describing the HTML layout. If an error occur, return an array with Error 404 content.
+	 * Opens the url, and return a String with the HTMLCode. If an error occur, return an array with Error 404 content.
 	 * @param path - url to open
 	 * @param saver - saver to send the HTML code to
 	 * @return ArrayList of ContentSpan
 	 */
-	public ArrayList<ContentSpan> readFile(String path, Saver saver) {
+	public String readFile(String path) {
 
 		try {
 			String sb = readURLToBuffer(path);
@@ -33,17 +28,12 @@ public class InputReader {
 	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
 	        } catch (RuntimeException r) {
 	        	sb = "Error occured. Reason: not a valid Browsr document.\n";
-	        } 
-	        
-	        saver.setHtmlCode(sb);
-	        decoder = new HTMLDecoder(sb);
-	        	        
+	        }
+	        return sb;	        	        
 		} catch (IOException e) {
             String sb = "Error occured. Make sure you entered a valid URL.\n";
-            decoder = new HTMLDecoder(sb);
+            return sb;
         }
-		
-		return decoder.createElements();	
 	}
 
 	/**

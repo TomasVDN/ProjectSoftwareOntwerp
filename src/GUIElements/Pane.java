@@ -9,9 +9,11 @@ public abstract class Pane extends Container {
 	public abstract Pane getActiveHTMLDocument();
 	public abstract void changeActiveHTMLDocument(int x, int y);
 	public abstract void resetActiveHTMLDocument();
-	public abstract Pane splitActiveHTMLDocument();
+	public abstract Pane splitActiveHTMLDocumentHorizontal();
+	public abstract Pane splitActiveHTMLDocumentVertical();
 	public abstract Pane deleteActiveHTMLDocument();
 	public abstract void updateWidth(int width);
+	public abstract void updateHeight(int height);
 	
 	public boolean inBounds(int x, int y) {
 		if (this.getX() < x && x < this.getX() + this.getWidth() && this.getY() < y && y < this.getY() + this.getHeight())

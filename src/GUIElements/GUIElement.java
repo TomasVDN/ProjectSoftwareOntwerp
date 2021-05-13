@@ -24,10 +24,10 @@ public abstract class GUIElement {
 		if (x < 0 || y < 0 || w < 0 || h < 0) {
 			throw new IllegalArgumentException("The x position, y position, width and height of a GUIElement have to be positive.");
 		}
-		this.setX(x);
-		this.setY(y);
-		this.setWidth(w);
-		this.setHeight(h);
+		this.xPos = x;
+		this.yPos = y;
+		this.width = w;
+		this.height = h;
 	}
 	
 	/**

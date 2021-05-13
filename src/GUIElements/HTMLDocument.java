@@ -2,12 +2,17 @@ package GUIElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
+import EventListeners.RedrawListener;
 
 public class HTMLDocument extends Pane {
 	
 	private String url;
 	private String HTMLCode;
 	private boolean isActiveHTMLDocument;
+	private List<RedrawListener > listeners = new ArrayList<RedrawListener>();
 
 	public HTMLDocument(int x, int y, int w, int h, String url, String HTMLCode) {
 		super(x, y, w, h);
@@ -59,8 +64,13 @@ public class HTMLDocument extends Pane {
 	}
 
 	@Override
-	public Pane splitActiveHTMLDocument() {
-		return new SplitHTMLDocument(this);
+	public Pane splitActiveHTMLDocumentVertical() {
+		return new SplitHTMLDocument(this, Direction.VERTICAL);
+	}
+	
+	@Override
+	public Pane splitActiveHTMLDocumentHorizontal() {
+		return new SplitHTMLDocument(this, Direction.HORIZONTAL);
 	}
 
 	@Override
@@ -71,6 +81,11 @@ public class HTMLDocument extends Pane {
 	@Override
 	public void updateWidth(int width) {
 		this.setWidth(width);
+	}
+	
+	@Override
+	public void updateHeight(int height) {
+		this.setHeight(height);
 	}
 	
 	@Override
@@ -86,5 +101,35 @@ public class HTMLDocument extends Pane {
 	public void setActive(boolean active) {
 		this.isActiveHTMLDocument = active;
 	}
+	
+	public HTMLDocument copy() {
+		return new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
+	}
+	
+	public void redraw() {
+		listeners.forEach(listener -> listener.redraw(this, getUrl(), getHTMLCode()));
+	}
+	
+	@Override
+	public void resetAllElements(ArrayList<GUIElement> guiList, String path, String code) {
+		super.resetAllElements(guiList, path, code);
+		this.setUrl(path);
+		this.setHTMLCode(code);
+	}
+	
+	public void addRedrawListener(RedrawListener listener) {
+		if(listener!=null) {
+			this.listeners.add(listener);
+		}
+	}
+
+	public void removeRedrawListener(RedrawListener listener) {
+		this.listeners.remove(listener);
+	}
+
+	public List<RedrawListener> getListeners() {
+		return listeners;
+	}
+
 	
 }

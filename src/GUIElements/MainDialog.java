@@ -11,14 +11,17 @@ public class MainDialog extends Dialog {
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
+
+	private final int BAR_SIZE = 60;
+	private final int BOOKMARK_SIZE = 60;
 	
 	private SearchBar searchbar;
 	private TableGUI bookmarkBar;
 
-	public MainDialog(int x, int y, int w, int h, HTMLDocument pageContainer, Container searchBarContainer, Container bookmarkBarContainer, Browsr browsr) {
+	public MainDialog(int x, int y, int w, int h, Browsr browsr) {
 		super(x, y, w, h);
 		
-		this.setContainers(pageContainer, searchBarContainer, bookmarkBarContainer);
+		this.initContainers(browsr);
 		this.initSearchBar(browsr);
 		this.initBookmarkBar();
 		
@@ -40,16 +43,18 @@ public class MainDialog extends Dialog {
 	 * @param searchBarContainer
 	 * @param bookmarkBarContainer
 	 */
-	private void setContainers(HTMLDocument documentArea, Container searchBarContainer, Container bookmarkBarContainer) {
+	private void initContainers(Browsr browsr) {
+		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
+		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),this.getHeight() - BAR_SIZE);
+		HTMLDocument documentArea = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), this.getHeight() - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
+		documentArea.setActive(true);
+		documentArea.addRedrawListener(browsr);
+		
+		this.originalDocumentArea = documentArea.copy();
 		this.documentArea = documentArea;
-		this.originalDocumentArea = documentArea;
-		this.searchBarContainer = searchBarContainer;
-		this.bookmarkBarContainer = bookmarkBarContainer;
+
 		this.allContainers = new ArrayList<Container>();
-		
-		int[] middleContainer = new int[] {documentArea.getWidth()/2,documentArea.getHeight()/2};
-		documentArea.addElement(new SeperatorBar(documentArea, middleContainer, Direction.VERTICAL));//TODO haal weg
-		
+				
 		allContainers.add(searchBarContainer);
 		allContainers.add(bookmarkBarContainer);
 		allContainers.add(documentArea);
@@ -176,8 +181,8 @@ public class MainDialog extends Dialog {
 	 * @param guiList
 	 */
 	@Override
-	public void resetAllElements(ArrayList<GUIElement> guiList) {
-		this.getDocumentArea().resetAllElements(guiList);
+	public void resetAllElements(ArrayList<GUIElement> guiList, String path, String code) {
+		this.getDocumentArea().resetAllElements(guiList, path, code);
 	}
 	
 	/**
@@ -216,8 +221,16 @@ public class MainDialog extends Dialog {
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
 		if (modifiersEx == 128) {
 			if (keyCode == 72) {
-				allContainers.remove(documentArea);
-				documentArea = documentArea.splitActiveHTMLDocument();
+				allContainers.remove(documentArea); //TODO smelly code
+				documentArea = documentArea.splitActiveHTMLDocumentVertical();
+				allContainers.add(documentArea);
+			}
+		}
+		
+		if (modifiersEx == 128) {
+			if (keyCode == 86) {
+				allContainers.remove(documentArea); //TODO smelly code
+				documentArea = documentArea.splitActiveHTMLDocumentHorizontal();
 				allContainers.add(documentArea);
 			}
 		}
@@ -226,7 +239,7 @@ public class MainDialog extends Dialog {
 			if (keyCode == 88) {
 				allContainers.remove(documentArea);
 				documentArea = documentArea.deleteActiveHTMLDocument();
-				if (documentArea == null) {//TODO fix
+				if (documentArea == null) {
 					documentArea = new HTMLDocument(originalDocumentArea.getX(), originalDocumentArea.getY(), originalDocumentArea.getWidth(), originalDocumentArea.getHeight(), originalDocumentArea.getUrl(), originalDocumentArea.getHTMLCode());
 					documentArea.setActive(true);
 				}

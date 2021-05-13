@@ -8,13 +8,52 @@ public class SplitHTMLDocument extends Pane {
 	private Pane leftPanel;
 	private Pane rightPanel;
 	private boolean activeOnLeft = true;
+	private SeperatorBar bar;
+	private Direction dir;
 
-	public SplitHTMLDocument(HTMLDocument original) { //TODO vertical
+	public SplitHTMLDocument(HTMLDocument original, Direction direction) { //TODO vertical
 		super(original.getX(), original.getY(), original.getWidth(), original.getHeight());
-		leftPanel = original;
-		leftPanel.setWidth(Math.floorDiv(getWidth(), 2));
-		leftPanel.setActive(true);
-		rightPanel = new HTMLDocument(getX() + Math.floorDiv(getWidth(), 2), getY(), Math.floorDiv(getWidth(), 2), getHeight(), original.getUrl(), original.getHTMLCode());
+		
+		this.dir = direction;
+		
+		if (direction == Direction.VERTICAL) {
+			initVerticalPanels(original);
+		} else {
+			initHorizontalPanels(original);
+		}
+		
+//		int[] middleContainer = new int[] {this.getWidth()/2,this.getHeight()/2};
+//		this.bar = new SeperatorBar(this, middleContainer, direction);		
+	}
+
+	private void initHorizontalPanels(HTMLDocument original) {
+		HTMLDocument tempLeftPanel = original;
+		tempLeftPanel.setHeight(Math.floorDiv(getHeight(), 2));
+		tempLeftPanel.setActive(true);
+		HTMLDocument tempRightPanel = new HTMLDocument(getX(), getY() + Math.floorDiv(getHeight(), 2), getWidth(), Math.floorDiv(getHeight(), 2), original.getUrl(), original.getHTMLCode());
+	
+		original.getListeners().forEach(listener -> tempRightPanel.addRedrawListener(listener));
+		
+		tempLeftPanel.redraw();
+		tempRightPanel.redraw();
+		
+		this.leftPanel = tempLeftPanel;
+		this.rightPanel = tempRightPanel;
+	}
+
+	private void initVerticalPanels(HTMLDocument original) {
+		HTMLDocument tempLeftPanel = original;
+		tempLeftPanel.setWidth(Math.floorDiv(getWidth(), 2));
+		tempLeftPanel.setActive(true);
+		HTMLDocument tempRightPanel = new HTMLDocument(getX() + Math.floorDiv(getWidth(), 2), getY(), Math.floorDiv(getWidth(), 2), getHeight(), original.getUrl(), original.getHTMLCode());
+	
+		original.getListeners().forEach(listener -> tempRightPanel.addRedrawListener(listener));
+		
+		tempLeftPanel.redraw();
+		tempRightPanel.redraw();
+		
+		this.leftPanel = tempLeftPanel;
+		this.rightPanel = tempRightPanel;
 	}
 
 	@Override
@@ -47,11 +86,21 @@ public class SplitHTMLDocument extends Pane {
 	}
 
 	@Override
-	public Pane splitActiveHTMLDocument() {
+	public Pane splitActiveHTMLDocumentVertical() {
 		if (activeOnLeft)
-			leftPanel = leftPanel.splitActiveHTMLDocument();
+			leftPanel = leftPanel.splitActiveHTMLDocumentVertical();
 		else
-			rightPanel = rightPanel.splitActiveHTMLDocument();
+			rightPanel = rightPanel.splitActiveHTMLDocumentVertical();
+		
+		return this;
+	}
+	
+	@Override
+	public Pane splitActiveHTMLDocumentHorizontal() {
+		if (activeOnLeft)
+			leftPanel = leftPanel.splitActiveHTMLDocumentHorizontal();
+		else
+			rightPanel = rightPanel.splitActiveHTMLDocumentHorizontal();
 		
 		return this;
 	}
@@ -60,6 +109,8 @@ public class SplitHTMLDocument extends Pane {
 	public void paint(Graphics g) {
 		leftPanel.paint(g);
 		rightPanel.paint(g);
+		Graphics newG = g.create(getX(), getY(), getWidth()+1, getHeight()+1);
+		//bar.paint(newG);
 	}
 
 	@Override
@@ -70,15 +121,30 @@ public class SplitHTMLDocument extends Pane {
 			rightPanel = rightPanel.deleteActiveHTMLDocument();
 		
 		if (leftPanel == null) {
-			rightPanel.setX(getX());
-			rightPanel.updateWidth(getWidth());
+			if (dir == Direction.VERTICAL) {
+				rightPanel.setX(getX());
+				rightPanel.updateWidth(getWidth());
+				rightPanel.updateHeight(getHeight());
+			} else {
+				rightPanel.setY(getY());
+				rightPanel.updateWidth(getWidth());
+				rightPanel.updateHeight(getHeight());
+			}
+			
 			rightPanel.setActive(true);
 			return rightPanel;
 		}
 		
 		if (rightPanel == null) {
+			if (dir == Direction.VERTICAL) {
+				leftPanel.updateWidth(getWidth());
+				leftPanel.updateHeight(getHeight());
+			} else {
+				leftPanel.updateWidth(getWidth());
+				leftPanel.updateHeight(getHeight());
+			}
+			
 			leftPanel.setActive(true);
-			leftPanel.updateWidth(getWidth());
 			return leftPanel;
 		}
 		
@@ -102,8 +168,8 @@ public class SplitHTMLDocument extends Pane {
 	}
 	
 	@Override
-	public void resetAllElements(ArrayList<GUIElement> guiList) {
-		this.getActiveHTMLDocument().resetAllElements(guiList);
+	public void resetAllElements(ArrayList<GUIElement> guiList, String path, String code) {
+		this.getActiveHTMLDocument().resetAllElements(guiList, path, code);
 	}
 	
 	@Override
@@ -115,12 +181,63 @@ public class SplitHTMLDocument extends Pane {
 	public void updateWidth(int width) {
 		this.setWidth(width);
 		
-		int panelWidth = Math.floorDiv(width, 2);
-		int xRight = getX() + panelWidth;
-		leftPanel.setX(getX());
-		rightPanel.setX(xRight);
+		if (dir == Direction.VERTICAL) {
+			int panelWidth = Math.floorDiv(width, 2);
+			int xRight = getX() + panelWidth;
+			leftPanel.setX(getX());
+			rightPanel.setX(xRight);
+			
+			leftPanel.updateWidth(panelWidth);
+			rightPanel.updateWidth(panelWidth);
+		} else {
+			leftPanel.updateWidth(width);
+			rightPanel.updateWidth(width);
+		}
+	}
+
+	@Override
+	public void updateHeight(int height) {
+		this.setHeight(height);
 		
-		leftPanel.updateWidth(panelWidth);
-		rightPanel.updateWidth(panelWidth);
+		if (dir == Direction.HORIZONTAL) {
+			int panelHeight = Math.floorDiv(height, 2);
+			int yRight = getY() + panelHeight;
+			leftPanel.setY(getY());
+			rightPanel.setY(yRight);
+			
+			leftPanel.updateHeight(panelHeight);
+			rightPanel.updateHeight(panelHeight);
+		} else {
+			leftPanel.updateHeight(height);
+			rightPanel.updateHeight(height);
+		}
+	}
+	
+	@Override
+	public void setX(int x) {
+		super.setX(x);
+		
+		if (dir == Direction.VERTICAL) {
+			leftPanel.setX(x);
+			int xRight = getX() + Math.floorDiv(getWidth(), 2);
+			rightPanel.setX(xRight);
+		} else {
+			leftPanel.setX(x);
+			rightPanel.setX(x);
+		}
+	}
+	
+	@Override
+	public void setY(int y) {
+		super.setY(y);
+		
+		if (dir == Direction.HORIZONTAL) {
+			leftPanel.setY(y);
+			int xRight = getY() + Math.floorDiv(getHeight(), 2);
+			rightPanel.setY(xRight);
+		} else {
+			leftPanel.setY(y);
+			rightPanel.setY(y);
+		}
 	}
 }

@@ -80,8 +80,10 @@ public class Container extends GUIElement {
 	/**
 	 * Empties container and adds GUIElements from given guiList to the container.
 	 * @param guiList
+	 * @param code 
+	 * @param path 
 	 */
-	public void resetAllElements(ArrayList<GUIElement> guiList) {
+	public void resetAllElements(ArrayList<GUIElement> guiList, String path, String code) {
 		this.elements.clear();
 		this.addMultipleElements(guiList);
 	}
