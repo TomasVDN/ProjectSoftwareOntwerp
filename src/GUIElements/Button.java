@@ -259,7 +259,7 @@ public class Button extends GUIElement {
 	}
 	
 	@Override
-	public void handlePressClick() {
+	public void handlePressClick(int x,int y) {
 		state.handlePressClick();
 	}
 	

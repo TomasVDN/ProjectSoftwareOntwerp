@@ -45,7 +45,7 @@ public class MainDialog extends Dialog {
 	 */
 	private void initContainers(Browsr browsr) {
 		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
-		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),this.getHeight() - BAR_SIZE);
+		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),BOOKMARK_SIZE);
 		HTMLDocument documentArea = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), this.getHeight() - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
 		documentArea.setActive(true);
 		documentArea.addRedrawListener(browsr);
@@ -210,6 +210,7 @@ public class MainDialog extends Dialog {
 		}
 		return null;
 	}
+	
 
 	/**
 	 * @return this.allContainers

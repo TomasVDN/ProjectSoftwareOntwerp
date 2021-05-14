@@ -17,10 +17,11 @@ public class SeperatorBar extends GUIElement {
 	
 	Container rootContainer;
 	
+	private int offsetReference;
+	
 	private ArrayList<SeparatorBarMoveListener> separatorBarMoveListeners = new ArrayList<>();
 	
 	public SeperatorBar(Container cont,int[] position,Direction dir) {
-		// TODO Auto-generated constructor stub
 		super(dir.getPosition(position)[0],dir.getPosition(position)[1]);
 		this.setDirection(dir);
 		int[] heigthAndWidth =dir.adjustWidthAndHeigth(cont, STANDARDSIZE);
@@ -43,24 +44,54 @@ public class SeperatorBar extends GUIElement {
 	public void handleClick() {
 	}
 	
+	@Override 
+	public void handlePressClick(int x, int y) {
+		if(this.getDirection()== Direction.VERTICAL) {
+			this.setOffsetReference(x);
+		}
+		else {
+			this.setOffsetReference(y);
+		}
+	}
+	
 	/**
 	 * Moves the sepertorBar, the bar can only move vertical when a horizontal bar
 	 * the bar can only move horizontal when a vertical bar.
 	 */
 	@Override
 	public void handleDragMouse(int x, int y, int clickCount, int modifiers) {
-		int[] dragPosition = this.positionInContainer(x, y);
-		int[] seperatorPosition = this.getDirection().getPosition(dragPosition);
-		this.setPosition(seperatorPosition[0], seperatorPosition[1]);
+		int newOffset;
+		int offset;
+		if (this.getDirection() == Direction.VERTICAL) {
+			newOffset = x;
+			offset = x - this.getOffsetReference();
+			this.ChangeXPosition(offset+this.getX());
+			if( this.inBounds(this.getEndX()+offset)) {
+				this.setOffsetReference(newOffset);
+			}
+		} else {
+			newOffset = y;
+			offset = y - this.getOffsetReference();
+			this.ChangeYPosition(offset+this.getY());
+			if( this.inBounds(this.getEndY()+offset)) {
+				this.setOffsetReference(newOffset);
+			}
+			else {
+				System.out.println(this.inBounds(this.getEndY()+offset));
+			}
+		}
+		
 		separatorBarMoveListeners.forEach(listener -> listener.barMoved());
 	}
 	
-	private int[] positionInContainer(int x, int y) {
-		int absoluteX = x-this.getRootContainer().getX();
-		int absoluteY = y-this.getRootContainer().getY();
-		int boundedX = Math.min(this.getRootContainer().getWidth(), Math.max(absoluteX, 0));
-		int boundedY = Math.min(this.getRootContainer().getHeight(), Math.max(absoluteY, 0));
-		return new int[] {boundedX,boundedY};
+	private boolean inBounds(int value) {
+		if(this.getDirection()==Direction.VERTICAL) {
+			return (this.getRootContainer().getWidth()>=value +this.getWidth() && value>=0);
+		}
+		else {
+			return (this.getRootContainer().getHeight()>=value +getHeight() && value>=0);
+		}
+
 	}
 
 	@Override
@@ -70,6 +101,25 @@ public class SeperatorBar extends GUIElement {
 		
 	}
 
+	
+	/**
+	 * Sets the value xPos of this class.
+	 * 
+	 * @param x - new value of this.xPos
+	 */
+	public void ChangeXPosition(int x) {
+		this.setX( Math.min(this.getRootContainer().getWidth()-this.getWidth(), Math.max(x, 0)));
+	}
+	
+	/**
+	 * Sets the value yPos of this class
+	 * 
+	 * @param y - new value of this.yPos
+	 */
+	public void  ChangeYPosition(int y) {
+		this.setY(Math.min(this.getRootContainer().getHeight()-this.getHeight(), Math.max(y, 0)));
+	}
+	
 	public Direction getDirection() {
 		return direction;
 	}
@@ -84,6 +134,14 @@ public class SeperatorBar extends GUIElement {
 
 	public void setRootContainer(Container rootContainer) {
 		this.rootContainer = rootContainer;
+	}
+	
+	public int getOffsetReference() {
+		return offsetReference;
+	}
+
+	public void setOffsetReference(int newOffsetReference) {
+		this.offsetReference = newOffsetReference;
 	}
 	
 	public void addSeparatorBarMoveListener(SeparatorBarMoveListener listener) {

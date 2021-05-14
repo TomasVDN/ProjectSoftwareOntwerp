@@ -4,6 +4,7 @@ public abstract class Dialog extends Container {
 
 	protected GUIElement elementWithKeyBoardFocus;
 	private GUIElement pressedElement;
+	private int[] absolutePressedElement;
 	
 	/**
 	 * Constructor of the Dialog class. It extends the Container class.
@@ -76,7 +77,7 @@ public abstract class Dialog extends Container {
 		GUIElement guiPressed = this.getGUIAtPosition(x, y);
 		this.setPressedElement(guiPressed);
 		if(guiPressed!=null) {
-			guiPressed.handlePressClick();
+			guiPressed.handlePressClick(x,y);
 		}
 	}
 	
