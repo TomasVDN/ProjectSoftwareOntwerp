@@ -11,7 +11,7 @@ public class SplitHTMLDocument extends Pane {
 	private SeperatorBar bar;
 	private Direction dir;
 
-	public SplitHTMLDocument(HTMLDocument original, Direction direction) { //TODO vertical
+	public SplitHTMLDocument(HTMLDocument original, Direction direction) {
 		super(original.getX(), original.getY(), original.getWidth(), original.getHeight());
 		
 		this.dir = direction;
@@ -22,8 +22,8 @@ public class SplitHTMLDocument extends Pane {
 			initHorizontalPanels(original);
 		}
 		
-//		int[] middleContainer = new int[] {this.getWidth()/2,this.getHeight()/2};
-//		this.bar = new SeperatorBar(this, middleContainer, direction);		
+		int[] middleContainer = new int[] {this.getWidth()/2,this.getHeight()/2};
+		this.bar = new SeperatorBar(this, middleContainer, direction);		
 	}
 
 	private void initHorizontalPanels(HTMLDocument original) {
@@ -111,10 +111,11 @@ public class SplitHTMLDocument extends Pane {
 
 	@Override
 	public void paint(Graphics g) {
+		moveMiddle();
 		leftPanel.paint(g);
 		rightPanel.paint(g);
-		//Graphics newG = g.create(getX(), getY(), getWidth()+1, getHeight()+1);
-		//bar.paint(newG);
+		Graphics newG = g.create(getX(), getY(), getWidth()+1, getHeight()+1);
+		bar.paint(newG);
 	}
 
 	@Override
@@ -157,6 +158,9 @@ public class SplitHTMLDocument extends Pane {
 	
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
+		if (bar.containsPoint(x, y)) {
+			return bar;
+		}
 		this.changeActiveHTMLDocument(x, y);
 		
 		if (activeOnLeft) {
@@ -243,5 +247,51 @@ public class SplitHTMLDocument extends Pane {
 			leftPanel.setY(y);
 			rightPanel.setY(y);
 		}
+	}
+	
+	public void moveMiddle () {
+		if (dir == Direction.VERTICAL) {
+			moveMiddleVertical();
+		} else {
+			moveMiddleHorizontal();
+		}
+	}
+	
+	public void moveMiddleVertical() {
+		int newMiddle = bar.getX();
+		
+		if (this.getX() > newMiddle) {
+			newMiddle = this.getX();
+		}
+		
+		if (this.getEndX() < newMiddle) {
+			newMiddle = this.getEndX();
+		}
+		
+		int leftPanelWidth = newMiddle - this.getX();
+		int xRight = getX() + leftPanelWidth;
+		rightPanel.setX(xRight);
+		
+		leftPanel.updateWidth(leftPanelWidth);
+		rightPanel.updateWidth(this.getWidth() - leftPanelWidth);
+	}
+	
+	public void moveMiddleHorizontal() {
+		int newMiddle = bar.getY();
+		
+		if (this.getY() > newMiddle) {
+			newMiddle = this.getY();
+		}
+		
+		if (this.getEndY() < newMiddle) {
+			newMiddle = this.getEndY();
+		}
+		
+		int leftPanelHeight = newMiddle - this.getY();
+		int yRight = getY() + leftPanelHeight;
+		rightPanel.setY(yRight);
+		
+		leftPanel.updateHeight(leftPanelHeight);
+		rightPanel.updateHeight(this.getHeight() - leftPanelHeight);
 	}
 }
