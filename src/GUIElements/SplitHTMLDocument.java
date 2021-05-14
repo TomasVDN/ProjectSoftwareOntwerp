@@ -251,25 +251,37 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	public void moveVerticalBar() {
 		int widthLeftPanel = this.bar.getX();
 		int widthRightPanel = this.getWidth() - widthLeftPanel;
-		
-		leftPanel.updateWidth(widthLeftPanel);
+		leftPanel.setWidth(widthLeftPanel);
+		//leftPanel.updateWidth(widthLeftPanel);
+		//rightPanel.setX(widthLeftPanel);
+		//rightPanel.updateWidth(widthRightPanel);
 		rightPanel.setAndUpdateXWidth(widthLeftPanel, widthRightPanel);
 	}
 	
 	@Override
 	public void setAndUpdateXWidth(int newXPos, int newWidth) {
-		double ratio = this.leftPanel.getWidth() / (double) this.getWidth();
+		int widthLeftPanel = leftPanel.getWidth();		
+		this.setX(newXPos);
+		this.setWidth(newWidth);
+		leftPanel.setWidth(newWidth-rightPanel.getWidth());
+		//leftPanel.updateWidth(newWidth-rightPanel.getWidth());
+		rightPanel.setX(leftPanel.getWidth());
+		int widthRightPanel = this.getWidth() - widthLeftPanel;
+		rightPanel.updateWidth(widthRightPanel);
+		bar.setX(widthLeftPanel);
+		rightPanel.setAndUpdateXWidth(widthLeftPanel, widthRightPanel);
+		/*double ratio = this.leftPanel.getWidth() / (double) this.getWidth();
 		System.out.print(ratio + "\n");
 		this.setX(newXPos);
 		this.setWidth(newWidth);
-		
 		if (dir == Direction.VERTICAL) {
-			int panelLeftWidth = (int) (ratio * this.getWidth());
+			int panelLeftWidth = (int) (ratio * (double) this.getWidth());
+			System.out.println(panelLeftWidth/(double) this.getWidth());
 			int xRight = panelLeftWidth;
 			rightPanel.setX(xRight);
 			bar.setX(xRight);
 			
-			leftPanel.updateWidth(panelLeftWidth);
+			leftPanel.setAndUpdateXWidth(0,panelLeftWidth);
 			rightPanel.setAndUpdateXWidth(panelLeftWidth, this.getWidth() - panelLeftWidth);
 		} else {
 			leftPanel.updateWidth(newWidth);
@@ -277,7 +289,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 		
 		ratio = this.leftPanel.getWidth() / (double) this.getWidth();
-		System.out.print(ratio + "\n");
+		System.out.print(ratio + "\n");*/
 	}
 	
 	public void moveHorizontalBar() {
