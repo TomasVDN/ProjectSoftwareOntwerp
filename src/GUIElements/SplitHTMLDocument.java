@@ -230,7 +230,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.setWidth(newWidth);
 		
 		if (dir == Direction.VERTICAL) {
-			int widthLeftPanel = (int) (ratio * this.getWidth());
+			int widthLeftPanel = newWidth - rightPanel.getWidth();
 			leftPanel.updateWidth(0, widthLeftPanel);
 			bar.setX(widthLeftPanel);
 			rightPanel.updateWidth(widthLeftPanel, this.getWidth() - widthLeftPanel);
