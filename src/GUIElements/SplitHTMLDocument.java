@@ -12,7 +12,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	private boolean activeOnLeft = true;
 	private SeperatorBar bar;
 	private Direction dir;
-	double ratio = 0.0;
 
 	public SplitHTMLDocument(HTMLDocument original, Direction direction) {
 		super(original.getX(), original.getY(), original.getWidth(), original.getHeight());
@@ -28,7 +27,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		int[] middleContainer = new int[] {this.getWidth()/2,this.getHeight()/2};
 		this.bar = new SeperatorBar(this, middleContainer, direction);
 		this.bar.addSeparatorBarMoveListener(this);
-		ratio = 0.5;
 	}
 
 	private void initHorizontalPanels(HTMLDocument original) {
@@ -179,7 +177,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			return bar;
 		}
 		
-		this.changeActiveHTMLDocument(x, y); //TODO moet op zich niet -> is er om consistentie te g
+		this.changeActiveHTMLDocument(x, y);
 		
 		if (activeOnLeft) {
 			return leftPanel.getGUIAtPosition(xRel, yRel);
@@ -205,7 +203,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	}
 	
 	public void barMoved() {
-		this.updateRatio();
 		if (dir == Direction.VERTICAL) {
 			moveVerticalBar();
 		} else {
@@ -213,9 +210,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 	}
 	
-	private void updateRatio() {
-		ratio = (double) this.leftPanel.getWidth() /  this.getWidth();
-	}
 
 	public void moveVerticalBar() {
 		int widthLeftPanel = this.bar.getX();
@@ -282,6 +276,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.setHeight(newHeight);
 		
 		if (dir == Direction.VERTICAL) {
+
 			int heightLeftPanel = newHeight-rightPanel.getHeight();
 			leftPanel.updateHeightUp(0, heightLeftPanel);
 			bar.setX(heightLeftPanel);
