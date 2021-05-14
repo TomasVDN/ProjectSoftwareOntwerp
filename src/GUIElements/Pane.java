@@ -15,10 +15,10 @@ public abstract class Pane extends Container {
 	public abstract void updateWidth(int width);
 	public abstract void updateHeight(int height);
 	
-	public boolean inBounds(int x, int y) {
-		if (this.getX() < x && x < this.getX() + this.getWidth() && this.getY() < y && y < this.getY() + this.getHeight())
-			return true;
-		else 
-			return false;
-	}
+//	public boolean inBounds(int x, int y) { TODO remove
+//		if (this.getX() < x && x < this.getX() + this.getWidth() && this.getY() < y && y < this.getY() + this.getHeight())
+//			return true;
+//		else 
+//			return false;
+//	}
 }

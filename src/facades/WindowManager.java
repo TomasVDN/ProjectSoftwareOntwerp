@@ -85,7 +85,7 @@ public class WindowManager {
 	 * @param code 
 	 * @param path 
 	 */
-	public void draw(ArrayList<ContentSpan> htmlElements, String path, String code) {
+	public void draw(ArrayList<ContentSpan> htmlElements, String path, String code) { //TODO rename
 		HTMLToGUI converter = new HTMLToGUI();
 		
 		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
@@ -96,7 +96,7 @@ public class WindowManager {
 	}
 	
 
-	public void redraw(HTMLDocument htmlDocument, ArrayList<ContentSpan> htmlElements, String path, String code) {
+	public void redraw(HTMLDocument htmlDocument, ArrayList<ContentSpan> htmlElements, String path, String code) { //TODO rename
 		HTMLToGUI converter = new HTMLToGUI();
 		
 		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
@@ -425,7 +425,7 @@ public class WindowManager {
 		return this.browsr;
 	}
 	
-	public String getHTMLCodeFromActiveHTMLDocument() {
+	public String getHTMLCodeFromActiveHTMLDocument() { //TODO mainDialog 
 		Pane htmlDocumentContainer = this.mainDialog.getDocumentArea();
 		HTMLDocument activeHTMLDocument = htmlDocumentContainer.getActiveHTMLDocument();
 		return activeHTMLDocument.getHTMLCode();

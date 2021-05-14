@@ -96,8 +96,7 @@ public class HTMLDocument extends Pane {
 		if (isActiveHTMLDocument) {
 			g.setColor(Color.ORANGE);
 			g.drawRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
-		}
-		
+		}		
 	}
 	
 	public void setActive(boolean active) {

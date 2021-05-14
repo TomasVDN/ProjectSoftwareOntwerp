@@ -20,6 +20,7 @@ import htmlElement.ContentSpan;
  * Controller type class. Used to connect the domain and WindowManager (facade for the UI).
  *
  */
+//TODO rm listener -> functional interfaces
 public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener, ChangeSearchBarURLListener{
 	
 	private WindowManager windowManager;
