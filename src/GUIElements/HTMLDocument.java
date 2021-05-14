@@ -151,6 +151,12 @@ public class HTMLDocument extends Pane {
 	public List<ChangeSearchBarURLListener> getChangeSearchBarURLListeners() {
 		return listenersSearchBar;
 	}
+
+	@Override
+	public void setAndUpdateXWidth(int newXPos, int newWidth) {
+		setX(newXPos);
+		setWidth(newWidth);
+	}
 	
 	
 

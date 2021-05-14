@@ -214,7 +214,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			int panelWidth = Math.floorDiv(width, 2); //TODO percent if needed
 			int xRight = panelWidth;
 			rightPanel.setX(xRight);
-			bar.setX(xRight);
 			
 			leftPanel.updateWidth(panelWidth);
 			rightPanel.updateWidth(panelWidth);
@@ -253,11 +252,32 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		int widthLeftPanel = this.bar.getX();
 		int widthRightPanel = this.getWidth() - widthLeftPanel;
 		
-		System.out.print(widthLeftPanel + "\n\n");
-		
 		leftPanel.updateWidth(widthLeftPanel);
-		rightPanel.setX(widthLeftPanel);
-		rightPanel.updateWidth(widthRightPanel);
+		rightPanel.setAndUpdateXWidth(widthLeftPanel, widthRightPanel);
+	}
+	
+	@Override
+	public void setAndUpdateXWidth(int newXPos, int newWidth) {
+		double ratio = this.leftPanel.getWidth() / (double) this.getWidth();
+		System.out.print(ratio + "\n");
+		this.setX(newXPos);
+		this.setWidth(newWidth);
+		
+		if (dir == Direction.VERTICAL) {
+			int panelLeftWidth = (int) (ratio * this.getWidth());
+			int xRight = panelLeftWidth;
+			rightPanel.setX(xRight);
+			bar.setX(xRight);
+			
+			leftPanel.updateWidth(panelLeftWidth);
+			rightPanel.setAndUpdateXWidth(panelLeftWidth, this.getWidth() - panelLeftWidth);
+		} else {
+			leftPanel.updateWidth(newWidth);
+			rightPanel.updateWidth(newWidth);
+		}
+		
+		ratio = this.leftPanel.getWidth() / (double) this.getWidth();
+		System.out.print(ratio + "\n");
 	}
 	
 	public void moveHorizontalBar() {
