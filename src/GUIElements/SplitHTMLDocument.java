@@ -12,6 +12,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	private boolean activeOnLeft = true;
 	private SeperatorBar bar;
 	private Direction dir;
+	double ratio = 0.0;
 
 	public SplitHTMLDocument(HTMLDocument original, Direction direction) {
 		super(original.getX(), original.getY(), original.getWidth(), original.getHeight());
@@ -27,6 +28,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		int[] middleContainer = new int[] {this.getWidth()/2,this.getHeight()/2};
 		this.bar = new SeperatorBar(this, middleContainer, direction);
 		this.bar.addSeparatorBarMoveListener(this);
+		ratio = 0.5;
 	}
 
 	private void initHorizontalPanels(HTMLDocument original) {
@@ -148,12 +150,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		else 
 			rightPanel = rightPanel.deleteActiveHTMLDocument();
 		
-		if (leftPanel == null) {
-			rightPanel.setX(getX()); //TODO probleem hier misschien 0
-			rightPanel.setY(getY());
-			
-			rightPanel.updateWidth(getWidth());
-			rightPanel.updateHeight(getHeight());
+		if (leftPanel == null) {			
+			rightPanel.updateWidth(getX(), getWidth());
+			rightPanel.updateHeight(getY(), getHeight());
 			
 			
 			rightPanel.setActive(true);
@@ -161,10 +160,8 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 		
 		if (rightPanel == null) {
-			leftPanel.setX(getX()); //TODO probleem hier misschien 0
-			leftPanel.setY(getY());
-			leftPanel.updateWidth(getWidth());
-			leftPanel.updateHeight(getHeight());
+			leftPanel.updateWidth(getX(), getWidth());
+			leftPanel.updateHeight(getY(), getHeight());
 			
 			leftPanel.setActive(true);
 			return leftPanel;
@@ -205,42 +202,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
 		this.getActiveHTMLDocument().addMultipleElements(guiList);
 	}
-
-	@Override
-	public void updateWidth(int width) {
-		this.setWidth(width);
-		
-		if (dir == Direction.VERTICAL) {
-			int panelWidth = Math.floorDiv(width, 2); //TODO percent if needed
-			int xRight = panelWidth;
-			rightPanel.setX(xRight);
-			
-			leftPanel.updateWidth(panelWidth);
-			rightPanel.updateWidth(panelWidth);
-		} else {
-			leftPanel.updateWidth(width);
-			rightPanel.updateWidth(width);
-		}
-	}
-
-	@Override
-	public void updateHeight(int height) {
-		this.setHeight(height);
-		
-		if (dir == Direction.HORIZONTAL) {
-			int panelHeight = Math.floorDiv(height, 2);//TODO percent if needed
-			int yRight = panelHeight;
-			rightPanel.setY(yRight);
-			
-			leftPanel.updateHeight(panelHeight);
-			rightPanel.updateHeight(panelHeight);
-		} else {
-			leftPanel.updateHeight(height);
-			rightPanel.updateHeight(height);
-		}
-	}
 	
 	public void barMoved() {
+		this.updateRatio();
 		if (dir == Direction.VERTICAL) {
 			moveVerticalBar();
 		} else {
@@ -248,44 +212,57 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 	}
 	
+	private void updateRatio() {
+		ratio = (double) this.leftPanel.getWidth() /  this.getWidth();
+	}
+
 	public void moveVerticalBar() {
 		int widthLeftPanel = this.bar.getX();
 		int widthRightPanel = this.getWidth() - widthLeftPanel;
 		
-		leftPanel.updateWidth(widthLeftPanel);
-		rightPanel.setAndUpdateXWidth(widthLeftPanel, widthRightPanel);
+		leftPanel.updateWidth(0, widthLeftPanel);
+		rightPanel.updateWidth(widthLeftPanel, widthRightPanel);
 	}
 	
 	@Override
-	public void setAndUpdateXWidth(int newXPos, int newWidth) {
-		double ratio = this.leftPanel.getWidth() / (double) this.getWidth();
-		System.out.print(ratio + "\n");
+	public void updateWidth(int newXPos, int newWidth) {
 		this.setX(newXPos);
 		this.setWidth(newWidth);
 		
 		if (dir == Direction.VERTICAL) {
-			int panelLeftWidth = (int) (ratio * this.getWidth());
-			int xRight = panelLeftWidth;
-			rightPanel.setX(xRight);
-			bar.setX(xRight);
-			
-			leftPanel.updateWidth(panelLeftWidth);
-			rightPanel.setAndUpdateXWidth(panelLeftWidth, this.getWidth() - panelLeftWidth);
+			int widthLeftPanel = (int) (ratio * this.getWidth());
+			leftPanel.updateWidth(0, widthLeftPanel);
+			bar.setX(widthLeftPanel);
+			rightPanel.updateWidth(widthLeftPanel, this.getWidth() - widthLeftPanel);
 		} else {
-			leftPanel.updateWidth(newWidth);
-			rightPanel.updateWidth(newWidth);
+			leftPanel.updateWidth(0, newWidth);
+			rightPanel.updateWidth(0, newWidth);
 		}
 		
-		ratio = this.leftPanel.getWidth() / (double) this.getWidth();
-		System.out.print(ratio + "\n");
 	}
 	
 	public void moveHorizontalBar() {
 		int heightLeftPanel = this.bar.getY();
 		int heightRightPanel = this.getHeight() - heightLeftPanel;
 		
-		leftPanel.updateHeight(heightLeftPanel);
-		rightPanel.setY(heightLeftPanel);
-		rightPanel.updateHeight(heightRightPanel);
+		leftPanel.updateHeight(0, heightLeftPanel);
+		rightPanel.updateHeight(heightLeftPanel, heightRightPanel);
+	}
+	
+	@Override
+	public void updateHeight(int newYPos, int newHeight) {
+		this.setY(newYPos);
+		this.setHeight(newHeight);
+		
+		if (dir == Direction.VERTICAL) {
+			int heightLeftPanel = (int) (ratio * this.getHeight());
+			leftPanel.updateHeight(0, heightLeftPanel);
+			bar.setX(heightLeftPanel);
+			rightPanel.updateHeight(heightLeftPanel, this.getHeight() - heightLeftPanel);
+		} else {
+			leftPanel.updateHeight(0, newHeight);
+			rightPanel.updateHeight(0, newHeight);
+		}
+		
 	}
 }

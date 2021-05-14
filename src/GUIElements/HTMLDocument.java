@@ -79,16 +79,6 @@ public class HTMLDocument extends Pane {
 	public Pane deleteActiveHTMLDocument() {
 		return null;
 	}
-
-	@Override
-	public void updateWidth(int width) {
-		this.setWidth(width);
-	}
-	
-	@Override
-	public void updateHeight(int height) {
-		this.setHeight(height);
-	}
 	
 	@Override
 	public void paint(Graphics g) {
@@ -153,9 +143,15 @@ public class HTMLDocument extends Pane {
 	}
 
 	@Override
-	public void setAndUpdateXWidth(int newXPos, int newWidth) {
+	public void updateWidth(int newXPos, int newWidth) {
 		setX(newXPos);
 		setWidth(newWidth);
+	}
+	
+	@Override
+	public void updateHeight(int newYPos, int newHeight) {
+		setY(newYPos);
+		setHeight(newHeight);
 	}
 	
 	
