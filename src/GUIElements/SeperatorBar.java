@@ -2,6 +2,10 @@ package GUIElements;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+
+import EventListeners.SavePageListener;
+import EventListeners.SeparatorBarMoveListener;
 
 public class SeperatorBar extends GUIElement {
 	
@@ -13,6 +17,7 @@ public class SeperatorBar extends GUIElement {
 	
 	Container rootContainer;
 	
+	private ArrayList<SeparatorBarMoveListener> separatorBarMoveListeners = new ArrayList<>();
 	
 	public SeperatorBar(Container cont,int[] position,Direction dir) {
 		// TODO Auto-generated constructor stub
@@ -24,8 +29,6 @@ public class SeperatorBar extends GUIElement {
 		this.setRootContainer(cont);
 	}
 
-
-	
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
 
@@ -39,6 +42,7 @@ public class SeperatorBar extends GUIElement {
 	@Override
 	public void handleClick() {
 	}
+	
 	/**
 	 * Moves the sepertorBar, the bar can only move vertical when a horizontal bar
 	 * the bar can only move horizontal when a vertical bar.
@@ -48,6 +52,7 @@ public class SeperatorBar extends GUIElement {
 		int[] dragPosition = this.positionInContainer(x, y);
 		int[] seperatorPosition = this.getDirection().getPosition(dragPosition);
 		this.setPosition(seperatorPosition[0], seperatorPosition[1]);
+		separatorBarMoveListeners.forEach(listener -> listener.barMoved());
 	}
 	
 	private int[] positionInContainer(int x, int y) {
@@ -79,6 +84,18 @@ public class SeperatorBar extends GUIElement {
 
 	public void setRootContainer(Container rootContainer) {
 		this.rootContainer = rootContainer;
+	}
+	
+	public void addSeparatorBarMoveListener(SeparatorBarMoveListener listener) {
+		this.getSeparatorBarMoveListeners().add(listener);
+	}
+
+	public void removeSavePageListener(SeparatorBarMoveListener listener) {
+		this.getSeparatorBarMoveListeners().remove(listener);
+	}
+	
+	protected ArrayList<SeparatorBarMoveListener> getSeparatorBarMoveListeners() {
+		return separatorBarMoveListeners;
 	}
 	
 }

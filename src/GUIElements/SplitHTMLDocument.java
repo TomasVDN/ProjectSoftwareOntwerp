@@ -3,7 +3,9 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class SplitHTMLDocument extends Pane {
+import EventListeners.SeparatorBarMoveListener;
+
+public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	
 	private Pane leftPanel;
 	private Pane rightPanel;
@@ -22,8 +24,9 @@ public class SplitHTMLDocument extends Pane {
 			initHorizontalPanels(original);
 		}
 		
-//		int[] middleContainer = new int[] {this.getWidth()/2,this.getHeight()/2};
-//		this.bar = new SeperatorBar(this, middleContainer, direction);		
+		int[] middleContainer = new int[] {this.getWidth()/2,this.getHeight()/2};
+		this.bar = new SeperatorBar(this, middleContainer, direction);
+		this.bar.addSeparatorBarMoveListener(this);
 	}
 
 	private void initHorizontalPanels(HTMLDocument original) {
@@ -134,7 +137,8 @@ public class SplitHTMLDocument extends Pane {
 		leftPanel.paint(newG);
 		rightPanel.paint(newG);
 		
-		//bar.paint(newG);
+		
+		bar.paint(newG);
 	}
 
 	@Override
@@ -174,6 +178,10 @@ public class SplitHTMLDocument extends Pane {
 		int xRel = x - getX();
 		int yRel = y - getY();
 		
+		if (bar.containsPoint(xRel, yRel)) {
+			return bar;
+		}
+		
 		this.changeActiveHTMLDocument(x, y); //TODO moet op zich niet -> is er om consistentie te g
 		
 		if (activeOnLeft) {
@@ -206,6 +214,7 @@ public class SplitHTMLDocument extends Pane {
 			int panelWidth = Math.floorDiv(width, 2); //TODO percent if needed
 			int xRight = panelWidth;
 			rightPanel.setX(xRight);
+			bar.setX(xRight);
 			
 			leftPanel.updateWidth(panelWidth);
 			rightPanel.updateWidth(panelWidth);
@@ -230,5 +239,33 @@ public class SplitHTMLDocument extends Pane {
 			leftPanel.updateHeight(height);
 			rightPanel.updateHeight(height);
 		}
+	}
+	
+	public void barMoved() {
+		if (dir == Direction.VERTICAL) {
+			moveVerticalBar();
+		} else {
+			moveHorizontalBar();
+		}
+	}
+	
+	public void moveVerticalBar() {
+		int widthLeftPanel = this.bar.getX();
+		int widthRightPanel = this.getWidth() - widthLeftPanel;
+		
+		System.out.print(widthLeftPanel + "\n\n");
+		
+		leftPanel.updateWidth(widthLeftPanel);
+		rightPanel.setX(widthLeftPanel);
+		rightPanel.updateWidth(widthRightPanel);
+	}
+	
+	public void moveHorizontalBar() {
+		int heightLeftPanel = this.bar.getY();
+		int heightRightPanel = this.getHeight() - heightLeftPanel;
+		
+		leftPanel.updateHeight(heightLeftPanel);
+		rightPanel.setY(heightLeftPanel);
+		rightPanel.updateHeight(heightRightPanel);
 	}
 }
