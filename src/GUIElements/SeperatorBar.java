@@ -65,14 +65,14 @@ public class SeperatorBar extends GUIElement {
 		if (this.getDirection() == Direction.VERTICAL) {
 			newOffset = x;
 			offset = x - this.getOffsetReference();
-			this.ChangeXPosition(offset+this.getX());
+			this.changeXPosition(offset+this.getX());
 			if( this.inBounds(this.getEndX()+offset)) {
 				this.setOffsetReference(newOffset);
 			}
 		} else {
 			newOffset = y;
 			offset = y - this.getOffsetReference();
-			this.ChangeYPosition(offset+this.getY());
+			this.changeYPosition(offset+this.getY());
 			if( this.inBounds(this.getEndY()+offset)) {
 				this.setOffsetReference(newOffset);
 			}
@@ -93,6 +93,16 @@ public class SeperatorBar extends GUIElement {
 		}
 
 	}
+	
+	public void updateBar(){
+		if(this.getDirection()==Direction.VERTICAL) {
+			this.setHeight(this.getRootContainer().getHeight());
+		}
+		else {
+			this.setWidth(this.getRootContainer().getWidth());
+		}
+	}
+
 
 	@Override
 	public void paint(Graphics g) {
@@ -107,8 +117,8 @@ public class SeperatorBar extends GUIElement {
 	 * 
 	 * @param x - new value of this.xPos
 	 */
-	public void ChangeXPosition(int x) {
-		this.setX( Math.min(this.getRootContainer().getWidth()-this.getWidth(), Math.max(x, 0)));
+	public void changeXPosition(int x) {
+		this.setX( Math.max(0,Math.min(this.getRootContainer().getWidth()-this.getWidth(), x)));
 	}
 	
 	/**
@@ -116,8 +126,8 @@ public class SeperatorBar extends GUIElement {
 	 * 
 	 * @param y - new value of this.yPos
 	 */
-	public void  ChangeYPosition(int y) {
-		this.setY(Math.min(this.getRootContainer().getHeight()-this.getHeight(), Math.max(y, 0)));
+	public void  changeYPosition(int y) {
+		this.setY(Math.max(0,Math.min(this.getRootContainer().getHeight()-this.getHeight(), y)));
 	}
 	
 	public Direction getDirection() {

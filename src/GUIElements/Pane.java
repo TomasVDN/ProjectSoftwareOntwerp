@@ -16,4 +16,5 @@ public abstract class Pane extends Container {
 	public abstract void updateRightWidth(int newXPos, int newWidth);
 	public abstract void updateHeightUp(int newYPos, int newHeight);
 	public abstract void updateHeightDown(int newYPos, int newHeight);
+	protected abstract void updateAllBars();
 }

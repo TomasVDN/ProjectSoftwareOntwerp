@@ -165,6 +165,11 @@ public class HTMLDocument extends Pane {
 		setY(newYPos);
 		setHeight(newHeight);
 	}
+
+	@Override
+	protected void updateAllBars() {
+
+	}
 	
 	
 
