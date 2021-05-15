@@ -149,8 +149,8 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			rightPanel = rightPanel.deleteActiveHTMLDocument();
 		
 		if (leftPanel == null) {			
-			rightPanel.updateLeftWidth(getX(), getWidth());
-			rightPanel.updateHeightUp(getY(), getHeight());
+			rightPanel.updateRightClosestChildWidth(getX(), getWidth());
+			rightPanel.updateRightClosestChildHeight(getY(), getHeight());
 			
 			
 			rightPanel.setActive(true);
@@ -158,8 +158,8 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 		
 		if (rightPanel == null) {
-			leftPanel.updateLeftWidth(getX(), getWidth());
-			leftPanel.updateHeightUp(getY(), getHeight());
+			leftPanel.updateRightClosestChildWidth(getX(), getWidth());
+			leftPanel.updateRightClosestChildHeight(getY(), getHeight());
 			
 			leftPanel.setActive(true);
 			return leftPanel;
@@ -202,12 +202,18 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.getActiveHTMLDocument().addMultipleElements(guiList);
 	}
 	
+	/**
+	 * Update all the bars to get the correct width and height
+	 */
 	public void updateAllBars(){
 		bar.updateBar();
 		leftPanel.updateAllBars();
 		rightPanel.updateAllBars();
 	}
 	
+	/**
+	 * The action that has to be performed if this class seperator bar has moved
+	 */
 	public void barMoved() {
 		if (dir == Direction.VERTICAL) {
 			moveVerticalBar();
@@ -218,83 +224,102 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	}
 	
 
+	/**
+	 * When the vertical bar is moved the closest childs changes their position and width
+	 * The rest remains unchanged
+	 */
 	public void moveVerticalBar() {
 		int widthLeftPanel = this.bar.getX();
 		int widthRightPanel = this.getWidth() - widthLeftPanel;
-		leftPanel.updateRightWidth(0, widthLeftPanel);
-		rightPanel.updateLeftWidth(widthLeftPanel, widthRightPanel);
+		leftPanel.updateLeftClosestChildWidth(0, widthLeftPanel);
+		rightPanel.updateRightClosestChildWidth(widthLeftPanel, widthRightPanel);
 
 	}
 	
 
-	public void updateLeftWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
+	/**
+	 * This method makes sure that only the most rightChild changes, the absolute value
+	 * of the other childs must remain the same. The rightpanel x coordinate has to change accordingly
+	 */
+	public void updateRightClosestChildWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
 		this.setX(newXPos);
 		this.setWidth(newWidth);
 		if (dir == Direction.VERTICAL) {
 			int widthLeftPanel = newWidth - rightPanel.getWidth();
-			leftPanel.updateLeftWidth(0, widthLeftPanel);
+			leftPanel.updateRightClosestChildWidth(0, widthLeftPanel);
 			bar.changeXPosition(widthLeftPanel);
-			rightPanel.updateLeftWidth(widthLeftPanel, this.getWidth() - widthLeftPanel);
+			rightPanel.setX(widthLeftPanel);
 		} else {
-			leftPanel.updateLeftWidth(0, newWidth);
-			rightPanel.updateLeftWidth(0, newWidth);
+			leftPanel.updateRightClosestChildWidth(0, newWidth);
+			rightPanel.updateRightClosestChildWidth(0, newWidth);
 		}
 	}
 	
-	public void updateRightWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
+	/**
+	 * This method makes sure that only the most leftChild changes, the absolute value
+	 * of the other childs must remain the same. 
+	 */
+	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
 		this.setX(newXPos);
 		this.setWidth(newWidth);
 		if (dir == Direction.VERTICAL) {
 			int widthRigthPanel = newWidth - leftPanel.getWidth();
 			int widthLeftPanel = leftPanel.getWidth();
-			leftPanel.updateRightWidth(0, widthLeftPanel);
-			bar.changeXPosition(widthLeftPanel);
-			rightPanel.updateRightWidth(widthLeftPanel, widthRigthPanel);
+			rightPanel.updateLeftClosestChildWidth(widthLeftPanel, widthRigthPanel);
 		} else {
-			leftPanel.updateRightWidth(0, newWidth);
-			rightPanel.updateRightWidth(0, newWidth);
+			leftPanel.updateLeftClosestChildWidth(0, newWidth);
+			rightPanel.updateLeftClosestChildWidth(0, newWidth);
 		}
 	}
 	
+	/**
+	 * When the horizontal bar is moved the closest childs changes their position and width
+	 * The rest remains unchanged
+	 */
 	public void moveHorizontalBar() {
 		int heightLeftPanel = this.bar.getY();
 		int heightRightPanel = this.getHeight() - heightLeftPanel;
-		leftPanel.updateHeightDown(0, heightLeftPanel);
-		rightPanel.updateHeightUp(heightLeftPanel, heightRightPanel);
+		leftPanel.updateLeftClosestChildHeight(0, heightLeftPanel);
+		rightPanel.updateRightClosestChildHeight(heightLeftPanel, heightRightPanel);
 
 	}
 	
+	/**
+	 * This method makes sure that only the most rightChild changes, the absolute value
+	 * of the other childs must remain the same. 
+	 */
 	@Override
-	public void updateHeightUp(int newYPos, int newHeight) {
+	public void updateRightClosestChildHeight(int newYPos, int newHeight) {
 		this.setY(newYPos);
 		this.setHeight(newHeight);
-		
 		if (dir == Direction.HORIZONTAL) {
-
 			int heightLeftPanel = newHeight-rightPanel.getHeight();
-			leftPanel.updateHeightDown(0, heightLeftPanel);
+			leftPanel.updateLeftClosestChildHeight(0, heightLeftPanel);
 			bar.changeYPosition(heightLeftPanel);
-			rightPanel.updateHeightUp(heightLeftPanel, this.getHeight() - heightLeftPanel);
+			rightPanel.setY(heightLeftPanel);
+			//rightPanel.updateRightClosestChildHeight(heightLeftPanel, this.getHeight() - heightLeftPanel);
 		} else {
-			leftPanel.updateHeightDown(0, newHeight);
-			rightPanel.updateHeightDown(0, newHeight);
+			leftPanel.updateRightClosestChildHeight(0, newHeight);
+			rightPanel.updateRightClosestChildHeight(0, newHeight);
 		}
 		
 	}
 
+	/**
+	 * This method makes sure that only the most leftChild changes, the absolute value
+	 * of the other childs must remain the same. 
+	 */
 	@Override
-	public void updateHeightDown(int newYPos, int newHeight) {
+	public void updateLeftClosestChildHeight(int newYPos, int newHeight) {
 		this.setY(newYPos);
 		this.setHeight(newHeight);
 		
 		if (dir == Direction.HORIZONTAL) {
 			int heightLeftPanel = leftPanel.getHeight();
-			leftPanel.updateHeightDown(0, heightLeftPanel);
-			bar.changeYPosition(heightLeftPanel);
-			rightPanel.updateHeightUp(heightLeftPanel, this.getHeight() - heightLeftPanel);
+			rightPanel.updateRightClosestChildHeight(heightLeftPanel, newHeight - heightLeftPanel);
 		} else {
-			leftPanel.updateHeightUp(0, newHeight);
-			rightPanel.updateHeightUp(0, newHeight);
+			leftPanel.updateLeftClosestChildHeight(0, newHeight);
+			rightPanel.updateLeftClosestChildHeight(0, newHeight);
 		}
 	}
 }

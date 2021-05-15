@@ -143,25 +143,25 @@ public class HTMLDocument extends Pane {
 	}
 
 	@Override
-	public void updateLeftWidth(int newXPos, int newWidth) {
+	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
 		setX(newXPos);
 		setWidth(newWidth);
 	}
 	
 	@Override
-	public void updateHeightUp(int newYPos, int newHeight) {
+	public void updateRightClosestChildHeight(int newYPos, int newHeight) {
 		setY(newYPos);
 		setHeight(newHeight);
 	}
 
 	@Override
-	public void updateRightWidth(int newXPos, int newWidth) {
+	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {
 		setX(newXPos);
 		setWidth(newWidth);
 	}
 
 	@Override
-	public void updateHeightDown(int newYPos, int newHeight) {
+	public void updateLeftClosestChildHeight(int newYPos, int newHeight) {
 		setY(newYPos);
 		setHeight(newHeight);
 	}

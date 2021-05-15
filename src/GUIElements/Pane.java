@@ -12,9 +12,9 @@ public abstract class Pane extends Container {
 	public abstract Pane splitActiveHTMLDocumentHorizontal();
 	public abstract Pane splitActiveHTMLDocumentVertical();
 	public abstract Pane deleteActiveHTMLDocument();
-	public abstract void updateLeftWidth(int newXPos, int newWidth);
-	public abstract void updateRightWidth(int newXPos, int newWidth);
-	public abstract void updateHeightUp(int newYPos, int newHeight);
-	public abstract void updateHeightDown(int newYPos, int newHeight);
+	public abstract void updateRightClosestChildWidth(int newXPos, int newWidth);
+	public abstract void updateLeftClosestChildWidth(int newXPos, int newWidth);
+	public abstract void updateRightClosestChildHeight(int newYPos, int newHeight);
+	public abstract void updateLeftClosestChildHeight(int newYPos, int newHeight);
 	protected abstract void updateAllBars();
 }
