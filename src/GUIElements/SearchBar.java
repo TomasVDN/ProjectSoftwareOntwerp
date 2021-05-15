@@ -60,7 +60,7 @@ public class SearchBar extends TextBox {
 		}
 		return URL.substring(0, index+1);
 	}
-
+	
 	public void addSearchBarListener(SearchBarListener listener) {
 		if(listener!=null) {
 			this.listeners.add(listener);

@@ -79,16 +79,6 @@ public class HTMLDocument extends Pane {
 	public Pane deleteActiveHTMLDocument() {
 		return null;
 	}
-
-	@Override
-	public void updateWidth(int width) {
-		this.setWidth(width);
-	}
-	
-	@Override
-	public void updateHeight(int height) {
-		this.setHeight(height);
-	}
 	
 	@Override
 	public void paint(Graphics g) {
@@ -96,8 +86,7 @@ public class HTMLDocument extends Pane {
 		if (isActiveHTMLDocument) {
 			g.setColor(Color.ORANGE);
 			g.drawRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
-		}
-		
+		}		
 	}
 	
 	public void setActive(boolean active) {
@@ -151,6 +140,35 @@ public class HTMLDocument extends Pane {
 
 	public List<ChangeSearchBarURLListener> getChangeSearchBarURLListeners() {
 		return listenersSearchBar;
+	}
+
+	@Override
+	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
+		setX(newXPos);
+		setWidth(newWidth);
+	}
+	
+	@Override
+	public void updateRightClosestChildHeight(int newYPos, int newHeight) {
+		setY(newYPos);
+		setHeight(newHeight);
+	}
+
+	@Override
+	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {
+		setX(newXPos);
+		setWidth(newWidth);
+	}
+
+	@Override
+	public void updateLeftClosestChildHeight(int newYPos, int newHeight) {
+		setY(newYPos);
+		setHeight(newHeight);
+	}
+
+	@Override
+	protected void updateAllBars() {
+
 	}
 	
 	

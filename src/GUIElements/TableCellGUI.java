@@ -39,6 +39,8 @@ public class TableCellGUI extends GUIElement {
 		return this.getGui().getGUIAtPosition(x-this.getX(), y - this.getY());
 	}
 	
+	
+
 	/**
 	 * @return this.gui
 	 */

@@ -186,7 +186,7 @@ public abstract class GUIElement {
 	
 	public abstract void handleClick();
 	
-	public void handlePressClick() {}
+	public void handlePressClick(int x,int y) {}
 	
 	public void handleReleaseClick(boolean releasedOn) {}
 	

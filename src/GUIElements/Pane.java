@@ -12,13 +12,9 @@ public abstract class Pane extends Container {
 	public abstract Pane splitActiveHTMLDocumentHorizontal();
 	public abstract Pane splitActiveHTMLDocumentVertical();
 	public abstract Pane deleteActiveHTMLDocument();
-	public abstract void updateWidth(int width);
-	public abstract void updateHeight(int height);
-	
-	public boolean inBounds(int x, int y) {
-		if (this.getX() < x && x < this.getX() + this.getWidth() && this.getY() < y && y < this.getY() + this.getHeight())
-			return true;
-		else 
-			return false;
-	}
+	public abstract void updateRightClosestChildWidth(int newXPos, int newWidth);
+	public abstract void updateLeftClosestChildWidth(int newXPos, int newWidth);
+	public abstract void updateRightClosestChildHeight(int newYPos, int newHeight);
+	public abstract void updateLeftClosestChildHeight(int newYPos, int newHeight);
+	protected abstract void updateAllBars();
 }

@@ -235,6 +235,7 @@ public class TableGUI extends GUIElement {
 		return null;
 	}
 
+	
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifier) {
 	}
