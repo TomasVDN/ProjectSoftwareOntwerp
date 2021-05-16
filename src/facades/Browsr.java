@@ -7,7 +7,7 @@ import EventListeners.ChangeDialogListener;
 import EventListeners.ChangeSearchBarURLListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
-import EventListeners.RedrawListener;
+import EventListeners.ReloadListener;
 import EventListeners.SavePageListener;
 import EventListeners.SearchBarListener;
 import GUIElements.HTMLDocument;
@@ -21,7 +21,7 @@ import htmlElement.ContentSpan;
  *
  */
 //TODO rm listener -> functional interfaces
-public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener, ChangeSearchBarURLListener{
+public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener, ChangeSearchBarURLListener{
 	
 	private WindowManager windowManager;
 
@@ -52,16 +52,9 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 		ArrayList<ContentSpan> htmlList = decoder.createElements();
 		
 		this.getWindowManager().updateURL(path);
-		windowManager.draw(htmlList, path, code);	
+		windowManager.draw(htmlList, path, code,this);	
 	}
-	
-	@Override
-	public void redraw(HTMLDocument HTMLDocument, String path, String code) {
-		HTMLDecoder decoder = new HTMLDecoder(code);
-		ArrayList<ContentSpan> htmlList = decoder.createElements();
-		
-		windowManager.redraw(HTMLDocument, htmlList, path, code);
-	}
+
 	
 	@Override
 	public void changeSearchBarURL(String url) {
@@ -90,9 +83,9 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 	 * @param filename - file name under wich to save the HTML code.
 	 */
 	@Override
-	public void savePage(String filename) {
-		String code = this.windowManager.getHTMLCodeFromActiveHTMLDocument();
-		new Saver().saveToFile(filename, code);
+	public void savePage(String filename,String htmlCode) {
+		//String code = this.windowManager.getHTMLCodeFromActiveHTMLDocument();
+		new Saver().saveToFile(filename, htmlCode);
 	}
 	
 	/**
@@ -111,7 +104,14 @@ public class Browsr implements RedrawListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void changeDialog(String type) {
-		this.windowManager.setActiveDialog(type);
+		this.windowManager.setActiveDialog(type,this);
+	}
+
+	@Override
+	public void draw(HTMLDocument HTMLDocument, String url, String htmlString) {
+		HTMLDecoder decoder = new HTMLDecoder(htmlString);
+		ArrayList<ContentSpan> htmlList = decoder.createElements();
+		this.getWindowManager().redraw(HTMLDocument, htmlList, url, htmlString, this);
 	}
 }
 

@@ -5,16 +5,15 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import EventListeners.ChangeSearchBarURLListener;
-import EventListeners.RedrawListener;
+import EventListeners.FormListener;
+import EventListeners.ReloadListener;
 
 public class HTMLDocument extends Pane {
 	
 	private String url;
 	private String HTMLCode;
 	private boolean isActiveHTMLDocument;
-	private List<RedrawListener > listeners = new ArrayList<RedrawListener>();
-	private List<ChangeSearchBarURLListener> listenersSearchBar = new ArrayList<ChangeSearchBarURLListener>();
+	protected List<ReloadListener > listenerReload = new ArrayList<ReloadListener>();
 	
 	public HTMLDocument(int x, int y, int w, int h, String url, String HTMLCode) {
 		super(x, y, w, h);
@@ -91,56 +90,16 @@ public class HTMLDocument extends Pane {
 	
 	public void setActive(boolean active) {
 		this.isActiveHTMLDocument = active;
-		if (active) {
-			listenersSearchBar.forEach(listener -> listener.changeSearchBarURL(url));
-		}
 	}
 	
 	public HTMLDocument copy() {
 		HTMLDocument copy = new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
-		listeners.forEach(listener -> copy.addRedrawListener(listener));
-		listenersSearchBar.forEach(listener -> copy.addChangeSearchBarURLListener(listener));
+		copy.listenerReload = this.listenerReload;//copies the listener
+		copy.reloadPage();
 		return copy;
 	}
 	
-	public void redraw() {
-		listeners.forEach(listener -> listener.redraw(this, getUrl(), getHTMLCode()));
-	}
-	
-	@Override
-	public void resetAllElements(ArrayList<GUIElement> guiList, String path, String code) {
-		super.resetAllElements(guiList, path, code);
-		this.setUrl(path);
-		this.setHTMLCode(code);
-	}
-	
-	public void addRedrawListener(RedrawListener listener) {
-		if(listener!=null) {
-			this.listeners.add(listener);
-		}
-	}
 
-	public void removeRedrawListener(RedrawListener listener) {
-		this.listeners.remove(listener);
-	}
-
-	public List<RedrawListener> getListeners() {
-		return listeners;
-	}
-	
-	public void addChangeSearchBarURLListener(ChangeSearchBarURLListener listener) {
-		if(listener!=null) {
-			this.listenersSearchBar.add(listener);
-		}
-	}
-
-	public void removeChangeSearchBarURLListener(ChangeSearchBarURLListener listener) {
-		this.listenersSearchBar.remove(listener);
-	}
-
-	public List<ChangeSearchBarURLListener> getChangeSearchBarURLListeners() {
-		return listenersSearchBar;
-	}
 
 	@Override
 	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
@@ -171,7 +130,34 @@ public class HTMLDocument extends Pane {
 
 	}
 	
+	public void reloadPage() {
+		this.listenerReload.forEach(l->l.draw(this,this.getUrl(), this.getHTMLCode()));
+	}
+	
 	
 
-	
+	public void reloadHTML(ArrayList<GUIElement> guiList, String path, String code) {
+		super.resetAllElements(guiList);
+		this.setUrl(path);
+		this.setHTMLCode(code);
 }
+
+	@Override
+	public HTMLDocument setHTMLDocumentActive(int x, int y) {
+		if(this.containsPoint(x, y)) {
+			return this;
+		}
+		return null;
+	}
+	
+	public void addReloadListener(ReloadListener listener) {
+		if(listener!=null) {
+			this.listenerReload.add(listener);
+		}
+	}
+
+	public  void removeFormListener(FormListener listener) {
+		this.listenerReload.remove(listener);
+	}
+}
+	

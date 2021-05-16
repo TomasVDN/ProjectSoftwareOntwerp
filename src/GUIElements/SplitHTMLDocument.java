@@ -30,7 +30,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	}
 
 	private void initHorizontalPanels(HTMLDocument original) {
-		HTMLDocument tempLeftPanel = original.copy();
+		HTMLDocument tempLeftPanel = original;
 		HTMLDocument tempRightPanel = original.copy();
 		
 		int heightLeftPanel = Math.floorDiv(getHeight(), 2);
@@ -44,17 +44,15 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		tempLeftPanel.setHeight(heightLeftPanel);
 		tempRightPanel.setHeight(heightLeftPanel);
 		
-		tempLeftPanel.setActive(true);
-		
-		tempLeftPanel.redraw();
-		tempRightPanel.redraw();
+		//tempLeftPanel.redraw();
+		//tempRightPanel.redraw();
 		
 		this.leftPanel = tempLeftPanel;
 		this.rightPanel = tempRightPanel;
 	}
 
 	private void initVerticalPanels(HTMLDocument original) {
-		HTMLDocument tempLeftPanel = original.copy();
+		HTMLDocument tempLeftPanel = original;
 		HTMLDocument tempRightPanel = original.copy();
 		
 		int widthPanel = Math.floorDiv(getWidth(), 2);
@@ -68,10 +66,8 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		tempLeftPanel.setWidth(widthPanel);
 		tempRightPanel.setWidth(widthPanel);
 		
-		tempLeftPanel.setActive(true);
-		
-		tempLeftPanel.redraw();
-		tempRightPanel.redraw();
+		//tempLeftPanel.redraw();
+		//tempRightPanel.redraw();
 		
 		this.leftPanel = tempLeftPanel;
 		this.rightPanel = tempRightPanel;
@@ -150,9 +146,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		
 		if (leftPanel == null) {			
 			rightPanel.updateRightClosestChildWidth(getX(), getWidth());
-			rightPanel.updateRightClosestChildHeight(getY(), getHeight());
-			
-			
+			rightPanel.updateRightClosestChildHeight(getY(), getHeight());//TODO ziet mij er lelijk uit
 			rightPanel.setActive(true);
 			rightPanel.updateAllBars();
 			return rightPanel;
@@ -194,10 +188,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.getActiveHTMLDocument().addElement(element);
 	}
 	
-	@Override
-	public void resetAllElements(ArrayList<GUIElement> guiList, String path, String code) {
-		this.getActiveHTMLDocument().resetAllElements(guiList, path, code);
-	}
 	
 	@Override
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
@@ -323,5 +313,22 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			leftPanel.updateLeftClosestChildHeight(0, newHeight);
 			rightPanel.updateLeftClosestChildHeight(0, newHeight);
 		}
+	}
+
+	@Override
+	public HTMLDocument setHTMLDocumentActive(int x, int y) {
+		int xRel = x - getX();
+		int yRel = y - getY();
+		
+		if(leftPanel.containsPoint(xRel, yRel)) {
+			this.activeOnLeft =true;
+			return leftPanel.setHTMLDocumentActive(xRel, yRel);
+		}
+		else if (rightPanel.containsPoint(xRel, yRel)) {
+			this.activeOnLeft =false;
+			return rightPanel.setHTMLDocumentActive(xRel, yRel);
+		}
+		// not clicked on any panel, don't change anything
+		return null;
 	}
 }

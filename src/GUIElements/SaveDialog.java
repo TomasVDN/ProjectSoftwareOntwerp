@@ -10,6 +10,8 @@ import facades.Browsr;
 public class SaveDialog extends Dialog {
 
 	private TextBox textBox;
+	private HTMLDocument activeHtml;
+
 
 	/**
 	 * Constructor of the SaveDialog class. It extends the Dialog class and implements the SavePageEventCreator and ChangeDialogEventCreator.
@@ -19,15 +21,14 @@ public class SaveDialog extends Dialog {
      * @param h - height of this SaveDialog
 	 * @param eventReader - eventReader of this SaveDialog
 	 */
-	public SaveDialog(int x, int y, int w, int h, Browsr browsr) {
+	public SaveDialog(int x, int y, int w, int h,HTMLDocument activeHTML) {
 		super(x, y, w, h);
 		
 		this.initTextBox(w);
 		this.initCancelButton(w);
 		this.initSaveButton(w);
+		this.setActiveHtml(activeHTML);
 		
-		this.addChangeDialogListener(browsr);
-		this.addSavePageListener(browsr);
 	}
 	
 	/**
@@ -70,7 +71,7 @@ public class SaveDialog extends Dialog {
 			String filename = this.getTextBox().getText();
 			
 			for(SavePageListener listener: this.getSavePageListeners()) {
-				listener.savePage(filename);
+				listener.savePage(filename,this.getActiveHtml().getHTMLCode());
 			}
 			
 			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
@@ -125,5 +126,12 @@ public class SaveDialog extends Dialog {
 		return savePageEventListeners;
 	}
 	
+	public HTMLDocument getActiveHtml() {
+		return activeHtml;
+	}
+
+	public void setActiveHtml(HTMLDocument activeHtml) {
+		this.activeHtml = activeHtml;
+	}
 
 }

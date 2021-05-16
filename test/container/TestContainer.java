@@ -42,7 +42,7 @@ class TestContainer {
 		container.addElement(button1);
 		ArrayList<GUIElement> list = new ArrayList<GUIElement>();
 		list.add(button2);
-		container.resetAllElements(list, "", "");
+		container.resetAllElements(list);
 		assertEquals(container.getElements().size(), 1);
 	}
 	

@@ -2,15 +2,20 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import EventListeners.ChangeSearchBarURLListener;
+import EventListeners.SearchBarListener;
 import facades.Browsr;
 
-public class MainDialog extends Dialog {
+public class MainDialog extends Dialog  {
 	
 	private Pane documentArea;
 	private HTMLDocument originalDocumentArea;
+	private HTMLDocument activeHTMLDocument;
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
+	private ArrayList<ChangeSearchBarURLListener> searchBarChangeListeners= new ArrayList<>();
 
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
@@ -47,9 +52,9 @@ public class MainDialog extends Dialog {
 		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),BOOKMARK_SIZE);
 		HTMLDocument documentArea = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), this.getHeight() - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
+		this.setActiveHTMLDocument(documentArea);
 		documentArea.setActive(true);
-		documentArea.addRedrawListener(browsr);
-		documentArea.addChangeSearchBarURLListener(browsr);
+
 		
 		this.originalDocumentArea = documentArea.copy();
 		this.documentArea = documentArea;
@@ -177,14 +182,6 @@ public class MainDialog extends Dialog {
 		this.getDocumentArea().addMultipleElements(guiList);
 	}
 	
-	/**
-	 * Empties container and adds GUIElements from given guiList to the container.
-	 * @param guiList
-	 */
-	@Override
-	public void resetAllElements(ArrayList<GUIElement> guiList, String path, String code) {
-		this.getDocumentArea().resetAllElements(guiList, path, code);
-	}
 	
 	/**
 	 * Paints all the components in this dialog.
@@ -209,6 +206,19 @@ public class MainDialog extends Dialog {
 			}
 		}
 		return null;
+	}
+	
+	
+	@Override
+	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
+		//sets the clicked panel to active
+		HTMLDocument newActiveHTML = documentArea.setHTMLDocumentActive(x, y);
+		if(newActiveHTML!=null) {
+			this.setActiveHTMLDocument(newActiveHTML);
+			this.notifyChangeSearchBarListeners(this.getActiveHTMLDocument().getUrl());
+		}
+		// activate the GUIElement at the given position
+		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
 	}
 	
 
@@ -239,12 +249,12 @@ public class MainDialog extends Dialog {
 		
 		if (modifiersEx == 128) {
 			if (keyCode == 88) {
+				//ctrl + X
 				allContainers.remove(documentArea);
 				documentArea = documentArea.deleteActiveHTMLDocument();
 				if (documentArea == null) { //TODO bug & smelly code
 					documentArea = originalDocumentArea.copy();
-					((HTMLDocument) documentArea).redraw();
-					
+					//((HTMLDocument) documentArea).redraw();
 					documentArea.setActive(true);
 				}
 				allContainers.add(documentArea);
@@ -255,4 +265,25 @@ public class MainDialog extends Dialog {
 			super.elementWithKeyBoardFocus.handleKeyEvent(keyCode, keyChar, modifiersEx);
 		}
 	}
+
+	public HTMLDocument getActiveHTMLDocument() {
+		return activeHTMLDocument;
+	}
+
+	public void setActiveHTMLDocument(HTMLDocument activeHTMLDocument) {
+		this.activeHTMLDocument = activeHTMLDocument;
+	}
+	
+	public void addChangeSearchBarListener(ChangeSearchBarURLListener listener) {
+		this.searchBarChangeListeners.add(listener);
+	}
+	
+	public void removeChangeSearchBarListener(ChangeSearchBarURLListener listener) {
+		this.searchBarChangeListeners.remove(listener);
+	}
+	
+	private void notifyChangeSearchBarListeners(String url) {
+		searchBarChangeListeners.forEach(l -> l.changeSearchBarURL(url));
+	}
+
 }

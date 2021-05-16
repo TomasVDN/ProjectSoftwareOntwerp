@@ -23,7 +23,7 @@ public class BookmarkDialog extends Dialog {
      * @param h - height of this BookmarkDialog
 	 * @param eventReader - eventReader of this BookmarkDialog
 	 */
-	public BookmarkDialog(int x, int y, int w, int h, Browsr browsr) {
+	public BookmarkDialog(int x, int y, int w, int h,String suggestedUrl) {
 		super(x, y, w, h);
 
 		this.initHeader();
@@ -31,9 +31,9 @@ public class BookmarkDialog extends Dialog {
 		this.initUrlInput(w);
 		this.initCancelButton(w);
 		this.initAddBookmarkButton(w);
+		this.setSuggestedUrl(suggestedUrl);
 		
-		this.addAddBookmarkListener(browsr);
-		this.addChangeDialogListener(browsr);
+
 	}
 	
 	/**

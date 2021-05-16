@@ -83,7 +83,7 @@ public class Container extends GUIElement {
 	 * @param code 
 	 * @param path 
 	 */
-	public void resetAllElements(ArrayList<GUIElement> guiList, String path, String code) {
+	public void resetAllElements(ArrayList<GUIElement> guiList) {
 		this.elements.clear();
 		this.addMultipleElements(guiList);
 	}

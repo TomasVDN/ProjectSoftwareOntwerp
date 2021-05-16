@@ -59,11 +59,7 @@ public abstract class Dialog extends Container {
 	}
 
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
-		try {
-			changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
-		} catch (NullPointerException e) {
-			changeElementWithKeyboardFocus(null);
-		}
+		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
 	}
 	
 	@Override

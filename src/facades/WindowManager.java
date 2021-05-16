@@ -3,7 +3,10 @@ package facades;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 
+import EventListeners.ChangeDialogListener;
+import EventListeners.ReloadListener;
 import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
@@ -24,10 +27,11 @@ import htmlElement.ContentSpan;
 public class WindowManager {
 	
 	private MyCanvasWindow window;
-	private Browsr browsr; //TODO dit maakt al ons werk nutteloos nie, we probeerden dit juist te vermijden met listeners
+	//private Browsr browsr; //TODO dit maakt al ons werk nutteloos nie, we probeerden dit juist te vermijden met listeners
 
 	private Dialog activeDialog;
 	private MainDialog mainDialog;
+	private List<ChangeDialogListener > dialogListener = new ArrayList<ChangeDialogListener>();
 
 	private int width;
 	private int height;
@@ -43,14 +47,15 @@ public class WindowManager {
 		this.window = window;
 		
 		//Make new Browsr object.
-		this.browsr = new Browsr(this);
+		Browsr browsr = new Browsr(this);
+		this.dialogListener.add(browsr);
 		
 		//Set width/height.
 		this.setWidth(600);
 		this.setHeight(600);
 		
 		//Make the bar and page containers
-		initMainDialog();
+		initMainDialog(browsr);
 		
 		//Setup the welcome page
 		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
@@ -61,10 +66,11 @@ public class WindowManager {
 	/**
 	 * Initialize the mainDialog. Adds three containers (one for the searchbar, one for the bookmarks and one for the htmlCode).
 	 */
-	private void initMainDialog() {
+	private void initMainDialog(Browsr browsr) {
 		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, browsr);
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
+		mainDialog.getActiveHTMLDocument().addReloadListener(browsr);
 	}
 
 	/**
@@ -85,32 +91,32 @@ public class WindowManager {
 	 * @param code 
 	 * @param path 
 	 */
-	public void draw(ArrayList<ContentSpan> htmlElements, String path, String code) { //TODO rename
+	public void draw(ArrayList<ContentSpan> htmlElements, String path, String code,Browsr browsr) { //TODO rename
 		HTMLToGUI converter = new HTMLToGUI();
 		
 		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
 		
-		addListenersToGUIElements(list);
-		
-		this.getActiveDialog().resetAllElements(list, path, code);
+		addListenersToGUIElements(list,browsr);
+		this.getMainDialog().getActiveHTMLDocument().reloadHTML(list, path, code);//TODO
+		//this.getActiveDialog().resetAllElements(list, path, code);
 	}
 	
 
-	public void redraw(HTMLDocument htmlDocument, ArrayList<ContentSpan> htmlElements, String path, String code) { //TODO rename
+	public void redraw(HTMLDocument htmlDocument, ArrayList<ContentSpan> htmlElements, String path, String code,Browsr browsr) { //TODO rename
 		HTMLToGUI converter = new HTMLToGUI();
 		
 		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
 		
-		addListenersToGUIElements(list);
+		addListenersToGUIElements(list,browsr);
 		
-		htmlDocument.resetAllElements(list, path, code);
+		htmlDocument.reloadHTML(list, path, code);
 	}
 
 	/**
 	 * Adds a listener of a given class to all hyperlinks and forms
 	 * @param list
 	 */
-	private void addListenersToGUIElements(ArrayList<GUIElement> list) {
+	private void addListenersToGUIElements(ArrayList<GUIElement> list,Browsr browsr) {
 		ArrayList<Hyperlink> hyperlinkArray = new ArrayList<>();
 		ArrayList<Form> formArray = new ArrayList<>();
 		for (GUIElement element: list) {
@@ -260,14 +266,14 @@ public class WindowManager {
 		// Ctrl + s
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			if (keyCode == 83) {
-				this.setActiveDialog("saveDialog");
+				this.changeActiveDialog("saveDialog");
 			}
 		}
 		
 		// Ctrl + d
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			if (keyCode == 68) {
-				this.setActiveDialog("bookmarkDialog");
+				this.changeActiveDialog("bookmarkDialog");
 			}
 		}
 		
@@ -318,25 +324,29 @@ public class WindowManager {
 	/**
 	 * @param type - the activeDialog to set (String version)
 	 */
-	public void setActiveDialog(String type) {
+	public void setActiveDialog(String type,Browsr browsr) {
 		if (this.getActiveDialog() != this.getMainDialog() && type != "mainDialog") {
 			return;
 		}
-
 		switch (type) {
 		case "mainDialog":
 			setMainDialogToActive();
 			break;
 		case "saveDialog":
-			setSaveDialogToActive();
+			setSaveDialogToActive(browsr);
 			break;
 		case "bookmarkDialog":
-			setBookmarkDialogToActive();
+			setBookmarkDialogToActive(browsr);
 		default:
 			break;
 		}
 		this.ignoreClick = true;
 	}
+	
+	public void changeActiveDialog(String type) {
+		this.dialogListener.forEach(l->l.changeDialog(type));
+	}
+	
 	
 	/**
 	 * Sets this.MainDialog as the active dialog.
@@ -349,18 +359,22 @@ public class WindowManager {
 	/**
 	 * Creates a saveDialog and set it as the active dialog.
 	 */
-	private void setSaveDialogToActive() {
-		this.setActiveDialog(new SaveDialog(0, 0, this.getWidth(), this.getHeight(), browsr));
+	private void setSaveDialogToActive(Browsr browsr) {
+		SaveDialog saveDialog = new SaveDialog(0, 0, this.getWidth(), this.getHeight(),this.getMainDialog().getActiveHTMLDocument());
+		this.setActiveDialog(saveDialog);
+		saveDialog.addChangeDialogListener(browsr);
+		saveDialog.addSavePageListener(browsr);
 		this.changeWindowTitle("Save As");
 	}
 	
 	/**
 	 * Creates a bookmarkDialog and set it as the active dialog.
 	 */
-	private void setBookmarkDialogToActive() {
-		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), browsr); //TODO
+	private void setBookmarkDialogToActive(Browsr browsr) {
 		String suggestedUrl = this.getURLFromSearchBar();
-		newBookmarkDialog.setSuggestedUrl(suggestedUrl);
+		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(),suggestedUrl); //TODO
+		newBookmarkDialog.addAddBookmarkListener(browsr);
+		newBookmarkDialog.addChangeDialogListener(browsr);
 		this.setActiveDialog(newBookmarkDialog);
 		this.changeWindowTitle("Add Bookmark");
 	}
@@ -394,6 +408,7 @@ public class WindowManager {
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
 		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
+		//newBookmarkHyperlink.addHyperLinkListener(browsr);
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 
@@ -421,9 +436,6 @@ public class WindowManager {
 		this.window.setWindowTitle(newTitle);
 	}
 	
-	public Browsr getBrowsr() {
-		return this.browsr;
-	}
 	
 	public String getHTMLCodeFromActiveHTMLDocument() { //TODO mainDialog 
 		Pane htmlDocumentContainer = this.mainDialog.getDocumentArea();
