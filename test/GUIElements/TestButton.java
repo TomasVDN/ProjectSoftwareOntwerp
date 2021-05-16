@@ -49,14 +49,14 @@ class TestButton {
 	@Test
 	void testHandlePressClick() {
 		assertEquals("UnpressedState",testButton.getStateName());
-		testButton.handlePressClick();
+		testButton.handlePressClick(0,0);
 		assertEquals("PressedState",testButton.getStateName());
 	}
 
 	@Test
 	void testHandleReleaseClick() {
 		assertEquals("UnpressedState",testButton.getStateName());
-		testButton.handlePressClick();
+		testButton.handlePressClick(0,0);
 		assertEquals("PressedState",testButton.getStateName());
 		testButton.handleReleaseClick(false);
 		assertEquals("UnpressedState",testButton.getStateName());
@@ -67,9 +67,9 @@ class TestButton {
 		assertEquals("UnpressedState",testButton.getStateName());
 		testButton.handleReleaseClick(true);
 		assertEquals("UnpressedState",testButton.getStateName());
-		testButton.handlePressClick();
+		testButton.handlePressClick(0,0);
 		assertEquals("PressedState",testButton.getStateName());
-		testButton.handlePressClick();
+		testButton.handlePressClick(0,0);
 		assertEquals("PressedState",testButton.getStateName());
 	}
 
@@ -87,7 +87,7 @@ class TestButton {
 			}
 		});
 		testButton.addListener(actionListener);
-		testButton.handlePressClick();
+		testButton.handlePressClick(0,0);
 		testButton.handleReleaseClick(true);// release is on the button
 		assertTrue(actionListener.clicked);
 	}

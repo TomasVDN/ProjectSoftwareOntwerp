@@ -95,7 +95,7 @@ public class TestForm {
 		postCode.replaceBox("3000");
 		
 		//clicks on button
-		button.handlePressClick();
+		button.handlePressClick(0,0); // not important for a button
 		button.handleReleaseClick(true);
 		
 		assertEquals("searchAdress?streetNumber=24&postCode=3000", formListener.textForm);
@@ -119,7 +119,7 @@ public class TestForm {
 		postCode.replaceBox("+,:");
 		
 		//clicks on button
-		button.handlePressClick();
+		button.handlePressClick(0,0); // not important for a button
 		button.handleReleaseClick(true);
 		
 		assertEquals("searchAdress?streetNumber=%21%21%23&postCode=%2B%2C%3A", formListener.textForm);
