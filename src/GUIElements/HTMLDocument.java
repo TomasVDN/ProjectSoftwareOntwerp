@@ -85,7 +85,7 @@ public class HTMLDocument extends Pane {
 		super.paint(g);
 		if (isActiveHTMLDocument) {
 			g.setColor(Color.ORANGE);
-			g.drawRect(super.getX(),super.getY(), super.getWidth(), super.getHeight());
+			g.drawRect(super.getX(),super.getY(), super.getWidth()-1, super.getHeight()-1);
 		}		
 	}
 	

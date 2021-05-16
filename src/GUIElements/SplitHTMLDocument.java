@@ -154,6 +154,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			
 			
 			rightPanel.setActive(true);
+			rightPanel.updateAllBars();
 			return rightPanel;
 		}
 		
@@ -162,6 +163,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			leftPanel.updateRightClosestChildHeight(getY(), getHeight());
 			
 			leftPanel.setActive(true);
+			leftPanel.updateAllBars();
 			return leftPanel;
 		}
 		

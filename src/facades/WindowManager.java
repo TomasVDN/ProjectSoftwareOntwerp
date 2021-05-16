@@ -24,7 +24,7 @@ import htmlElement.ContentSpan;
 public class WindowManager {
 	
 	private MyCanvasWindow window;
-	private Browsr browsr;
+	private Browsr browsr; //TODO dit maakt al ons werk nutteloos nie, we probeerden dit juist te vermijden met listeners
 
 	private Dialog activeDialog;
 	private MainDialog mainDialog;

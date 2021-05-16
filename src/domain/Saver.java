@@ -14,9 +14,11 @@ import java.util.Calendar;
  */
 public class Saver {
 	
+
 	/**
-	 * Saves the code saved in this.htmlCode to the file with the given name.
+	 * Saves the given html code to the file with the given name.
 	 * @param filename - name of the output file. If this is null or empty, it defaults to output.html.
+	 * @param htmlCode - The htmlCode given in a string to the saver
 	 */
 	public void saveToFile(String filename, String htmlCode) {
 		if (notValidFilename(filename)) {
@@ -45,8 +47,8 @@ public class Saver {
 
 	/**
 	 * Writes this.htmlCode to the given File.
-	 * @param yourFile
-	 * @throws IOException
+	 * @param yourFile - the given file
+	 * @throws IOException 
 	 * @throws FileNotFoundException
 	 */
 	private void writeHTMLCodeToFile(File yourFile, String htmlCode) throws IOException, FileNotFoundException {
@@ -67,6 +69,10 @@ public class Saver {
 	
 	private static final String DATE_FORMAT_NOW = "yyyy-MM-dd_HH-mm-ss";
 
+	/**
+	 *  Returns the string of the current time
+	 * @return
+	 */
 	private String now() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);

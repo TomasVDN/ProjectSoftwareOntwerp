@@ -190,12 +190,6 @@ public class BrowsrDocumentValidator {
 		this.insideForm = insideForm;
 	}
 	
-	private void eatUntillType(HtmlLexer.TokenType type) {
-		while(lexer.getTokenType() != type) {
-			lexer.eatToken();
-		}
-	}
-	
 	
 
 }

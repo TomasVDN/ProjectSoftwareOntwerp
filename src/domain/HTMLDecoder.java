@@ -39,7 +39,7 @@ public class HTMLDecoder {
 	}
 	
 	/**
-	 * Method used to handle the Text, Hyperlink and table tokenTypes.
+	 * Method used to handle the Text, Hyperlink , table , form and input tokenTypes.
 	 * @return HTMLElement
 	 */
 	private ContentSpan createHTMLElement() {
@@ -62,7 +62,7 @@ public class HTMLDecoder {
 	}
 	
 	/**
-	 * Creates a Hyperlink Element, with all its options.
+	 * Creates a Hyperlink Element, with the href option.
 	 * @return HTMLHyperlink element
 	 */
 	private HTMLHyperlink createHyperlink() {
@@ -99,7 +99,7 @@ public class HTMLDecoder {
 	}
 	
 	/**
-	 * Creates a Text Element, with all its options.
+	 * Creates a Text Element, no options allowed at the moment.
 	 * @return HTMLText element
 	 */
 	private HTMLText handleText() {
@@ -161,8 +161,8 @@ public class HTMLDecoder {
 	}
 	
 	/**
-	 * Creates a form html Object
-	 * @return
+	 * Creates a form html Object. Throws an exception if it is an form inside another form
+	 * @return HTMLForm
 	 */
 	private HTMLForm createForm() { 
 		if(this.isInsideForm()) { // form inside a form
@@ -172,7 +172,7 @@ public class HTMLDecoder {
 		this.setInsideForm(true);
 		this.eat();
 		
-		String action ="";//TODO aanpassen
+		String action ="";
 		if(lexer.getTokenValue().equals("action")) {
 			while(lexer.getTokenType() != TokenType.QUOTED_STRING) {
 				lexer.eatToken();
@@ -246,7 +246,7 @@ public class HTMLDecoder {
 		case "submit":
 			return new HTMLButton();
 		default:
-			return null; //TODO type not available
+			throw new IllegalArgumentException("Type of input field not available");
 		}
 	}
 	

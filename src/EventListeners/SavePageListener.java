@@ -5,5 +5,10 @@ package EventListeners;
  */
 public interface SavePageListener extends EventListener {
 
-	void savePage(String filename);
+	/**
+	 * Saves the htmlCode to the given file
+	 * @param filename - The name of the file where to save
+	 * @param htmlCode - The string of the html
+	 */
+	void savePage(String filename,String htmlCode);
 }

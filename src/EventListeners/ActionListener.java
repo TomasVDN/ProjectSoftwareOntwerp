@@ -5,6 +5,9 @@ package EventListeners;
  */
 public interface ActionListener extends EventListener {
 	
+	/**
+	 * Function that notifies the listener that the button is clicked
+	 */
 	void clickButton();
 
 }
