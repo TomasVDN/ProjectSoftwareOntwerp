@@ -57,9 +57,6 @@ public class WindowManager {
 		//Make the bar and page containers
 		initMainDialog(browsr);
 		
-		//Setup the welcome page
-		Text text = new Text(50, 200, "Welcome my friend, take a seat and enjoy your surfing.");
-		this.addGUIToPage(text);
 
 	}
 
@@ -71,6 +68,7 @@ public class WindowManager {
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
 		mainDialog.getActiveHTMLDocument().addReloadListener(browsr);
+		mainDialog.getActiveHTMLDocument().reloadPage();
 	}
 
 	/**
