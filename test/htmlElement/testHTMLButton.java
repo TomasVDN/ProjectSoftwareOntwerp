@@ -33,7 +33,7 @@ class testHTMLButton {
 		Button button = htmlButton.transformToGUI(0, 0, 0, 0);
 		assertEquals("Submit",button.getText().getText());
 		button.addListener(actionListener);
-		button.handlePressClick();
+		button.handlePressClick(0,0);
 		button.handleReleaseClick(true);
 		assertTrue(actionListener.clicked);
 	}
