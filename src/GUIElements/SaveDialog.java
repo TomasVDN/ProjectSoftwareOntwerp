@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import EventListeners.ChangeDialogListener;
 import EventListeners.SavePageListener;
-import facades.Browsr;
 
 public class SaveDialog extends Dialog {
 

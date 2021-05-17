@@ -6,31 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import EventListeners.ChangeDialogListener;
-import EventListeners.ReloadListener;
 import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
-import GUIElements.Hyperlink;
 import GUIElements.MainDialog;
-import GUIElements.Pane;
 import GUIElements.SaveDialog;
 import GUIElements.SearchBar;
-import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
-import GUIElements.Button;
 import GUIElements.Dialog;
-import GUIElements.Form;
-import converter.HTMLToGUI;
-import htmlElement.ContentSpan;
 
 public class WindowManager {
 	
 	private MyCanvasWindow window;
-	//private Browsr browsr; //TODO dit maakt al ons werk nutteloos nie, we probeerden dit juist te vermijden met listeners
 
 	private Dialog activeDialog;
 	private MainDialog mainDialog;
+	
 	private List<ChangeDialogListener > dialogListener = new ArrayList<ChangeDialogListener>();
 
 	private int width;
@@ -48,7 +40,7 @@ public class WindowManager {
 		
 		//Make new Browsr object.
 		Browsr browsr = new Browsr(this);
-		this.dialogListener.add(browsr);
+		this.dialogListener.add(browsr::changeDialog);
 		
 		//Set width/height.
 		this.setWidth(600);
@@ -68,7 +60,7 @@ public class WindowManager {
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
 		mainDialog.getActiveHTMLDocument().addReloadListener(browsr);
-		mainDialog.getActiveHTMLDocument().reloadPage();
+		mainDialog.getActiveHTMLDocument().loadPage();
 	}
 
 	/**
@@ -89,46 +81,13 @@ public class WindowManager {
 	 * @param code 
 	 * @param path 
 	 */
-	public void draw(ArrayList<ContentSpan> htmlElements, String path, String code,Browsr browsr) { //TODO rename
-		HTMLToGUI converter = new HTMLToGUI();
-		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
-		
-		addListenersToGUIElements(list,browsr);
-		this.getMainDialog().getActiveHTMLDocument().reloadHTML(list, path, code);//TODO
-		//this.getActiveDialog().resetAllElements(list, path, code);
+	public void loadHTML(ArrayList<GUIElement> GUIElements, String path, String code,Browsr browsr) { //TODO rename
+		this.getMainDialog().getActiveHTMLDocument().loadHTML(GUIElements, path, code);
 	}
 	
 
-	public void redraw(HTMLDocument htmlDocument, ArrayList<ContentSpan> htmlElements, String path, String code,Browsr browsr) { //TODO rename
-		HTMLToGUI converter = new HTMLToGUI();
-		
-		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.getWidth(), this.getHeight(), htmlElements);
-		
-		addListenersToGUIElements(list,browsr);
-		
-		htmlDocument.reloadHTML(list, path, code);
-	}
-
-	/**
-	 * Adds a listener of a given class to all hyperlinks and forms
-	 * @param list
-	 */
-	private void addListenersToGUIElements(ArrayList<GUIElement> list,Browsr browsr) {
-		ArrayList<Hyperlink> hyperlinkArray = new ArrayList<>();
-		ArrayList<Form> formArray = new ArrayList<>();
-		for (GUIElement element: list) {
-			element.getGuiClass(Hyperlink.class, hyperlinkArray);
-			element.getGuiClass(Form.class, formArray);
-		}
-		
-		for(Hyperlink hyperlink : hyperlinkArray) {
-			hyperlink.addHyperLinkListener(browsr);
-		}
-
-		for (Form form: formArray) {
-			form.addFormListener(browsr);
-		}
+	public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,Browsr browsr) { //TODO rename
+		htmlDocument.loadHTML(GUIElements, path, code);
 	}
 	
 	/**
@@ -370,7 +329,7 @@ public class WindowManager {
 	 */
 	private void setBookmarkDialogToActive(Browsr browsr) {
 		String suggestedUrl = this.getURLFromSearchBar();
-		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(),suggestedUrl); //TODO
+		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), suggestedUrl); //TODO
 		newBookmarkDialog.addAddBookmarkListener(browsr);
 		newBookmarkDialog.addChangeDialogListener(browsr);
 		this.setActiveDialog(newBookmarkDialog);
@@ -403,10 +362,7 @@ public class WindowManager {
 	 * @param bookmarkHyperlinkName - name of the bookmark
 	 * @param bookmarkHyperlinkUrl - url of the bookmark
 	 */
-	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
-		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
-		//newBookmarkHyperlink.addHyperLinkListener(browsr);
+	public void addBookmark(BookmarkHyperlink newBookmarkHyperlink) {
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 
@@ -432,12 +388,5 @@ public class WindowManager {
 	 */
 	public void changeWindowTitle(String newTitle) {
 		this.window.setWindowTitle(newTitle);
-	}
-	
-	
-	public String getHTMLCodeFromActiveHTMLDocument() { //TODO mainDialog 
-		Pane htmlDocumentContainer = this.mainDialog.getDocumentArea();
-		HTMLDocument activeHTMLDocument = htmlDocumentContainer.getActiveHTMLDocument();
-		return activeHTMLDocument.getHTMLCode();
 	}
 }

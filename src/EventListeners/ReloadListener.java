@@ -13,6 +13,6 @@ public interface ReloadListener extends EventListener {
 	 * @param url - the url to achieve the given htmlString
 	 * @param htmlString - the html elements given in a string
 	 */
-	void draw(HTMLDocument HTMLDocument, String url, String htmlString);
+	void loadHTML(HTMLDocument HTMLDocument, String url, String htmlString);
 	
 }

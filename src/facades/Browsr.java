@@ -9,7 +9,13 @@ import EventListeners.HyperLinkListener;
 import EventListeners.ReloadListener;
 import EventListeners.SavePageListener;
 import EventListeners.SearchBarListener;
+import GUIElements.BookmarkHyperlink;
+import GUIElements.Form;
+import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
+import GUIElements.Hyperlink;
+import GUIElements.Text;
+import converter.HTMLToGUI;
 import domain.HTMLDecoder;
 import domain.InputReader;
 import domain.Saver;
@@ -45,15 +51,53 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void runUrl(String path) {
-		String code = new InputReader().readFile(path);		
+		String htmlString = new InputReader().readFile(path);		
 
-		HTMLDecoder decoder = new HTMLDecoder(code);
-		ArrayList<ContentSpan> htmlList = decoder.createElements();
+		ArrayList<GUIElement> list = decodeToGUIElements(htmlString);
 		
 		this.getWindowManager().updateURL(path);
-		windowManager.draw(htmlList, path, code,this);	
+		windowManager.loadHTML(list, path, htmlString, this);	
 	}
+	
+	@Override
+	public void loadHTML(HTMLDocument HTMLDocument, String url, String htmlString) {
+		ArrayList<GUIElement> list = decodeToGUIElements(htmlString);
 
+		this.getWindowManager().loadHTMLToGivenHTMLDocument(HTMLDocument, list, url, htmlString, this);
+	}
+	
+	private ArrayList<GUIElement> decodeToGUIElements(String code) {
+		HTMLDecoder decoder = new HTMLDecoder(code);
+		ArrayList<ContentSpan> htmlElements = decoder.createElements();
+		
+		HTMLToGUI converter = new HTMLToGUI();
+		ArrayList<GUIElement> list = converter.transformToGUI(0, 0, this.windowManager.getWidth(), this.windowManager.getHeight(), htmlElements);
+		
+		addListenersToGUIElements(list);
+		
+		return list;
+	}
+	
+	/**
+	 * Adds a listener of a given class to all hyperlinks and forms
+	 * @param list
+	 */
+	private void addListenersToGUIElements(ArrayList<GUIElement> list) {
+		ArrayList<Hyperlink> hyperlinkArray = new ArrayList<>();
+		ArrayList<Form> formArray = new ArrayList<>();
+		for (GUIElement element: list) {
+			element.getGuiClass(Hyperlink.class, hyperlinkArray);
+			element.getGuiClass(Form.class, formArray);
+		}
+		
+		for(Hyperlink hyperlink : hyperlinkArray) {
+			hyperlink.addHyperLinkListener(this);
+		}
+
+		for (Form form: formArray) {
+			form.addFormListener(this);
+		}
+	}
 	
 	
 	/**
@@ -79,7 +123,6 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void savePage(String filename,String htmlCode) {
-		//String code = this.windowManager.getHTMLCodeFromActiveHTMLDocument();
 		new Saver().saveToFile(filename, htmlCode);
 	}
 	
@@ -90,7 +133,10 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
-		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl);
+		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
+		newBookmarkHyperlink.addHyperLinkListener(this);
+		this.windowManager.addBookmark(newBookmarkHyperlink);
 	}
 
 	/**
@@ -99,14 +145,7 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void changeDialog(String type) {
-		this.windowManager.setActiveDialog(type,this);
-	}
-
-	@Override
-	public void draw(HTMLDocument HTMLDocument, String url, String htmlString) {
-		HTMLDecoder decoder = new HTMLDecoder(htmlString);
-		ArrayList<ContentSpan> htmlList = decoder.createElements();
-		this.getWindowManager().redraw(HTMLDocument, htmlList, url, htmlString, this);
+		this.windowManager.setActiveDialog(type, this);
 	}
 }
 

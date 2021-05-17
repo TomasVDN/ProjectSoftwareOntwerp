@@ -66,7 +66,9 @@ class testWindowManager {
 		assertEquals("Add Bookmark", mainWindow.getTitle());
 		
 		// change to main dialog
-		//TODO mainWindow.getWindowManager().setActiveDialog("mainDialog");
+
+		mainWindow.getWindowManager().changeActiveDialog("mainDialog");
+
 		
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
@@ -143,7 +145,9 @@ class testWindowManager {
 		assertEquals("Save As", mainWindow.getTitle());
 		
 		// change to main dialog
-		//TODO mainWindow.getWindowManager().setActiveDialog("mainDialog");
+
+		mainWindow.getWindowManager().changeActiveDialog("mainDialog");
+
 		
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());

@@ -196,6 +196,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	/**
 	 * Update all the bars to get the correct width and height
 	 */
+	@Override
 	public void updateAllBars(){
 		bar.updateBar();
 		leftPanel.updateAllBars();
@@ -205,6 +206,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	/**
 	 * The action that has to be performed if this class seperator bar has moved
 	 */
+	@Override
 	public void barMoved() {
 		if (dir == Direction.VERTICAL) {
 			moveVerticalBar();
@@ -232,6 +234,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 * This method makes sure that only the most rightChild changes, the absolute value
 	 * of the other childs must remain the same. The rightpanel x coordinate has to change accordingly
 	 */
+	@Override
 	public void updateRightClosestChildWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
 		this.setX(newXPos);
 		this.setWidth(newWidth);
@@ -250,6 +253,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 * This method makes sure that only the most leftChild changes, the absolute value
 	 * of the other childs must remain the same. 
 	 */
+	@Override
 	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
 		this.setX(newXPos);
 		this.setWidth(newWidth);

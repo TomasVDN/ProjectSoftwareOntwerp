@@ -253,7 +253,7 @@ public class TestEnterUrl {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
 		
-		TestGUI testgui1 = new TestGUI(mainWindow, "TestEnterUrl");
+		TestGUI testgui1 = new TestGUI(mainWindow, "TestEnterUrl"); //TODO wat is dit? geeft error
 		
 	}
 }

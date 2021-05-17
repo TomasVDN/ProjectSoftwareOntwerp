@@ -2,7 +2,6 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-
 import facades.Browsr;
 
 public class MainDialog extends Dialog  {
@@ -182,7 +181,9 @@ public class MainDialog extends Dialog  {
 	
 	/**
 	 * Paints all the components in this dialog.
-	 */
+	 */public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,Browsr browsr) { //TODO rename
+			htmlDocument.loadHTML(GUIElements, path, code);
+		}
 	@Override
 	public void paint(Graphics g) {
 		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
@@ -252,11 +253,13 @@ public class MainDialog extends Dialog  {
 			if (keyCode == 88) {
 				//ctrl + X
 				allContainers.remove(documentArea);
+				documentArea.resetActiveHTMLDocument();
+				
 				documentArea = documentArea.deleteActiveHTMLDocument();
 				if (documentArea == null) { //TODO bug & smelly code
 					documentArea = originalDocumentArea.copy();
-					//((HTMLDocument) documentArea).redraw();
 					documentArea.setActive(true);
+					this.setActiveHTMLDocument((HTMLDocument) documentArea);
 				}
 				allContainers.add(documentArea);
 			}
