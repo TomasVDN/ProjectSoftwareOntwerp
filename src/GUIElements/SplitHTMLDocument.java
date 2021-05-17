@@ -20,12 +20,11 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		
 		if (direction == Direction.VERTICAL) {
 			initVerticalPanels(original);
+			this.bar = new SeperatorBar(this, this.getWidth()/2, direction);
 		} else {
 			initHorizontalPanels(original);
+			this.bar = new SeperatorBar(this, this.getHeight()/2, direction);
 		}
-		
-		int[] middleContainer = new int[] {this.getWidth()/2,this.getHeight()/2};
-		this.bar = new SeperatorBar(this, middleContainer, direction);
 		this.bar.addSeparatorBarMoveListener(this);
 	}
 

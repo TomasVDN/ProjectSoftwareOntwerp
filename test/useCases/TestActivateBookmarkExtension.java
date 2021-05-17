@@ -43,7 +43,7 @@ class TestActivateBookmarkExtension {
 		Text newBookmarkHyperlinkText = new Text(0, 0, newBookmarkyperlinkString);
 		String newBookmarkUrl = "A wrong url";
 		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, newBookmarkHyperlinkText, newBookmarkUrl);
-		newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
+		// TODO newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
 		
 		// add it to the bookmarkBar
 		mainWindow.getWindowManager().getMainDialog().addBookmark(newBookmarkHyperlink);

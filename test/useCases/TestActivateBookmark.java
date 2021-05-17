@@ -44,7 +44,7 @@ class TestActivateBookmark {
 		Text newBookmarkHyperlinkText = new Text(0, 0, newBookmarkyperlinkString);
 		String newBookmarkUrl = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, newBookmarkHyperlinkText, newBookmarkUrl);
-		newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
+		//TODO newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
 		
 		// add it to the bookmarkBar
 		mainWindow.getWindowManager().getMainDialog().addBookmark(newBookmarkHyperlink);

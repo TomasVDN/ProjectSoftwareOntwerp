@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import EventListeners.SavePageListener;
 import EventListeners.SeparatorBarMoveListener;
 
 public class SeperatorBar extends GUIElement {
@@ -21,13 +20,22 @@ public class SeperatorBar extends GUIElement {
 	
 	private ArrayList<SeparatorBarMoveListener> separatorBarMoveListeners = new ArrayList<>();
 	
-	public SeperatorBar(Container cont,int[] position,Direction dir) {
-		super(dir.getPosition(position)[0],dir.getPosition(position)[1]);
+	public SeperatorBar(Container cont,int position,Direction dir) {
+		super(positionBar(dir,position)[0],positionBar(dir,position)[1]);
 		this.setDirection(dir);
+		this.setRootContainer(cont);
 		int[] heigthAndWidth =dir.adjustWidthAndHeigth(cont, STANDARDSIZE);
 		this.setWidth(heigthAndWidth[0]);
 		this.setHeight(heigthAndWidth[1]);
-		this.setRootContainer(cont);
+	}
+	
+	public static int[] positionBar(Direction dir,int position) {
+		if(dir==Direction.VERTICAL) {
+			return new int[] {position,0};
+		}
+		else {
+			return new int[] {0,position};
+		}
 	}
 
 	@Override
@@ -55,8 +63,8 @@ public class SeperatorBar extends GUIElement {
 	}
 	
 	/**
-	 * Moves the sepertorBar, the bar can only move vertical when a horizontal bar
-	 * the bar can only move horizontal when a vertical bar.
+	 * Moves the sepertorBar, the bar can only move vertical when it is a horizontal bar
+	 * the bar can only move horizontal when it is a vertical bar.
 	 */
 	@Override
 	public void handleDragMouse(int x, int y, int clickCount, int modifiers) {
@@ -75,9 +83,6 @@ public class SeperatorBar extends GUIElement {
 			this.changeYPosition(offset+this.getY());
 			if( this.inBounds(this.getEndY()+offset)) {
 				this.setOffsetReference(newOffset);
-			}
-			else {
-				System.out.println(this.inBounds(this.getEndY()+offset));
 			}
 		}
 		
@@ -134,7 +139,10 @@ public class SeperatorBar extends GUIElement {
 		return direction;
 	}
 
-	public void setDirection(Direction direction) {
+	private void setDirection(Direction direction) {
+		if(direction==null) {
+			throw new IllegalArgumentException("Not a valid direction");
+		}
 		this.direction = direction;
 	}
 	
@@ -142,7 +150,10 @@ public class SeperatorBar extends GUIElement {
 		return rootContainer;
 	}
 
-	public void setRootContainer(Container rootContainer) {
+	private void setRootContainer(Container rootContainer) {
+		if(rootContainer==null) {
+			throw new IllegalArgumentException("not a valid container");
+		}
 		this.rootContainer = rootContainer;
 	}
 	
@@ -150,17 +161,21 @@ public class SeperatorBar extends GUIElement {
 		return offsetReference;
 	}
 
-	public void setOffsetReference(int newOffsetReference) {
+	private void setOffsetReference(int newOffsetReference) {
 		this.offsetReference = newOffsetReference;
 	}
 	
 	public void addSeparatorBarMoveListener(SeparatorBarMoveListener listener) {
-		this.getSeparatorBarMoveListeners().add(listener);
+		if(listener!=null) {
+			this.getSeparatorBarMoveListeners().add(listener);
+		}
 	}
-
-	public void removeSavePageListener(SeparatorBarMoveListener listener) {
+	
+	public void removeSeparatorBarMoveListener(SeparatorBarMoveListener listener) {
 		this.getSeparatorBarMoveListeners().remove(listener);
 	}
+
+
 	
 	protected ArrayList<SeparatorBarMoveListener> getSeparatorBarMoveListeners() {
 		return separatorBarMoveListeners;
