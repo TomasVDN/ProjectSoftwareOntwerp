@@ -95,12 +95,10 @@ public class HTMLDocument extends Pane {
 	public HTMLDocument copy() {
 		HTMLDocument copy = new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
 		copy.listenerReload = this.listenerReload;//copies the listener
-		copy.reloadPage();
+		copy.loadPage();
 		return copy;
 	}
 	
-
-
 	@Override
 	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
 		setX(newXPos);
@@ -130,13 +128,11 @@ public class HTMLDocument extends Pane {
 
 	}
 	
-	public void reloadPage() {
+	public void loadPage() {
 		this.listenerReload.forEach(l->l.draw(this,this.getUrl(), this.getHTMLCode()));
 	}
 	
-	
-
-	public void reloadHTML(ArrayList<GUIElement> guiList, String path, String code) {
+	public void loadHTML(ArrayList<GUIElement> guiList, String path, String code) {
 		super.resetAllElements(guiList);
 		this.setUrl(path);
 		this.setHTMLCode(code);

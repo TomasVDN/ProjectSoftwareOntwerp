@@ -251,10 +251,11 @@ public class MainDialog extends Dialog  {
 			if (keyCode == 88) {
 				//ctrl + X
 				allContainers.remove(documentArea);
+				documentArea.resetActiveHTMLDocument();
+				
 				documentArea = documentArea.deleteActiveHTMLDocument();
 				if (documentArea == null) { //TODO bug & smelly code
 					documentArea = originalDocumentArea.copy();
-					//((HTMLDocument) documentArea).redraw();
 					documentArea.setActive(true);
 				}
 				allContainers.add(documentArea);
