@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
-import facades.Browsr;
 
 public class BookmarkDialog extends Dialog {
 	

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Shape;
 import java.awt.event.KeyEvent;
 
 public class TextBox extends GUIElement {

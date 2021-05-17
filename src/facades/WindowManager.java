@@ -9,10 +9,8 @@ import EventListeners.ChangeDialogListener;
 import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
 import GUIElements.MainDialog;
-import GUIElements.Pane;
 import GUIElements.SaveDialog;
 import GUIElements.SearchBar;
-import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
@@ -364,10 +362,7 @@ public class WindowManager {
 	 * @param bookmarkHyperlinkName - name of the bookmark
 	 * @param bookmarkHyperlinkUrl - url of the bookmark
 	 */
-	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
-		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
-		//newBookmarkHyperlink.addHyperLinkListener(browsr);
+	public void addBookmark(BookmarkHyperlink newBookmarkHyperlink) {
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 
@@ -393,12 +388,5 @@ public class WindowManager {
 	 */
 	public void changeWindowTitle(String newTitle) {
 		this.window.setWindowTitle(newTitle);
-	}
-	
-	
-	public String getHTMLCodeFromActiveHTMLDocument() { //TODO mainDialog 
-		Pane htmlDocumentContainer = this.mainDialog.getDocumentArea();
-		HTMLDocument activeHTMLDocument = htmlDocumentContainer.getActiveHTMLDocument();
-		return activeHTMLDocument.getHTMLCode();
 	}
 }

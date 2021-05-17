@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import EventListeners.SavePageListener;
 import EventListeners.SeparatorBarMoveListener;
 
 public class SeperatorBar extends GUIElement {

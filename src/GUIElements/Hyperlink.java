@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import EventListeners.HyperLinkListener;
-import facades.Browsr;
 
 public class Hyperlink extends Text {
 

@@ -88,6 +88,7 @@ public class HTMLDocument extends Pane {
 		}		
 	}
 	
+	@Override
 	public void setActive(boolean active) {
 		this.isActiveHTMLDocument = active;
 	}
@@ -129,7 +130,7 @@ public class HTMLDocument extends Pane {
 	}
 	
 	public void loadPage() {
-		this.listenerReload.forEach(l->l.draw(this,this.getUrl(), this.getHTMLCode()));
+		this.listenerReload.forEach(l -> l.loadHTML(this,this.getUrl(), this.getHTMLCode()));
 	}
 	
 	public void loadHTML(ArrayList<GUIElement> guiList, String path, String code) {
@@ -152,7 +153,7 @@ public class HTMLDocument extends Pane {
 		}
 	}
 
-	public  void removeFormListener(FormListener listener) {
+	public  void removeReloadListener(ReloadListener listener) {
 		this.listenerReload.remove(listener);
 	}
 }

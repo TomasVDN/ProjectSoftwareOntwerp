@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import EventListeners.ChangeSearchBarURLListener;
-import EventListeners.SearchBarListener;
 import facades.Browsr;
 
 public class MainDialog extends Dialog  {
@@ -257,6 +256,7 @@ public class MainDialog extends Dialog  {
 				if (documentArea == null) { //TODO bug & smelly code
 					documentArea = originalDocumentArea.copy();
 					documentArea.setActive(true);
+					this.setActiveHTMLDocument((HTMLDocument) documentArea);
 				}
 				allContainers.add(documentArea);
 			}

@@ -10,10 +10,12 @@ import EventListeners.HyperLinkListener;
 import EventListeners.ReloadListener;
 import EventListeners.SavePageListener;
 import EventListeners.SearchBarListener;
+import GUIElements.BookmarkHyperlink;
 import GUIElements.Form;
 import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
+import GUIElements.Text;
 import converter.HTMLToGUI;
 import domain.HTMLDecoder;
 import domain.InputReader;
@@ -59,7 +61,7 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 	}
 	
 	@Override
-	public void draw(HTMLDocument HTMLDocument, String url, String htmlString) {
+	public void loadHTML(HTMLDocument HTMLDocument, String url, String htmlString) {
 		ArrayList<GUIElement> list = decodeToGUIElements(htmlString);
 
 		this.getWindowManager().loadHTMLToGivenHTMLDocument(HTMLDocument, list, url, htmlString, this);
@@ -126,7 +128,6 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void savePage(String filename,String htmlCode) {
-		//String code = this.windowManager.getHTMLCodeFromActiveHTMLDocument();
 		new Saver().saveToFile(filename, htmlCode);
 	}
 	
@@ -137,7 +138,10 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
-		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl);
+		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
+		newBookmarkHyperlink.addHyperLinkListener(this);
+		this.windowManager.addBookmark(newBookmarkHyperlink);
 	}
 
 	/**
@@ -146,7 +150,7 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 	 */
 	@Override
 	public void changeDialog(String type) {
-		this.windowManager.setActiveDialog(type,this);
+		this.windowManager.setActiveDialog(type, this);
 	}
 }
 
