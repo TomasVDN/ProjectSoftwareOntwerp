@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
-import EventListeners.ChangeSearchBarURLListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
 import EventListeners.ReloadListener;
@@ -27,7 +26,7 @@ import htmlElement.ContentSpan;
  *
  */
 //TODO rm listener -> functional interfaces
-public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener, ChangeSearchBarURLListener{
+public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
 	
 	private WindowManager windowManager;
 
@@ -100,10 +99,6 @@ public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListe
 		}
 	}
 	
-	@Override
-	public void changeSearchBarURL(String url) {
-		this.getWindowManager().updateURL(url);
-	}
 	
 	/**
 	 * Asks the windowManager to return the baseUrl (domain without resource).

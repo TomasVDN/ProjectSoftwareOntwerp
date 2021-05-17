@@ -2,8 +2,6 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-
-import EventListeners.ChangeSearchBarURLListener;
 import facades.Browsr;
 
 public class MainDialog extends Dialog  {
@@ -14,7 +12,6 @@ public class MainDialog extends Dialog  {
 	private Container searchBarContainer;
 	private Container bookmarkBarContainer;
 	private ArrayList<Container> allContainers;
-	private ArrayList<ChangeSearchBarURLListener> searchBarChangeListeners= new ArrayList<>();
 
 	private final int BAR_SIZE = 60;
 	private final int BOOKMARK_SIZE = 60;
@@ -184,7 +181,9 @@ public class MainDialog extends Dialog  {
 	
 	/**
 	 * Paints all the components in this dialog.
-	 */
+	 */public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,Browsr browsr) { //TODO rename
+			htmlDocument.loadHTML(GUIElements, path, code);
+		}
 	@Override
 	public void paint(Graphics g) {
 		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
@@ -214,10 +213,14 @@ public class MainDialog extends Dialog  {
 		HTMLDocument newActiveHTML = documentArea.setHTMLDocumentActive(x, y);
 		if(newActiveHTML!=null) {
 			this.setActiveHTMLDocument(newActiveHTML);
-			this.notifyChangeSearchBarListeners(this.getActiveHTMLDocument().getUrl());
+			this.changeSearchBar(newActiveHTML.getUrl());
 		}
 		// activate the GUIElement at the given position
 		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
+	}
+	
+	public void changeSearchBar(String url) {
+		this.getSearchbar().replaceBox(url);
 	}
 	
 
@@ -275,16 +278,5 @@ public class MainDialog extends Dialog  {
 		this.activeHTMLDocument = activeHTMLDocument;
 	}
 	
-	public void addChangeSearchBarListener(ChangeSearchBarURLListener listener) {
-		this.searchBarChangeListeners.add(listener);
-	}
-	
-	public void removeChangeSearchBarListener(ChangeSearchBarURLListener listener) {
-		this.searchBarChangeListeners.remove(listener);
-	}
-	
-	private void notifyChangeSearchBarListeners(String url) {
-		searchBarChangeListeners.forEach(l -> l.changeSearchBarURL(url));
-	}
 
 }

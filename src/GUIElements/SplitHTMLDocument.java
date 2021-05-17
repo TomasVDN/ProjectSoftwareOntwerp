@@ -290,7 +290,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.setHeight(newHeight);
 		if (dir == Direction.HORIZONTAL) {
 			int heightLeftPanel = newHeight-rightPanel.getHeight();
-			leftPanel.updateLeftClosestChildHeight(0, heightLeftPanel);
+			leftPanel.updateRightClosestChildHeight(0, heightLeftPanel);
 			bar.changeYPosition(heightLeftPanel);
 			rightPanel.setY(heightLeftPanel);
 			//rightPanel.updateRightClosestChildHeight(heightLeftPanel, this.getHeight() - heightLeftPanel);
@@ -309,10 +309,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	public void updateLeftClosestChildHeight(int newYPos, int newHeight) {
 		this.setY(newYPos);
 		this.setHeight(newHeight);
-		
 		if (dir == Direction.HORIZONTAL) {
 			int heightLeftPanel = leftPanel.getHeight();
-			rightPanel.updateRightClosestChildHeight(heightLeftPanel, newHeight - heightLeftPanel);
+			rightPanel.updateLeftClosestChildHeight(heightLeftPanel, newHeight - heightLeftPanel);
 		} else {
 			leftPanel.updateLeftClosestChildHeight(0, newHeight);
 			rightPanel.updateLeftClosestChildHeight(0, newHeight);
