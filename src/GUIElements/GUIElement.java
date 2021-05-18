@@ -267,6 +267,10 @@ public abstract class GUIElement {
 	
 	public void notifyAdjustmentListenerReset(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
 		this.getAdjustListeners().forEach(l->l.elementChangedAndReset(viewableWidth, newWidth, viewableHeight, newHeight));
+		System.out.println("viewable width is :" + viewableWidth);
+		System.out.println("totalWidth is : " + newWidth);
+		System.out.println("viewable height is :" + viewableHeight);
+		System.out.println("totalHeight is : " + newHeight);
 	}
 
 }

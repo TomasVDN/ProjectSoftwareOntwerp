@@ -8,10 +8,10 @@ public class ScrollableHTMLDocument extends Pane {
 	public ScrollableHTMLDocument(int x,int y,HTMLDocument html) {
 		super(x,y,html.getWidth()+10,html.getHeight()+10);
 		this.setHtmlDocument(html);
-		ScrollBar scrollBarHorizontal = new ScrollBar(Direction.HORIZONTAL, x, html.getHeight(), html.getWidth(), 10, html.getWidth(), html.maxWidthOfElements());
+		ScrollBar scrollBarHorizontal = new ScrollBar(Direction.HORIZONTAL, x, html.getHeight(), html.getWidth(), 10, html.getWidth(), html.maxCoordinateOfElements());
 		html.addAdjustListener(scrollBarHorizontal);
 		scrollBarHorizontal.addScrollBarListener(html);
-		ScrollBar scrollBarVertical = new ScrollBar(Direction.VERTICAL, html.getWidth(), 0, 10,html.getHeight(), html.getHeight(), html.maxHeightOfElements());
+		ScrollBar scrollBarVertical = new ScrollBar(Direction.VERTICAL, html.getWidth(), 0, 10,html.getHeight(), html.getHeight(), html.maxYCoordinatOfElements());
 		html.addAdjustListener(scrollBarVertical);
 		scrollBarVertical.addScrollBarListener(html);
 		this.addElement(htmlDocument);
