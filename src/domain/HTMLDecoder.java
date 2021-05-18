@@ -2,13 +2,14 @@ package domain;
 
 import java.io.StringReader;
 import java.util.ArrayList;
-
-//import com.sun.tools.javac.parser.Tokens.TokenKind; TODO ik krijg hier een error
-
 import browsrhtml.HtmlLexer;
 import browsrhtml.HtmlLexer.TokenType;
 import htmlElement.*;
 
+/**
+ * Class used to convert a string with HTML code to HTMLElements. Expects BrowsrDocumentValidator approved HTML code.
+ *
+ */
 public class HTMLDecoder {
 
 	private HtmlLexer lexer;
@@ -39,7 +40,7 @@ public class HTMLDecoder {
 	}
 	
 	/**
-	 * Method used to handle the Text, Hyperlink , table , form and input tokenTypes.
+	 * Method used to handle the Text, Hyperlink, table, form and input tokenTypes.
 	 * @return HTMLElement
 	 */
 	private ContentSpan createHTMLElement() {
@@ -76,7 +77,7 @@ public class HTMLDecoder {
 			lexer.eatToken();
 			if (lexer.getTokenType() == TokenType.QUOTED_STRING) {
 				url = lexer.getTokenValue();
-				lexer.eatToken(); // consumes url
+				lexer.eatToken(); // consumes URL
 			}
 		}
 		while (eat() != TokenType.CLOSE_TAG) {
@@ -99,7 +100,7 @@ public class HTMLDecoder {
 	}
 	
 	/**
-	 * Creates a Text Element, no options allowed at the moment.
+	 * Creates a Text Element. no options allowed at the moment.
 	 * @return HTMLText element
 	 */
 	private HTMLText handleText() {
@@ -132,7 +133,7 @@ public class HTMLDecoder {
 	
 	/**
 	 * Creates a Row Element, with all its options.
-	 * @return HTMLRowelement
+	 * @return HTMLRowelement element
 	 */
 	private HTMLTableRow createRow() {
 		lexer.eatToken();
@@ -161,7 +162,7 @@ public class HTMLDecoder {
 	}
 	
 	/**
-	 * Creates a form html Object. Throws an exception if it is an form inside another form
+	 * Creates a form HTML Object. Throws an exception if it is an form inside another form
 	 * @return HTMLForm
 	 */
 	private HTMLForm createForm() { 
@@ -203,7 +204,7 @@ public class HTMLDecoder {
 	
 	/**
 	 * Creates an htmlElement corresponding to its input tag
-	 * @return
+	 * @return HTMLElement
 	 */
 	private ContentSpan createInput() {
 		if(! lexer.getTokenValue().equals("input")) {

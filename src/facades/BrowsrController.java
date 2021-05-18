@@ -15,8 +15,8 @@ import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
 import GUIElements.Text;
-import converter.HTMLToGUI;
 import domain.HTMLDecoder;
+import domain.HTMLToGUI;
 import domain.InputReader;
 import domain.Saver;
 import htmlElement.ContentSpan;
@@ -26,15 +26,15 @@ import htmlElement.ContentSpan;
  *
  */
 //TODO rm listener -> functional interfaces
-public class Browsr implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
+public class BrowsrController implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
 	
 	private WindowManager windowManager;
 
 	/**
-	 * Constructor of the Browsr class.
+	 * Constructor of the BrowsrController class.
 	 * @param windowManager - the corresponding windowManager.
 	 */
-	public Browsr(WindowManager windowManager) {
+	public BrowsrController(WindowManager windowManager) {
 		this.windowManager = windowManager;
 	}
 

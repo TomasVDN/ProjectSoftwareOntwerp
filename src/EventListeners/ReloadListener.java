@@ -10,8 +10,8 @@ public interface ReloadListener extends EventListener {
 	/**
 	 * Redraws the HTMLDocument
 	 * @param HTMLDocument - the HTMLDocument to change
-	 * @param url - the url to achieve the given htmlString
-	 * @param htmlString - the html elements given in a string
+	 * @param url - the URL to achieve the given htmlString
+	 * @param htmlString - the HTML elements given in a string
 	 */
 	void loadHTML(HTMLDocument HTMLDocument, String url, String htmlString);
 	

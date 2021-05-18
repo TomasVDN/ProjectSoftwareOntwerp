@@ -6,8 +6,8 @@ package EventListeners;
 public interface SearchBarListener extends EventListener {
 
 	/**
-	 * notify the listener that the given url needs to be runned
-	 * @param url - the given url
+	 * Notify the listener that the given URL needs to be runned
+	 * @param url - the given URL
 	 */
 	void runUrl(String url);
 }

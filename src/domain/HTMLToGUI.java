@@ -1,4 +1,4 @@
-package converter;
+package domain;
 
 import java.util.ArrayList;
 
@@ -6,8 +6,7 @@ import GUIElements.GUIElement;
 import htmlElement.ContentSpan;
 
 /**
- * This class turns the html elements to GUI elements, their positions are set to 
- * @author kobe
+ * This class turns the HTML elements to GUI elements.
  *
  */
 public class HTMLToGUI {
@@ -36,13 +35,6 @@ public class HTMLToGUI {
 	public static int getYSPACE() {
 		return YSPACE;
 	}
-
-	/**
-	 * Constructor of this class.
-	 */
-	public HTMLToGUI() {
-		
-	}
 	
 	/**
 	 * Transforms the given htmlElements to GUIElements
@@ -55,20 +47,20 @@ public class HTMLToGUI {
 	 * @return container with the GUIElements corresponding to the given htmlElements
 	 */
 	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements) {
-		ArrayList<GUIElement> cont = new ArrayList<GUIElement>(); // creates empty container
+		ArrayList<GUIElement> content = new ArrayList<GUIElement>();
 		int relativeY = y;
 		int relativeX = x + XSPACE;
 		
 		for(int i = 0 ; i < htmlElements.size(); i++) {
 			GUIElement gui = toGUI(htmlElements.get(i), relativeX, relativeY, width, height);
 			relativeY+=gui.getHeight() +YSPACE;
-			cont.add(gui);
+			content.add(gui);
 		}
-		return cont;
+		return content;
 	}
 
 	/**
-	 * Transforms the given html to a GUI
+	 * Transforms the given HTML to a GUI
 	 * @param contentSpan - contentSpan to transform
 	 * @param width - width of the GUIElement
 	 * @param height - height of the GUIElement

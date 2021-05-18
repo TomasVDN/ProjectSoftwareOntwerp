@@ -13,7 +13,7 @@ import GUIElements.Hyperlink;
 import canvaswindow.FontMetricGetter;
 import canvaswindow.MyCanvasWindow;
 
-import facades.Browsr;
+import facades.BrowsrController;
 import facades.WindowManager;
 
 class TestHTMLHyperlink {

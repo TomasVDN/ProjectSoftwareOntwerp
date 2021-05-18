@@ -38,16 +38,16 @@ public class WindowManager {
 		
 		this.window = window;
 		
-		//Make new Browsr object.
-		Browsr browsr = new Browsr(this);
-		this.dialogListener.add(browsr::changeDialog);
+		//Make new BrowsrController object.
+		BrowsrController browsrController = new BrowsrController(this);
+		this.dialogListener.add(browsrController::changeDialog);
 		
 		//Set width/height.
 		this.setWidth(600);
 		this.setHeight(600);
 		
 		//Make the bar and page containers
-		initMainDialog(browsr);
+		initMainDialog(browsrController);
 		
 
 	}
@@ -55,11 +55,11 @@ public class WindowManager {
 	/**
 	 * Initialize the mainDialog. Adds three containers (one for the searchbar, one for the bookmarks and one for the htmlCode).
 	 */
-	private void initMainDialog(Browsr browsr) {
-		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, browsr);
+	private void initMainDialog(BrowsrController browsrController) {
+		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, browsrController);
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
-		mainDialog.getActiveHTMLDocument().addReloadListener(browsr);
+		mainDialog.getActiveHTMLDocument().addReloadListener(browsrController);
 		mainDialog.getActiveHTMLDocument().loadPage();
 	}
 
@@ -81,12 +81,12 @@ public class WindowManager {
 	 * @param code 
 	 * @param path 
 	 */
-	public void loadHTML(ArrayList<GUIElement> GUIElements, String path, String code,Browsr browsr) { //TODO rename
+	public void loadHTML(ArrayList<GUIElement> GUIElements, String path, String code,BrowsrController browsrController) { //TODO rename
 		this.getMainDialog().getActiveHTMLDocument().loadHTML(GUIElements, path, code);
 	}
 	
 
-	public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,Browsr browsr) { //TODO rename
+	public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,BrowsrController browsrController) { //TODO rename
 		htmlDocument.loadHTML(GUIElements, path, code);
 	}
 	
@@ -281,7 +281,7 @@ public class WindowManager {
 	/**
 	 * @param type - the activeDialog to set (String version)
 	 */
-	public void setActiveDialog(String type,Browsr browsr) {
+	public void setActiveDialog(String type,BrowsrController browsrController) {
 		if (this.getActiveDialog() != this.getMainDialog() && type != "mainDialog") {
 			return;
 		}
@@ -290,10 +290,10 @@ public class WindowManager {
 			setMainDialogToActive();
 			break;
 		case "saveDialog":
-			setSaveDialogToActive(browsr);
+			setSaveDialogToActive(browsrController);
 			break;
 		case "bookmarkDialog":
-			setBookmarkDialogToActive(browsr);
+			setBookmarkDialogToActive(browsrController);
 		default:
 			break;
 		}
@@ -310,28 +310,28 @@ public class WindowManager {
 	 */
 	private void setMainDialogToActive() {
 		this.setActiveDialog(this.getMainDialog());
-		this.changeWindowTitle("Browsr");
+		this.changeWindowTitle("BrowsrController");
 	}
 	
 	/**
 	 * Creates a saveDialog and set it as the active dialog.
 	 */
-	private void setSaveDialogToActive(Browsr browsr) {
+	private void setSaveDialogToActive(BrowsrController browsrController) {
 		SaveDialog saveDialog = new SaveDialog(0, 0, this.getWidth(), this.getHeight(),this.getMainDialog().getActiveHTMLDocument());
 		this.setActiveDialog(saveDialog);
-		saveDialog.addChangeDialogListener(browsr);
-		saveDialog.addSavePageListener(browsr);
+		saveDialog.addChangeDialogListener(browsrController);
+		saveDialog.addSavePageListener(browsrController);
 		this.changeWindowTitle("Save As");
 	}
 	
 	/**
 	 * Creates a bookmarkDialog and set it as the active dialog.
 	 */
-	private void setBookmarkDialogToActive(Browsr browsr) {
+	private void setBookmarkDialogToActive(BrowsrController browsrController) {
 		String suggestedUrl = this.getURLFromSearchBar();
 		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), suggestedUrl); //TODO
-		newBookmarkDialog.addAddBookmarkListener(browsr);
-		newBookmarkDialog.addChangeDialogListener(browsr);
+		newBookmarkDialog.addAddBookmarkListener(browsrController);
+		newBookmarkDialog.addChangeDialogListener(browsrController);
 		this.setActiveDialog(newBookmarkDialog);
 		this.changeWindowTitle("Add Bookmark");
 	}

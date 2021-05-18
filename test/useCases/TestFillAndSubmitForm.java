@@ -22,7 +22,7 @@ class TestFillAndSubmitForm {
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -35,7 +35,7 @@ class TestFillAndSubmitForm {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// make search bar get focus
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);

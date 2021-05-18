@@ -11,13 +11,13 @@ import htmlElement.ContentSpan;
 class TestInputReader {
 	
 	InputReader inputReader = new InputReader();
-	String normalWebPage = "TABLE: (ROW: (CELL: TEXT: HTML elements partially supported by Browsr:),"
+	String normalWebPage = "TABLE: (ROW: (CELL: TEXT: HTML elements partially supported by BrowsrController:),"
 			+ "ROW: (CELL: TABLE: (ROW: (CELL: HYPER: (a.html,TEXT: a),CELL: TEXT: Hyperlink anchors),"
 			+ "ROW: (CELL: HYPER: (table.html,TEXT: table),CELL: TEXT: Tables),"
 			+ "ROW: (CELL: HYPER: (tr.html,TEXT: tr),CELL: TEXT: Table rows),"
 			+ "ROW: (CELL: HYPER: (td.html,TEXT: td),CELL: TEXT: Table cells containing table data))))";
 	String malformedUrl = "TEXT: Error occured. Make sure you entered a valid URL.";
-	String illegalBrowsrWebPage = "TEXT: Error occured. Reason: not a valid Browsr document.";
+	String illegalBrowsrWebPage = "TEXT: Error occured. Reason: not a valid BrowsrController document.";
 	
 	@Test
 	void legalUrl() {

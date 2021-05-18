@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
-import facades.Browsr;
+import facades.BrowsrController;
 
 
 public class HTMLTable extends ContentSpan {

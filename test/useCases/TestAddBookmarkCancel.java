@@ -28,7 +28,7 @@ private MyCanvasWindow mainWindow;
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -41,7 +41,7 @@ private MyCanvasWindow mainWindow;
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// get amount of elements in bookmarkBar before adding the new bookmark
 		int amountOfElementsInBookmarkTableBefore = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getGuiRows().get(0).getGuiElements().size();
@@ -239,7 +239,7 @@ private MyCanvasWindow mainWindow;
 		assertNotEquals(cancelButton,mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// check if the input TextBoxes of bookmarkDialog are not keyboardfocus
 		assertFalse(bookmarkDialog.getNameTextBox().isActive());

@@ -2,7 +2,7 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import facades.Browsr;
+import facades.BrowsrController;
 
 public class MainDialog extends Dialog  {
 	
@@ -19,21 +19,21 @@ public class MainDialog extends Dialog  {
 	private SearchBar searchbar;
 	private TableGUI bookmarkBar;
 
-	public MainDialog(int x, int y, int w, int h, Browsr browsr) {
+	public MainDialog(int x, int y, int w, int h, BrowsrController browsrController) {
 		super(x, y, w, h);
 		
-		this.initContainers(browsr);
-		this.initSearchBar(browsr);
+		this.initContainers(browsrController);
+		this.initSearchBar(browsrController);
 		this.initBookmarkBar();
 		
 		//Used for testing purpose TODO
 		Text t2 = new Text(0, 0, "link");
 		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/");
-		hyperlinkTest.addHyperLinkListener(browsr);
+		hyperlinkTest.addHyperLinkListener(browsrController);
 		this.addBookmark(hyperlinkTest);
 		Text t3 = new Text(0, 0, "form");
 		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
-		hyperlinkTest2.addHyperLinkListener(browsr);
+		hyperlinkTest2.addHyperLinkListener(browsrController);
 		this.addBookmark(hyperlinkTest2);
 		
 	}
@@ -44,7 +44,7 @@ public class MainDialog extends Dialog  {
 	 * @param searchBarContainer
 	 * @param bookmarkBarContainer
 	 */
-	private void initContainers(Browsr browsr) {
+	private void initContainers(BrowsrController browsrController) {
 		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),BOOKMARK_SIZE);
 		HTMLDocument documentArea = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), this.getHeight() - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
@@ -64,10 +64,10 @@ public class MainDialog extends Dialog  {
 	
 	/**
 	 * Initializes the searchBar of this MainDialog.
-	 * @param browsr
+	 * @param browsrController
 	 */
-	private void initSearchBar(Browsr browsr) {
-		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 40, browsr);
+	private void initSearchBar(BrowsrController browsrController) {
+		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 40, browsrController);
 		this.setSearchbar(searchBar);
 		this.getSearchBarContainer().addElement(searchBar);
 	}
@@ -181,7 +181,7 @@ public class MainDialog extends Dialog  {
 	
 	/**
 	 * Paints all the components in this dialog.
-	 */public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,Browsr browsr) { //TODO rename
+	 */public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,BrowsrController browsrController) { //TODO rename
 			htmlDocument.loadHTML(GUIElements, path, code);
 		}
 	@Override

@@ -23,7 +23,7 @@ public class BrowsrDocumentValidator {
 	}
 	
 	void fail() {
-		throw new RuntimeException("The given document is not a valid Browsr document.");
+		throw new RuntimeException("The given document is not a valid BrowsrController document.");
 	}
 	
 	void assertTrue(boolean b) {
