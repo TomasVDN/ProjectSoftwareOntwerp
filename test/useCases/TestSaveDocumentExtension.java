@@ -29,7 +29,7 @@ class TestSaveDocumentExtension {
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -63,7 +63,7 @@ class TestSaveDocumentExtension {
 		
 		
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		//click outside searchBar
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 200, 1, MouseEvent.BUTTON1, 0);

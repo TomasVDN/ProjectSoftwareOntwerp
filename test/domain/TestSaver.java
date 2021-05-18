@@ -19,7 +19,7 @@ class TestSaver {
 	String filePath = "savedPages/test.html";
 	
 	String normalWebPage = "<table>\n"
-			+ "  <tr><td>HTML elements partially supported by Browsr:\n"
+			+ "  <tr><td>HTML elements partially supported by BrowsrController:\n"
 			+ "  <tr><td>\n"
 			+ "    <table>\n"
 			+ "      <tr><td><a href=\"a.html\">a</a><td>Hyperlink anchors\n"

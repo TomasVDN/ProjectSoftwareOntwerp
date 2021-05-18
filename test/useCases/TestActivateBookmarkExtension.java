@@ -30,7 +30,7 @@ class TestActivateBookmarkExtension {
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	

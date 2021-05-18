@@ -1,10 +1,12 @@
 package GUIElements;
 
+/**
+ * Superclass for the dialog type. It is a container with mouse and keyboard handling.
+ */
 public abstract class Dialog extends Container {
 
 	protected GUIElement elementWithKeyBoardFocus;
 	private GUIElement pressedElement;
-	private int[] absolutePressedElement;
 	
 	/**
 	 * Constructor of the Dialog class. It extends the Container class.
@@ -25,6 +27,7 @@ public abstract class Dialog extends Container {
 	}
 
 	/**
+	 * Changes the elementWithKeyBoardFocus to the given element.
 	 * @param elementWithKeyBoardFocus - new value of this.elementWithKeyBoardFocus
 	 */
 	public void setElementWithKeyBoardFocus(GUIElement elementWithKeyBoardFocus) {
@@ -32,11 +35,13 @@ public abstract class Dialog extends Container {
 	}
 	
 	/**
-	 * This method changes the activeElement to the given element, and invokes element.handleClick. If the given element is already the activeElement, it only invokes element.handleClick.
+	 * This method changes the activeElement to the given element, and invokes element.handleClick.
+	 * If the given element is already the activeElement, it only invokes element.handleClick.
 	 * @param element - the new activeElement
 	 */
 	public void changeElementWithKeyboardFocus(GUIElement element) {
 		GUIElement elementWithKeyboardFocus = this.getElementWithKeyBoardFocus();
+		
 		if(element!= elementWithKeyboardFocus) {
 			//deactivate old activeElement
 			if (elementWithKeyboardFocus != null && this.getElementWithKeyBoardFocus().isActive()) {
@@ -58,10 +63,21 @@ public abstract class Dialog extends Container {
 		}
 	}
 
+	/**
+	 * Handle the left click. This will change the elementWithKeyBoardFocus to the element found at that position,
+	 * and if there is one, call handleClick on it.
+	 * @param x
+	 * @param y
+	 * @param clickCount
+	 * @param modifiers
+	 */
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
 		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
 	}
 	
+	/**
+	 * Transmits the key event to the elementWithKeyBoardFocus.
+	 */
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
 		if (elementWithKeyBoardFocus != null) {
@@ -69,12 +85,40 @@ public abstract class Dialog extends Container {
 		}
 	}
 
+	/**
+	 * Handle the left click press. This will change the pressedElement to the element found at that position,
+	 * and if there is one, call handlePressClick on it.
+	 * @param x
+	 * @param y
+	 * @param clickCount
+	 * @param modifiers
+	 */
 	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
 		GUIElement guiPressed = this.getGUIAtPosition(x, y);
 		this.setPressedElement(guiPressed);
 		if(guiPressed!=null) {
 			guiPressed.handlePressClick(x,y);
 		}
+	}
+	
+	/**
+	 * Handle the left click release. This will trigger the handleReleaseClick on the pressed element if the mouse is still on it.
+	 * @param x
+	 * @param y
+	 * @param clickCount
+	 * @param modifiers
+	 */
+	public void handleReleaseLeftMouse(int x, int y, int clickCount, int modifiers) {
+		if(this.getPressedElement()!=null) {
+			GUIElement releasedAt = this.getGUIAtPosition(x, y);
+			if(this.getPressedElement() == releasedAt ) {
+				this.getPressedElement().handleReleaseClick(true);
+			}
+			else {
+				this.getPressedElement().handleReleaseClick(false);
+			}
+		}
+		this.setPressedElement(null);
 	}
 	
 	/**
@@ -101,19 +145,5 @@ public abstract class Dialog extends Container {
 		if(this.getPressedElement()!=null) {
 			this.getPressedElement().handleDragMouse(x, y, clickCount, modifiers);
 		}
-	}
-	
-	public void handleReleaseLeftMouse(int x, int y, int clickCount, int modifiers) {
-		if(this.getPressedElement()!=null) {
-			GUIElement releasedAt = this.getGUIAtPosition(x, y);
-			if(this.getPressedElement() == releasedAt ) {
-				this.getPressedElement().handleReleaseClick(true);
-			}
-			else {
-				this.getPressedElement().handleReleaseClick(false);
-			}
-		}
-		this.setPressedElement(null);
-	}
-	
+	}	
 }

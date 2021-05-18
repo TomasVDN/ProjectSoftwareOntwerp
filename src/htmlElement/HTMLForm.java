@@ -2,7 +2,7 @@ package htmlElement;
 
 import GUIElements.Form;
 import GUIElements.GUIElement;
-import facades.Browsr;
+import facades.BrowsrController;
 
 public class HTMLForm extends ContentSpan {
 	

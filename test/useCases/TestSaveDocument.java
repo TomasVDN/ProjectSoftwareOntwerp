@@ -33,7 +33,7 @@ private MyCanvasWindow mainWindow;
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -67,7 +67,7 @@ private MyCanvasWindow mainWindow;
 		
 		
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// Let searchBar lose focus
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 200, 1, MouseEvent.BUTTON1, 0);
@@ -181,7 +181,7 @@ private MyCanvasWindow mainWindow;
 		
 		// check the data in the file
 		String fileDataReference = "<table>\r\n"
-				+ "  <tr><td>HTML elements partially supported by Browsr:\r\n"
+				+ "  <tr><td>HTML elements partially supported by BrowsrController:\r\n"
 				+ "  <tr><td>\r\n"
 				+ "    <table>\r\n"
 				+ "      <tr><td><a href=\"a.html\">a</a><td>Hyperlink anchors\r\n"

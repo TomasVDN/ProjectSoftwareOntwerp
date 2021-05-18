@@ -21,7 +21,7 @@ class TestEnterURLFail {
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -151,6 +151,6 @@ class TestEnterURLFail {
 	mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 10, '\n', 0);
 	
 	//check if the error screen is opened
-	assertEquals("Error occured. Reason: not a valid Browsr document.", ((Text) mainWindow.getWindowManager().getMainDialog().getDocumentArea().getElements().get(0)).getText());
+	assertEquals("Error occured. Reason: not a valid BrowsrController document.", ((Text) mainWindow.getWindowManager().getMainDialog().getDocumentArea().getElements().get(0)).getText());
 	}
 }

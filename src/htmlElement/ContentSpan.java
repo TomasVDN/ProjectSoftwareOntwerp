@@ -1,7 +1,7 @@
 package htmlElement;
 
 import GUIElements.GUIElement;
-import facades.Browsr;
+import facades.BrowsrController;
 
 public abstract class ContentSpan {
 

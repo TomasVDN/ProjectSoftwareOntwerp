@@ -7,33 +7,35 @@ import browsrhtml.BrowsrDocumentValidator;
 public class InputReader {
 
 	/**
-	 * Opens the url, and return a String with the HTMLCode. If an error occur, return an array with Error 404 content.
-	 * @param path - url to open
-	 * @param saver - saver to send the HTML code to
-	 * @return ArrayList of ContentSpan
+	 * Opens the URL, and return a String with the HTMLCode. If an error occur, return a String with the error content.
+	 * @param path - URL to open
+	 * @return String htmlCode
 	 */
 	public String readFile(String path) {
 
 		try {
 			String sb = readURLToBuffer(path);
 	        
-	        //Check if valid browsr html file
 	        try {
 	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
-	        } catch (RuntimeException r) {
-	        	sb = "Error occured. Reason: not a valid Browsr document.\n";
+	        	
+	        } catch (RuntimeException r) { // Entered when the HTML code is not a valid BrowsrController document.
+	        	sb = "Error occured. Reason: not a valid BrowsrController document.\n";
 	        }
 	        return sb;	        	        
-		} catch (IOException e) {
+	        
+		} catch (IOException e) { // Entered when an URL error occurs.
             String sb = "Error occured. Make sure you entered a valid URL.\n";
             return sb;
         }
 	}
 
 	/**
-	 * Opens the url, and read it to a string.
-	 * @param path - url to open
+	 * Opens the URL, and read it to a string.
+	 * @param path - URL to open
+	 *
 	 * @return String with the content of the page
+	 * 
 	 * @throws MalformedURLException if not a valid URL
 	 * @throws IOException if an error occurs during writing to the bufferedReader
 	 */

@@ -21,7 +21,7 @@ class TestActivateHyperlinkExtension {
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			window = new MyCanvasWindow("Browsr");
+			window = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -56,7 +56,7 @@ class TestActivateHyperlinkExtension {
 		Container pageContainer1 = window.getWindowManager().getMainDialog().getDocumentArea();
 		Text pageErrorText1 = (Text) (pageContainer1.getElements().get(0));
 		
-		assertEquals("Error occured. Reason: not a valid Browsr document.", pageErrorText1.getText());
+		assertEquals("Error occured. Reason: not a valid BrowsrController document.", pageErrorText1.getText());
 	}
 
 }

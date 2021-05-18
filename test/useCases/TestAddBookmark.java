@@ -32,7 +32,7 @@ class TestAddBookmark {
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -45,7 +45,7 @@ class TestAddBookmark {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// make search bar get focus
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 132, 28, 1, MouseEvent.BUTTON1, 0);
@@ -331,7 +331,7 @@ class TestAddBookmark {
 
 		
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// check if the input TextBoxes of bookmarkDialog are not active
 		assertNotEquals(bookmarkDialog.getNameTextBox(),mainWindow.getWindowManager().getElementWithKeyboardFocus());

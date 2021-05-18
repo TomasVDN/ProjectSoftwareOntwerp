@@ -4,11 +4,14 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.ArrayList;
-
 import EventListeners.AdjustmentListener;
-import EventListeners.FormListener;
 
 
+/**
+ * Superclass of the GUIElements. It defines the basics such as position, width and height,...
+ * @author rpone
+ *
+ */
 public abstract class GUIElement {
 	private int xPos;
 	private int yPos;
@@ -240,9 +243,10 @@ public abstract class GUIElement {
 	 * @param array
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
 		if(cls.isInstance(this)) {
-			array.add( (T) this); //TODO dit is niet veilig blijkbaar
+			array.add( (T) this);
 		}
 		return array;
 	}
@@ -253,7 +257,7 @@ public abstract class GUIElement {
 		}
 	}
 
-	public  void removeFormListener(FormListener listener) {
+	public  void removeFormListener(AdjustmentListener listener) {
 		this.adjustListeners.remove(listener);
 	}
 	

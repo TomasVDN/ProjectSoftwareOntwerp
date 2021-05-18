@@ -8,7 +8,10 @@ import java.util.ArrayList;
 
 import EventListeners.*;
 
-
+/**
+ * Class that implements a Form. It is a GUIElement that contains other GUIElements.
+ * Unlike Containers, it can't contain another form.
+ */
 public class Form extends GUIElement implements ActionListener {
 
 	private GUIElement rootGui;
@@ -32,11 +35,11 @@ public class Form extends GUIElement implements ActionListener {
 		super(x,y);
 		this.setGui(gui);
 		this.setAction(action);
-		this.addSelfToRootGui(); // adds the form as listener to the gui
+		this.addSelfToRootGui();
 	}
 	
 	/**
-	 * Add itself as listener to all action creators
+	 * Add itself as listener to all buttons
 	 */
 	private void addSelfToRootGui() {
 		ArrayList<Button> array = new ArrayList<>();
@@ -46,8 +49,9 @@ public class Form extends GUIElement implements ActionListener {
 		}
 	}
 
-
-
+	/**
+	 * Transmits the key event to the rootGUI.
+	 */
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
 		if(this.getRootGui()!=null) {
@@ -63,6 +67,10 @@ public class Form extends GUIElement implements ActionListener {
 	public void handleClick() {
 	}
 
+	/**
+	 * Paints all the GUIElements contained within this container.
+	 * @param g - Graphics object used to paint.
+	 */
 	@Override
 	public void paint(Graphics g) {
 		if(this.getRootGui()!=null) {
@@ -72,7 +80,11 @@ public class Form extends GUIElement implements ActionListener {
 	}
 	
 	/**
-	 * Returns the GUI if the given position is between its bounds
+	 * Returns the GUIElement at position (x,y) in the rootGUI. If the rootGUI does not exist, return null.
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @return GUIElement at coordinate (x,y)
+	 * 			| otherwise null
 	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
@@ -84,7 +96,7 @@ public class Form extends GUIElement implements ActionListener {
 
 
 	/**
-	 * submit the elements inside the form, first searches for all textboxes that
+	 * Submit the elements inside the form, first searches for all textboxes that
 	 * are inside the root of the form then adds them in the order found with
 	 * the correct symbols between them
 	 */
@@ -97,35 +109,32 @@ public class Form extends GUIElement implements ActionListener {
 		}
 	}
 	
-
-
 	/**
+	 * Returns the results of the textBoxes in their string.
+	 * @return the content of the textBoxes under encode format 
 	 * 
-	 * @return
-	 * Returns the results of the textboxes in their string 
 	 * 	 */
 	private String getTextResults() {
 		String result="";
 		ArrayList<TextBox> textBoxesInForm =new ArrayList<TextBox>();
+		
 		textBoxesInForm = this.getGuiClass(TextBox.class, textBoxesInForm);
+		
 		try {
-		for(int i =0;i<textBoxesInForm.size();i++) {
-			TextBox textBox = textBoxesInForm.get(i);
-			if(i!=0) {
-				result+="&";
+			for(int i =0;i<textBoxesInForm.size();i++) {
+				TextBox textBox = textBoxesInForm.get(i);
+				if(i!=0) {
+					result+="&";
+				}
+				result+=URLEncoder.encode(textBox.getName(),StandardCharsets.UTF_8.name());
+				result+="=";
+				result+= URLEncoder.encode(textBox.getText(),StandardCharsets.UTF_8.name());
 			}
-			result+=URLEncoder.encode(textBox.getName(),StandardCharsets.UTF_8.name());
-			result+="=";
-			result+= URLEncoder.encode(textBox.getText(),StandardCharsets.UTF_8.name());
-		}
 		} catch (UnsupportedEncodingException e) {
-
 			e.printStackTrace();
 		}
-		return result; // removes the last &
+		return result;
 	}
-	
-
 	
 	/**
 	 * returns the root of the form
@@ -162,11 +171,14 @@ public class Form extends GUIElement implements ActionListener {
 		this.action = action;
 	}
 
-
+	/**
+	 * Returns an array with all the elements in this Form of the given class.
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T>  ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array){
 		if(cls.isInstance(this)) {
-			array.add( (T) this); //TODO dit is niet veilig blijkbaar
+			array.add( (T) this);
 		}
 		if(this.getRootGui()==null) {
 			return array;
@@ -179,12 +191,20 @@ public class Form extends GUIElement implements ActionListener {
 		this.submit();
 	}
 
+	/**
+	 * Add the given FormListener to the list of FormListeners
+	 * @param listener
+	 */
 	public void addFormListener(FormListener listener) {
 		if(listener!=null) {
 			this.listeners.add(listener);
 		}
 	}
 
+	/**
+	 * Removes the given FormListener from the list of FormListeners
+	 * @param listener
+	 */
 	public  void removeFormListener(FormListener listener) {
 		this.listeners.remove(listener);
 	}
@@ -193,7 +213,7 @@ public class Form extends GUIElement implements ActionListener {
 	 * Returns a list of all the listeners of given form
 	 */
 	public ArrayList<FormListener> getListeners() {
-		return this.listeners; //TODO clone this
+		return this.listeners;
 	}
 	
 	@Override

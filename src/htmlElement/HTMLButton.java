@@ -5,7 +5,7 @@ import java.awt.Color;
 import EventListeners.ActionListener;
 import GUIElements.Button;
 import GUIElements.Text;
-import facades.Browsr;
+import facades.BrowsrController;
 
 public class HTMLButton extends HTMLInput{
 	

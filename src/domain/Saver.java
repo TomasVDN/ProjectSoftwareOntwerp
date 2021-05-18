@@ -8,16 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Saver class, used to keep track of the last loaded HTML file. The saveToFile method can be called to write the saved HTML code to a file.
- * @author rpone
- *
+ * Class used to save string with HTML content to a file. The saveToFile method can be called to write the HTML code to a file.
  */
 public class Saver {
 	
-
 	/**
-	 * Saves the given html code to the file with the given name.
-	 * @param filename - name of the output file. If this is null or empty, it defaults to output.html.
+	 * Saves the given HTML code to the file with the given name.
+	 * @param filename - name of the output file. If this is null or empty, it defaults to output[time].html.
 	 * @param htmlCode - The htmlCode given in a string to the saver
 	 */
 	public void saveToFile(String filename, String htmlCode) {
@@ -46,8 +43,9 @@ public class Saver {
 	}
 
 	/**
-	 * Writes this.htmlCode to the given File.
-	 * @param yourFile - the given file
+	 * Writes the given htmlCode to the given File.
+	 * @param yourFile - the file to write to.
+	 * @param htmlCode - the string with the html code to write
 	 * @throws IOException 
 	 * @throws FileNotFoundException
 	 */
@@ -70,8 +68,8 @@ public class Saver {
 	private static final String DATE_FORMAT_NOW = "yyyy-MM-dd_HH-mm-ss";
 
 	/**
-	 *  Returns the string of the current time
-	 * @return
+	 *  Returns the string with as content the current time
+	 * @return String with current time
 	 */
 	private String now() {
 		Calendar cal = Calendar.getInstance();

@@ -4,6 +4,10 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import facades.WindowManager;
 
+/**
+ * CanvasWindow extension used to transmit all inputs to our program.
+ *
+ */
 public class MyCanvasWindow extends CanvasWindow {
 
 	private WindowManager windowManager;
@@ -32,7 +36,8 @@ public class MyCanvasWindow extends CanvasWindow {
 	}
 	
 	/**
-	 * Transmits the Graphics object of CanvasWindow, this.width and this.height to the windowManager.paint method.
+	 * Transmits the Graphics object of CanvasWindow, this.width and this.height to the this.windowManager.paint method.
+	 * @param g - graphics to transmit.
 	 */
 	@Override
 	protected void paint(Graphics g) {
@@ -41,26 +46,30 @@ public class MyCanvasWindow extends CanvasWindow {
 	}
 
 	/**
-	 * Transmits the mouseEvents to this.windowManager.
+ 	 * Transmits the mouseEvents to the appropriate method in this.windowManager.
 	 */
 	@Override
 	public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
-		// left mouseClick
+		// left mouse click
 		if (id == MouseEvent.MOUSE_CLICKED && button == MouseEvent.BUTTON1) {
 			windowManager.handleClickLeftMouse(x, y, clickCount, modifiersEx);
 		}
-		//right muisClick
+		
+		//right mouse click
 		if (id == MouseEvent.MOUSE_CLICKED && button == MouseEvent.BUTTON3) {
 			
 		}
+		
 		// left mouse Pressed
 		if(id == MouseEvent.MOUSE_PRESSED && button == MouseEvent.BUTTON1) {
 			windowManager.handlePressLeftMouse(x, y, clickCount, modifiersEx);
 		}
+		
 		// left mouse released
 		if(id == MouseEvent.MOUSE_RELEASED && button == MouseEvent.BUTTON1) {
 			windowManager.handleReleaseLeftMouse(x, y, clickCount, modifiersEx);
 		}
+		
 		//mouse drag
 		if (id == MouseEvent.MOUSE_DRAGGED) { //&& button == MouseEvent.BUTTON1) {
 			windowManager.handleDragLeftMouse(x, y, clickCount, modifiersEx);
@@ -85,8 +94,4 @@ public class MyCanvasWindow extends CanvasWindow {
 	public void setWindowTitle(String newTitle) {
 		this.title = newTitle;
 	}
-	
-
-
-
 }

@@ -2,7 +2,7 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import facades.Browsr;
+import facades.BrowsrController;
 
 public class MainDialog extends Dialog  {
 	
@@ -19,11 +19,19 @@ public class MainDialog extends Dialog  {
 	private SearchBar searchbar;
 	private TableGUI bookmarkBar;
 
-	public MainDialog(int x, int y, int w, int h, Browsr browsr) {
+	/**
+	 * Constructor of the main
+	 * @param x
+	 * @param y
+	 * @param w
+	 * @param h
+	 * @param browsrController
+	 */
+	public MainDialog(int x, int y, int w, int h, BrowsrController browsrController) {
 		super(x, y, w, h);
 		
-		this.initContainers(browsr);
-		this.initSearchBar(browsr);
+		this.initContainers(browsrController);
+		this.initSearchBar(browsrController);
 		this.initBookmarkBar();
 		
 		//Used for testing purpose TODO
@@ -33,11 +41,12 @@ public class MainDialog extends Dialog  {
 		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
 		Text t4 = new Text(0, 0, "bigPage");
 		BookmarkHyperlink hyperlinkTest3 = new BookmarkHyperlink(0, 0, t4, "https://stevenhgs.github.io/");
-		hyperlinkTest.addHyperLinkListener(browsr);
+		hyperlinkTest.addHyperLinkListener(browsrController);
 		this.addBookmark(hyperlinkTest);
-		hyperlinkTest2.addHyperLinkListener(browsr);
+		hyperlinkTest2.addHyperLinkListener(browsrController);
+		hyperlinkTest2.addHyperLinkListener(browsrController);
 		this.addBookmark(hyperlinkTest2);
-		hyperlinkTest3.addHyperLinkListener(browsr);
+		hyperlinkTest3.addHyperLinkListener(browsrController);
 		this.addBookmark(hyperlinkTest3);
 		
 	}
@@ -48,17 +57,22 @@ public class MainDialog extends Dialog  {
 	 * @param searchBarContainer
 	 * @param bookmarkBarContainer
 	 */
-	private void initContainers(Browsr browsr) {
+	private void initContainers(BrowsrController browsrController) {
+		//Initialize the searchbar container and bookmark container
 		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),BOOKMARK_SIZE);
 		ScrollableHTMLDocument documentArea = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,new HTMLDocument(0, 0, this.getWidth()-10, this.getHeight() - BAR_SIZE - BOOKMARK_SIZE-10, "", "Welcome my friend, take a seat and enjoy your surfing."));
 		this.setActiveHTMLDocument(documentArea.getHtmlDocument());
+
 		documentArea.setActive(true);
 
+		// Add a reloadListener to the HTMLDocument, and load the page
+		documentArea.getHtmlDocument().addReloadListener(browsrController);
+		documentArea.getHtmlDocument().loadPage();
 		
 		this.originalDocumentArea = documentArea.getHtmlDocument().copy();
 		this.documentArea = documentArea;
-
+		
 		this.allContainers = new ArrayList<Container>();
 				
 		allContainers.add(searchBarContainer);
@@ -68,10 +82,11 @@ public class MainDialog extends Dialog  {
 	
 	/**
 	 * Initializes the searchBar of this MainDialog.
-	 * @param browsr
+	 * @param browsrController
 	 */
-	private void initSearchBar(Browsr browsr) {
-		SearchBar searchBar = new SearchBar(0, 0, this.getWidth() - 30, 40, browsr);
+
+	private void initSearchBar(BrowsrController browsrController) {
+		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 30, 40, browsrController);
 		this.setSearchbar(searchBar);
 		ScrollableTextBox scrollableSearchBar = new ScrollableTextBox(10 ,10 ,searchBar);
 		this.getSearchBarContainer().addElement(scrollableSearchBar);
@@ -186,7 +201,7 @@ public class MainDialog extends Dialog  {
 	
 	/**
 	 * Paints all the components in this dialog.
-	 */public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,Browsr browsr) { //TODO rename
+	 */public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,BrowsrController browsrController) { //TODO rename
 			htmlDocument.loadHTML(GUIElements, path, code);
 		}
 	@Override

@@ -3,7 +3,7 @@ package htmlElement;
 import GUIElements.GUIElement;
 import GUIElements.ScrollableTextBox;
 import GUIElements.TextBox;
-import facades.Browsr;
+import facades.BrowsrController;
 
 public class HTMLTextBox extends HTMLInput {
 

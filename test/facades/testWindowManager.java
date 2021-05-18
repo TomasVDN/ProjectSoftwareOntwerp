@@ -22,7 +22,7 @@ class testWindowManager {
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -34,7 +34,7 @@ class testWindowManager {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 				
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// User presses Ctrl + D
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
@@ -67,7 +67,7 @@ class testWindowManager {
 		
 		// change to main dialog
 
-		mainWindow.getWindowManager().changeActiveDialog("mainDialog");
+		mainWindow.getWindowManager().changeDialog("mainDialog");
 
 		
 		// check if active dialog is main dialog
@@ -75,7 +75,7 @@ class testWindowManager {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 						
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// User presses Ctrl + D
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
@@ -113,7 +113,7 @@ class testWindowManager {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 				
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// User presses Ctrl + S
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
@@ -146,7 +146,7 @@ class testWindowManager {
 		
 		// change to main dialog
 
-		mainWindow.getWindowManager().changeActiveDialog("mainDialog");
+		mainWindow.getWindowManager().changeDialog("mainDialog");
 
 		
 		// check if active dialog is main dialog
@@ -154,7 +154,7 @@ class testWindowManager {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 						
 		// check if right title is shown
-		assertEquals("Browsr", mainWindow.getTitle());
+		assertEquals("BrowsrController", mainWindow.getTitle());
 		
 		// User presses Ctrl + S
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 

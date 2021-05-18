@@ -26,7 +26,7 @@ public class TestEnterUrl {
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("Browsr");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -231,7 +231,7 @@ public class TestEnterUrl {
 		Text pageTableRow2TableHyperlink4Text = (Text) (pageTableRow2Table.getGuiRows().get(3).getGuiElements().get(1).getGui());
 
 		//check hyperlink urls
-		assertEquals("HTML elements partially supported by Browsr:", pageTableRow1Text.getText());
+		assertEquals("HTML elements partially supported by BrowsrController:", pageTableRow1Text.getText());
 		assertEquals("a.html", pageTableRow2TableHyperlink1.getUrl());
 		assertEquals("table.html", pageTableRow2TableHyperlink2.getUrl());
 		assertEquals("tr.html", pageTableRow2TableHyperlink3.getUrl());

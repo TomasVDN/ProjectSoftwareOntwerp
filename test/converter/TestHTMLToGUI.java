@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.*;
+import domain.HTMLToGUI;
 import htmlElement.*;
 
 class TestHTMLToGUI {
