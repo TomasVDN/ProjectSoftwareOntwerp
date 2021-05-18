@@ -5,7 +5,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import canvaswindow.MyCanvasWindow;
+import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
+import EventListeners.SavePageListener;
 import GUIElements.*;
 
 /**
@@ -19,7 +21,8 @@ public class WindowManager {
 	private Dialog activeDialog;
 	private MainDialog mainDialog;
 	
-	private List<ChangeDialogListener > dialogListener = new ArrayList<ChangeDialogListener>();
+	private List<SavePageListener> savePageListener = new ArrayList<SavePageListener>();
+	private List<AddBookmarkListener> AddbookmarkListener = new ArrayList<AddBookmarkListener>();
 
 	private int width;
 	private int height;
@@ -36,7 +39,8 @@ public class WindowManager {
 		
 		//Make new BrowsrController object.
 		BrowsrController browsrController = new BrowsrController(this);
-		this.dialogListener.add(browsrController::changeDialog);
+		this.AddbookmarkListener.add(browsrController::addBookmark);
+		this.savePageListener.add(browsrController::savePage);
 		
 		this.setWidth(600);
 		this.setHeight(600);
@@ -96,7 +100,7 @@ public class WindowManager {
 	 * Transmits the left click event to the active dialog. If the dialog is being switched, ignore the event.
 	 * @param x - x coordinate
 	 * @param y - y coordinate
-	 * @param clickCount - the amount of clicks
+	 * @param clickCount - the amount of clicks`
 	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers) {
@@ -154,14 +158,14 @@ public class WindowManager {
 		// Ctrl + s
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			if (keyCode == 83) {
-				this.changeActiveDialog("saveDialog");
+				this.changeDialog("saveDialog");
 			}
 		}
 		
 		// Ctrl + d
 		if (id == KeyEvent.KEY_PRESSED & modifiersEx == 128) {
 			if (keyCode == 68) {
-				this.changeActiveDialog("bookmarkDialog");
+				this.changeDialog("bookmarkDialog");
 			}
 		}
 		
@@ -219,10 +223,10 @@ public class WindowManager {
 	}
 	
 	/**
-	 * Changes the dialog to the d
+	 * Changes the dialog to the corresponding dialog in the given String
 	 * @param type - the activeDialog to set (String version)
 	 */
-	public void setActiveDialog(String type,BrowsrController browsrController) {
+	public void changeDialog(String type) {
 		if (this.getActiveDialog() != this.getMainDialog() && type != "mainDialog") {
 			return;
 		}
@@ -231,23 +235,18 @@ public class WindowManager {
 			setMainDialogToActive();
 			break;
 		case "saveDialog":
-			setSaveDialogToActive(browsrController);
+			setSaveDialogToActive();
 			break;
 		case "bookmarkDialog":
-			setBookmarkDialogToActive(browsrController);
+			setBookmarkDialogToActive();
 		default:
 			break;
 		}
 		this.ignoreClick = true;
-	}
-	
-	public void changeActiveDialog(String type) {
-		this.dialogListener.forEach(listener -> listener.changeDialog(type));
-	}
-	
+	}	
 	
 	/**
-	 * Sets this.MainDialog as the active dialog.
+	 * Sets the MainDialog as the active dialog.
 	 */
 	private void setMainDialogToActive() {
 		this.setActiveDialog(this.getMainDialog());
@@ -257,22 +256,26 @@ public class WindowManager {
 	/**
 	 * Creates a saveDialog and set it as the active dialog.
 	 */
-	private void setSaveDialogToActive(BrowsrController browsrController) {
+	private void setSaveDialogToActive() {
 		SaveDialog saveDialog = new SaveDialog(0, 0, this.getWidth(), this.getHeight(),this.getMainDialog().getActiveHTMLDocument());
+		
+		saveDialog.addChangeDialogListener(this::changeDialog);
+		savePageListener.forEach(listener -> saveDialog.addSavePageListener(listener));
+		
 		this.setActiveDialog(saveDialog);
-		saveDialog.addChangeDialogListener(browsrController);
-		saveDialog.addSavePageListener(browsrController);
 		this.changeWindowTitle("Save As");
 	}
 	
 	/**
 	 * Creates a bookmarkDialog and set it as the active dialog.
 	 */
-	private void setBookmarkDialogToActive(BrowsrController browsrController) {
+	private void setBookmarkDialogToActive() {
 		String suggestedUrl = this.getURLFromSearchBar();
 		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), suggestedUrl); //TODO
-		newBookmarkDialog.addAddBookmarkListener(browsrController);
-		newBookmarkDialog.addChangeDialogListener(browsrController);
+		
+		newBookmarkDialog.addChangeDialogListener(this::changeDialog);
+		AddbookmarkListener.forEach(listener -> newBookmarkDialog.addAddBookmarkListener(listener));
+		
 		this.setActiveDialog(newBookmarkDialog);
 		this.changeWindowTitle("Add Bookmark");
 	}

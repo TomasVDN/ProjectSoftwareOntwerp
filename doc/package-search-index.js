@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"browsrhtml"},{"l":"canvaswindow"},{"l":"container"},{"l":"converter"},{"l":"domain"},{"l":"EventListeners"},{"l":"facades"},{"l":"GivenTests"},{"l":"GUIElements"},{"l":"helperFunctions"},{"l":"htmlElement"},{"l":"main"},{"l":"useCases"},{"l":"utils"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"browsrhtml"},{"l":"canvaswindow"},{"l":"EventListeners"},{"l":"main"}];updateSearchResults();

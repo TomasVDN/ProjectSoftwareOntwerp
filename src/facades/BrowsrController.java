@@ -25,7 +25,7 @@ import htmlElement.ContentSpan;
  * Controller type class. Used to receive Events and handle them.
  */
 //TODO rm listener -> functional interfaces
-public class BrowsrController implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
+public class BrowsrController implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, SavePageListener{
 	
 	private WindowManager windowManager;
 
@@ -145,15 +145,6 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	@Override
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl, this);
-	}
-
-	/**
-	 * Changes the dialog to the given dialog.
-	 * @param type
-	 */
-	@Override
-	public void changeDialog(String type) {
-		this.windowManager.setActiveDialog(type, this);
 	}
 }
 

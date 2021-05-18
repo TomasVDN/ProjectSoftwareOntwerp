@@ -1,14 +1,8 @@
 browsrhtml
 canvaswindow
-container
-converter
 domain
 EventListeners
 facades
-GivenTests
 GUIElements
-helperFunctions
 htmlElement
 main
-useCases
-utils
