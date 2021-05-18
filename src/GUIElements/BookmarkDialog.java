@@ -8,8 +8,8 @@ import EventListeners.ChangeDialogListener;
 
 public class BookmarkDialog extends Dialog {
 	
-	private TextBox bookmarkHyperlinkNameTextBox;
-	private TextBox bookmarkHyperlinkUrlTextBox;
+	private ScrollableTextBox bookmarkHyperlinkNameTextBox;
+	private ScrollableTextBox bookmarkHyperlinkUrlTextBox;
 	
 	private ArrayList<AddBookmarkListener> eventListener = new ArrayList<AddBookmarkListener>();
 	private ArrayList<ChangeDialogListener> eventListener2 = new ArrayList<ChangeDialogListener>();
@@ -50,7 +50,7 @@ public class BookmarkDialog extends Dialog {
 	private void initNameInput(int width) {
 		Text bookmarkHyperlinkNameText = new Text(10, 40, "Name:");
 		this.addElement(bookmarkHyperlinkNameText);
-		bookmarkHyperlinkNameTextBox = new TextBox(75, 40, width - 100, 40);
+		bookmarkHyperlinkNameTextBox =new ScrollableTextBox(75, 40,new TextBox(0,0, width - 100, 40));
 		this.setNameTextBox(bookmarkHyperlinkNameTextBox);
 		this.addElement(bookmarkHyperlinkNameTextBox);
 	}
@@ -62,7 +62,7 @@ public class BookmarkDialog extends Dialog {
 	private void initUrlInput(int width) {
 		Text bookmarkHyperlinkUrlText = new Text(10, 90, "URL:");
 		this.addElement(bookmarkHyperlinkUrlText);
-		bookmarkHyperlinkUrlTextBox = new TextBox(75, 90, width - 100, 40);
+		bookmarkHyperlinkUrlTextBox = new ScrollableTextBox(75, 90,new TextBox(0,0, width - 100, 40));
 		this.setUrlTextBox(bookmarkHyperlinkUrlTextBox);
 		this.addElement(bookmarkHyperlinkUrlTextBox);
 	}
@@ -111,13 +111,13 @@ public class BookmarkDialog extends Dialog {
 	 * @return the textBox
 	 */
 	public TextBox getNameTextBox() {
-		return bookmarkHyperlinkNameTextBox;
+		return bookmarkHyperlinkNameTextBox.getTextBox();
 	}
 
 	/**
 	 * @param nameTextBox the nameTextBox to set
 	 */
-	public void setNameTextBox(TextBox nameTextBox) {
+	public void setNameTextBox(ScrollableTextBox nameTextBox) {
 		this.bookmarkHyperlinkNameTextBox = nameTextBox;
 	}
 	
@@ -125,13 +125,13 @@ public class BookmarkDialog extends Dialog {
 	 * @return the textBox
 	 */
 	public TextBox getUrlTextBox() {
-		return bookmarkHyperlinkUrlTextBox;
+		return bookmarkHyperlinkUrlTextBox.getTextBox();
 	}
 
 	/**
 	 * @param urlTextBox the textBox to set
 	 */
-	public void setUrlTextBox(TextBox urlTextBox) {
+	public void setUrlTextBox(ScrollableTextBox urlTextBox) {
 		this.bookmarkHyperlinkUrlTextBox = urlTextBox;
 	}
 	

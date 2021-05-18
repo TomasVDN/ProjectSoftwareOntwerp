@@ -7,8 +7,9 @@ import java.util.List;
 
 import EventListeners.FormListener;
 import EventListeners.ReloadListener;
+import EventListeners.ScrollBarListener;
 
-public class HTMLDocument extends Pane {
+public class HTMLDocument extends Pane implements ScrollBarListener {
 	
 	private String url;
 	private String HTMLCode;

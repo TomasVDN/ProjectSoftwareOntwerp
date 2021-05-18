@@ -3,9 +3,13 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class Container extends GUIElement {
+import EventListeners.ScrollBarListener;
+
+public class Container extends GUIElement implements ScrollBarListener {
 
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
+	private int xOffset;
+	private int yOffset;
 
 	/**
 	 * Constructor of the Container class. It extends the GUIElement class.
@@ -17,6 +21,30 @@ public class Container extends GUIElement {
 	public Container(int x, int y, int w, int h) {
 		super(x, y, w, h);
 	}
+	
+	public int maxWidthOfElements() {
+		int maxWidth = this.getWidth(); // own width is minimal
+		for(int i=0; this.getElements().size()>i;i++){
+			int currentWidth = this.getElements().get(i).getWidth();
+			if(currentWidth>maxWidth) {
+				maxWidth=currentWidth;
+			}
+		}
+		return maxWidth;
+	}
+	
+	
+	public int maxHeightOfElements() {
+		int maxWidth = this.getHeight(); // own width is minimal
+		for(int i=0; this.getElements().size()>i;i++){
+			int currentWidth = this.getElements().get(i).getHeight();
+			if(currentWidth>maxWidth) {
+				maxWidth=currentWidth;
+			}
+		}
+		return maxWidth;
+	}
+
 
 	/**
 	 * Paints all the GUIElements contained within this container.
@@ -25,7 +53,8 @@ public class Container extends GUIElement {
 	@Override
 	public void paint(Graphics g) {
 		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
-		elements.stream().forEach(element -> element.paint(newG));
+		Graphics graphicsWithOffset= newG.create(this.getxOffset(),this.getyOffset(), this.maxWidthOfElements()+1, this.maxHeightOfElements()+1);
+		elements.stream().forEach(element -> element.paint(graphicsWithOffset));
 	}
 	
 	/**
@@ -36,8 +65,8 @@ public class Container extends GUIElement {
 	 * 			| otherwise null
 	 */
 	public GUIElement elementAt(int x, int y) {
-		int relativeX= x - this.getX();
-		int relativeY= y - this.getY();
+		int relativeX= x - this.getX()+this.getxOffset();
+		int relativeY= y - this.getY() + this.getyOffset();
 		
 		for (GUIElement e: elements) {
 			GUIElement gui= e.getGUIAtPosition(relativeX,relativeY);
@@ -63,6 +92,7 @@ public class Container extends GUIElement {
 			throw new IllegalArgumentException("Can't add null to a container");
 		}
 		this.elements.add(element);
+		this.notifyAdjustmentListenerReset(this.getWidth(), this.maxWidthOfElements(), this.getHeight(), this.maxHeightOfElements());
 	}
 	
 	/**
@@ -85,6 +115,8 @@ public class Container extends GUIElement {
 	 */
 	public void resetAllElements(ArrayList<GUIElement> guiList) {
 		this.elements.clear();
+		// if guilist is empty elements don't get added so notify is here also needed
+		this.notifyAdjustmentListenerReset(this.getWidth(), this.maxWidthOfElements(), this.getHeight(), this.maxHeightOfElements());
 		this.addMultipleElements(guiList);
 	}
 	
@@ -95,8 +127,8 @@ public class Container extends GUIElement {
 	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
-		int relativeX= x - this.getX();
-		int relativeY= y - this.getY();
+		int relativeX= x - this.getX()-this.getxOffset();
+		int relativeY= y - this.getY()-this.getyOffset();
 		
 		for (GUIElement e: elements) {
 			GUIElement gui= e.getGUIAtPosition(relativeX,relativeY);
@@ -126,6 +158,34 @@ public class Container extends GUIElement {
 
 	@Override
 	public void handleClick() {}
+
+	public int getyOffset() {
+		return yOffset;
+	}
+
+	public void setyOffset(int yOffset) {
+		this.yOffset = yOffset;
+	}
+
+	public int getxOffset() {
+		return xOffset;
+	}
+
+	public void setxOffset(int xOffset) {
+		this.xOffset = xOffset;
+	}
+
+	@Override
+	public void scrollBarMoved(double ratio, Direction direction) {
+		if(direction == Direction.HORIZONTAL) {
+			int newOffset = (int)( ratio*this.maxWidthOfElements());
+			this.setxOffset(-newOffset);
+		}
+		else {
+			int newOffset = (int)( ratio*this.maxHeightOfElements());
+			this.setyOffset(-newOffset);
+		}
+	}
 
 
 }

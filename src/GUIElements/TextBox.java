@@ -6,7 +6,9 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-public class TextBox extends GUIElement {
+import EventListeners.ScrollBarListener;
+
+public class TextBox extends GUIElement implements ScrollBarListener {
 
 	private String leftText = "", rightText = "";
 	private String previousText = "";
@@ -14,9 +16,12 @@ public class TextBox extends GUIElement {
 	private Boolean cursorOnTheRightOfSelectedText = false;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	private String name;
-	private int XOFFSET=10;
-	private int YOFFSET=2;
+	private int xOffset;
+	private int yOffset;
+	private int CONSTANTXOFFSET=10;
+	private int CONSTANTYOFFSET = 2;
 	
+
 	/**
 	 * Constructor of the TextBox class
 	 * @param x - x coordinate of the TextBox
@@ -86,6 +91,15 @@ public class TextBox extends GUIElement {
 	 */
 	public String getText() {
 		return leftText + selectedText + rightText;
+	}
+	
+	/**
+	 * Returns the width of the text
+	 */
+	public int getWidthText() {
+		String text = this.getText();
+		Text textWithWidth= new Text(0, 0, text); // position doesn't matter
+		return Math.max(this.getWidth(), textWithWidth.getWidth()+CONSTANTXOFFSET);
 	}
 
 	/**
@@ -159,6 +173,8 @@ public class TextBox extends GUIElement {
 			}
 			break;
 		}
+		this.notifyAdjustmentListener(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
+		
 	}
 	
 	/**
@@ -179,7 +195,6 @@ public class TextBox extends GUIElement {
 		//Text
 		Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
 		this.drawText(newG, metrics);
-		
 		//cursor
 		if (isActive()) this.drawCursor(newG, metrics);
 	}
@@ -206,16 +221,16 @@ public class TextBox extends GUIElement {
 
 		
 		if (selectedText != "") {
-			int y =((this.getHeight() - metrics.getHeight()) / 2) -YOFFSET;
-			int x = metrics.stringWidth(this.leftText)+XOFFSET;
+			int y =((this.getHeight() - metrics.getHeight()) / 2) -yOffset;
+			int x = metrics.stringWidth(this.leftText)+xOffset;
 			g.setColor(Color.blue);
 			g.fillRect(x, y, metrics.stringWidth(selectedText), metrics.getHeight());
 			g.setColor(Color.black);
 		}
 		
-		int y = ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent()-YOFFSET;
+		int y = ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent()-yOffset;
 		//g.drawString(this.getText(), super.getX(), y);
-		g.drawString(this.getText(), XOFFSET, y);
+		g.drawString(this.getText(), xOffset, y);
 	}
 	
 	/**
@@ -225,7 +240,7 @@ public class TextBox extends GUIElement {
 	 */
 	private void drawCursor(Graphics g, FontMetrics metrics) {
 		int y = ((this.getHeight() - metrics.getHeight()) / 2);
-		int x = metrics.stringWidth(leftText)+XOFFSET;
+		int x = metrics.stringWidth(leftText)+xOffset;
 		if (cursorOnTheRightOfSelectedText()) {
 			x += metrics.stringWidth(selectedText); 
 		}
@@ -447,6 +462,7 @@ public class TextBox extends GUIElement {
 		this.setLeftText(text);
 		this.setSelectedText("");
 		this.setRigthText("");
+		this.notifyAdjustmentListenerReset(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 	}
 	
 	@Override
@@ -483,6 +499,30 @@ public class TextBox extends GUIElement {
 	 */
 	private Boolean cursorOnTheRightOfSelectedText() {
 		return cursorOnTheRightOfSelectedText;
+	}
+
+	@Override
+	public void scrollBarMoved(double ratio,Direction direction) {
+		if(direction== Direction.HORIZONTAL) {
+			int newOffset = (int)( ratio*this.getWidthText());
+			this.setxOffset(-newOffset);
+		}
+	}
+	
+	public int getyOffset() {
+		return yOffset;
+	}
+
+	public void setyOffset(int yOffset) {
+		this.yOffset = yOffset + CONSTANTYOFFSET;
+	}
+	
+	public int getxOffset() {
+		return xOffset;
+	}
+
+	public void setxOffset(int xOffset) {
+		this.xOffset = xOffset +CONSTANTXOFFSET;
 	}
 	
 }

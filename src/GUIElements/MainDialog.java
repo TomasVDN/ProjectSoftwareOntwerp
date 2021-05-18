@@ -33,6 +33,10 @@ public class MainDialog extends Dialog  {
 		this.addBookmark(hyperlinkTest);
 		Text t3 = new Text(0, 0, "form");
 		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
+		Text t4 = new Text(0, 0, "bigPage");
+		BookmarkHyperlink hyperlinkTest3 = new BookmarkHyperlink(0, 0, t3, "https://stevenhgs.github.io/");
+		
+		
 		hyperlinkTest2.addHyperLinkListener(browsr);
 		this.addBookmark(hyperlinkTest2);
 		
@@ -47,12 +51,12 @@ public class MainDialog extends Dialog  {
 	private void initContainers(Browsr browsr) {
 		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),BOOKMARK_SIZE);
-		HTMLDocument documentArea = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), this.getHeight() - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
-		this.setActiveHTMLDocument(documentArea);
+		ScrollableHTMLDocument documentArea = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,new HTMLDocument(0, 0, this.getWidth()-10, this.getHeight() - BAR_SIZE - BOOKMARK_SIZE-10, "", "Welcome my friend, take a seat and enjoy your surfing."));
+		this.setActiveHTMLDocument(documentArea.getHtmlDocument());
 		documentArea.setActive(true);
 
 		
-		this.originalDocumentArea = documentArea.copy();
+		this.originalDocumentArea = documentArea.getHtmlDocument().copy();
 		this.documentArea = documentArea;
 
 		this.allContainers = new ArrayList<Container>();
@@ -67,9 +71,10 @@ public class MainDialog extends Dialog  {
 	 * @param browsr
 	 */
 	private void initSearchBar(Browsr browsr) {
-		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 40, browsr);
+		SearchBar searchBar = new SearchBar(0, 0, this.getWidth() - 30, 40, browsr);
 		this.setSearchbar(searchBar);
-		this.getSearchBarContainer().addElement(searchBar);
+		ScrollableTextBox scrollableSearchBar = new ScrollableTextBox(10 ,10 ,searchBar);
+		this.getSearchBarContainer().addElement(scrollableSearchBar);
 	}
 	
 	/**
@@ -257,9 +262,9 @@ public class MainDialog extends Dialog  {
 				
 				documentArea = documentArea.deleteActiveHTMLDocument();
 				if (documentArea == null) { //TODO bug & smelly code
-					documentArea = originalDocumentArea.copy();
+					documentArea = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
 					documentArea.setActive(true);
-					this.setActiveHTMLDocument((HTMLDocument) documentArea);
+					this.setActiveHTMLDocument(originalDocumentArea);
 				}
 				allContainers.add(documentArea);
 			}

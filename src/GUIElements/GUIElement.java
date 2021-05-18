@@ -5,6 +5,9 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import EventListeners.AdjustmentListener;
+import EventListeners.FormListener;
+
 
 public abstract class GUIElement {
 	private int xPos;
@@ -12,6 +15,7 @@ public abstract class GUIElement {
 	private int width;
 	private int height;
 	private boolean isActive = false;
+	private ArrayList<AdjustmentListener> adjustListeners = new ArrayList<AdjustmentListener>();
 
 	/**
 	 * Constructor of GUIElement.
@@ -20,7 +24,7 @@ public abstract class GUIElement {
 	 * @param w - width of the GUIElement
 	 * @param h - height of the GUIElement
 	 */
-	public GUIElement(int x, int y, int w, int h){
+	public GUIElement(int x, int y, int w, int h) {
 		if (x < 0 || y < 0 || w < 0 || h < 0) {
 			throw new IllegalArgumentException("The x position, y position, width and height of a GUIElement have to be positive.");
 		}
@@ -242,6 +246,27 @@ public abstract class GUIElement {
 		}
 		return array;
 	}
+
+	public void addAdjustListener(AdjustmentListener listener) {
+		if(listener!=null) {
+			this.adjustListeners.add(listener);
+		}
+	}
+
+	public  void removeFormListener(FormListener listener) {
+		this.adjustListeners.remove(listener);
+	}
 	
+	public ArrayList<AdjustmentListener> getAdjustListeners() {
+		return adjustListeners;
+	}
+	
+	public void notifyAdjustmentListener(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
+		this.getAdjustListeners().forEach(l->l.elementChanged(viewableWidth, newWidth, viewableHeight, newHeight));
+	}
+	
+	public void notifyAdjustmentListenerReset(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
+		this.getAdjustListeners().forEach(l->l.elementChangedAndReset(viewableWidth, newWidth, viewableHeight, newHeight));
+	}
 
 }
