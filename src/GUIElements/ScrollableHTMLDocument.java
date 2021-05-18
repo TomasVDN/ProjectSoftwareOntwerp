@@ -120,7 +120,7 @@ public class ScrollableHTMLDocument extends rootPane {
 
 	public ScrollableHTMLDocument copy() {
 		HTMLDocument htmlCopy = this.getHtmlDocument().copy();
-		return new ScrollableHTMLDocument(this.getX(), this.getY(), htmlCopy);
+		return new ScrollableHTMLDocument(0, 0, htmlCopy);
 	}
 
 	/**
@@ -128,12 +128,14 @@ public class ScrollableHTMLDocument extends rootPane {
 	 */
 	@Override
 	public void setWidth(int width) {
-		this.getHtmlDocument().setWidth(width-10);
-		if(this.getScrollHorizontal()!=null) {
-			this.getScrollHorizontal().setWidth(this.getHtmlDocument().getWidth());
-		}
-		if(this.getScrollVertical()!=null) {
-			this.getScrollVertical().setX(this.getHtmlDocument().getEndX());
+		if(width>10) {
+			this.getHtmlDocument().setWidth(width-10);
+			if(this.getScrollHorizontal()!=null) {
+				this.getScrollHorizontal().setWidth(this.getHtmlDocument().getWidth());
+			}
+			if(this.getScrollVertical()!=null) {
+				this.getScrollVertical().setX(this.getHtmlDocument().getEndX());
+			}
 		}
 		super.setWidth(width);
 	}
@@ -143,12 +145,14 @@ public class ScrollableHTMLDocument extends rootPane {
 	 */
 	@Override
 	public void setHeight(int height) {
-		this.getHtmlDocument().setHeight(height-10);
-		if(this.getScrollVertical()!=null) {
-			this.getScrollVertical().setHeight(this.getHtmlDocument().getHeight());
-		}
-		if(this.getScrollHorizontal()!=null) {
-			this.getScrollHorizontal().setY(this.getHtmlDocument().getEndY());
+		if(height>10) {
+			this.getHtmlDocument().setHeight(height-10);
+			if(this.getScrollVertical()!=null) {
+				this.getScrollVertical().setHeight(this.getHtmlDocument().getHeight());
+			}
+			if(this.getScrollHorizontal()!=null) {
+				this.getScrollHorizontal().setY(this.getHtmlDocument().getEndY());
+			}
 		}
 		super.setHeight(height);
 	}
