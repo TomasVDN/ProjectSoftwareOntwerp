@@ -288,12 +288,14 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 
 	@Override
 	public void elementChanged(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
+		System.out.println("Previous ratio is " + this.getScrollBarRatio());
 		if(this.getDirection() ==  Direction.HORIZONTAL) {
 			this.updateCorrectSmallBarSize(newWidth, viewableWidth);
 		}
 		else {
 			this.updateCorrectSmallBarSize(newHeight, viewableHeight);
 		}
+		System.out.println("New ratio is " + this.getScrollBarRatio());
 	}
 	
 	@Override

@@ -239,6 +239,7 @@ public class MainDialog extends Dialog  {
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
 		if (modifiersEx == 128) {
+			// ctrl + H
 			if (keyCode == 72) {
 				allContainers.remove(documentArea); //TODO smelly code
 				documentArea = documentArea.splitActiveHTMLDocumentVertical();
@@ -248,6 +249,7 @@ public class MainDialog extends Dialog  {
 		
 		if (modifiersEx == 128) {
 			if (keyCode == 86) {
+				//ctrl + V
 				allContainers.remove(documentArea); //TODO smelly code
 				documentArea = documentArea.splitActiveHTMLDocumentHorizontal();
 				allContainers.add(documentArea);
@@ -258,9 +260,10 @@ public class MainDialog extends Dialog  {
 			if (keyCode == 88) {
 				//ctrl + X
 				allContainers.remove(documentArea);
-				documentArea.resetActiveHTMLDocument();
+				//documentArea.resetActiveHTMLDocument();
 				
 				documentArea = documentArea.deleteActiveHTMLDocument();
+				this.setActiveHTMLDocument(documentArea.getActiveHTMLDocument());
 				if (documentArea == null) { //TODO bug & smelly code
 					ScrollableHTMLDocument originalPage = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
 					documentArea = originalPage;

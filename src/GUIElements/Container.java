@@ -180,7 +180,7 @@ public class Container extends GUIElement implements ScrollBarListener {
 	@Override
 	public void setWidth(int width) {
 		super.setWidth(width);
-		notifyAdjustmentListenerReset(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
+		notifyAdjustmentListener(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
 	}
 	
 	@Override
