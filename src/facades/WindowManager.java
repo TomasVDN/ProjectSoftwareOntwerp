@@ -4,18 +4,14 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import EventListeners.ChangeDialogListener;
-import GUIElements.GUIElement;
-import GUIElements.HTMLDocument;
-import GUIElements.MainDialog;
-import GUIElements.SaveDialog;
-import GUIElements.SearchBar;
 import canvaswindow.MyCanvasWindow;
-import GUIElements.BookmarkDialog;
-import GUIElements.BookmarkHyperlink;
-import GUIElements.Dialog;
+import EventListeners.ChangeDialogListener;
+import GUIElements.*;
 
+/**
+ * Controller type class. Handles everything UI related.
+ *
+ */
 public class WindowManager {
 	
 	private MyCanvasWindow window;
@@ -42,52 +38,42 @@ public class WindowManager {
 		BrowsrController browsrController = new BrowsrController(this);
 		this.dialogListener.add(browsrController::changeDialog);
 		
-		//Set width/height.
 		this.setWidth(600);
 		this.setHeight(600);
 		
-		//Make the bar and page containers
 		initMainDialog(browsrController);
-		
-
 	}
 
 	/**
-	 * Initialize the mainDialog. Adds three containers (one for the searchbar, one for the bookmarks and one for the htmlCode).
+	 * Initialize the mainDialog.
+	 * @param browsrController - event handler to transmit to the maindDialog.
 	 */
 	private void initMainDialog(BrowsrController browsrController) {
 		MainDialog mainDialog = new MainDialog(0, 0, 600, 600, browsrController);
 		this.setMainDialog(mainDialog);
 		this.setActiveDialog(mainDialog);
-		mainDialog.getActiveHTMLDocument().addReloadListener(browsrController);
-		mainDialog.getActiveHTMLDocument().loadPage();
 	}
 
 	/**
-	 * Changes width and height of this windowManager (in case of a resize). Then ask the page and the bar to paint their components.
+	 * Changes width and height of this windowManager (in case of a resize). Then paint the components of the active dialog.
 	 * @param g - the Graphics to use to paint 
 	 * @param width - the width of the linked window
 	 * @param height - the height of the linked window
 	 */
-	public void paint(Graphics g,int width,int height) {
+	public void paint(Graphics g, int width, int height) {
 		this.setWidth(width);
 		this.setHeight(height);
 		this.getActiveDialog().paint(g);
 	}
 	
 	/**
-	 * Transforms the given HTMLElements to GUIElements, and adds them to the active page.
-	 * @param htmlElements - the list of HTMLElements to add to the active page.
-	 * @param code 
-	 * @param path 
+	 * Adds the given GUIElements to the active page.
+	 * @param GUIElements - the list of GUIElements to add to the active page.
+	 * @param code - String with the HTML code to be saved in the HTMLDocument
+	 * @param path - String with the URL to be saved in the HTMLDocument
 	 */
-	public void loadHTML(ArrayList<GUIElement> GUIElements, String path, String code,BrowsrController browsrController) { //TODO rename
+	public void loadHTML(ArrayList<GUIElement> GUIElements, String path, String code) {
 		this.getMainDialog().getActiveHTMLDocument().loadHTML(GUIElements, path, code);
-	}
-	
-
-	public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,BrowsrController browsrController) { //TODO rename
-		htmlDocument.loadHTML(GUIElements, path, code);
 	}
 	
 	/**
@@ -99,7 +85,7 @@ public class WindowManager {
 	}
 	
 	/**
-	 * Adds the given GUIElements to the active page.
+	 * Adds the given list of GUIElements to the active page.
 	 * @param listOfGUI - the GUIElements to add to the active page.
 	 */
 	public void addAllGUIToPage(ArrayList<GUIElement> listOfGUI) {
@@ -107,7 +93,7 @@ public class WindowManager {
 	}
 
 	/**
-	 * Checks if there is a GUIElement at coordinates (x,y), and transmits it to the changeElementWithKeyboardFocus method. If there are none, it transmits null.
+	 * Transmits the left click event to the active dialog. If the dialog is being switched, ignore the event.
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param clickCount - the amount of clicks
@@ -120,7 +106,7 @@ public class WindowManager {
 	}
 	
 	/**
-	 * Checks if there is a GUIElement at coordinates (x,y) when the mouse is pressed, and calls the handlePressClick method on that element (if there is).
+	 * Transmits the pressLeftMouse event to the active Dialog.
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param clickCount - the amount of clicks
@@ -132,19 +118,7 @@ public class WindowManager {
 	}
 	
 	/**
-	 * Handles the drag operation on the pressed element (x,y) is the position where the element is dragged to
-	 * @param x - x coordinate
-	 * @param y - y coordinate
-	 * @param clickCount - the amount of clicks
-	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
-	 */
-	public void handleDragLeftMouse(int x, int y, int clickCount, int modifiers) {
-		this.getActiveDialog().handleDragMouse(x, y, clickCount, modifiers);
-	}
-	
-	
-	/**
-	 * Checks if there is a GUIElement at coordinates (x,y) when the mouse is released, and calls the handleReleaseClick method on that element (if there is).
+	 * Transmits the ReleaseLeftMouse event to the active Dialog.
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 * @param clickCount - the amount of clicks
@@ -155,61 +129,18 @@ public class WindowManager {
 	}
 	
 	/**
-	 * This handles hyperlinks.
-	 * @param url
+	 * Transmits the dragMouse event to the active Dialog.
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @param clickCount - the amount of clicks
+	 * @param modifiers - the modifiers given by the mouse click (like enter etc)
 	 */
-	public void updateURL(String url) {
-		this.getActiveDialog().changeElementWithKeyboardFocus(null);
-		this.getMainDialog().getSearchbar().replaceBox(url);
+	public void handleDragLeftMouse(int x, int y, int clickCount, int modifiers) {
+		this.getActiveDialog().handleDragMouse(x, y, clickCount, modifiers);
 	}
 
 	/**
-	 * @return the elementWithKeyboardFocus
-	 */
-	public GUIElement getElementWithKeyboardFocus() {
-		return this.getActiveDialog().getElementWithKeyBoardFocus();
-	}
-	
-	/**
-	 * @return this.width
-	 */
-	public int getWidth() {
-		return width;
-	}
-
-	/**
-	 * Sets the value of this.width to the given value.
-	 * @param width
-	 */
-	public void setWidth(int width) throws IllegalArgumentException {
-		if (width <= 0) {
-			throw new IllegalArgumentException("Given width must be positive");
-		} else {
-			this.width = width;
-		}
-	}
-
-	/**
-	 * @return this.height
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-	/**
-	 * Sets the value of this.height to the given value.
-	 * @param height
-	 */
-	public void setHeight(int height) {
-		if (height <= 0) {
-			throw new IllegalArgumentException("Given height must be positive");
-		} else {
-			this.height = height;
-		}
-	}
-
-	/**
-	 * Transmits the keyEvent to the ElementWithKeyboardFocus. If a modifier (such as ctrl+s) is used, calls the setActiveDialog method. 
+	 * Transmits the KeyEvent to the active Dialog. Intercepts certain key combinations (those used to change dialogs).
 	 * @param id
 	 * @param keyCode
 	 * @param keyChar
@@ -234,7 +165,7 @@ public class WindowManager {
 			}
 		}
 		
-		//Enkel op Tomas zijn keyboard.
+		//For some keyboards that do not register the tilde key.
         if (id == KeyEvent.KEY_TYPED && keyChar == "~".charAt(0)) {
             GUIElement element = this.getElementWithKeyboardFocus();
             if (element != null) {
@@ -244,7 +175,16 @@ public class WindowManager {
 	}
 	
 	/**
-	 * Returns the url present at that moment in mainDialog.searchbar.
+	 * Updates the displayed URL in the searchBar in MainDialog.
+	 * @param url - the URL to update the searchBar to
+	 */
+	public void updateURL(String url) {
+		this.getActiveDialog().changeElementWithKeyboardFocus(null);
+		this.getMainDialog().getSearchbar().replaceBox(url);
+	}
+	
+	/**
+	 * Returns the URL present at that moment in mainDialog.searchbar.
 	 * @return
 	 */
 	public String getURLFromSearchBar() {
@@ -253,7 +193,7 @@ public class WindowManager {
 	}
 	
 	/**
-	 * returns the base from the url present at that moment in mainDialog.searchbar.
+	 * returns the base from the URL present at that moment in mainDialog.searchbar.
 	 * @return
 	 */
 	public String getBaseURLFromSearchBar() {
@@ -279,6 +219,7 @@ public class WindowManager {
 	}
 	
 	/**
+	 * Changes the dialog to the d
 	 * @param type - the activeDialog to set (String version)
 	 */
 	public void setActiveDialog(String type,BrowsrController browsrController) {
@@ -301,7 +242,7 @@ public class WindowManager {
 	}
 	
 	public void changeActiveDialog(String type) {
-		this.dialogListener.forEach(l->l.changeDialog(type));
+		this.dialogListener.forEach(listener -> listener.changeDialog(type));
 	}
 	
 	
@@ -358,11 +299,15 @@ public class WindowManager {
 	}
 	
 	/**
-	 * Method to add a bookmark in the mainDialog.
+	 * Creates a bookmark and adds it in the mainDialog.
 	 * @param bookmarkHyperlinkName - name of the bookmark
-	 * @param bookmarkHyperlinkUrl - url of the bookmark
+	 * @param bookmarkHyperlinkUrl - URL of the bookmark
+	 * @param BrowsrController - eventHandler
 	 */
-	public void addBookmark(BookmarkHyperlink newBookmarkHyperlink) {
+	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl, BrowsrController browsr) {
+		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
+		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
+		newBookmarkHyperlink.addHyperLinkListener(browsr);
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 
@@ -388,5 +333,50 @@ public class WindowManager {
 	 */
 	public void changeWindowTitle(String newTitle) {
 		this.window.setWindowTitle(newTitle);
+	}
+	
+	/**
+	 * @return this.width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * Sets the value of this.width to the given value.
+	 * @param width
+	 */
+	public void setWidth(int width) throws IllegalArgumentException {
+		if (width <= 0) {
+			throw new IllegalArgumentException("Given width must be positive");
+		} else {
+			this.width = width;
+		}
+	}
+
+	/**
+	 * @return this.height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * Sets the value of this.height to the given value.
+	 * @param height
+	 */
+	public void setHeight(int height) {
+		if (height <= 0) {
+			throw new IllegalArgumentException("Given height must be positive");
+		} else {
+			this.height = height;
+		}
+	}
+	
+	/**
+	 * @return the elementWithKeyboardFocus
+	 */
+	public GUIElement getElementWithKeyboardFocus() {
+		return this.getActiveDialog().getElementWithKeyBoardFocus();
 	}
 }

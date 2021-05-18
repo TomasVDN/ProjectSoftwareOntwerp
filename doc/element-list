@@ -3,8 +3,12 @@ canvaswindow
 container
 converter
 domain
-events
+EventListeners
 facades
+GivenTests
 GUIElements
+helperFunctions
 htmlElement
 main
+useCases
+utils

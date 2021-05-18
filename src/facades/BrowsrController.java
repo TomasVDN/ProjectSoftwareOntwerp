@@ -22,8 +22,7 @@ import domain.Saver;
 import htmlElement.ContentSpan;
 
 /**
- * Controller type class. Used to connect the domain and WindowManager (facade for the UI).
- *
+ * Controller type class. Used to receive Events and handle them.
  */
 //TODO rm listener -> functional interfaces
 public class BrowsrController implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, ChangeDialogListener, SavePageListener{
@@ -46,7 +45,9 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	}
 
 	/**
-	 * Used to process a URL. Calls the runUrl method in this.domainFacade, updates the url displayed in this.windowManager and calls the draw Method.
+	 * Used to process an URL. Reads in the HTML code from the given URL, converts it to GUIElements and updates
+	 * the displayed URL in the searchbar.
+	 * It then transmits the GUIElements to the windowManager to load it.
 	 * @param path - the URL to process.
 	 */
 	@Override
@@ -56,16 +57,27 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 		ArrayList<GUIElement> list = decodeToGUIElements(htmlString);
 		
 		this.getWindowManager().updateURL(path);
-		windowManager.loadHTML(list, path, htmlString, this);	
+		windowManager.loadHTML(list, path, htmlString);	
 	}
 	
+	/**
+	 * Converts the given HTML code to GUIElements, and then loads them to the given HTMLDocument.
+	 * @param HTMLDocument - the HTMLDocument in which the GUIElements have to be loaded.
+	 * @param url - the URL to transmit to the given HTMLDocument.
+	 * @param htmlString - HTML code to transform to GUIElements.
+	 */
 	@Override
 	public void loadHTML(HTMLDocument HTMLDocument, String url, String htmlString) {
 		ArrayList<GUIElement> list = decodeToGUIElements(htmlString);
 
-		this.getWindowManager().loadHTMLToGivenHTMLDocument(HTMLDocument, list, url, htmlString, this);
+		HTMLDocument.loadHTML(list, url, htmlString);
 	}
 	
+	/**
+	 * Transforms the given HTML code to GUIElements.
+	 * @param code - the HTML code to transmit.
+	 * @return  ArrayList<GUIElement> - list with the GUIElements.
+	 */
 	private ArrayList<GUIElement> decodeToGUIElements(String code) {
 		HTMLDecoder decoder = new HTMLDecoder(code);
 		ArrayList<ContentSpan> htmlElements = decoder.createElements();
@@ -99,7 +111,6 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 		}
 	}
 	
-	
 	/**
 	 * Asks the windowManager to return the baseUrl (domain without resource).
 	 * @return this.windowManager.getBaseURLFromSearchBar
@@ -109,7 +120,7 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	}
 	
 	/**
-	 * Handler for the hyperlinks.
+	 * Handler for the hyperlink.
 	 * @param URLAttribute
 	 */
 	@Override
@@ -127,16 +138,13 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	}
 	
 	/**
-	 * Asks windowManager to add a bookmark with the given name and url
+	 * Asks windowManager to add a bookmark with the given name and URL
 	 * @param bookmarkHyperlinkName - name to be displayed of the bookmark
-	 * @param bookmarkHyperlinkUrl - corresponding url
+	 * @param bookmarkHyperlinkUrl - corresponding URL
 	 */
 	@Override
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
-		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
-		newBookmarkHyperlink.addHyperLinkListener(this);
-		this.windowManager.addBookmark(newBookmarkHyperlink);
+		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl, this);
 	}
 
 	/**

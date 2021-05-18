@@ -19,6 +19,14 @@ public class MainDialog extends Dialog  {
 	private SearchBar searchbar;
 	private TableGUI bookmarkBar;
 
+	/**
+	 * Constructor of the main
+	 * @param x
+	 * @param y
+	 * @param w
+	 * @param h
+	 * @param browsrController
+	 */
 	public MainDialog(int x, int y, int w, int h, BrowsrController browsrController) {
 		super(x, y, w, h);
 		
@@ -45,16 +53,22 @@ public class MainDialog extends Dialog  {
 	 * @param bookmarkBarContainer
 	 */
 	private void initContainers(BrowsrController browsrController) {
+		//Initialize the searchbar container and bookmark container
 		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),BOOKMARK_SIZE);
+		
+		//Initialize the document area. The newly created HTML document must be set to active.
 		HTMLDocument documentArea = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), this.getHeight() - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
 		this.setActiveHTMLDocument(documentArea);
 		documentArea.setActive(true);
 
+		// Add a reloadListener to the HTMLDocument, and load the page
+		documentArea.addReloadListener(browsrController);
+		documentArea.loadPage();
 		
 		this.originalDocumentArea = documentArea.copy();
 		this.documentArea = documentArea;
-
+		
 		this.allContainers = new ArrayList<Container>();
 				
 		allContainers.add(searchBarContainer);
