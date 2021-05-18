@@ -7,6 +7,10 @@ import java.util.List;
 import EventListeners.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Class that implements a button. It is a GUIElement that can be clicked on to trigger something.
+ *
+ */
 public class Button extends GUIElement {
 
 	private Text text;
@@ -14,6 +18,8 @@ public class Button extends GUIElement {
     private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
     private Boolean mustDrawBox = false;
     private List<ActionListener> listeners = new ArrayList<ActionListener>();
+	protected ArrayList<Runnable> clickListeners = new ArrayList<Runnable>();
+
     private State state = new UnpressedState();
 
     
@@ -34,14 +40,14 @@ public class Button extends GUIElement {
 		this.setMustDrawBox(mustDrawBox);
 	}
 	
-	/**
-	 * Constructor of the Button class. draws a button surrounding given box
+    /**
+     * Constructor of the Button class, but without width or height. Those will be set to the width and the height of the given text.
      * @param x - x coordinate of this Button
      * @param y - y coordinate of this Button
-	 * @param text - content of this button
-	 * @param box - boolean to draw or not draw a surrounding box
-	 * @param color - the inner color of the button
-	 */
+     * @param text - content of this Button
+     * @param mustDrawBox - boolean: if true, a surrounding box will be drawn
+     * @param color - Color: color of this Button
+     */
 	public Button(int x, int y, Text text, Boolean box, Color color) {
 		super(x, y);
 		this.setButtonColor(color);
@@ -52,14 +58,13 @@ public class Button extends GUIElement {
 	}
 	
 	/**
-	 * This expresses the state in which the button is in
+	 * This expresses the state in which the button is in.
 	 * There are 2 states, the pressed state and the unpressedState
-	 * @author kobe
 	 *
 	 */
 	private static abstract class State {
 		/**
-		 * paints the button
+		 * Paints the button
 		 * @param g - the graphics for drawing
 		 */
 		abstract void paint(Graphics g);
@@ -79,10 +84,15 @@ public class Button extends GUIElement {
 		abstract String getStateName();
 		}
 	/**
-	 * Unpressed state of the button
+	 * Unpressed state of the button. Default state.
 	 *
 	 */
 	private class UnpressedState extends State {
+		
+		/**
+		 * Paints the button.
+		 * @param g - The graphic object to paint with
+		 */
 		@Override
 		void paint(Graphics g) {
 			if (mustDrawBox()) {
@@ -92,6 +102,9 @@ public class Button extends GUIElement {
 			drawText(newG);		
 		}
 		
+		/**
+		 * When pressed, the button will change to the pressed state.
+		 */
 		@Override
 		void handlePressClick() {
 			state=new PressedState();
@@ -101,6 +114,7 @@ public class Button extends GUIElement {
 		void handleReleaseClick(boolean releasedOn) {
 			
 		}
+		
 		@Override
 		String getStateName() {
 			return "UnpressedState";
@@ -112,6 +126,11 @@ public class Button extends GUIElement {
 	 *
 	 */
 	private class PressedState extends State {
+		
+		/**
+		 * Paints the button.
+		 * @param g - The graphic object to paint with
+		 */
 		@Override
 		void paint(Graphics g) {
 			if (mustDrawBox()) {
@@ -126,6 +145,9 @@ public class Button extends GUIElement {
 			
 		}
 		
+		/**
+		 * When released, the button will change to the unpressed state.
+		 */
 		@Override
 		void handleReleaseClick(boolean releasedOn) {
 			state = new UnpressedState();
@@ -143,11 +165,11 @@ public class Button extends GUIElement {
 	
 
 	/**
-	 * Paint the multiple components of a button.
+	 * Paints the multiple components of the button.
+	 * @param g - the graphic object to paint with
 	 */
 	@Override
 	public void paint(Graphics g) {
-		//g.setFont(font);
 		state.paint(g);
 	}
 	
@@ -166,6 +188,7 @@ public class Button extends GUIElement {
 	
 	/**
 	 * Draws black text inside the button
+	 * @param g - the graphic object to paint with
 	 */
 	private void drawText(Graphics g) {
 		g.setColor(Color.black);
@@ -240,10 +263,7 @@ public class Button extends GUIElement {
 
 	@Override
 	protected void handleUnselect() {	
-	}
-	
-	protected ArrayList<Runnable> clickListeners = new ArrayList<Runnable>();
-	
+	}	
 
 	/**
 	 * adds a listener for a singleClick action
@@ -255,21 +275,26 @@ public class Button extends GUIElement {
 
 	@Override
 	public void handleClick() {
-		//new ArrayList<>(clickListeners).stream().forEach(l -> l.run()); TODO
 	}
 	
+	/**
+	 * Handles the mouse presses.
+	 */
 	@Override
 	public void handlePressClick(int x,int y) {
 		state.handlePressClick();
 	}
 	
+	/**
+	 * Handles the mouse releases.
+	 */
 	@Override
 	public void handleReleaseClick(boolean releasedOn) {
 		state.handleReleaseClick(releasedOn);
 	}
 
 	/**
-	 * Add the given EventListener to a list of EventListeners
+	 * Add the given EventListener to the list of EventListeners
 	 * @param listener
 	 */
 	public void addListener(ActionListener listener) {
@@ -279,7 +304,7 @@ public class Button extends GUIElement {
 	}
 	
 	/**
-	 * removes the given EventListener form a list of EventListeners
+	 * Removes the given EventListener form the list of EventListeners
 	 */
 	public void removeListener(ActionListener listener) {
 		listeners.remove(listener);

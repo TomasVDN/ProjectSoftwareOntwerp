@@ -1,5 +1,8 @@
 package GUIElements;
 
+/**
+ * Enumeration used as standard for the direction related things in the other classes.
+ */
 public enum Direction {
 
 	HORIZONTAL{

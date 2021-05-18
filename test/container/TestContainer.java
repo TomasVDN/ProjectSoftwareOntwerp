@@ -62,7 +62,7 @@ class TestContainer {
 		list.add(button1);
 		list.add(button2);
 		container.addMultipleElements(list);
-		assertEquals(button1, container.elementAt(101, 101));
+		assertEquals(button1, container.getGUIAtPosition(101, 101));
 	}
 	
 	@Test 
@@ -71,7 +71,7 @@ class TestContainer {
 		list.add(button1);
 		list.add(button2);
 		container.addMultipleElements(list);
-		assertEquals(null, container.elementAt(101, 111));
+		assertEquals(null, container.getGUIAtPosition(101, 111));
 	}
 	
 	

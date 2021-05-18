@@ -3,6 +3,9 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+/**
+ * Class that implements a Container. It is a GUIElement that contains other GUIElements.
+ */
 public class Container extends GUIElement {
 
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
@@ -29,26 +32,6 @@ public class Container extends GUIElement {
 	}
 	
 	/**
-	 * Returns the GUIElement at position (x,y). If such element does not exist, return null.
-	 * @param x - x coordinate
-	 * @param y - y coordinate
-	 * @return GUIElement at coordinate (x,y)
-	 * 			| otherwise null
-	 */
-	public GUIElement elementAt(int x, int y) {
-		int relativeX= x - this.getX();
-		int relativeY= y - this.getY();
-		
-		for (GUIElement e: elements) {
-			GUIElement gui= e.getGUIAtPosition(relativeX,relativeY);
-			if (gui!=null) {
-				return gui;
-			}
-		}
-		return null;
-	}
-	
-	/**
 	 * @return the elements
 	 */
 	public ArrayList<GUIElement> getElements() {
@@ -56,6 +39,7 @@ public class Container extends GUIElement {
 	}
 
 	/**
+	 * Adds the given element to this container.
 	 * @param element the element to add
 	 */
 	public void addElement(GUIElement element) {
@@ -66,6 +50,7 @@ public class Container extends GUIElement {
 	}
 	
 	/**
+	 * Adds the elements in the given list to this container.
 	 * @param guiList the elements to add
 	 */
 	public void addMultipleElements(ArrayList<GUIElement> guiList) {
@@ -78,10 +63,8 @@ public class Container extends GUIElement {
 	}
 	
 	/**
-	 * Empties container and adds GUIElements from given guiList to the container.
+	 * Empties container and adds the GUIElements from the given list to the container.
 	 * @param guiList
-	 * @param code 
-	 * @param path 
 	 */
 	public void resetAllElements(ArrayList<GUIElement> guiList) {
 		this.elements.clear();
@@ -89,9 +72,11 @@ public class Container extends GUIElement {
 	}
 	
 	/**
-	 * Returns the GUI if the given position is between its bounds
-	 * @param x - the x coordinate from the position to check
-	 * @param y - the y coordinate from the position to check
+	 * Returns the GUIElement at position (x,y). If such element does not exist, return null.
+	 * @param x - x coordinate
+	 * @param y - y coordinate
+	 * @return GUIElement at coordinate (x,y)
+	 * 			| otherwise null
 	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {

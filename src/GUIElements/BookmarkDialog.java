@@ -6,21 +6,27 @@ import java.util.ArrayList;
 import EventListeners.AddBookmarkListener;
 import EventListeners.ChangeDialogListener;
 
+/**
+ * Dialog used to make a new bookmark. Contains two textBoxes (one to enter the bookmark display name and
+ * one to enter the corresponding URL) and two buttons (one to cancel and return to the main dialog, and
+ * one to finalize the creation).
+ *
+ */
 public class BookmarkDialog extends Dialog {
 	
 	private TextBox bookmarkHyperlinkNameTextBox;
 	private TextBox bookmarkHyperlinkUrlTextBox;
 	
-	private ArrayList<AddBookmarkListener> eventListener = new ArrayList<AddBookmarkListener>();
-	private ArrayList<ChangeDialogListener> eventListener2 = new ArrayList<ChangeDialogListener>();
+	private ArrayList<AddBookmarkListener> addBookmarkListenerList = new ArrayList<AddBookmarkListener>();
+	private ArrayList<ChangeDialogListener> changeDialogListenerList = new ArrayList<ChangeDialogListener>();
 	
 	/**
-	 * Constructor of the BookmarkDialog class. It extends the Dialog class and implements the AddBookmarkEventCreator and ChangeDialogEventCreator.
-	  * @param x - x coordinate of this BookmarkDialog
+	 * Constructor of the BookmarkDialog class.
+	 * @param x - x coordinate of this BookmarkDialog
      * @param y - y coordinate of this BookmarkDialog
      * @param w - width of this BookmarkDialog
      * @param h - height of this BookmarkDialog
-	 * @param eventReader - eventReader of this BookmarkDialog
+	 * @param suggestedUrl - the URL to prefill the URL textBox with
 	 */
 	public BookmarkDialog(int x, int y, int w, int h,String suggestedUrl) {
 		super(x, y, w, h);
@@ -56,7 +62,7 @@ public class BookmarkDialog extends Dialog {
 	}
 	
 	/**
-	 * Initializes the textBox for the url input.
+	 * Initializes the textBox for the URL input.
 	 * @param width - width of the dialog
 	 */
 	private void initUrlInput(int width) {
@@ -73,11 +79,11 @@ public class BookmarkDialog extends Dialog {
 	 */
 	private void initCancelButton(int width) {
 		int xPos = Math.floorDiv(width, 4);
+		
 		Button cancelButton = new Button(xPos, 200, new Text(0, 0, "Cancel"), true, Color.lightGray);
+		
 		cancelButton.addSingleClickListener(() -> {
-			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
-				listener.changeDialog("mainDialog");
-			}
+			changeDialogListenerList.forEach(listener -> listener.changeDialog("mainDialog"));
 		});
 		
 		this.addElement(cancelButton);
@@ -92,16 +98,11 @@ public class BookmarkDialog extends Dialog {
 		
 		Button addBookmarkButton = new Button(xPos, 200, new Text(0, 0, "Add Bookmark"), true, Color.lightGray);
 		addBookmarkButton.addSingleClickListener(() ->{
-			String bookmarkHyperlinkName = this.getNameTextBox().getText();
-			String bookmarkHyperlinkUrlTextBox = this.getUrlTextBox().getText();
+			String name = this.getNameTextBox().getText();
+			String url = this.getUrlTextBox().getText();
 			
-			for(AddBookmarkListener listener: this.getAddBookmarkListeners()) {
-				listener.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrlTextBox);
-			}
-			
-			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
-				listener.changeDialog("mainDialog");
-			}
+			addBookmarkListenerList.forEach(listener -> listener.addBookmark(name, url));
+			changeDialogListenerList.forEach(listener -> listener.changeDialog("mainDialog"));
 		});
 		
 		this.addElement(addBookmarkButton);
@@ -143,28 +144,35 @@ public class BookmarkDialog extends Dialog {
 		this.getUrlTextBox().setLeftText(suggestedUrl);
 	}
 
+	/**
+	 * Add a bookmarkListener to the list of bookmarkListeners
+	 * @param listener - listener to add
+	 */
 	public void addAddBookmarkListener(AddBookmarkListener listener) {
-		this.getAddBookmarkListeners().add(listener);
+		addBookmarkListenerList.add(listener);
 	}
 
+	/**
+	 * Remove the given bookmarkListener from the list of bookmarkListeners
+	 * @param listener - listener to remove
+	 */
 	public void removeAddBookmarkListener(AddBookmarkListener listener) {
-		this.getAddBookmarkListeners().remove(listener);
+		addBookmarkListenerList.remove(listener);
 	}
 	
-
-	protected ArrayList<AddBookmarkListener> getAddBookmarkListeners() {
-		return eventListener;
-	}
-
+	/**
+	 * Add a ChangeDialogListener to the list of ChangeDialogListeners
+	 * @param listener - listener to add
+	 */
 	public void addChangeDialogListener(ChangeDialogListener listener) {
-		this.getChangeDialogListeners().add(listener);
+		changeDialogListenerList.add(listener);
 	}
-
+	
+	/**
+	 * Remove the given ChangeDialogListener from the list of ChangeDialogListeners
+	 * @param listener - listener to remove
+	 */
 	public void removeChangeDialogListener(ChangeDialogListener listener) {
-		this.getChangeDialogListeners().remove(listener);
-	}
-
-	protected ArrayList<ChangeDialogListener> getChangeDialogListeners() {
-		return eventListener2;
+		changeDialogListenerList.remove(listener);
 	}
 }

@@ -67,7 +67,7 @@ class testWindowManager {
 		
 		// change to main dialog
 
-		mainWindow.getWindowManager().changeActiveDialog("mainDialog");
+		mainWindow.getWindowManager().changeDialog("mainDialog");
 
 		
 		// check if active dialog is main dialog
@@ -146,7 +146,7 @@ class testWindowManager {
 		
 		// change to main dialog
 
-		mainWindow.getWindowManager().changeActiveDialog("mainDialog");
+		mainWindow.getWindowManager().changeDialog("mainDialog");
 
 		
 		// check if active dialog is main dialog
