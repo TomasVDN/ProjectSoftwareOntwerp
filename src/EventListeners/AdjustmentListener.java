@@ -8,4 +8,5 @@ public interface AdjustmentListener {
 
 	public void elementChangedAndReset(int viewableWidth,int totalWidth,int viewableHeight,int totalHeight);
 	
+	public void elementIncreased(int viewableWidth,int totalWidth,int viewableHeight,int totalHeight);
 }

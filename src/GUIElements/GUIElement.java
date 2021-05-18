@@ -268,5 +268,9 @@ public abstract class GUIElement {
 	public void notifyAdjustmentListenerReset(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
 		this.getAdjustListeners().forEach(l->l.elementChangedAndReset(viewableWidth, newWidth, viewableHeight, newHeight));
 	}
+	
+	public void notifyAdjustmentListenerIncreased(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
+		this.getAdjustListeners().forEach(l->l.elementIncreased(viewableWidth, newWidth, viewableHeight, newHeight));
+	}
 
 }

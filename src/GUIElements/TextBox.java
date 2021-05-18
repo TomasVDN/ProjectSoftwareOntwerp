@@ -145,9 +145,11 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		switch (keyCode) {
 		case 8: //backspace
 			this.handleBackSpace();
+			this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			break;
 		case 127: //delete
 			this.handleDelete();
+			this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			break;
 		case 27: //escape
 			this.handleEscape();
@@ -170,10 +172,10 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		default:
 			if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 				this.handleUndefined(keyChar);
+				this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			}
 			break;
 		}
-		this.notifyAdjustmentListener(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 		
 	}
 	
