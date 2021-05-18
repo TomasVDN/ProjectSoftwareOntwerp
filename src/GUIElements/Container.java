@@ -22,7 +22,7 @@ public class Container extends GUIElement implements ScrollBarListener {
 		super(x, y, w, h);
 	}
 	
-	public int maxCoordinateOfElements() {
+	public int maxXCoordinateOfElements() {
 		int maxWidth = this.getWidth(); // own width is minimal
 		for(int i=0; this.getElements().size()>i;i++){
 			GUIElement currentElement = this.getElements().get(i);
@@ -55,7 +55,7 @@ public class Container extends GUIElement implements ScrollBarListener {
 	@Override
 	public void paint(Graphics g) {
 		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
-		Graphics graphicsWithOffset= newG.create(this.getxOffset(),this.getyOffset(), this.maxCoordinateOfElements()+1, this.maxYCoordinatOfElements()+1);
+		Graphics graphicsWithOffset= newG.create(this.getxOffset(),this.getyOffset(), this.maxXCoordinateOfElements()+1, this.maxYCoordinatOfElements()+1);
 		elements.stream().forEach(element -> element.paint(graphicsWithOffset));
 	}
 	
@@ -94,7 +94,7 @@ public class Container extends GUIElement implements ScrollBarListener {
 			throw new IllegalArgumentException("Can't add null to a container");
 		}
 		this.elements.add(element);
-		this.notifyAdjustmentListenerReset(this.getWidth(), this.maxCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
+		this.notifyAdjustmentListenerReset(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class Container extends GUIElement implements ScrollBarListener {
 	public void resetAllElements(ArrayList<GUIElement> guiList) {
 		this.elements.clear();
 		// if guilist is empty elements don't get added so notify is here also needed
-		this.notifyAdjustmentListenerReset(this.getWidth(), this.maxCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
+		this.notifyAdjustmentListenerReset(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
 		this.addMultipleElements(guiList);
 	}
 	
@@ -176,11 +176,24 @@ public class Container extends GUIElement implements ScrollBarListener {
 	public void setxOffset(int xOffset) {
 		this.xOffset = xOffset;
 	}
+	
+	@Override
+	public void setWidth(int width) {
+		super.setWidth(width);
+		notifyAdjustmentListenerReset(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
+	}
+	
+	@Override
+	public void setHeight(int height) {
+		super.setHeight(height);
+		notifyAdjustmentListenerReset(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
+	}
+	
 
 	@Override
 	public void scrollBarMoved(double ratio, Direction direction) {
 		if(direction == Direction.HORIZONTAL) {
-			int newOffset = (int)( ratio*this.maxCoordinateOfElements());
+			int newOffset = (int)( ratio*this.maxXCoordinateOfElements());
 			this.setxOffset(-newOffset);
 		}
 		else {

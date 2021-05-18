@@ -10,7 +10,7 @@ public class ScrollableHTMLDocument extends rootPane {
 	public ScrollableHTMLDocument(int x,int y,HTMLDocument html) {
 		super(x,y,html.getWidth()+10,html.getHeight()+10);
 		this.setHtmlDocument(html);
-		ScrollBar scrollBarHorizontal = new ScrollBar(Direction.HORIZONTAL, x, html.getHeight(), html.getWidth(), 10, html.getWidth(), html.maxCoordinateOfElements());
+		ScrollBar scrollBarHorizontal = new ScrollBar(Direction.HORIZONTAL, x, html.getHeight(), html.getWidth(), 10, html.getWidth(), html.maxXCoordinateOfElements());
 		html.addAdjustListener(scrollBarHorizontal);
 		scrollBarHorizontal.addScrollBarListener(html);
 		ScrollBar scrollBarVertical = new ScrollBar(Direction.VERTICAL, html.getWidth(), 0, 10,html.getHeight(), html.getHeight(), html.maxYCoordinatOfElements());
@@ -18,9 +18,9 @@ public class ScrollableHTMLDocument extends rootPane {
 		scrollBarVertical.addScrollBarListener(html);
 		this.setScrollHorizontal(scrollBarHorizontal);
 		this.setScrollVertical(scrollBarVertical);
-		this.addElement(htmlDocument);
 		this.addElement(scrollBarVertical);
 		this.addElement(scrollBarHorizontal);
+		this.addElement(htmlDocument);
 	}
 	
 	private ScrollBar getScrollHorizontal() {
@@ -83,22 +83,26 @@ public class ScrollableHTMLDocument extends rootPane {
 
 	@Override
 	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
-		htmlDocument.updateRightClosestChildWidth(newXPos, newWidth);
+		setX(newXPos);
+		setWidth(newWidth);
 	}
 
 	@Override
 	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {
-		htmlDocument.updateLeftClosestChildWidth(newXPos, newWidth);
+		setX(newXPos);
+		setWidth(newWidth);
 	}
 
 	@Override
 	public void updateRightClosestChildHeight(int newYPos, int newHeight) {
-		htmlDocument.updateRightClosestChildHeight(newYPos, newHeight);
+		setY(newYPos);
+		setHeight(newHeight);
 	}
 
 	@Override
 	public void updateLeftClosestChildHeight(int newYPos, int newHeight) {
-		htmlDocument.updateLeftClosestChildHeight(newYPos, newHeight);
+		setY(newYPos);
+		setHeight(newHeight);
 	}
 	
 	public HTMLDocument getHtmlDocument() {
@@ -141,7 +145,7 @@ public class ScrollableHTMLDocument extends rootPane {
 	public void setHeight(int height) {
 		this.getHtmlDocument().setHeight(height-10);
 		if(this.getScrollVertical()!=null) {
-			this.getScrollVertical().setHeight(height);
+			this.getScrollVertical().setHeight(this.getHtmlDocument().getHeight());
 		}
 		if(this.getScrollHorizontal()!=null) {
 			this.getScrollHorizontal().setY(this.getHtmlDocument().getEndY());
