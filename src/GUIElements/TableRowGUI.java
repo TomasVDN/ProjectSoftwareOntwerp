@@ -71,15 +71,10 @@ public class TableRowGUI extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		/*Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());//TODO
+		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
 		for(int i=0; i< this.getGuiElements().size();i++) {
 			this.getGuiElements().get(i).paint(newG);
-		}*/
-		g.translate(this.getX(), this.getY());
-		for(int i=0; i< this.getGuiElements().size();i++) {
-			this.getGuiElements().get(i).paint(g);
 		}
-		g.translate(-this.getX(), -this.getY());
 	}
 	
 	/**
