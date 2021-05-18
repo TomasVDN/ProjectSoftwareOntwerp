@@ -39,7 +39,7 @@ public class HTMLForm extends ContentSpan {
 	public Form transformToGUI(int x, int y, int width, int height) {
 		GUIElement gui =null;
 		if(this.element!=null) {
-			gui= element.transformToGUI(x, y, width, height);
+			gui= element.transformToGUI(0, 0, width, height);
 		}
 		return new Form(gui,x,y,action);
 	}
