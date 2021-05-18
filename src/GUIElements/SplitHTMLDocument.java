@@ -13,7 +13,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	private SeperatorBar bar;
 	private Direction dir;
 
-	public SplitHTMLDocument(HTMLDocument original, Direction direction) {
+	public SplitHTMLDocument(rootPane original, Direction direction) {
 		super(original.getX(), original.getY(), original.getWidth(), original.getHeight());
 		
 		this.dir = direction;
@@ -27,10 +27,13 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 		this.bar.addSeparatorBarMoveListener(this);
 	}
+	
+	
+	
 
-	private void initHorizontalPanels(HTMLDocument original) {
-		HTMLDocument tempLeftPanel = original;
-		HTMLDocument tempRightPanel = original.copy();
+	private void initHorizontalPanels(rootPane original) {
+		rootPane tempLeftPanel = original;
+		rootPane tempRightPanel = original.copy();
 		
 		int heightLeftPanel = Math.floorDiv(getHeight(), 2);
 		
@@ -50,9 +53,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.rightPanel = tempRightPanel;
 	}
 
-	private void initVerticalPanels(HTMLDocument original) {
-		HTMLDocument tempLeftPanel = original;
-		HTMLDocument tempRightPanel = original.copy();
+	private void initVerticalPanels(rootPane original) {
+		rootPane tempLeftPanel = original;
+		rootPane tempRightPanel = original.copy();
 		
 		int widthPanel = Math.floorDiv(getWidth(), 2);
 		
@@ -333,4 +336,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		// not clicked on any panel, don't change anything
 		return null;
 	}
+
+
 }

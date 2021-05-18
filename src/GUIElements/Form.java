@@ -196,4 +196,14 @@ public class Form extends GUIElement implements ActionListener {
 		return this.listeners; //TODO clone this
 	}
 	
+	@Override
+	public int getWidth() {
+		return this.getRootGui().getEndX();
+	}
+	
+	@Override
+	public int getHeight() {
+		return this.getRootGui().getEndY();
+	}
+	
 	}

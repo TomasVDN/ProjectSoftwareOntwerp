@@ -1,8 +1,10 @@
 package GUIElements;
 
-public class ScrollableHTMLDocument extends Pane {
+public class ScrollableHTMLDocument extends rootPane {
 	
 	private HTMLDocument htmlDocument;
+	private ScrollBar scrollVertical;
+	private ScrollBar scrollHorizontal;
 
 
 	public ScrollableHTMLDocument(int x,int y,HTMLDocument html) {
@@ -14,10 +16,29 @@ public class ScrollableHTMLDocument extends Pane {
 		ScrollBar scrollBarVertical = new ScrollBar(Direction.VERTICAL, html.getWidth(), 0, 10,html.getHeight(), html.getHeight(), html.maxYCoordinatOfElements());
 		html.addAdjustListener(scrollBarVertical);
 		scrollBarVertical.addScrollBarListener(html);
+		this.setScrollHorizontal(scrollBarHorizontal);
+		this.setScrollVertical(scrollBarVertical);
 		this.addElement(htmlDocument);
 		this.addElement(scrollBarVertical);
 		this.addElement(scrollBarHorizontal);
 	}
+	
+	private ScrollBar getScrollHorizontal() {
+		return scrollHorizontal;
+	}
+
+	public void setScrollHorizontal(ScrollBar scrollHorizontal) {
+		this.scrollHorizontal = scrollHorizontal;
+	}
+	
+	private ScrollBar getScrollVertical() {
+		return scrollVertical;
+	}
+
+	public void setScrollVertical(ScrollBar scrollVertical) {
+		this.scrollVertical = scrollVertical;
+	}
+
 	
 	@Override
 	public HTMLDocument getActiveHTMLDocument() {
@@ -34,19 +55,20 @@ public class ScrollableHTMLDocument extends Pane {
 		this.htmlDocument.setActive(false);
 	}
 	
-	@Override	public void setActive(boolean active) {
+	@Override	
+	public void setActive(boolean active) {
 		this.htmlDocument.setActive(active);
 	}
 	
 
 	@Override
 	public Pane splitActiveHTMLDocumentVertical() {
-		return new SplitHTMLDocument(this.htmlDocument, Direction.VERTICAL);
+		return new SplitHTMLDocument(this, Direction.VERTICAL);
 	}
 	
 	@Override
 	public Pane splitActiveHTMLDocumentHorizontal() {
-		return new SplitHTMLDocument(this.htmlDocument, Direction.HORIZONTAL);
+		return new SplitHTMLDocument(this, Direction.HORIZONTAL);
 	}
 
 	@Override
@@ -56,7 +78,7 @@ public class ScrollableHTMLDocument extends Pane {
 
 	@Override
 	public HTMLDocument setHTMLDocumentActive(int x, int y) {
-		return this.htmlDocument.setHTMLDocumentActive(x, y);
+		return this.htmlDocument.setHTMLDocumentActive(x-this.getX(), y-this.getY());
 	}
 
 	@Override
@@ -92,7 +114,39 @@ public class ScrollableHTMLDocument extends Pane {
 		this.htmlDocument.updateAllBars();
 	}
 
+	public ScrollableHTMLDocument copy() {
+		HTMLDocument htmlCopy = this.getHtmlDocument().copy();
+		return new ScrollableHTMLDocument(this.getX(), this.getY(), htmlCopy);
+	}
 
+	/**
+	 * Always make scrollbar visible
+	 */
+	@Override
+	public void setWidth(int width) {
+		this.getHtmlDocument().setWidth(width-10);
+		if(this.getScrollHorizontal()!=null) {
+			this.getScrollHorizontal().setWidth(this.getHtmlDocument().getWidth());
+		}
+		if(this.getScrollVertical()!=null) {
+			this.getScrollVertical().setX(this.getHtmlDocument().getEndX());
+		}
+		super.setWidth(width);
+	}
 	
+	/**
+	 * Always make scrollbar visible
+	 */
+	@Override
+	public void setHeight(int height) {
+		this.getHtmlDocument().setHeight(height-10);
+		if(this.getScrollVertical()!=null) {
+			this.getScrollVertical().setHeight(height);
+		}
+		if(this.getScrollHorizontal()!=null) {
+			this.getScrollHorizontal().setY(this.getHtmlDocument().getEndY());
+		}
+		super.setHeight(height);
+	}
 
 }

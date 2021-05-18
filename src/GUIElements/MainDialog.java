@@ -262,9 +262,10 @@ public class MainDialog extends Dialog  {
 				
 				documentArea = documentArea.deleteActiveHTMLDocument();
 				if (documentArea == null) { //TODO bug & smelly code
-					documentArea = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
+					ScrollableHTMLDocument originalPage = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
+					documentArea = originalPage;
 					documentArea.setActive(true);
-					this.setActiveHTMLDocument(originalDocumentArea);
+					this.setActiveHTMLDocument(originalPage.getHtmlDocument());
 				}
 				allContainers.add(documentArea);
 			}

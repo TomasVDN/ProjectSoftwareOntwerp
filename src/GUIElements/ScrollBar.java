@@ -210,61 +210,78 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		this.setSmallBarSize(correctSize);
 	}
 	
+	public void setSmallBarPositionWithRatio(double ratio) {
+        double newSmallBarPosition = this.getBigBarPosition() + this.getBigBarSize() * ratio;
+        this.setSmallBarPosition(newSmallBarPosition);
+    }
+	
 	/**
 	 * Sets the value xPos of this class.
 	 * 
 	 * @param x - new value of this.xPos
 	 */
-	@Override
-	public void setX(int x) {
-		super.setX(x); // TODO good practice ??
-		if (this.getDirection() == Direction.HORIZONTAL) {
-			this.bigBarPosition = x;
-			this.setSmallBarPosition(x);
-		}
-	}
-	
-	/**
-	 * Sets the value yPos of this class
-	 * 
-	 * @param y - new value of this.yPos
-	 */
-	@Override
-	public void setY(int y) {
-		super.setY(y); // TODO good practice ??
-		if (this.getDirection() == Direction.HORIZONTAL) {
-			this.bigBarPosition = y;
-			this.setSmallBarPosition(y);
-		}
-	}
-	
-	/**
-	 * Sets the value width of this class. If the new value is negative, set it to 0 instead.
-	 * 
-	 * @param width - new value of this.width
-	 */
-	@Override
-	public void setWidth(int width) {
-		super.setWidth(width); // TODO good practice ??
-		if (this.getDirection() == Direction.HORIZONTAL) {
-			this.bigBarSize = width;
-			this.setSmallBarSize(this.getSmallBarSize()); // dit moet want als de bigBarSize kleiner wordt dan smallBarSize dan moet de smallBarSize ook kleiner worden
-		}
-	}
-	
-	/**
-	 * Sets the value height of this class. If the new value is negative, set it to 0 instead.
-	 * 
-	 * @param height - new value of this.height
-	 */
-	@Override
-	public void setHeight(int height) {
-		super.setHeight(height); // TODO good practice ??
-		if (this.getDirection() == Direction.HORIZONTAL) {
-			this.bigBarSize = height;
-			this.setSmallBarSize(this.getSmallBarSize()); // dit moet want als de bigBarSize kleiner wordt dan smallBarSize dan moet de smallBarSize ook kleiner worden
-		}
-	}
+    @Override
+    public void setX(int x) {
+        super.setX(x); // TODO good practice ??
+        if (this.getDirection() == Direction.HORIZONTAL) {
+            double oldRatio = this.getScrollBarRatio();
+            this.bigBarPosition = x;
+            this.setSmallBarPosition(x);
+            this.setSmallBarPositionWithRatio(oldRatio);
+        }
+    }
+    
+    /**
+     * Sets the value yPos of this class
+     * 
+     * @param y - new value of this.yPos
+     */
+    @Override
+    public void setY(int y) {
+        super.setY(y); // TODO good practice ??
+        if (this.getDirection() == Direction.VERTICAL) {
+            double oldRatio = this.getScrollBarRatio();
+            this.bigBarPosition = y;
+            this.setSmallBarPositionWithRatio(oldRatio);
+        }
+    }
+    
+	/*
+    * Sets the value width of this class. If the new value is negative, set it to 0 instead.
+    * 
+    * @param width - new value of this.width
+    */
+   @Override
+   public void setWidth(int width) {
+       super.setWidth(width); // TODO good practice ??
+       if (this.getDirection() == Direction.HORIZONTAL) {
+           double oldBigBarSize = this.getBigBarSize();
+           double oldSmallBarSize = this.getSmallBarSize();
+           double oldRatio = this.getScrollBarRatio();
+           this.bigBarSize = width;
+           this.updateCorrectSmallBarSize((int)oldBigBarSize, (int)oldSmallBarSize);
+           this.setSmallBarPositionWithRatio(oldRatio);
+       }
+   }
+   
+   /**
+    * Sets the value height of this class. If the new value is negative, set it to 0 instead.
+    * 
+    * @param height - new value of this.height
+    */
+   @Override
+   public void setHeight(int height) {
+       super.setHeight(height); // TODO good practice ??
+       if (this.getDirection() == Direction.VERTICAL) {
+           double oldBigBarSize = this.getBigBarSize();
+           double oldSmallBarSize = this.getSmallBarSize();
+           double oldRatio = this.getScrollBarRatio();
+           this.bigBarSize = height;
+           this.updateCorrectSmallBarSize((int) oldBigBarSize, (int)oldSmallBarSize);
+           this.setSmallBarPositionWithRatio(oldRatio);
+       }
+   }
+   
 
 
 

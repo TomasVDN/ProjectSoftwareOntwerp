@@ -9,7 +9,7 @@ import EventListeners.FormListener;
 import EventListeners.ReloadListener;
 import EventListeners.ScrollBarListener;
 
-public class HTMLDocument extends Pane implements ScrollBarListener {
+public class HTMLDocument extends rootPane implements ScrollBarListener {
 	
 	private String url;
 	private String HTMLCode;
@@ -94,6 +94,7 @@ public class HTMLDocument extends Pane implements ScrollBarListener {
 		this.isActiveHTMLDocument = active;
 	}
 	
+	@Override
 	public HTMLDocument copy() {
 		HTMLDocument copy = new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
 		copy.listenerReload = this.listenerReload;//copies the listener
