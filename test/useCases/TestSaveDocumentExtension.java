@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import GUIElements.Button;
 import GUIElements.GUIElement;
 import GUIElements.SaveDialog;
+import GUIElements.ScrollableTextBox;
 import GUIElements.Text;
 import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
@@ -93,7 +94,7 @@ class TestSaveDocumentExtension {
 		assertEquals("Save As", mainWindow.getTitle());
 		
 		// check if all required Elements are contained by the saveDialog
-		TextBox textInputFieldBox = null;
+		ScrollableTextBox textInputFieldBox = null;
 		Button cancelButton = null;
 		
 		ArrayList<GUIElement> saveDialogElements = mainWindow.getWindowManager().getActiveDialog().getElements();
@@ -108,9 +109,9 @@ class TestSaveDocumentExtension {
 					containsNameLabel = true;
 				} 
 			} 
-			else if (element.getClass().equals(TextBox.class)) {
+			else if (element.getClass().equals(ScrollableTextBox.class)) {
 				if (!containsAtLeastOneTextBox) { // check if there is at least one TextBox
-					textInputFieldBox = (TextBox) element;
+					textInputFieldBox = (ScrollableTextBox) element;
 					containsAtLeastOneTextBox = true;
 				}
 			} else if (element.getClass().equals(Button.class)) {
