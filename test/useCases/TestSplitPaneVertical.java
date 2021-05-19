@@ -50,35 +50,30 @@ private MyCanvasWindow mainWindow;
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
-		// calculate the click coordinates
-		HTMLDocument originalDocument = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
-		int yHeight = originalDocument.getY() + (originalDocument.getHeight() / 2);
-		int xWidthLeftPane = originalDocument.getX() + (originalDocument.getWidth() / 2);
-		int xWidthRightPane = ((3 * originalDocument.getWidth()) / 4) + originalDocument.getX();
-				
 		// click on control H
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 72, 'h', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
 		
+		// get the left and right panel objects
 		SplitHTMLDocument root = (SplitHTMLDocument) mainWindow.getWindowManager().getMainDialog().getDocumentArea();
 		HTMLDocument leftPanel = ((ScrollableHTMLDocument) root.getLeftPanel()).getHtmlDocument();
 		HTMLDocument rightPanel = ((ScrollableHTMLDocument) root.getRightPanel()).getHtmlDocument();
 		
 		//click on the left pane
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthLeftPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthLeftPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, xWidthLeftPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 69, 420, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 69, 420, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 69, 420, 1, MouseEvent.BUTTON1, 0);
 		
 		assertEquals(leftPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
 		assertEquals(true, leftPanel.isActive());
 		assertEquals(false, rightPanel.isActive());
 		
 		//click on the right pane
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 420, 420, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 420, 420, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 420, 420, 1, MouseEvent.BUTTON1, 0);
 		
 		assertEquals(rightPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
 		assertEquals(true, rightPanel.isActive());
