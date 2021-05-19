@@ -49,9 +49,9 @@ class TestActivateHyperlinkExtension {
 		mainWindow.getWindowManager().getSearchbar().handleEnter();
 		
 		//click on the working hyperlink but with the broken html file
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 37, 217, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 37, 217, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 37, 217, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 37, 199, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 37, 199, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 37, 199, 1, MouseEvent.BUTTON1, 0);
 
 		//check the error screen
 		HTMLDocument htmlDocument1 = mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument();

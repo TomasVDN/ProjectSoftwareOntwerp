@@ -39,7 +39,7 @@ class TestPaintTableGUI {
 		when(fakeGraphics.getClip()).thenReturn(fakeshape);
 		when(fakeGraphics.create(anyInt(),anyInt(),anyInt(),anyInt())).thenReturn(fakeGraphics);
 		
-		cell1.paint(fakeGraphics); //TODO error in paint: g.setFont(font)
+		cell1.paint(fakeGraphics);
 		
 		verify(fakeGraphics, times(1)).drawString(eq("test"), anyInt(), anyInt());
 		
