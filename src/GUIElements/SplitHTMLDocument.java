@@ -268,7 +268,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 * When the vertical bar is moved the closest childs changes their position and width
 	 * The rest remains unchanged
 	 */
-	public void moveVerticalBar() {
+	private void moveVerticalBar() {
 		int widthLeftPanel = this.bar.getX();
 		int widthRightPanel = this.getWidth() - widthLeftPanel;
 		leftPanel.updateLeftClosestChildWidth(0, widthLeftPanel);
@@ -284,13 +284,16 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	@Override
 	public void updateRightClosestChildWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
 		this.setX(newXPos);
-		this.setWidth(newWidth);
 		if (dir == Direction.VERTICAL) {
-			int widthLeftPanel = newWidth - rightPanel.getWidth();
-			leftPanel.updateRightClosestChildWidth(0, widthLeftPanel);
-			bar.changeXPosition(widthLeftPanel);
-			rightPanel.setX(widthLeftPanel);
+			if(newWidth>this.getLeftPanel().getWidth()) {
+				this.setWidth(newWidth);
+				int widthLeftPanel = newWidth - rightPanel.getWidth();
+				leftPanel.updateRightClosestChildWidth(0, widthLeftPanel);
+				bar.changeXPosition(widthLeftPanel);
+				rightPanel.setX(widthLeftPanel);
+			}
 		} else {
+			this.setWidth(newWidth);
 			leftPanel.updateRightClosestChildWidth(0, newWidth);
 			rightPanel.updateRightClosestChildWidth(0, newWidth);
 		}
@@ -303,12 +306,15 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	@Override
 	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
 		this.setX(newXPos);
-		this.setWidth(newWidth);
 		if (dir == Direction.VERTICAL) {
-			int widthRigthPanel = newWidth - leftPanel.getWidth();
-			int widthLeftPanel = leftPanel.getWidth();
-			rightPanel.updateLeftClosestChildWidth(widthLeftPanel, widthRigthPanel);
+			if(newWidth>this.getRightPanel().getWidth()) {
+				this.setWidth(newWidth);
+				int widthRigthPanel = newWidth - leftPanel.getWidth();
+				int widthLeftPanel = leftPanel.getWidth();
+				rightPanel.updateLeftClosestChildWidth(widthLeftPanel, widthRigthPanel);
+			}
 		} else {
+			this.setWidth(newWidth);
 			leftPanel.updateLeftClosestChildWidth(0, newWidth);
 			rightPanel.updateLeftClosestChildWidth(0, newWidth);
 		}
@@ -318,7 +324,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 * When the horizontal bar is moved the closest childs changes their position and width
 	 * The rest remains unchanged
 	 */
-	public void moveHorizontalBar() {
+	private void moveHorizontalBar() {
 		int heightLeftPanel = this.bar.getY();
 		int heightRightPanel = this.getHeight() - heightLeftPanel;
 		leftPanel.updateLeftClosestChildHeight(0, heightLeftPanel);
@@ -333,14 +339,17 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	@Override
 	public void updateRightClosestChildHeight(int newYPos, int newHeight) {
 		this.setY(newYPos);
-		this.setHeight(newHeight);
 		if (dir == Direction.HORIZONTAL) {
-			int heightLeftPanel = newHeight-rightPanel.getHeight();
-			leftPanel.updateRightClosestChildHeight(0, heightLeftPanel);
-			bar.changeYPosition(heightLeftPanel);
-			rightPanel.setY(heightLeftPanel);
+			if(newHeight>this.getRightPanel().getHeight()) {
+				this.setHeight(newHeight);
+				int heightLeftPanel = newHeight-rightPanel.getHeight();
+				leftPanel.updateRightClosestChildHeight(0, heightLeftPanel);
+				bar.changeYPosition(heightLeftPanel);
+				rightPanel.setY(heightLeftPanel);
+			}
 			//rightPanel.updateRightClosestChildHeight(heightLeftPanel, this.getHeight() - heightLeftPanel);
 		} else {
+			this.setHeight(newHeight);
 			leftPanel.updateRightClosestChildHeight(0, newHeight);
 			rightPanel.updateRightClosestChildHeight(0, newHeight);
 		}
@@ -354,11 +363,14 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	@Override
 	public void updateLeftClosestChildHeight(int newYPos, int newHeight) {
 		this.setY(newYPos);
-		this.setHeight(newHeight);
 		if (dir == Direction.HORIZONTAL) {
-			int heightLeftPanel = leftPanel.getHeight();
-			rightPanel.updateLeftClosestChildHeight(heightLeftPanel, newHeight - heightLeftPanel);
+			if(newHeight>this.getRightPanel().getHeight()) {
+				this.setHeight(newHeight);
+				int heightLeftPanel = leftPanel.getHeight();
+				rightPanel.updateLeftClosestChildHeight(heightLeftPanel, newHeight - heightLeftPanel);
+			}
 		} else {
+			this.setHeight(newHeight);
 			leftPanel.updateLeftClosestChildHeight(0, newHeight);
 			rightPanel.updateLeftClosestChildHeight(0, newHeight);
 		}
