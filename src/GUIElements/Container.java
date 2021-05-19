@@ -27,32 +27,6 @@ public class Container extends GUIElement implements ScrollBarListener {
 		super(x, y, w, h);
 	}
 	
-	public int maxXCoordinateOfElements() {
-		int maxWidth = this.getWidth(); // own width is minimal
-		for(int i=0; this.getElements().size()>i;i++){
-			GUIElement currentElement = this.getElements().get(i);
-			int maxXofCurrentElement = currentElement.getEndX();
-			if(maxXofCurrentElement>maxWidth) {
-				maxWidth=maxXofCurrentElement;
-			}
-		}
-		return maxWidth;
-	}
-	
-	
-	public int maxYCoordinatOfElements() {
-		int maxHeight = this.getHeight(); // own height is minimal
-		for(int i=0; this.getElements().size()>i;i++){
-			GUIElement currentElement = this.getElements().get(i);
-			int maxYofCurrentElement = currentElement.getEndY();
-			if(maxYofCurrentElement>maxHeight) {
-				maxHeight=maxYofCurrentElement;
-			}
-		}
-		return maxHeight;
-	}
-
-
 	/**
 	 * Paints all the GUIElements contained within this container.
 	 * @param g - Graphics object used to paint.
@@ -65,7 +39,6 @@ public class Container extends GUIElement implements ScrollBarListener {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Returns the GUIElement at position (x,y). If such element does not exist, return null.
 	 * @param x - x coordinate
 	 * @param y - y coordinate
@@ -101,7 +74,7 @@ public class Container extends GUIElement implements ScrollBarListener {
 			throw new IllegalArgumentException("Can't add null to a container");
 		}
 		this.elements.add(element);
-		this.notifyAdjustmentListenerReset(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
+		this.notifyAdjustmentListenerKeepAtBeginning(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
 	}
 	
 	/**
@@ -124,7 +97,7 @@ public class Container extends GUIElement implements ScrollBarListener {
 	public void resetAllElements(ArrayList<GUIElement> guiList) {
 		this.elements.clear();
 		// if guilist is empty elements don't get added so notify is here also needed
-		this.notifyAdjustmentListenerReset(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
+		this.notifyAdjustmentListenerKeepAtBeginning(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
 		this.addMultipleElements(guiList);
 	}
 	
@@ -149,6 +122,53 @@ public class Container extends GUIElement implements ScrollBarListener {
 		return null;
 	}
 
+	/**
+	 * Returns the x coordinate of the right side of the right most GUIElement
+	 * @return max(listOfGUIELements.forEach.getX)
+	 */
+	public int maxXCoordinateOfElements() {
+		int maxWidth = this.getWidth(); // own width is minimal
+		for(int i=0; this.getElements().size()>i;i++){
+			GUIElement currentElement = this.getElements().get(i);
+			int maxXofCurrentElement = currentElement.getEndX();
+			if(maxXofCurrentElement>maxWidth) {
+				maxWidth=maxXofCurrentElement;
+			}
+		}
+		return maxWidth;
+	}
+	
+	/**
+	 * Returns the y coordinate of the lower boundary of the bottom most element.
+	 * @return max(listOfGUIELements.forEach.getX)
+	 */
+	public int maxYCoordinatOfElements() {
+		int maxHeight = this.getHeight(); // own height is minimal
+		for(int i=0; this.getElements().size()>i;i++){
+			GUIElement currentElement = this.getElements().get(i);
+			int maxYofCurrentElement = currentElement.getEndY();
+			if(maxYofCurrentElement>maxHeight) {
+				maxHeight=maxYofCurrentElement;
+			}
+		}
+		return maxHeight;
+	}
+	
+	/**
+	 * Notifies this container that the scrollbar has been moved
+	 */
+	@Override
+	public void scrollBarMoved(double ratio, Direction direction) {
+		if(direction == Direction.HORIZONTAL) {
+			int newOffset = (int)( ratio * this.maxXCoordinateOfElements());
+			this.setxOffset(-newOffset);
+		}
+		else {
+			int newOffset = (int)( ratio * this.maxYCoordinatOfElements());
+			this.setyOffset(-newOffset);
+		}
+	}
+	
 	/**
 	 * Returns an array with all the elements in this Container of the given class.
 	 */
@@ -185,30 +205,23 @@ public class Container extends GUIElement implements ScrollBarListener {
 		this.xOffset = xOffset;
 	}
 	
+	/**
+	 * Updates the width to the given width and notifies the adjustListener that this has been updated.
+	 * @param width - the new width
+	 */
 	@Override
 	public void setWidth(int width) {
 		super.setWidth(width);
 		notifyAdjustmentListener(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
 	}
 	
+	/**
+	 * Updates the height to the given height and notifies the adjustListener that this has been updated.
+	 * @param height - the new height
+	 */
 	@Override
 	public void setHeight(int height) {
 		super.setHeight(height);
 		notifyAdjustmentListener(this.getWidth(), this.maxXCoordinateOfElements(), this.getHeight(), this.maxYCoordinatOfElements());
 	}
-	
-
-	@Override
-	public void scrollBarMoved(double ratio, Direction direction) {
-		if(direction == Direction.HORIZONTAL) {
-			int newOffset = (int)( ratio*this.maxXCoordinateOfElements());
-			this.setxOffset(-newOffset);
-		}
-		else {
-			int newOffset = (int)( ratio*this.maxYCoordinatOfElements());
-			this.setyOffset(-newOffset);
-		}
-	}
-
-
 }

@@ -9,7 +9,6 @@ import EventListeners.AdjustmentListener;
 
 /**
  * Superclass of the GUIElements. It defines the basics such as position, width and height,...
- * @author rpone
  *
  */
 public abstract class GUIElement {
@@ -18,6 +17,11 @@ public abstract class GUIElement {
 	private int width;
 	private int height;
 	private boolean isActive = false;
+	
+	/**
+	 * List with adjustlisteners. This has been put in the GUIElement superclass for easier scrollbar implementation on further
+	 * GUIElements.
+	 */
 	private ArrayList<AdjustmentListener> adjustListeners = new ArrayList<AdjustmentListener>();
 
 	/**
@@ -173,18 +177,22 @@ public abstract class GUIElement {
 	}
 
 	/**
-	 * Sets if this GUIElement is active or not. If it is set to inactive, execute corresponding code.
+	 * Sets if this GUIElement is active or not.
 	 * @param newIsActive - the new value of isActive to set
 	 */
 	public void setActive(boolean newIsActive) {
 		this.isActive = newIsActive;
+	}
+	
+	/**
+	 * Sets if this GUIElement is active or not. If it is set to inactive, execute corresponding code.
+	 * @param newIsActive - the new value of isActive to set
+	 */
+	public void setActiveUnselect(boolean newIsActive) {
+		this.isActive = newIsActive;
 		if (!newIsActive) {
 			handleUnselect();
 		}
-	}
-	
-	public void setActiveNoUnselect(boolean newIsActive) {
-		this.isActive = newIsActive;
 	}
 
 	public abstract void handleKeyEvent(int keyCode, char keyChar, int modifiersEx);
@@ -203,8 +211,8 @@ public abstract class GUIElement {
 	
 	/**
 	 * Draws text centered in the GUIElement.
-	 * @param g		Graphics object
-	 * @param text	String to draw
+	 * @param g - Graphics object
+	 * @param text - String to draw
 	 */
 	public void drawCenteredText(Graphics g, String text){
 		Font font = g.getFont();
@@ -251,30 +259,62 @@ public abstract class GUIElement {
 		return array;
 	}
 
+	/**
+	 * Add the given AdjustmentListener to the list of AdjustmentListeners
+	 * @param listener - listener to add
+	 */
 	public void addAdjustListener(AdjustmentListener listener) {
 		if(listener!=null) {
 			this.adjustListeners.add(listener);
 		}
 	}
 
+	/**
+	 * Removes the given AdjustmentListener to the list of AdjustmentListeners
+	 * @param listener - listener to remove
+	 */
 	public  void removeFormListener(AdjustmentListener listener) {
 		this.adjustListeners.remove(listener);
 	}
 	
+	/**
+	 * Return the list of adjustListeners
+	 * @return this.adjustListeners
+	 */
 	public ArrayList<AdjustmentListener> getAdjustListeners() {
 		return adjustListeners;
 	}
 	
+	/**
+	 * Notify the adjustmentListeners that this has been updated.
+	 * @param viewableWidth
+	 * @param newWidth
+	 * @param viewableHeight
+	 * @param newHeight
+	 */
 	public void notifyAdjustmentListener(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
-		this.getAdjustListeners().forEach(l->l.elementChanged(viewableWidth, newWidth, viewableHeight, newHeight));
+		this.getAdjustListeners().forEach(listener ->listener.elementChanged(viewableWidth, newWidth, viewableHeight, newHeight));
 	}
 	
-	public void notifyAdjustmentListenerReset(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
-		this.getAdjustListeners().forEach(l->l.elementChangedAndReset(viewableWidth, newWidth, viewableHeight, newHeight));
+	/**
+	 * Notify the adjustmentListeners that this has been updated. Keep scrollbar at beginning version.
+	 * @param viewableWidth
+	 * @param newWidth
+	 * @param viewableHeight
+	 * @param newHeight
+	 */
+	public void notifyAdjustmentListenerKeepAtBeginning(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
+		this.getAdjustListeners().forEach(listener -> listener.elementChangedKeepAtBeginning(viewableWidth, newWidth, viewableHeight, newHeight));
 	}
 	
-	public void notifyAdjustmentListenerIncreased(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
-		this.getAdjustListeners().forEach(l->l.elementIncreased(viewableWidth, newWidth, viewableHeight, newHeight));
+	/**
+	 * Notify the adjustmentListeners that this has been updated. Keep scrollbar at end version.
+	 * @param viewableWidth
+	 * @param newWidth
+	 * @param viewableHeight
+	 * @param newHeight
+	 */
+	public void notifyAdjustmentListenerKeepAtEnd(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
+		this.getAdjustListeners().forEach(listener -> listener.elementChangedKeepAtEnd(viewableWidth, newWidth, viewableHeight, newHeight));
 	}
-
 }

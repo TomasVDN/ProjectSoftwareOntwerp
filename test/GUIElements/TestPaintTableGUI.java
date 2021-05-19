@@ -44,7 +44,7 @@ class TestPaintTableGUI {
 		
 		verify(fakeGraphics,  times(2)).drawString(anyString(), anyInt(), anyInt());
 		
-		textbox1.setActive(true);
+		textbox1.setActiveUnselect(true);
 		textbox1.setSelectedText("test");
 		textbox1.paint(fakeGraphics);
 		

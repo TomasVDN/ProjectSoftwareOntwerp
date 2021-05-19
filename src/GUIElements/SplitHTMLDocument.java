@@ -153,7 +153,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		if (leftPanel == null) {			
 			rightPanel.updateRightClosestChildWidth(getX(), getWidth());
 			rightPanel.updateRightClosestChildHeight(getY(), getHeight());//TODO ziet mij er lelijk uit
-			rightPanel.setActive(true);
+			rightPanel.setActiveUnselect(true);
 			rightPanel.updateAllBars();
 			return rightPanel;
 		}
@@ -162,7 +162,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			leftPanel.updateRightClosestChildWidth(getX(), getWidth());
 			leftPanel.updateRightClosestChildHeight(getY(), getHeight());
 			
-			leftPanel.setActive(true);
+			leftPanel.setActiveUnselect(true);
 			leftPanel.updateAllBars();
 			return leftPanel;
 		}

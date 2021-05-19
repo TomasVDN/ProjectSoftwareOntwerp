@@ -36,12 +36,12 @@ public enum Direction {
 	
 	public abstract int[] getPosition(int[] position);
 	
-/**
- * This method ask for the container and an integer, with this he is going to set the heigth or width
- * to the size of the container, smallSize is used when the container is not used 
- * @param cont
- * @param smallSize
- * @return
- */
+	/**
+	 * This method ask for the container and an integer, with this he is going to set the heigth or width
+	 * to the size of the container, smallSize is used when the container is not used 
+	 * @param cont
+	 * @param smallSize
+	 * @return
+	 */
 	public abstract int[] adjustWidthAndHeigth(Container cont, int smallSize);
 }

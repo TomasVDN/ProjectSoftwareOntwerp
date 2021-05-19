@@ -52,12 +52,12 @@ public class ScrollableHTMLDocument extends LeafPane {
 
 	@Override
 	public void resetActiveHTMLDocument() {
-		this.htmlDocument.setActive(false);
+		this.htmlDocument.setActiveUnselect(false);
 	}
 	
 	@Override	
-	public void setActive(boolean active) {
-		this.htmlDocument.setActive(active);
+	public void setActiveUnselect(boolean active) {
+		this.htmlDocument.setActiveUnselect(active);
 	}
 	
 
