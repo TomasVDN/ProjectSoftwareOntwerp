@@ -85,18 +85,22 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	}
 
 	@Override
-	public void changeActiveHTMLDocument(int x, int y) {
+	public HTMLDocument changeActiveHTMLDocument(int x, int y) {
 		int xRel = x - getX();
 		int yRel = y - getY();
 		
-		resetActiveHTMLDocument();
-		
-		if (leftPanel.containsPoint(xRel, yRel))
-			leftPanel.changeActiveHTMLDocument(xRel, yRel);
-		else {
-			rightPanel.changeActiveHTMLDocument(xRel, yRel);
-			activeOnLeft = false;
+		if(this.containsPoint(xRel, yRel)) {
+			resetActiveHTMLDocument();
+			
+			if (leftPanel.containsPoint(xRel, yRel))
+				return leftPanel.changeActiveHTMLDocument(xRel, yRel);
+			else if (rightPanel.containsPoint(xRel, yRel)){
+				activeOnLeft = false;
+				return rightPanel.changeActiveHTMLDocument(xRel, yRel);
+			}
 		}
+		return null;
+		
 	}
 
 	@Override
@@ -175,9 +179,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			return bar;
 		}
 		
-		this.changeActiveHTMLDocument(x, y);
+		//this.changeActiveHTMLDocument(x, y);
 		
-		if (activeOnLeft) {
+		if (leftPanel.containsPoint(xRel, yRel)) {
 			return leftPanel.getGUIAtPosition(xRel, yRel);
 		} else {
 			return rightPanel.getGUIAtPosition(xRel, yRel);
@@ -320,7 +324,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 	}
 
-	@Override
+	/*@Override
 	public HTMLDocument setHTMLDocumentActive(int x, int y) {
 		int xRel = x - getX();
 		int yRel = y - getY();
@@ -335,7 +339,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 		// not clicked on any panel, don't change anything
 		return null;
-	}
+	}*/
 
 
 }

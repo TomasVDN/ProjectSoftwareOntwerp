@@ -231,9 +231,8 @@ public class MainDialog extends Dialog  {
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
 		// activate the GUIElement at the given position
 		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
-		
 		//sets the clicked panel to active
-		HTMLDocument newActiveHTML = documentArea.setHTMLDocumentActive(x, y);
+		HTMLDocument newActiveHTML = documentArea.changeActiveHTMLDocument(x, y);
 		if(newActiveHTML!=null) {
 			this.setActiveHTMLDocument(newActiveHTML);
 			this.changeSearchBar(newActiveHTML.getUrl());
