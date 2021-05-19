@@ -56,7 +56,7 @@ public class ScrollableHTMLDocument extends LeafPane {
 	}
 	
 	@Override	
-	public void setActiveUnselect(boolean active) {
+	public void setActive(boolean active) {
 		this.htmlDocument.setActive(active);
 	}
 	
