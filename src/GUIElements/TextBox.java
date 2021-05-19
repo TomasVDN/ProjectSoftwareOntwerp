@@ -19,6 +19,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	private int xOffset;
 	private int yOffset;
 	private int CONSTANTXOFFSET=10;
+	private int CONSTANTXRIGHTGAP=10;
 	private int CONSTANTYOFFSET = 2;
 	
 
@@ -99,7 +100,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	public int getWidthText() {
 		String text = this.getText();
 		Text textWithWidth= new Text(0, 0, text); // position doesn't matter
-		return Math.max(this.getWidth(), textWithWidth.getWidth()+CONSTANTXOFFSET);
+		return Math.max(this.getWidth(), textWithWidth.getWidth()+CONSTANTXOFFSET+CONSTANTXRIGHTGAP);
 	}
 
 	/**
@@ -223,16 +224,16 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 
 		
 		if (selectedText != "") {
-			int y =((this.getHeight() - metrics.getHeight()) / 2) -yOffset;
-			int x = metrics.stringWidth(this.leftText)+xOffset;
+			int y =((this.getHeight() - metrics.getHeight()) / 2) - this.getYTotalOffset();
+			int x = metrics.stringWidth(this.leftText) + this.getXTotalOffset();
 			g.setColor(Color.blue);
 			g.fillRect(x, y, metrics.stringWidth(selectedText), metrics.getHeight());
 			g.setColor(Color.black);
 		}
 		
-		int y = ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent()-yOffset;
+		int y = ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent()-this.getYTotalOffset();
 		//g.drawString(this.getText(), super.getX(), y);
-		g.drawString(this.getText(), xOffset, y);
+		g.drawString(this.getText(), this.getXTotalOffset(), y);
 	}
 	
 	/**
@@ -242,7 +243,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	 */
 	private void drawCursor(Graphics g, FontMetrics metrics) {
 		int y = ((this.getHeight() - metrics.getHeight()) / 2);
-		int x = metrics.stringWidth(leftText)+xOffset;
+		int x = metrics.stringWidth(leftText)+this.getXTotalOffset();
 		if (cursorOnTheRightOfSelectedText()) {
 			x += metrics.stringWidth(selectedText); 
 		}
@@ -514,9 +515,13 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	public int getyOffset() {
 		return yOffset;
 	}
+	
+	public int getYTotalOffset() {
+		return this.getyOffset() + CONSTANTYOFFSET;
+	}
 
 	public void setyOffset(int yOffset) {
-		this.yOffset = yOffset + CONSTANTYOFFSET;
+		this.yOffset = yOffset;
 	}
 	
 	public int getxOffset() {
@@ -524,7 +529,11 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	}
 
 	public void setxOffset(int xOffset) {
-		this.xOffset = xOffset +CONSTANTXOFFSET;
+		this.xOffset = xOffset;
+	}
+	
+	public int getXTotalOffset() {
+		return this.getxOffset() + CONSTANTXOFFSET;
 	}
 	
 }
