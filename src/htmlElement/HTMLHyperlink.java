@@ -1,7 +1,6 @@
 package htmlElement;
 
 import GUIElements.Hyperlink;
-import facades.BrowsrController;
 
 
 public class HTMLHyperlink extends ContentSpan{

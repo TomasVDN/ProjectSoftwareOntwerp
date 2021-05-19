@@ -86,8 +86,6 @@ public class Container extends GUIElement implements ScrollBarListener {
 	}
 	
 	/**
-=======
->>>>>>> branch 'main' of https://github.com/TomasVDN/ProjectSoftwareOntwerp.git
 	 * @return the elements
 	 */
 	public ArrayList<GUIElement> getElements() {

@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import canvaswindow.MyCanvasWindow;
 import EventListeners.AddBookmarkListener;
-import EventListeners.ChangeDialogListener;
+import EventListeners.HyperLinkListener;
 import EventListeners.SavePageListener;
 import GUIElements.*;
 
 /**
  * Controller type class. Handles everything UI related.
- *
  */
 public class WindowManager {
 	
@@ -23,7 +22,8 @@ public class WindowManager {
 	
 	private List<SavePageListener> savePageListener = new ArrayList<SavePageListener>();
 	private List<AddBookmarkListener> AddbookmarkListener = new ArrayList<AddBookmarkListener>();
-
+	private List<HyperLinkListener> hyperlinkListeners = new ArrayList<HyperLinkListener>();
+	
 	private int width;
 	private int height;
 	boolean ignoreClick;
@@ -41,6 +41,7 @@ public class WindowManager {
 		BrowsrController browsrController = new BrowsrController(this);
 		this.AddbookmarkListener.add(browsrController::addBookmark);
 		this.savePageListener.add(browsrController::savePage);
+		this.hyperlinkListeners.add(browsrController);
 		
 		this.setWidth(600);
 		this.setHeight(600);
@@ -307,10 +308,10 @@ public class WindowManager {
 	 * @param bookmarkHyperlinkUrl - URL of the bookmark
 	 * @param BrowsrController - eventHandler
 	 */
-	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl, BrowsrController browsr) {
+	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);
 		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, bookmarkHyperlinkNameText, bookmarkHyperlinkUrl);
-		newBookmarkHyperlink.addHyperLinkListener(browsr);
+		hyperlinkListeners.forEach(listener -> newBookmarkHyperlink.addHyperLinkListener(listener));
 		this.getMainDialog().addBookmark(newBookmarkHyperlink);
 	}
 

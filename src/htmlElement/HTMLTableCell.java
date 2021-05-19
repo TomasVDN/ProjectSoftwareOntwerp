@@ -1,7 +1,6 @@
 package htmlElement;
 
 import GUIElements.TableCellGUI;
-import facades.BrowsrController;
 
 public class HTMLTableCell {
 
