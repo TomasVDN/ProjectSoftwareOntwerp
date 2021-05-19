@@ -1,7 +1,6 @@
 package htmlElement;
 
 import GUIElements.Text;
-import facades.BrowsrController;
 /**
  * The text of a html
  * @author kobe

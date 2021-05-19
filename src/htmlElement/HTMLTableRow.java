@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import GUIElements.TableCellGUI;
 import GUIElements.TableRowGUI;
-import facades.BrowsrController;
 
 public class HTMLTableRow {
 
