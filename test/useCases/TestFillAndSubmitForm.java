@@ -95,7 +95,6 @@ class TestFillAndSubmitForm {
 		assertEquals("t.b.v.", pageTableRow4Text.getText());
 		assertEquals("t.g.v.", pageTableRow5Text.getText());
 
-
 	}
 
 }
