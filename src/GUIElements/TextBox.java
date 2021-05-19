@@ -215,6 +215,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	
 	/**
 	 * Draw the text from this textBox.
+	 * This is adjusted with the offset of this textbox
 	 * @param g
 	 * @param metrics
 	 */
@@ -470,6 +471,9 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		this.notifyAdjustmentListenerKeepAtBeginning(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 	}
 	
+	/**
+	 * Handles the unselect of this textbox
+	 */
 	@Override
 	public void handleUnselect() {
 		this.leftText = this.leftText + this.selectedText + this.rightText;
@@ -506,6 +510,9 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		return cursorOnTheRightOfSelectedText;
 	}
 
+	/**
+	 * Changes the offset of the content of this textbox depending on the ratio of the textbox
+	 */
 	@Override
 	public void scrollBarMoved(double ratio,Direction direction) {
 		if(direction== Direction.HORIZONTAL) {
@@ -514,26 +521,44 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		}
 	}
 	
+	/**
+	 * Returns the y offset of this textBox
+	 */
 	public int getyOffset() {
 		return yOffset;
 	}
 	
+	/**
+	 * Returns the total y offset of this textbox (the variable + the constant)
+	 */
 	public int getYTotalOffset() {
 		return this.getyOffset() + CONSTANTYOFFSET;
 	}
 
-	public void setyOffset(int yOffset) {
+	/**
+	 * Sets the y offset to the given offset
+	 */
+	private void setyOffset(int yOffset) {
 		this.yOffset = yOffset;
 	}
 	
+	/**
+	 * Returns the x offset of this textBox
+	 */
 	public int getxOffset() {
 		return xOffset;
 	}
 
+	/**
+	 * Sets the x offset to the given offset
+	 */
 	public void setxOffset(int xOffset) {
 		this.xOffset = xOffset;
 	}
 	
+	/**
+	 * Returns the total x offset of this textbox (the variable + the constant)
+	 */
 	public int getXTotalOffset() {
 		return this.getxOffset() + CONSTANTXOFFSET;
 	}

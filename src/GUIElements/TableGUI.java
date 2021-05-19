@@ -19,16 +19,29 @@ public class TableGUI extends GUIElement {
 		this.setGuiRows(guiRows);
 	}
 	
+	/**
+	 * Constructor of the table GUI class with an offset between the TableRowGUI
+	 * @param guiRows - list of TableRowGUI
+	 * @param x - x coordinate of this class
+	 * @param y - y coordinate of this class
+	 * @param offset - the offset of the y coordinate between TableRowGUI
+	 */
 	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y, int offSet) {
 		super(x,y);
 		this.setGuiRows(guiRows);
 		this.offSet = offSet;
 	}
 	
+	/**
+	 * Sets the offset of the TableGUI
+	 */
 	public void setOffSet(int newOffset) {
 		this.offSet = newOffset;
 	}
 	
+	/**
+	 * @return returns the offset of the TableGUI
+	 */
 	public int getOffSet() {
 		return this.offSet;
 	}

@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 import EventListeners.SeparatorBarMoveListener;
 
+/**
+ * This class forms the inner nodes of the HTMLDocument tree.
+ * It has each time a direction (Horizontal or Vertical) and 
+ * a leftPane and a rightPane. Those panes are RootPanes or SplitHtmlDocument their selves
+ *
+ */
 public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	
 	private Pane leftPanel;
@@ -13,6 +19,11 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	private SeperatorBar bar;
 	private Direction dir;
 
+	/**
+	 * Creates a new splitHTMLDocument
+	 * @param original - the leafpane that would be copied on both sides
+	 * @param direction - the direction of the seperatorBar between the panes
+	 */
 	public SplitHTMLDocument(LeafPane original, Direction direction) {
 		super(original.getX(), original.getY(), original.getWidth(), original.getHeight());
 		
@@ -30,7 +41,11 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	
 	
 	
-
+	/**
+	 *  Initialize the document to be splitted with a horizontal seperator bar
+	 * @param original - the htmlDocument , the left node becomes the original document
+	 * 	the right side is a copy of the html that is reloaded
+	 */
 	private void initHorizontalPanels(LeafPane original) {
 		LeafPane tempLeftPanel = original;
 		LeafPane tempRightPanel = original.copy();
@@ -53,6 +68,11 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.rightPanel = tempRightPanel;
 	}
 
+	/**
+	 *  Initialize the document to be splitted with a vertical seperator bar
+	 * @param original - the htmlDocument , the left node becomes the original document
+	 * 	the right side is a copy of the html that is reloaded
+	 */
 	private void initVerticalPanels(LeafPane original) {
 		LeafPane tempLeftPanel = original;
 		LeafPane tempRightPanel = original.copy();
@@ -75,6 +95,10 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.rightPanel = tempRightPanel;
 	}
 
+	/**
+	 * Gets the active HTMLDocument, this class has a variable that is true if the activeELement
+	 * is on the left side, if false it is on the rigth side (if none it is set to left)
+	 */
 	@Override
 	public HTMLDocument getActiveHTMLDocument() {
 		if (activeOnLeft) {
@@ -84,6 +108,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 	}
 
+	/**
+	 * Changes the active element to the HTMLDocument at the given position
+	 */
 	@Override
 	public HTMLDocument changeActiveHTMLDocument(int x, int y) {
 		if(this.containsPoint(x, y)) {
@@ -102,6 +129,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		
 	}
 
+	/**
+	 * Resets the whole tree, set all elements inactive 
+	 */
 	@Override
 	public void resetActiveHTMLDocument() {
 		if (activeOnLeft)
@@ -111,6 +141,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		activeOnLeft = true;
 	}
 
+	/**
+	 * Splits the active HTMLDocument vertical and returns the new Tree
+	 */
 	@Override
 	public Pane splitActiveHTMLDocumentVertical() {
 		if (activeOnLeft)
@@ -121,6 +154,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		return this;
 	}
 	
+	/**
+	 * Splits the active HTMLDocument horizontal and returns the new Tree
+	 */
 	@Override
 	public Pane splitActiveHTMLDocumentHorizontal() {
 		if (activeOnLeft)
@@ -131,6 +167,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		return this;
 	}
 
+	/**
+	 * Paints the splitHTMLCode with the seperatorBar
+	 */
 	@Override
 	public void paint(Graphics g) {
 		Graphics newG =  g.create(getX(), getY(), getWidth(), getHeight());
@@ -142,6 +181,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		bar.paint(newG);
 	}
 
+	/**
+	 * Deletes the ActiveHTMLDocument and adjust the tree so that every node has 2 childeren
+	 */
 	@Override
 	public Pane deleteActiveHTMLDocument() {
 		if (activeOnLeft)
@@ -169,6 +211,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		return this;
 	}
 	
+	/**
+	 * Gets GUI at the given position, checks first if the seperatorBar is selected
+	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
 		int xRel = x - getX();
@@ -188,16 +233,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	}
 	
 	
-	@Override
-	public void addElement(GUIElement element) {
-		this.getActiveHTMLDocument().addElement(element);
-	}
 	
-	
-	@Override
-	public void addMultipleElements(ArrayList<GUIElement> guiList) {
-		this.getActiveHTMLDocument().addMultipleElements(guiList);
-	}
 	
 	/**
 	 * Update all the bars to get the correct width and height
@@ -323,22 +359,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 	}
 
-	/*@Override
-	public HTMLDocument setHTMLDocumentActive(int x, int y) {
-		int xRel = x - getX();
-		int yRel = y - getY();
-		
-		if(leftPanel.containsPoint(xRel, yRel)) {
-			this.activeOnLeft =true;
-			return leftPanel.setHTMLDocumentActive(xRel, yRel);
-		}
-		else if (rightPanel.containsPoint(xRel, yRel)) {
-			this.activeOnLeft =false;
-			return rightPanel.setHTMLDocumentActive(xRel, yRel);
-		}
-		// not clicked on any panel, don't change anything
-		return null;
-	}*/
 
 
 }

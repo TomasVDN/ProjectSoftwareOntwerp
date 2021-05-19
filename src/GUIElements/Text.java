@@ -141,11 +141,20 @@ public class Text extends GUIElement {
 	public void handleUnselect() {
 	}
 
+	/**
+	 * Returns the color of this text
+	 */
 	public Color getColor() {
 		return color;
 	}
 
+	/**
+	 * Sets the color of this text to the given color
+	 */
 	protected void setColor(Color color) {
+		if(color==null) {
+			throw new IllegalArgumentException("Not a valid color");
+		}
 		this.color = color;
 	}
 

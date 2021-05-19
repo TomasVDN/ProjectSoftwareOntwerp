@@ -3,6 +3,7 @@ package GUIElements;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.junit.Before;
 
 import EventListeners.SearchBarListener;
 
@@ -19,7 +20,12 @@ class TestSearchBar {
 
 	};
 	SearchBarListenerClass searchBarListener = new SearchBarListenerClass();
-	SearchBar testBar = new SearchBar(0, 0, 0, 0,searchBarListener);
+	SearchBar testBar = new SearchBar(0, 0, 0, 0);
+	
+	@Before
+	void init() {
+		testBar.addSearchBarListener(searchBarListener);
+	}
 	
 	@Test
 	void testHandleUnselect() {

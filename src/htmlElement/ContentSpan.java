@@ -7,6 +7,9 @@ public abstract class ContentSpan {
 	public ContentSpan() {
 	}
 
+	/**
+	 * Returns the HTML/contentSpan to its string form
+	 */
 	@Override
 	public abstract String toString();
 	

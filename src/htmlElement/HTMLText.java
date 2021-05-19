@@ -10,6 +10,17 @@ public class HTMLText extends ContentSpan{
 
 	private String text;
 	
+	
+	public HTMLText(String text) {
+		if (text == null) {
+			throw new IllegalArgumentException("A HTMLText can't be constructed with null argument.");
+		}
+		this.text = text;
+	}
+	
+	/**
+	* Returns the string inside this HTMLText class
+	 */
 	public String getText() {
 		return text;
 	}
@@ -21,12 +32,6 @@ public class HTMLText extends ContentSpan{
 		this.text = text;
 	}
 
-	public HTMLText(String text) {
-		if (text == null) {
-			throw new IllegalArgumentException("A HTMLText can't be constructed with null argument.");
-		}
-		this.text = text;
-	}
 
 	@Override
 	public String toString() {

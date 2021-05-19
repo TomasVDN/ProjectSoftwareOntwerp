@@ -15,15 +15,14 @@ public class SearchBar extends TextBox {
 	 * @param y - y coordinate of the SearchBar
 	 * @param w - width of the SearchBar
 	 * @param h - height of the SearchBar
-	 * @param eventReader - the eventReader used for the SearchBarListener
 	 */
-	public SearchBar(int x, int y, int w, int h, SearchBarListener eventReader) {
+	public SearchBar(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		this.addSearchBarListener(eventReader);
 	}
 	
 	/**
 	 * Overrides the handle enter method of the TextBox superclass
+	 * Run the url inside when enter is pressed
 	 */
 	@Override
 	public void handleEnter() {
@@ -32,6 +31,7 @@ public class SearchBar extends TextBox {
 	
 	/**
 	 * Overrides the handle unselect method of the TextBox superclass
+	 * Run the url inside when searchBar is unselected
 	 */
 	@Override
 	public void handleUnselect() {
@@ -39,7 +39,7 @@ public class SearchBar extends TextBox {
 	}
 	
 	/**
-	 * Sends a runUrlEvent to the eventReader.
+	 * Sends a runUrlEvent to the searchBarListeners.
 	 */
 	private void runUrlEvent() {
 		for(SearchBarListener listener: this.getListeners()) {
@@ -61,16 +61,29 @@ public class SearchBar extends TextBox {
 		return URL.substring(0, index+1);
 	}
 	
+	/**
+	 * Adds a searchBarListener to the given searchBar, searchBar notifies this listener when
+	 * specific events happen
+	 * @param listener - a searchBarListener
+	 */
 	public void addSearchBarListener(SearchBarListener listener) {
 		if(listener!=null) {
 			this.listeners.add(listener);
 		}
 	}
 
+	/**
+	 * Removes a searchBar listener from the searchbar
+	 * @param listener - the listener to be removed
+	 */
 	public void removeSearchBarListener(SearchBarListener listener) {
 		this.listeners.remove(listener);
 	}
 
+	/**
+	 * Get the listeners of this searchBar
+	 * @return
+	 */
 	public List<SearchBarListener> getListeners() {
 		return listeners;
 	}

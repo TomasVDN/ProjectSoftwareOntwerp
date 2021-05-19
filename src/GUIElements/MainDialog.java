@@ -92,8 +92,8 @@ public class MainDialog extends Dialog  {
 	 * @param browsrController
 	 */
 	private void initSearchBar(SearchBarListener searchBarListener) {
-		SearchBar searchBar = new SearchBar(0, 0, this.getWidth() - 30, 40, searchBarListener);
-		
+		SearchBar searchBar = new SearchBar(0, 0, this.getWidth() - 30, 40);
+		searchBar.addSearchBarListener(searchBarListener);
 		this.setSearchbar(searchBar);
 		
 		ScrollableTextBox scrollableSearchBar = new ScrollableTextBox(10 ,10 ,searchBar);

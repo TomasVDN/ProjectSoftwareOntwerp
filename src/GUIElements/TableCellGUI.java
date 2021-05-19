@@ -2,7 +2,10 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-
+/**
+ * This class represents a small box arround the GUI, this is used inside a TableGUI
+ *
+ */
 public class TableCellGUI extends GUIElement {
 
 	private GUIElement gui;
@@ -88,13 +91,21 @@ public class TableCellGUI extends GUIElement {
 	}
 	
 	
-
+	/**
+	 * Handles the Key event of TableCellGUI
+	 */
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}
 
+	/**
+	 * Handles the unselect of a TableCellGUI
+	 */
 	@Override
 	protected void handleUnselect() {}
 
+	/**
+	 * Handles the handleClick of a TableGUI
+	 */
 	@Override
 	public void handleClick() {}
 	

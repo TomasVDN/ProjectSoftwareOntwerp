@@ -12,9 +12,9 @@ public class ScrollableHTMLDocument extends LeafPane {
 
 	/**
 	 * Constructor of the ScrollableHTMLDocument. It creates the two Scrollbars.
-	 * @param x
-	 * @param y
-	 * @param html
+	 * @param x - the x position of the scrollableHTMLDocument
+	 * @param y - the y position of the scrollableHTMLDocument
+	 * @param html - the htmlDocument that needs the scrollbars
 	 */
 	public ScrollableHTMLDocument(int x, int y, HTMLDocument html) {
 		super(x, y, html.getWidth() + 10, html.getHeight() + 10);
@@ -40,7 +40,7 @@ public class ScrollableHTMLDocument extends LeafPane {
 	}
 
 	/**
-	 * Initializes the vertival Scrollbar.
+	 * Initializes the vertical Scrollbar.
 	 * @param html
 	 */
 	private void initializeVerticalScrollbar(HTMLDocument html) {
@@ -85,76 +85,125 @@ public class ScrollableHTMLDocument extends LeafPane {
 		this.scrollVertical = scrollVertical;
 	}
 
-	
+	/**
+	 * Calls the getActiveHtmlDocument of its child
+	 */
 	@Override
 	public HTMLDocument getActiveHTMLDocument() {
 		return this.htmlDocument.getActiveHTMLDocument();
 	}
 
+	/**
+	 * Calls the changeActiveHtmlDocument of its child, this function sets the pane active
+	 * if the position is within its boundaries
+	 */
 	@Override
 	public HTMLDocument changeActiveHTMLDocument(int x, int y) {
 		return this.htmlDocument.changeActiveHTMLDocument(x-this.getX(), y-this.getY());
 	}
 
+	/**
+	 * Sets the child htmlDocument to non-active
+	 */
 	@Override
 	public void resetActiveHTMLDocument() {
 		this.htmlDocument.setActive(false);
 	}
 	
+	/**
+	 * Sets the child htmlDocument to active
+	 */
 	@Override	
 	public void setActive(boolean active) {
 		this.htmlDocument.setActive(active);
 	}
 	
-
+	/**
+	 * Splits this ScrollableHTMLDocument in half with a vertical seperatorBar between them.
+	 * This Pane becomes the left side of the splitHtmlDocument, the right side becomes a copy
+	 * wich is afterwards reloaded.
+	 */
 	@Override
 	public Pane splitActiveHTMLDocumentVertical() {
 		return new SplitHTMLDocument(this, Direction.VERTICAL);
 	}
 	
+	/**
+	 * Splits this ScrollableHTMLDocument in half with a horizontal seperatorBar between them.
+	 * This Pane becomes the left side of the splitHtmlDocument, the right side becomes a copy
+	 * wich is afterwards reloaded.
+	 */
 	@Override
 	public Pane splitActiveHTMLDocumentHorizontal() {
 		return new SplitHTMLDocument(this, Direction.HORIZONTAL);
 	}
 
+	/**
+	 * Deletes the current HTMLDocument
+	 */
 	@Override
 	public Pane deleteActiveHTMLDocument() {
 		return null;
 	}
 
-
+	/**
+	 * This node is the rigthClosest child, sets its new X position to the given position
+	 * and the newWidth to the given width
+	 */
 	@Override
 	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
 		setX(newXPos);
 		setWidth(newWidth);
 	}
 
+	/**
+	 * This node is the leftClosest child, sets its new X position to the given position
+	 * and the newWidth to the given width
+	 */
 	@Override
 	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {
 		setX(newXPos);
 		setWidth(newWidth);
 	}
 
+	/**
+	 * This node is the rigthClosest child, sets its new y position to the given position
+	 * and the newWidth to the given height.
+	 */
 	@Override
 	public void updateRightClosestChildHeight(int newYPos, int newHeight) {
 		setY(newYPos);
 		setHeight(newHeight);
 	}
 
+	/**
+	 * This node is the leftClosest child, sets its new y position to the given position
+	 * and the newWidth to the given height.
+	 */
 	@Override
 	public void updateLeftClosestChildHeight(int newYPos, int newHeight) {
 		setY(newYPos);
 		setHeight(newHeight);
 	}
 	
+	/**
+	 * Returns the htmlDocument
+	 */
 	public HTMLDocument getHtmlDocument() {
 		return htmlDocument;
 	}
-
-	public void setHtmlDocument(HTMLDocument htmlDocument) {
+	
+	/**
+	 * Sets the htmlDocument to the given html
+	 */
+	private void setHtmlDocument(HTMLDocument htmlDocument) {
 		this.htmlDocument = htmlDocument;
 	}
 
+	/**
+	 * Calls the update all bars of its childClass, bec only splitHTMLDocuments have child
+	 * classes this would probably do nothing.
+	 */
 	@Override
 	protected void updateAllBars() {
 		this.htmlDocument.updateAllBars();
@@ -170,7 +219,8 @@ public class ScrollableHTMLDocument extends LeafPane {
 	}
 
 	/**
-	 * Update the width of the scrollbar to keep it visible.
+	 * Update the width. The size of the scrollBar is always 10 unless the width of the container
+	 * is less then 10. 
 	 */
 	@Override
 	public void setWidth(int width) {
@@ -187,7 +237,8 @@ public class ScrollableHTMLDocument extends LeafPane {
 	}
 	
 	/**
-	 * Update the height of the scrollbar to keep it visible.
+	 * Update the height. The size of the scrollBar is always 10 unless the width of the container
+	 * is less then 10. 
 	 */
 	@Override
 	public void setHeight(int height) {
