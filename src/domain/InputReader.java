@@ -20,7 +20,7 @@ public class InputReader {
 	        	BrowsrDocumentValidator.assertIsValidBrowsrDocument(sb);
 	        	
 	        } catch (RuntimeException r) { // Entered when the HTML code is not a valid BrowsrController document.
-	        	sb = "Error occured. Reason: not a valid BrowsrController document.\n";
+	        	sb = "Error occured. Reason: not a valid Browsr document.\n";
 	        }
 	        return sb;	        	        
 	        

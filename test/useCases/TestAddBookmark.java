@@ -16,6 +16,7 @@ import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
 import GUIElements.Button;
 import GUIElements.GUIElement;
+import GUIElements.ScrollableTextBox;
 import GUIElements.TableCellGUI;
 import GUIElements.Text;
 import GUIElements.TextBox;
@@ -105,7 +106,7 @@ class TestAddBookmark {
 		boolean containsUrlLabel = false;
 		boolean containsAtLeastOneTextBox = false;
 		boolean containsAtLeastTwoTextBoxes = false;
-		TextBox firstTextBox = null;
+		ScrollableTextBox firstTextBox = null;
 		boolean containsCancelButton = false;
 		boolean containsAddBookmarkButton = false;
 		
@@ -118,10 +119,10 @@ class TestAddBookmark {
 					containsUrlLabel = true;
 				}
 			} 
-			else if (element.getClass().equals(TextBox.class)) {
+			else if (element.getClass().equals(ScrollableTextBox.class)) {
 				if (!containsAtLeastOneTextBox) { // check if there is at least one TextBox
 					containsAtLeastOneTextBox = true;
-					firstTextBox = (TextBox) element;
+					firstTextBox = (ScrollableTextBox) element;
 				}
 				else if (!containsAtLeastTwoTextBoxes && !firstTextBox.equals(element)) { // check if there are at least two TextBoxes and both TextBoxes are different from each other
 					containsAtLeastTwoTextBoxes = true;

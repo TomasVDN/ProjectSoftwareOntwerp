@@ -46,8 +46,8 @@ public class ScrollableHTMLDocument extends LeafPane {
 	}
 
 	@Override
-	public void changeActiveHTMLDocument(int x, int y) {
-		this.htmlDocument.setActiveUnselect(true);
+	public HTMLDocument changeActiveHTMLDocument(int x, int y) {
+		return this.htmlDocument.changeActiveHTMLDocument(x-this.getX(), y-this.getY());
 	}
 
 	@Override
@@ -76,10 +76,6 @@ public class ScrollableHTMLDocument extends LeafPane {
 		return null;
 	}
 
-	@Override
-	public HTMLDocument setHTMLDocumentActive(int x, int y) {
-		return this.htmlDocument.setHTMLDocumentActive(x-this.getX(), y-this.getY());
-	}
 
 	@Override
 	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
