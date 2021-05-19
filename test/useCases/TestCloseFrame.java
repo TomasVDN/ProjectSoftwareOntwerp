@@ -28,7 +28,7 @@ import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
 import helperFunctions.StringTyping;
 
-class TestSplitPaneVertical {
+class TestCloseFrame {
 
 private MyCanvasWindow mainWindow;
 	
@@ -40,14 +40,14 @@ private MyCanvasWindow mainWindow;
 	}
 	
 	@Test
-	@DisplayName("Use Case 4.7: Split Pane (Vertical)")
-	// Use Case 4.7
-	public void TestSplitPane() throws InvocationTargetException, InterruptedException {
+	@DisplayName("Use Case 4.8: Close Frame")
+	// Use Case 4.8
+	public void TestCloseFrameWithExtension() throws InvocationTargetException, InterruptedException {
 		
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
-		
+				
 		//calculate the click coordinates
 		HTMLDocument originalDocument = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
 		int yHeight = originalDocument.getY() + (originalDocument.getHeight() / 2);
@@ -68,6 +68,11 @@ private MyCanvasWindow mainWindow;
 		//save the left pane
 		HTMLDocument leftPane = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
 		
+		//load custom page
+		mainWindow.getWindowManager().getSearchbar().replaceBox("https://konikoko.github.io/");
+		mainWindow.getWindowManager().getSearchbar().handleEnter();
+
+		
 		//click on the right pane
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
@@ -79,6 +84,42 @@ private MyCanvasWindow mainWindow;
 		//check if the panes are different
 		assertNotEquals(leftPane, rightPane,"The original pane has not been split correctly");
 		
+		//click on control X
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 88, 'X', 128);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 88, 'X', 128);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
+		
+		//click on the right pane
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+				
+		//save the right pane
+		rightPane = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
+		
+		//check if the panes are the same
+		assertEquals(leftPane, rightPane,"The new pane has not been closed correctly");
+		
+		//Use Case 4.8: EXTENSION STARTS HERE
+		//click on control X
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 88, 'X', 128);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 88, 'X', 128);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
+		
+		//click on the right pane
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+						
+		//save the original pane
+		HTMLDocument originalPane = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
+
+		//check if the original home page has been put back
+		assertEquals(originalPane.getHTMLCode(), "Welcome my friend, take a seat and enjoy your surfing.", "The original page has not been restored correctly!");
+
+
 	}
 	
 }

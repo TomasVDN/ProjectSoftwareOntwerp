@@ -43,7 +43,7 @@ private MyCanvasWindow mainWindow;
 	
 	@Test
 	@DisplayName("Use Case 4.7: Split Pane (Horizontal)")
-	// Use Case 4.6
+	// Use Case 4.7
 	public void TestSplitPane() throws InvocationTargetException, InterruptedException {
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
