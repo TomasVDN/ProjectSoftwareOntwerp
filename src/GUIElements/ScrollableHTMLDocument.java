@@ -1,6 +1,6 @@
 package GUIElements;
 
-public class ScrollableHTMLDocument extends rootPane {
+public class ScrollableHTMLDocument extends LeafPane {
 	
 	private HTMLDocument htmlDocument;
 	private ScrollBar scrollVertical;

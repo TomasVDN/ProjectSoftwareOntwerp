@@ -13,7 +13,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	private SeperatorBar bar;
 	private Direction dir;
 
-	public SplitHTMLDocument(rootPane original, Direction direction) {
+	public SplitHTMLDocument(LeafPane original, Direction direction) {
 		super(original.getX(), original.getY(), original.getWidth(), original.getHeight());
 		
 		this.dir = direction;
@@ -31,9 +31,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	
 	
 
-	private void initHorizontalPanels(rootPane original) {
-		rootPane tempLeftPanel = original;
-		rootPane tempRightPanel = original.copy();
+	private void initHorizontalPanels(LeafPane original) {
+		LeafPane tempLeftPanel = original;
+		LeafPane tempRightPanel = original.copy();
 		
 		int heightLeftPanel = Math.floorDiv(getHeight(), 2);
 		
@@ -53,9 +53,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		this.rightPanel = tempRightPanel;
 	}
 
-	private void initVerticalPanels(rootPane original) {
-		rootPane tempLeftPanel = original;
-		rootPane tempRightPanel = original.copy();
+	private void initVerticalPanels(LeafPane original) {
+		LeafPane tempLeftPanel = original;
+		LeafPane tempRightPanel = original.copy();
 		
 		int widthPanel = Math.floorDiv(getWidth(), 2);
 		

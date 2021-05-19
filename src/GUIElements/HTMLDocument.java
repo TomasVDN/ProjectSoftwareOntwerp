@@ -9,7 +9,7 @@ import EventListeners.FormListener;
 import EventListeners.ReloadListener;
 import EventListeners.ScrollBarListener;
 
-public class HTMLDocument extends rootPane implements ScrollBarListener {
+public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	
 	private String url;
 	private String HTMLCode;
