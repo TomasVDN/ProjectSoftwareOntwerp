@@ -55,5 +55,4 @@ class TestInputReader {
 		assertEquals(illegalBrowsrWebPage, output);
 	}
 	
-
 }
