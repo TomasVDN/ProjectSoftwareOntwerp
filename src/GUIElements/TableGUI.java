@@ -58,18 +58,10 @@ public class TableGUI extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g) {		
-		if(this.getHeight()==104) {
-			System.out.println("ALARM");
-		}
 		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);//TODO dit 52+26 maar waarom dit getal
 		for(int i=0; i< this.getGuiRows().size();i++) {
 			this.getGuiRows().get(i).paint(newG);
 		}
-		/*g.translate(this.getX(), this.getY());		
-		for(int i=0; i< this.getGuiRows().size();i++) {
-			this.getGuiRows().get(i).paint(g);
-		}
-		g.translate(-this.getX(), -this.getY());*/
 	}
 	
 	/**
