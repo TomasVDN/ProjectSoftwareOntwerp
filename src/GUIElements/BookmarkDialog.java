@@ -10,7 +10,6 @@ import EventListeners.ChangeDialogListener;
  * Dialog used to make a new bookmark. Contains two textBoxes (one to enter the bookmark display name and
  * one to enter the corresponding URL) and two buttons (one to cancel and return to the main dialog, and
  * one to finalize the creation).
- *
  */
 public class BookmarkDialog extends Dialog {
 	

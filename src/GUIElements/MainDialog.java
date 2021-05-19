@@ -2,8 +2,17 @@ package GUIElements;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import EventListeners.ReloadListener;
+import EventListeners.SearchBarListener;
 import facades.BrowsrController;
 
+/**
+ * Dialog used display our Browsr's main page. It contains three containers: one for the searchbar, one for the bookmarks
+ * and one for the loaded web pages. This last one is a pane (so either a HTMLDocument, either a SplitHTMLDocument), which
+ * is the root of the tree of panes (the different loaded pages).
+ *
+ */
 public class MainDialog extends Dialog  {
 	
 	private Pane documentArea;
@@ -20,12 +29,12 @@ public class MainDialog extends Dialog  {
 	private TableGUI bookmarkBar;
 
 	/**
-	 * Constructor of the main
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
-	 * @param browsrController
+	 * Constructor of the mainDialog.
+	 * @param x - x coordinate of this Container
+     * @param y - y coordinate of this Container
+     * @param w - width of this Container
+     * @param h - height of this Container
+     * @param browsrController //TODO verwijderen?
 	 */
 	public MainDialog(int x, int y, int w, int h, BrowsrController browsrController) {
 		super(x, y, w, h);
@@ -54,11 +63,8 @@ public class MainDialog extends Dialog  {
 	
 	/**
 	 * Initializes the containers.
-	 * @param documentArea
-	 * @param searchBarContainer
-	 * @param bookmarkBarContainer
 	 */
-	private void initContainers(BrowsrController browsrController) {
+	private void initContainers(ReloadListener reloadListener) {
 		//Initialize the searchbar container and bookmark container
 		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),BOOKMARK_SIZE);
@@ -68,7 +74,7 @@ public class MainDialog extends Dialog  {
 		documentArea.setActive(true);
 
 		// Add a reloadListener to the HTMLDocument, and load the page
-		documentArea.getHtmlDocument().addReloadListener(browsrController);
+		documentArea.getHtmlDocument().addReloadListener(reloadListener);
 		documentArea.getHtmlDocument().loadPage();
 		
 		this.originalDocumentArea = documentArea.getHtmlDocument().copy();
@@ -85,10 +91,11 @@ public class MainDialog extends Dialog  {
 	 * Initializes the searchBar of this MainDialog.
 	 * @param browsrController
 	 */
-
-	private void initSearchBar(BrowsrController browsrController) {
-		SearchBar searchBar = new SearchBar(0, 0, this.getWidth() - 30, 40, browsrController);
+	private void initSearchBar(SearchBarListener searchBarListener) {
+		SearchBar searchBar = new SearchBar(0, 0, this.getWidth() - 30, 40, searchBarListener);
+		
 		this.setSearchbar(searchBar);
+		
 		ScrollableTextBox scrollableSearchBar = new ScrollableTextBox(10 ,10 ,searchBar);
 		this.getSearchBarContainer().addElement(scrollableSearchBar);
 	}
@@ -104,7 +111,7 @@ public class MainDialog extends Dialog  {
 		TableRowGUI emptyTableRow = new TableRowGUI(bookmarkCells, 0, 0,5);
 		ArrayList<TableRowGUI> bookmarkRow = new ArrayList<TableRowGUI>();
 		bookmarkRow.add(emptyTableRow);
-		TableGUI bookmarkBar = new TableGUI(bookmarkRow, 10, 10);//new TableGUIWithOffset(bookmarkRow, 10, 10, 5);
+		TableGUI bookmarkBar = new TableGUI(bookmarkRow, 10, 10);
 		this.setBookmarkBar(bookmarkBar);
 		this.getBookmarkBarContainer().addElement(this.getBookmarkBar());
 	}
@@ -199,12 +206,10 @@ public class MainDialog extends Dialog  {
 		this.getDocumentArea().addMultipleElements(guiList);
 	}
 	
-	
 	/**
 	 * Paints all the components in this dialog.
-	 */public void loadHTMLToGivenHTMLDocument(HTMLDocument htmlDocument, ArrayList<GUIElement> GUIElements, String path, String code,BrowsrController browsrController) { //TODO rename
-			htmlDocument.loadHTML(GUIElements, path, code);
-		}
+	 * @param g - graphics to paint with
+	 */
 	@Override
 	public void paint(Graphics g) {
 		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
@@ -227,24 +232,32 @@ public class MainDialog extends Dialog  {
 		return null;
 	}
 	
-	
+	/**
+	 * Handles the left click. This method will check if there is an element at position (x,y), let it handle the necessary  actions.
+	 * Then, update the active HTMLDialog.
+	 */
 	@Override
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
 		// activate the GUIElement at the given position
 		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
+		
 		//sets the clicked panel to active
 		HTMLDocument newActiveHTML = documentArea.changeActiveHTMLDocument(x, y);
+		
 		if(newActiveHTML!=null) {
 			this.setActiveHTMLDocument(newActiveHTML);
 			this.changeSearchBar(newActiveHTML.getUrl());
 		}
 	}
 	
+	/**
+	 * Update the displayed URL in the searchBar.
+	 * @param url - the URL to display
+	 */
 	public void changeSearchBar(String url) {
 		this.getSearchbar().replaceBox(url);
 	}
 	
-
 	/**
 	 * @return this.allContainers
 	 */
@@ -252,53 +265,61 @@ public class MainDialog extends Dialog  {
 		return allContainers;
 	}
 
+	/**
+	 * Transmits the keyEvent to the element with keyboard focus. If a certain combination is pressed, split/delete the active pane.
+	 */
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
+		
+		allContainers.remove(documentArea);
+		
 		if (modifiersEx == 128) {
 			// ctrl + H
 			if (keyCode == 72) {
-				allContainers.remove(documentArea); //TODO smelly code
 				documentArea = documentArea.splitActiveHTMLDocumentVertical();
-				allContainers.add(documentArea);
 			}
 		}
 		
 		if (modifiersEx == 128) {
 			if (keyCode == 86) {
 				//ctrl + V
-				allContainers.remove(documentArea); //TODO smelly code
 				documentArea = documentArea.splitActiveHTMLDocumentHorizontal();
-				allContainers.add(documentArea);
 			}
 		}
 		
 		if (modifiersEx == 128) {
 			if (keyCode == 88) {
 				//ctrl + X
-				allContainers.remove(documentArea);
-				//documentArea.resetActiveHTMLDocument();
-				
 				documentArea = documentArea.deleteActiveHTMLDocument();
-				if (documentArea == null) { //TODO bug & smelly code
+						
+				if (documentArea == null) {
 					ScrollableHTMLDocument originalPage = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
 					documentArea = originalPage;
 					documentArea.setActive(true);
 					this.setActiveHTMLDocument(originalPage.getHtmlDocument());
 				}
 				this.setActiveHTMLDocument(documentArea.getActiveHTMLDocument());
-				allContainers.add(documentArea);
 			}
 		}
-				
+		
+		allContainers.add(documentArea);		
+		
 		if (super.elementWithKeyBoardFocus != null & modifiersEx != 128) {
 			super.elementWithKeyBoardFocus.handleKeyEvent(keyCode, keyChar, modifiersEx);
 		}
 	}
 
+	/** 
+	 * @return this.activeHTMLDocument
+	 */
 	public HTMLDocument getActiveHTMLDocument() {
 		return activeHTMLDocument;
 	}
 
+	/**
+	 * Sets this.activeHTMLDocument to the given HTMLDocument.
+	 * @param activeHTMLDocument
+	 */
 	public void setActiveHTMLDocument(HTMLDocument activeHTMLDocument) {
 		this.activeHTMLDocument = activeHTMLDocument;
 	}

@@ -9,13 +9,17 @@ import java.util.Map;
 
 import EventListeners.HyperLinkListener;
 
+/**
+ * Class that implements a Hyperlink (clickable text).
+ *
+ */
 public class Hyperlink extends Text {
 
 	//Map for setting the underline in the font and Variable for the url
     private Map<TextAttribute, Integer> fontAttributes = new HashMap<TextAttribute, Integer>();
 	private String url;
 
-	private ArrayList<HyperLinkListener> eventListener = new ArrayList<HyperLinkListener>();
+	private ArrayList<HyperLinkListener> hyperlinkListeners = new ArrayList<HyperLinkListener>();
 
 	
 	/**
@@ -31,17 +35,6 @@ public class Hyperlink extends Text {
 		this.setColor(Color.blue);
 		this.setUrl(url);
 		this.initFont();
-	}
-	
-	/**
-	 * Initializes the clickListeners
-	 */
-	protected void initiateClickListeners() { //TODO
-		this.addSingleClickListener(() ->{
-			for(HyperLinkListener listener: this.getHyperListeners()) {
-				listener.runUrlAttribute(this.getUrl());
-			}
-		});
 	}
 	
 	/**
@@ -71,17 +64,27 @@ public class Hyperlink extends Text {
 		this.url = url;
 	}
 
+	/**
+	 * Add the given HyperLinkListener to the list of HyperLinkListeners
+	 * @param listener
+	 */
 	public void addHyperLinkListener(HyperLinkListener listener) {
-		this.getHyperListeners().add(listener);
-		initiateClickListeners();
+		this.hyperlinkListeners.add(listener);
 	}
 
+	/**
+	 * Removes the given HyperLinkListener to the list of HyperLinkListeners
+	 * @param listener
+	 */
 	public void removeHyperLinkListener(HyperLinkListener listener) {
-		this.getHyperListeners().remove(listener);
+		this.hyperlinkListeners.remove(listener);
 	}
 	
+	/**
+	 * @return this.hyperlinklisteners
+	 */
 	protected ArrayList<HyperLinkListener> getHyperListeners() {
-		return eventListener;
+		return hyperlinkListeners;
 	}
 
 	@Override
@@ -89,20 +92,13 @@ public class Hyperlink extends Text {
 
 	@Override
 	public void handleUnselect() {}
-
-	protected ArrayList<Runnable> clickListeners = new ArrayList<Runnable>();
-
-	/**
-	 * adds a listener for a singleClick action
-	 * @param f: the listener to be added
-	 */
-	public void addSingleClickListener(Runnable f) {
-		clickListeners.add(f);
-	}
 	
+	/**
+	 * Handles left click on hyperlink.
+	 */
 	@Override
 	public void handleClick() {
-		new ArrayList<>(clickListeners).stream().forEach(l -> l.run());
+		hyperlinkListeners.forEach(listener -> listener.runUrlAttribute(getUrl()));
 	}
 
 }

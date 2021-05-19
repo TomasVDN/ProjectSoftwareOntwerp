@@ -5,13 +5,16 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import EventListeners.AdjustmentListener;
-import EventListeners.FormListener;
 import EventListeners.ScrollBarListener;
-import EventListeners.SeparatorBarMoveListener;
 
+/**
+ * Class that implements a scrollbar. This is a GUIElement composed of two bars. One to show the total length of the GUIElement it is 
+ * attached to, and one to show the length of the visible part of the GUIElement. This last one is dragable to move the viewed part.
+ *
+ */
 public class ScrollBar extends GUIElement implements AdjustmentListener{
+
 	// double is used in smallBarWidth and smallBarX to calculate the ratios more accurately than when using int
-	
 	private double smallBarSize;
 	private double smallBarPosition;
 	private int offsetReference; // is used to calculate how much smallBarX has to move when dragging
@@ -21,16 +24,19 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	private double bigBarSize;
 	private Direction direction;
 
-
-	
-	
+	/**
+	 * Constructor of the scrollbar class.
+	 * @param x - x coordinate of this scrollbar
+     * @param y - y coordinate of this scrollbar
+     * @param w - width of this scrollbar
+     * @param h - height of this scrollbar
+	 * @param viewableSize - size of the small bar
+	 * @param totalSize - size of the large bar
+	 */
 	public ScrollBar(Direction direction, int x, int y, int w, int h, int viewableSize,int totalSize) {
 		super(x, y, w, h);
-		
 
-		
 		this.setDirection(direction);
-		
 		
 		if (this.getDirection() == Direction.HORIZONTAL) {
 			this.bigBarPosition = x;
@@ -43,30 +49,11 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		}
 		
 		this.updateCorrectSmallBarSize(totalSize, viewableSize);;
-		
 	}
 
-
-	@Override
-	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	protected void handleUnselect() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void handleClick() {
-		// TODO Auto-generated method stub
-	}	
-	
-	
+	/**
+	 * Handle left click.	
+	 */
 	@Override
 	public void handlePressClick(int x, int y) {
 		if (this.getDirection() == Direction.HORIZONTAL) {
@@ -76,12 +63,20 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		}
 	}
 	
+	/**
+	 * Handle mouse draging. This will displace the small bar and then notify the attached Listeners of the displacement.
+	 */
 	@Override
 	public void handleDragMouse(int x, int y, int clickCount, int modifiers) {
 		this.dragSmallBar(x, y);
 		this.notifyScrollBarListener();
 	}
 	
+	/**
+	 * Displace the small bar.
+	 * @param x
+	 * @param y
+	 */
 	public void dragSmallBar(int x, int y) {
 		int newOffset;
 		int offset;
@@ -103,16 +98,17 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		}
 	}
 
-
+	/**
+	 * Paints the two bars of the scrollbar.
+	 * @param g - graphics to paint with
+	 */
 	@Override
 	public void paint(Graphics g) {
 		// Draw big bar
-		//g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
 		g.setColor(Color.lightGray);
 		g.fillRect(super.getX(), super.getY(), super.getWidth()-1, super.getHeight()-1);
 		
 		// Draw small bar
-		//g.drawRect(this.getSmallBarX(), this.getY(), this.getSmallBarWidth(), this.getHeight());
 		g.setColor(Color.gray);
 		
 		if (this.getDirection() == Direction.HORIZONTAL) {
@@ -122,6 +118,12 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		}
 	}
 	
+	/**
+	 * Returns true if (x,y) is within the boundaries from the small bar.
+	 * @param x
+	 * @param y
+	 * @return true if within boundaries, otherwise false
+	 */
 	public boolean smallBarContainsPoint(int x, int y) {
 		if (this.getDirection() == Direction.HORIZONTAL) {
 			return (x >= this.getSmallBarPosition() && y >= this.getY() && x <= this.getSmallBarPosition() + this.getSmallBarSize() && y <= this.getEndY());
@@ -130,11 +132,18 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		}
 	}
 
-
+	/**
+	 * Return the size of the small bar.
+	 * @return smallBarSize
+	 */
 	public double getSmallBarSize() {
 		return smallBarSize;
 	}
 	
+	/**
+	 * Set the size of the small bar to the given value.
+	 * @param newSmallBarSize
+	 */
 	public void setSmallBarSize(double newSmallBarSize) {
 		if (newSmallBarSize > this.getBigBarSize()) {
 			this.smallBarSize = this.getBigBarSize();
@@ -143,12 +152,18 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		}
 	}
 
-
+	/**
+	 * Return the position of the small bar.
+	 * @return smallBarPosition
+	 */
 	public double getSmallBarPosition() {
 		return smallBarPosition;
 	}
 
-
+	/**
+	 * Set the position of the small bar to the given value.
+	 * @param newSmallBarPosition
+	 */
 	public void setSmallBarPosition(double newSmallBarPosition) {
 		if (newSmallBarPosition < this.getBigBarPosition()) {
 			this.smallBarPosition = this.getBigBarPosition();
@@ -161,16 +176,25 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		}
 	}
 
-
+	/**
+	 * Return the offsetReference
+	 * @return this.offsetReference
+	 */
 	public int getOffsetReference() {
 		return offsetReference;
 	}
 
-
+	/**
+	 * Set the offsetReference to the given value
+	 * @param newOffsetReference
+	 */
 	public void setOffsetReference(int newOffsetReference) {
 		this.offsetReference = newOffsetReference;
 	}
 	
+	/**
+	 * Returns whether the small bar is located at position (x,y)
+	 */
 	@Override
 	public GUIElement getGUIAtPosition(int x, int y) {
 		if(this.smallBarContainsPoint(x, y)) {
@@ -189,25 +213,37 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		return (this.getSmallBarPosition() - this.getBigBarPosition()) / (double) this.getBigBarSize();
 	}
 
-
-
+	/**
+	 * Return the size of the big bar.
+	 * @return bigBarSize
+	 */
 	public double getBigBarSize() {
 		return this.bigBarSize;
 	}
 
-	
+	/**
+	 * Return the position of the big bar.
+	 * @return bigBarPosition
+	 */
 	public double getBigBarPosition() {
 		return this.bigBarPosition;
 	}
 	
-	
+	/**
+	 * Update the size of the small bar. It is equal to: (viewable size of the content) / (total size of all content) * size scrollbar
+	 * @param totalSize
+	 * @param viewableSize
+	 */
 	public void updateCorrectSmallBarSize(int totalSize, int viewableSize) {
-		// correct size of small bar is the ratio of (viewable size of the content) / (total size of all content) and this multiplied by the size of the scroll bar.
 		double ratio = viewableSize / ((double) (totalSize));
 		double correctSize = (this.getBigBarSize() * ratio);
 		this.setSmallBarSize(correctSize);
 	}
 	
+	/**
+	 * Updates the position of the small bar in function of the given ratio.
+	 * @param ratio
+	 */
 	public void setSmallBarPositionWithRatio(double ratio) {
         double newSmallBarPosition = this.getBigBarPosition() + this.getBigBarSize() * ratio;
         this.setSmallBarPosition(newSmallBarPosition);
@@ -220,9 +256,11 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	 */
     @Override
     public void setX(int x) {
-        super.setX(x); // TODO good practice ??
+        super.setX(x);
+
         if (this.getDirection() == Direction.HORIZONTAL) {
             double oldRatio = this.getScrollBarRatio();
+            
             this.bigBarPosition = x;
             this.setSmallBarPosition(x);
             this.setSmallBarPositionWithRatio(oldRatio);
@@ -236,26 +274,29 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
      */
     @Override
     public void setY(int y) {
-        super.setY(y); // TODO good practice ??
+        super.setY(y);
+        
         if (this.getDirection() == Direction.VERTICAL) {
             double oldRatio = this.getScrollBarRatio();
+            
             this.bigBarPosition = y;
             this.setSmallBarPositionWithRatio(oldRatio);
         }
     }
     
-	/*
+	/**
     * Sets the value width of this class. If the new value is negative, set it to 0 instead.
-    * 
     * @param width - new value of this.width
     */
    @Override
    public void setWidth(int width) {
-       super.setWidth(width); // TODO good practice ??
+       super.setWidth(width);
+       
        if (this.getDirection() == Direction.HORIZONTAL) {
            double oldBigBarSize = this.getBigBarSize();
            double oldSmallBarSize = this.getSmallBarSize();
            double oldRatio = this.getScrollBarRatio();
+           
            this.bigBarSize = width;
            this.updateCorrectSmallBarSize((int)oldBigBarSize, (int)oldSmallBarSize);
            this.setSmallBarPositionWithRatio(oldRatio);
@@ -269,33 +310,49 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
     */
    @Override
    public void setHeight(int height) {
-       super.setHeight(height); // TODO good practice ??
+       super.setHeight(height);
+
        if (this.getDirection() == Direction.VERTICAL) {
            double oldBigBarSize = this.getBigBarSize();
            double oldSmallBarSize = this.getSmallBarSize();
            double oldRatio = this.getScrollBarRatio();
+           
            this.bigBarSize = height;
            this.updateCorrectSmallBarSize((int) oldBigBarSize, (int)oldSmallBarSize);
            this.setSmallBarPositionWithRatio(oldRatio);
        }
-   }
+   	}
    
-
-
-
-
+   /**
+    * Method that needs to be called when the linked GUIElement has changed. This will update the small bar.
+    */
 	@Override
 	public void elementChanged(int viewableWidth,int newWidth,int viewableHeight,int newHeight) {
-        if(this.getDirection() ==  Direction.HORIZONTAL) {
-            this.updateCorrectSmallBarSize(newWidth, viewableWidth);
-        }
-        else {
-            this.updateCorrectSmallBarSize(newHeight, viewableHeight);
-        }
-        this.notifyScrollBarListener();
-        
+	    if(this.getDirection() ==  Direction.HORIZONTAL) {
+	        this.updateCorrectSmallBarSize(newWidth, viewableWidth);
+	    }
+	    else {
+	        this.updateCorrectSmallBarSize(newHeight, viewableHeight);
+	    }
+	    this.notifyScrollBarListener();
+	    
 	}
 	
+	/**
+	    * Method that needs to be called when the linked GUIElement has changed. 
+	    * This will update the small bar and set it at the beginning of the big bar.
+	    */
+	@Override
+	public void elementChangedKeepAtBeginning(int viewableWidth, int newWidth, int viewableHeight, int newHeight) {
+		this.elementChanged(viewableWidth, newWidth, viewableHeight, newHeight);
+		this.setSmallBarPosition(0);
+		this.notifyScrollBarListener();
+	}
+	
+	/**
+    * Method that needs to be called when the linked GUIElement has changed. 
+    * This will update the small bar and set it at the end of the big bar.
+    */
 	@Override
 	public void elementChangedKeepAtEnd(int viewableWidth, int totalWidth, int viewableHeight, int totalHeight) {
 		double oldSmallBarPositionEnd = this.getSmallBarPosition() + this.getSmallBarSize();
@@ -304,18 +361,18 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		this.notifyScrollBarListener();
 	}
 	
-	@Override
-	public void elementChangedKeepAtBeginning(int viewableWidth, int newWidth, int viewableHeight, int newHeight) {
-		this.elementChanged(viewableWidth, newWidth, viewableHeight, newHeight);
-		this.setSmallBarPosition(0);
-		this.notifyScrollBarListener();
-	}
-	
+	/**
+	 * Returns the direction of this scrollbar
+	 * @return direction
+	 */
 	public Direction getDirection() {
 		return direction;
 	}
 
-
+	/**
+	 * Sets the direction of this scrollbar to the given value.
+	 * @param direction
+	 */
 	public void setDirection(Direction direction) {
 		if(direction==null) {
 			throw new IllegalArgumentException("Not a valid direction");
@@ -323,29 +380,47 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		this.direction = direction;
 	}
 	
+	/**
+	 * Notify all listeners that the scrollbar has moved.
+	 */
+	public void notifyScrollBarListener() {
+		this.getScrollBarListeners().forEach(l->l.scrollBarMoved(this.getScrollBarRatio(),this.getDirection()));
+	}
+	
+	/**
+	 * Adds the given ScrollBarListener to the list of ScrollBarListeners
+	 * @param listener
+	 */
 	public void addScrollBarListener(ScrollBarListener listener) {
 		if(listener!=null) {
 			this.getScrollBarListeners().add(listener);
 		}
 	}
 	
+	/**
+	 * Removes the given ScrollBarListener from the list of ScrollBarListeners
+	 * @param listener
+	 */
 	public void removeScrollBarListener(ScrollBarListener listener) {
 		this.getScrollBarListeners().remove(listener);
 	}
 
-
-	
+	/**
+	 * Returns the list of SavePageListeners
+	 * @return scrollListeners
+	 */
 	protected ArrayList<ScrollBarListener> getScrollBarListeners() {
 		return scrollListeners;
 	}
-	
-	public void notifyScrollBarListener() {
-		this.getScrollBarListeners().forEach(l->l.scrollBarMoved(this.getScrollBarRatio(),this.getDirection()));
-	}
+
+	@Override
+	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}
 
 
+	@Override
+	protected void handleUnselect() {}
 
 
-	
-	
+	@Override
+	public void handleClick() {}
 }

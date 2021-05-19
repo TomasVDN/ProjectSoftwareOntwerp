@@ -1,7 +1,5 @@
 package GUIElements;
 
-import EventListeners.HyperLinkListener;
-
 /**
  * Hyperlink like class with overrided click handler.
  */
@@ -19,14 +17,10 @@ public class BookmarkHyperlink extends Hyperlink {
 	}
 	
 	/**
-	 * Initiate the click listeners.
+	 * Handle click on bookmark.
 	 */
 	@Override
-	protected void initiateClickListeners() {
-		this.addSingleClickListener(() ->{
-			for(HyperLinkListener listener: this.getHyperListeners()) {
-				listener.runUrl(this.getUrl());
-			}
-		});
+	public void handleClick() {
+		getHyperListeners().forEach(listener -> listener.runUrl(this.getUrl()));
 	}
 }

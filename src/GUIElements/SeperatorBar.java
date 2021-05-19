@@ -86,7 +86,7 @@ public class SeperatorBar extends GUIElement {
 			}
 		}
 		
-		separatorBarMoveListeners.forEach(listener -> listener.barMoved());
+		separatorBarMoveListeners.forEach(listener -> listener.seperatorBarMoved());
 	}
 	
 	private boolean inBounds(int value) {
