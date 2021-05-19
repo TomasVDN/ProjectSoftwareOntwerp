@@ -2,7 +2,6 @@ package htmlElement;
 
 import GUIElements.GUIElement;
 import GUIElements.TextBox;
-import facades.BrowsrController;
 
 public class HTMLTextBox extends HTMLInput {
 

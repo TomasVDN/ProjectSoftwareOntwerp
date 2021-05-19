@@ -5,9 +5,12 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import EventListeners.FormListener;
 import EventListeners.ReloadListener;
 
+/**
+ * Container type class used as a pane. It keeps track of the loaded URL and the loaded HTML code.
+ *
+ */
 public class HTMLDocument extends Pane {
 	
 	private String url;
@@ -15,40 +18,22 @@ public class HTMLDocument extends Pane {
 	private boolean isActiveHTMLDocument;
 	protected List<ReloadListener > listenerReload = new ArrayList<ReloadListener>();
 	
+	/**
+	 * Constructor of the HTMLDocument class. It extends the Pane class.
+	 * @param x - x coordinate of this HTMLDocument
+     * @param y - y coordinate of this HTMLDocument
+     * @param w - width of this HTMLDocument
+     * @param h - height of this HTMLDocument
+     * @param url - URL of the loaded page
+     * @param HTMLCode - string which contains the HTML code of the loaded page
+	 */
 	public HTMLDocument(int x, int y, int w, int h, String url, String HTMLCode) {
 		super(x, y, w, h);
 		this.setUrl(url);
 		this.setHTMLCode(HTMLCode);
 	}
 
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
-
-	/**
-	 * @param url the url to set
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	/**
-	 * @return the hTMLCode
-	 */
-	public String getHTMLCode() {
-		return HTMLCode;
-	}
-
-	/**
-	 * @param hTMLCode the hTMLCode to set
-	 */
-	public void setHTMLCode(String hTMLCode) {
-		HTMLCode = hTMLCode;
-	}
-
+	
 	@Override
 	public HTMLDocument getActiveHTMLDocument() {
 		return this;
@@ -155,6 +140,35 @@ public class HTMLDocument extends Pane {
 
 	public  void removeReloadListener(ReloadListener listener) {
 		this.listenerReload.remove(listener);
+	}
+	
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	/**
+	 * @return the hTMLCode
+	 */
+	public String getHTMLCode() {
+		return HTMLCode;
+	}
+
+	/**
+	 * @param hTMLCode the hTMLCode to set
+	 */
+	public void setHTMLCode(String hTMLCode) {
+		HTMLCode = hTMLCode;
 	}
 }
 	
