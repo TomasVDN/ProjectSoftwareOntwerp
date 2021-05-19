@@ -28,12 +28,12 @@ public class TestGUI {
 		int setClipmax = 0;
 		int drawStringmax = 0;
 		if (test == "TestEnterUrl") {
-			fillrectmax = 1;
-			drawRectmax = 1;
+			fillrectmax = 7;
+			drawRectmax = 2;
 			setFontmax = 12;
 			setColormax = 18;
 			setClipmax = 12;
-			drawStringmax = 13;
+			drawStringmax = 14;
 		}
 		
 		FontMetrics metrics = mock(FontMetrics.class);
@@ -46,7 +46,8 @@ public class TestGUI {
 		Graphics fakeGraphics= mock(Graphics.class);
 		when(fakeGraphics.getFontMetrics(any())).thenReturn(metrics);
 		when(fakeGraphics.getClip()).thenReturn(fakeshape);
-				
+		when(fakeGraphics.create(anyInt(),anyInt(),anyInt(),anyInt())).thenReturn(fakeGraphics);
+		
 		window.getWindowManager().paint(fakeGraphics, 600, 1000);
 
 		verify(fakeGraphics, times(fillrectmax)).fillRect(anyInt(), anyInt(), anyInt(), anyInt());
