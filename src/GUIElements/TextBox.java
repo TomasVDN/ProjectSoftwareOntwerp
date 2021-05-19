@@ -128,7 +128,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		if (!isActive()) {
 			this.previousText = getText();
 			this.selectAll();
-			setActive(true);
+			setActiveUnselect(true);
 		} else {
 			this.unselectAllTextToLeft();
 		}
@@ -146,11 +146,9 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		switch (keyCode) {
 		case 8: //backspace
 			this.handleBackSpace();
-			this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			break;
 		case 127: //delete
 			this.handleDelete();
-			this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			break;
 		case 27: //escape
 			this.handleEscape();
@@ -173,7 +171,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		default:
 			if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 				this.handleUndefined(keyChar);
-				this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
+				this.notifyAdjustmentListenerKeepAtEnd(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			}
 			break;
 		}
@@ -254,7 +252,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	 * Does the needed actions for the enter key.
 	 */
 	void handleEnter() {
-		this.setActive(false);
+		this.setActiveUnselect(false);
 	}
 	
 	/**
@@ -265,6 +263,8 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		if (this.leftText.length() > 0) { // check if left string is not empty
 			this.setLeftText(this.leftText.substring(0, this.leftText.length() - 1));
 		}
+		
+		this.notifyAdjustmentListenerKeepAtEnd(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 	}
 	
 	/**
@@ -275,6 +275,8 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		if (this.rightText.length() > 0) { // check if right string is not empty
 			this.setRigthText(this.rightText.substring(1));
 		}
+		
+		this.notifyAdjustmentListenerKeepAtEnd(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 	}
 	
 	/**
@@ -383,7 +385,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	 * Does the needed actions for the escape key.
 	 */
 	private void handleEscape() {
-		setActiveNoUnselect(false);
+		setActive(false);
 		leftText = previousText;
 		rightText = "";
 		selectedText = "";
@@ -465,7 +467,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		this.setLeftText(text);
 		this.setSelectedText("");
 		this.setRigthText("");
-		this.notifyAdjustmentListenerReset(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
+		this.notifyAdjustmentListenerKeepAtBeginning(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 	}
 	
 	@Override

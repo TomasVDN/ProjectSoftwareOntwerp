@@ -216,11 +216,17 @@ public class Form extends GUIElement implements ActionListener {
 		return this.listeners;
 	}
 	
+	/**
+	 * Return the width of the root GUI.
+	 */
 	@Override
 	public int getWidth() {
 		return this.getRootGui().getEndX();
 	}
 	
+	/**
+	 * Return the height of the root GUI.
+	 */
 	@Override
 	public int getHeight() {
 		return this.getRootGui().getEndY();

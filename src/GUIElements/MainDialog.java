@@ -65,7 +65,7 @@ public class MainDialog extends Dialog  {
 		ScrollableHTMLDocument documentArea = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,new HTMLDocument(0, 0, this.getWidth()-10, this.getHeight() - BAR_SIZE - BOOKMARK_SIZE-10, "", "Welcome my friend, take a seat and enjoy your surfing."));
 		this.setActiveHTMLDocument(documentArea.getHtmlDocument());
 
-		documentArea.setActive(true);
+		documentArea.setActiveUnselect(true);
 
 		// Add a reloadListener to the HTMLDocument, and load the page
 		documentArea.getHtmlDocument().addReloadListener(browsrController);
@@ -283,7 +283,7 @@ public class MainDialog extends Dialog  {
 				if (documentArea == null) { //TODO bug & smelly code
 					ScrollableHTMLDocument originalPage = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
 					documentArea = originalPage;
-					documentArea.setActive(true);
+					documentArea.setActiveUnselect(true);
 					this.setActiveHTMLDocument(originalPage.getHtmlDocument());
 				}
 				this.setActiveHTMLDocument(documentArea.getActiveHTMLDocument());

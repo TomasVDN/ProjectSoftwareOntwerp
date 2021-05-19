@@ -297,7 +297,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	}
 	
 	@Override
-	public void elementIncreased(int viewableWidth, int totalWidth, int viewableHeight, int totalHeight) {
+	public void elementChangedKeepAtEnd(int viewableWidth, int totalWidth, int viewableHeight, int totalHeight) {
 		double oldSmallBarPositionEnd = this.getSmallBarPosition() + this.getSmallBarSize();
 		this.elementChanged(viewableWidth, totalWidth, viewableHeight, totalHeight);
 		this.setSmallBarPosition(oldSmallBarPositionEnd - this.smallBarSize);
@@ -305,7 +305,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	}
 	
 	@Override
-	public void elementChangedAndReset(int viewableWidth, int newWidth, int viewableHeight, int newHeight) {
+	public void elementChangedKeepAtBeginning(int viewableWidth, int newWidth, int viewableHeight, int newHeight) {
 		this.elementChanged(viewableWidth, newWidth, viewableHeight, newHeight);
 		this.setSmallBarPosition(0);
 		this.notifyScrollBarListener();

@@ -37,8 +37,6 @@ public class BookmarkDialog extends Dialog {
 		this.initCancelButton(w);
 		this.initAddBookmarkButton(w);
 		this.setSuggestedUrl(suggestedUrl);
-		
-
 	}
 	
 	/**

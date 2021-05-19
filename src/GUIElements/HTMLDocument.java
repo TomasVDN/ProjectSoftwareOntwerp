@@ -9,8 +9,8 @@ import EventListeners.ReloadListener;
 import EventListeners.ScrollBarListener;
 
 /**
- * Container type class used as a pane. It keeps track of the loaded URL and the loaded HTML code.
- *
+ * Container type class used as a pane. It keeps track of the loaded URL and the loaded HTML code. 
+ * It also implements everything needed for splitting.
  */
 public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	
@@ -34,37 +34,60 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 		this.setHTMLCode(HTMLCode);
 	}
 
-	
+	/**
+	 * Return whether this HTMLDocument is active.
+	 */
 	@Override
 	public HTMLDocument getActiveHTMLDocument() {
 		return this;
 	}
 
+	/**
+	 * Sets this HTMLDocument to active.
+	 */
 	@Override
 	public void changeActiveHTMLDocument(int x, int y) {
-		this.setActive(true);
+		this.setActiveUnselect(true);
 	}
 
+	/**
+	 * Sets this HTMLDocument to unactive.
+	 */
 	@Override
 	public void resetActiveHTMLDocument() {
-		this.setActive(false);
+		this.setActiveUnselect(false);
 	}
 
+	/**
+	 * Split this HTMLDocument vertically by creating a new SplitHTMLDocument.
+	 * @return new SplitHTMLDocument(Direction.vertical)
+	 */
 	@Override
 	public Pane splitActiveHTMLDocumentVertical() {
 		return new SplitHTMLDocument(this, Direction.VERTICAL);
 	}
 	
+	/**
+	 * Split this HTMLDocument horizontally by creating a new SplitHTMLDocument.
+	 * @return new SplitHTMLDocument(Direction.horizontal)
+	 */
 	@Override
 	public Pane splitActiveHTMLDocumentHorizontal() {
 		return new SplitHTMLDocument(this, Direction.HORIZONTAL);
 	}
 
+	/**
+	 * Deletes this HTMLDocument in the tree structure of Panes.
+	 */
 	@Override
 	public Pane deleteActiveHTMLDocument() {
 		return null;
 	}
 	
+	/**
+	 * Paints this HTMLDocument. Uses the Paint of the Super class, except that it also paints an orange border if it is active.
+	 * @param g -graphics to paint with
+	 */
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -74,11 +97,10 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 		}		
 	}
 	
-	@Override
-	public void setActive(boolean active) {
-		this.isActiveHTMLDocument = active;
-	}
-	
+	/**
+	 * Makes a copy of the HTMLDocument
+	 * @return new HTMLDocument identical to this one
+	 */
 	@Override
 	public HTMLDocument copy() {
 		HTMLDocument copy = new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
@@ -113,7 +135,6 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 
 	@Override
 	protected void updateAllBars() {
-
 	}
 	
 	public void loadPage() {
@@ -167,10 +188,19 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	}
 
 	/**
-	 * @param hTMLCode the hTMLCode to set
+	 * @param hTMLCode the HTMLCode to set
 	 */
 	public void setHTMLCode(String hTMLCode) {
 		HTMLCode = hTMLCode;
+	}
+	
+	/**
+	 * Updates the isActive boolean to the given value.
+	 * @param active - the new value of this.isActive
+	 */
+	@Override
+	public void setActiveUnselect(boolean active) {
+		this.isActiveHTMLDocument = active;
 	}
 }
 	

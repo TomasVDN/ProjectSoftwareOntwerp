@@ -45,7 +45,7 @@ public abstract class Dialog extends Container {
 		if(element!= elementWithKeyboardFocus) {
 			//deactivate old activeElement
 			if (elementWithKeyboardFocus != null && this.getElementWithKeyBoardFocus().isActive()) {
-				elementWithKeyboardFocus.setActive(false);
+				elementWithKeyboardFocus.setActiveUnselect(false);
 			}
 			
 			//activate new activeElement

@@ -306,7 +306,6 @@ public class WindowManager {
 	 * Creates a bookmark and adds it in the mainDialog.
 	 * @param bookmarkHyperlinkName - name of the bookmark
 	 * @param bookmarkHyperlinkUrl - URL of the bookmark
-	 * @param BrowsrController - eventHandler
 	 */
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		Text bookmarkHyperlinkNameText = new Text(0, 0, bookmarkHyperlinkName);

@@ -115,6 +115,9 @@ public class Button extends GUIElement {
 			
 		}
 		
+		/**
+		 * @return state name
+		 */
 		@Override
 		String getStateName() {
 			return "UnpressedState";
@@ -156,6 +159,9 @@ public class Button extends GUIElement {
 			}
 		}
 		
+		/**
+		 * @return state name
+		 */
 		@Override
 		String getStateName() {
 			return "PressedState";
