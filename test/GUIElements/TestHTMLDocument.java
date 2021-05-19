@@ -36,47 +36,58 @@ class TestHTMLDocument {
 
 	@Test
 	void testSplitActiveHTMLDocumentHorizontal() {
-		fail("Not yet implemented");
+		Pane split = htmlTestWithButton.splitActiveHTMLDocumentHorizontal();
+		assertTrue(split instanceof SplitHTMLDocument);
+		SplitHTMLDocument split2 = (SplitHTMLDocument) split;
+		assertEquals(split2.getActiveHTMLDocument(),htmlTestWithButton);
+		assertEquals(split2.getDir(),Direction.HORIZONTAL);
 	}
 
 	@Test
 	void testSplitActiveHTMLDocumentVertical() {
-		fail("Not yet implemented");
+		Pane split = htmlTestWithButton.splitActiveHTMLDocumentHorizontal();
+		assertTrue(split instanceof SplitHTMLDocument);
+		SplitHTMLDocument split2 = (SplitHTMLDocument) split;
+		assertEquals(split2.getActiveHTMLDocument(),htmlTestWithButton);
+		assertEquals(split2.getDir(),Direction.VERTICAL);
 	}
 
 	@Test
 	void testDeleteActiveHTMLDocument() {
-		fail("Not yet implemented");
+		assertNull(htmlTestWithButton.deleteActiveHTMLDocument());
 	}
 
 	@Test
 	void testUpdateRightClosestChildWidth() {
-		fail("Not yet implemented");
+		htmlTestWithButton.updateRightClosestChildWidth(10, 50);
+		assertEquals(htmlTestWithButton.getWidth(), 50);
+		assertEquals(htmlTestWithButton.getX(), 10);
 	}
 
 	@Test
 	void testUpdateLeftClosestChildWidth() {
-		fail("Not yet implemented");
+		htmlTestWithButton.updateLeftClosestChildWidth(10, 50);
+		assertEquals(htmlTestWithButton.getWidth(), 50);
+		assertEquals(htmlTestWithButton.getX(), 10);
 	}
 
 	@Test
 	void testUpdateRightClosestChildHeight() {
-		fail("Not yet implemented");
+		htmlTestWithButton.updateRightClosestChildHeight(10, 50);
+		assertEquals(htmlTestWithButton.getHeight(), 50);
+		assertEquals(htmlTestWithButton.getY(), 10);
 	}
 
 	@Test
 	void testUpdateLeftClosestChildHeight() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testUpdateAllBars() {
-		fail("Not yet implemented");
+		htmlTestWithButton.updateLeftClosestChildHeight(10, 50);
+		assertEquals(htmlTestWithButton.getHeight(), 50);
+		assertEquals(htmlTestWithButton.getY(), 10);
 	}
 
 	@Test
 	void testHTMLDocument() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test

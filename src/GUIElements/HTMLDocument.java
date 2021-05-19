@@ -37,7 +37,7 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	}
 
 	/**
-	 * Return whether this HTMLDocument is active.
+	 * Return whether the active HTMLDocument.
 	 */
 	@Override
 	public HTMLDocument getActiveHTMLDocument() {
@@ -218,6 +218,9 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	 * @param url the url to set
 	 */
 	public void setUrl(String url) {
+		if(url==null) {
+			throw new IllegalArgumentException("Url can't be null");
+		}
 		this.url = url;
 	}
 

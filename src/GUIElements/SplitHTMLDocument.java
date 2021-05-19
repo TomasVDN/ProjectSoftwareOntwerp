@@ -19,6 +19,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	private SeperatorBar bar;
 	private Direction dir;
 
+
+
+
 	/**
 	 * Creates a new splitHTMLDocument
 	 * @param original - the leafpane that would be copied on both sides
@@ -194,7 +197,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		if (leftPanel == null) {			
 			rightPanel.updateRightClosestChildWidth(getX(), getWidth());
 			rightPanel.updateRightClosestChildHeight(getY(), getHeight());//TODO ziet mij er lelijk uit
-			rightPanel.setActiveUnselect(true);
+			rightPanel.setActive(true);
 			rightPanel.updateAllBars();
 			return rightPanel;
 		}
@@ -203,7 +206,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			leftPanel.updateRightClosestChildWidth(getX(), getWidth());
 			leftPanel.updateRightClosestChildHeight(getY(), getHeight());
 			
-			leftPanel.setActiveUnselect(true);
+			leftPanel.setActive(true);
 			leftPanel.updateAllBars();
 			return leftPanel;
 		}
@@ -357,6 +360,10 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 			leftPanel.updateLeftClosestChildHeight(0, newHeight);
 			rightPanel.updateLeftClosestChildHeight(0, newHeight);
 		}
+	}
+	
+	public Direction getDir() {
+		return dir;
 	}
 
 
