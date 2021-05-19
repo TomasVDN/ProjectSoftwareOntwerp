@@ -38,7 +38,7 @@ private MyCanvasWindow mainWindow;
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			mainWindow = new MyCanvasWindow("BrowsrController");
+			mainWindow = new MyCanvasWindow("Browsr");
 		});
 	}
 	
@@ -46,43 +46,47 @@ private MyCanvasWindow mainWindow;
 	@DisplayName("Use Case 4.7: Split Pane (Vertical)")
 	// Use Case 4.7
 	public void TestSplitPane() throws InvocationTargetException, InterruptedException {
-		
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
+		// run a url to later check if both panels have the correct html file
 		UrlRunningWithSearchBar.runUrlWithSearchBar(mainWindow, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
 		
+		// Step 4.7.1
 		// click on control H
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 72, 'h', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
 		
+		// get panel objects
 		SplitHTMLDocument root = (SplitHTMLDocument) mainWindow.getWindowManager().getMainDialog().getDocumentArea();
 		HTMLDocument leftPanel = ((ScrollableHTMLDocument) root.getLeftPanel()).getHtmlDocument();
 		HTMLDocument rightPanel = ((ScrollableHTMLDocument) root.getRightPanel()).getHtmlDocument();
 		
-		//click on the left pane
+		//click on the left panel
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 69, 420, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 69, 420, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 69, 420, 1, MouseEvent.BUTTON1, 0);
 		
+		// check if the leftPanel is clicked
 		assertEquals(leftPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
 		assertEquals(true, leftPanel.isActive());
 		assertEquals(false, rightPanel.isActive());
 		
-		//click on the right pane
+		// click on the right panel
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 420, 420, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 420, 420, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 420, 420, 1, MouseEvent.BUTTON1, 0);
 		
+		// check if the rightPanel is clicked
 		assertEquals(rightPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
 		assertEquals(true, rightPanel.isActive());
 		assertEquals(false, leftPanel.isActive());
-
 		
-		//check if the panes are different
+		// Step 4.7.2
+		//check if the panels are different
 		assertNotEquals(leftPanel, rightPanel,"The original pane has not been split correctly");
 		
 		String expectedHTMLCode = "<form action=\"browsrformactiontest.php\">\n"
@@ -98,13 +102,12 @@ private MyCanvasWindow mainWindow;
 				+ "</form>\n"
 				+ "";
 		
-		// check if both panes have expected HTML code
+		// check if both panels have the expected HTML code
 		assertEquals(expectedHTMLCode, leftPanel.getHTMLCode());
 		assertEquals(expectedHTMLCode, rightPanel.getHTMLCode());
 		
-		// check if they contain the same HTMLcode
+		// check if the panels contain the same HTMLcode
 		assertEquals(leftPanel.getHTMLCode(), rightPanel.getHTMLCode());
-		
 	}
 	
 }
