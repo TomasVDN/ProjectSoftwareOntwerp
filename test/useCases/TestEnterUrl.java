@@ -18,6 +18,7 @@ import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
+import GUIElements.HTMLDocument;
 
 public class TestEnterUrl {
 
@@ -211,8 +212,8 @@ public class TestEnterUrl {
 		assertEquals(mainBarContainerY ,referenceBarContainerY);
 
 		//testing GUI elements
-		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
-		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
+		HTMLDocument htmlDocument = mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument();
+		TableGUI pageTable = (TableGUI) (htmlDocument.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
 		
@@ -231,7 +232,7 @@ public class TestEnterUrl {
 		Text pageTableRow2TableHyperlink4Text = (Text) (pageTableRow2Table.getGuiRows().get(3).getGuiElements().get(1).getGui());
 
 		//check hyperlink urls
-		assertEquals("HTML elements partially supported by BrowsrController:", pageTableRow1Text.getText());
+		assertEquals("HTML elements partially supported by Browsr:", pageTableRow1Text.getText());
 		assertEquals("a.html", pageTableRow2TableHyperlink1.getUrl());
 		assertEquals("table.html", pageTableRow2TableHyperlink2.getUrl());
 		assertEquals("tr.html", pageTableRow2TableHyperlink3.getUrl());
@@ -253,7 +254,7 @@ public class TestEnterUrl {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
 		
-		TestGUI testgui1 = new TestGUI(mainWindow, "TestEnterUrl"); //TODO wat is dit? geeft error
+		TestGUI testgui1 = new TestGUI(mainWindow, "TestEnterUrl"); //TODO die mockito test weer fixen
 		
 	}
 }
