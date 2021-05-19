@@ -495,13 +495,6 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 		this.name = name;
 	}
 	
-	/**
-	 * Returns this TextBox under string format.
-	 */
-	@Override
-	public String toString() {
-		return this.getName() +"=" + this.getText();
-	}
 
 	/**
 	 * @return the cursorOnTheRightOfSelectedText

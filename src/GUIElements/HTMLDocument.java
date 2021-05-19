@@ -16,7 +16,9 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	
 	private String url;
 	private String HTMLCode;
-	private boolean isActiveHTMLDocument;
+
+
+
 	protected List<ReloadListener > listenerReload = new ArrayList<ReloadListener>();
 	
 	/**
@@ -39,7 +41,10 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	 */
 	@Override
 	public HTMLDocument getActiveHTMLDocument() {
-		return this;
+		if(this.isActive()) {
+			return this;
+		}
+		return null;
 	}
 
 	/**
@@ -95,7 +100,7 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		if (isActiveHTMLDocument) {
+		if (isActive()) {
 			g.setColor(Color.ORANGE);
 			g.drawRect(super.getX(),super.getY(), super.getWidth()-1, super.getHeight()-1);
 		}		
@@ -230,13 +235,5 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 		HTMLCode = hTMLCode;
 	}
 	
-	/**
-	 * Updates the isActive boolean to the given value.
-	 * @param active - the new value of this.isActive
-	 */
-	@Override
-	public void setActive(boolean active) {
-		this.isActiveHTMLDocument = active;
-	}
 }
 	
