@@ -292,7 +292,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
         else {
             this.updateCorrectSmallBarSize(newHeight, viewableHeight);
         }
-	
+        this.notifyScrollBarListener();
 	}
 	
 	@Override
