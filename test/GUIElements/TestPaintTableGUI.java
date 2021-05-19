@@ -7,6 +7,8 @@ import java.awt.Shape;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.TestForm.FormListenerClass;
+
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 class TestPaintTableGUI {
@@ -35,8 +37,9 @@ class TestPaintTableGUI {
 		Graphics fakeGraphics= mock(Graphics.class);
 		when(fakeGraphics.getFontMetrics(any())).thenReturn(metrics);
 		when(fakeGraphics.getClip()).thenReturn(fakeshape);
+		when(fakeGraphics.create(anyInt(),anyInt(),anyInt(),anyInt())).thenReturn(fakeGraphics);
 		
-		cell1.paint(fakeGraphics); //TODO error in paint: g.setFont(font)
+		cell1.paint(fakeGraphics);
 		
 		verify(fakeGraphics, times(1)).drawString(eq("test"), anyInt(), anyInt());
 		
