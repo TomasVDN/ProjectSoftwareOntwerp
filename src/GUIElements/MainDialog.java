@@ -282,7 +282,7 @@ public class MainDialog extends Dialog  {
 				if (documentArea == null) { //TODO bug & smelly code
 					ScrollableHTMLDocument originalPage = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
 					documentArea = originalPage;
-					documentArea.setActiveUnselect(true);
+					documentArea.setActive(true);
 					this.setActiveHTMLDocument(originalPage.getHtmlDocument());
 				}
 				this.setActiveHTMLDocument(documentArea.getActiveHTMLDocument());
