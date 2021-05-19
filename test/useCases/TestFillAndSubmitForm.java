@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.Container;
+import GUIElements.HTMLDocument;
 import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
@@ -51,29 +52,29 @@ class TestFillAndSubmitForm {
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 200, 200, 1, MouseEvent.BUTTON1, 0);
 		
 		// make select first text box
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 380, 155, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 380, 155, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 380, 155, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 349, 163, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 349, 163, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 349, 163, 1, MouseEvent.BUTTON1, 0);
 		
 		//fill the text box
 		StringTyping.generateKeyEventsForString(mainWindow, "t");
 		
 		// make select second text box
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 380, 175, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 380, 175, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 380, 175, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 380, 188, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 380, 188, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 380, 188, 1, MouseEvent.BUTTON1, 0);
 		
 		//fill the text box
 		StringTyping.generateKeyEventsForString(mainWindow, "5");
 		
 		//click submit button
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 55, 200, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 55, 200, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 55, 200, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 41, 229, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 41, 229, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 41, 229, 1, MouseEvent.BUTTON1, 0);
 		
 		//testing GUI elements
-		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
-		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
+		HTMLDocument htmlDocument = mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument();
+		TableGUI pageTable = (TableGUI) (htmlDocument.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
 		TableRowGUI pageTableRow3 = pageTable.getGuiRows().get(2);
