@@ -29,6 +29,7 @@ import GUIElements.Text;
 import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
 import helperFunctions.StringTyping;
+import helperFunctions.UrlRunningWithSearchBar;
 
 class TestSplitPaneVertical {
 
@@ -50,13 +51,14 @@ private MyCanvasWindow mainWindow;
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		
+		UrlRunningWithSearchBar.runUrlWithSearchBar(mainWindow, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
+		
 		// click on control H
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 72, 'h', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
 		
-		// get the left and right panel objects
 		SplitHTMLDocument root = (SplitHTMLDocument) mainWindow.getWindowManager().getMainDialog().getDocumentArea();
 		HTMLDocument leftPanel = ((ScrollableHTMLDocument) root.getLeftPanel()).getHtmlDocument();
 		HTMLDocument rightPanel = ((ScrollableHTMLDocument) root.getRightPanel()).getHtmlDocument();
@@ -82,6 +84,24 @@ private MyCanvasWindow mainWindow;
 		
 		//check if the panes are different
 		assertNotEquals(leftPanel, rightPanel,"The original pane has not been split correctly");
+		
+		String expectedHTMLCode = "<form action=\"browsrformactiontest.php\">\n"
+				+ "  <table>\n"
+				+ "    <tr><td>List words from the Woordenlijst Nederlandse Taal\n"
+				+ "    <tr><td>\n"
+				+ "      <table>\n"
+				+ "        <tr><td>Words that start with<td><input type=\"text\" name=\"starts_with\">\n"
+				+ "        <tr><td>Maximum number of words to show<td><input type=\"text\" name=\"max_nb_results\">\n"
+				+ "      </table>\n"
+				+ "    <tr><td><input type=\"submit\">\n"
+				+ "  </table>\n"
+				+ "</form>\n"
+				+ "";
+		
+		// check if both panes have expected HTML code
+		assertEquals(expectedHTMLCode, leftPanel.getHTMLCode());
+		assertEquals(expectedHTMLCode, rightPanel.getHTMLCode());
+		
 		// check if they contain the same HTMLcode
 		assertEquals(leftPanel.getHTMLCode(), rightPanel.getHTMLCode());
 		
