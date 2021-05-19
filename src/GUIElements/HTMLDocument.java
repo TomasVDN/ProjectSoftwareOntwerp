@@ -41,8 +41,12 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	}
 
 	@Override
-	public void changeActiveHTMLDocument(int x, int y) {
-		this.setActive(true);
+	public HTMLDocument changeActiveHTMLDocument(int x, int y) {
+		if(this.containsPoint(x, y)) {
+			this.setActive(true);
+			return this;
+		}
+		return null;
 	}
 
 	@Override
@@ -124,15 +128,9 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 		super.resetAllElements(guiList);
 		this.setUrl(path);
 		this.setHTMLCode(code);
-}
-
-	@Override
-	public HTMLDocument setHTMLDocumentActive(int x, int y) {
-		if(this.containsPoint(x, y)) {
-			return this;
-		}
-		return null;
 	}
+
+
 	
 	public void addReloadListener(ReloadListener listener) {
 		if(listener!=null) {
