@@ -36,8 +36,6 @@ private MyCanvasWindow mainWindow;
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
 			mainWindow = new MyCanvasWindow("BrowsrController");
-			mainWindow.show();
-
 		});
 	}
 	
