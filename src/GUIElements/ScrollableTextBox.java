@@ -3,7 +3,7 @@ package GUIElements;
 public class ScrollableTextBox extends Container {
 	
 	public static final int DEFAULT_SCROLLBAR_SMALL_SIZE = 25;
-	TextBox textBox;
+	private TextBox textBox;
 	
 	public ScrollableTextBox(int x, int y, int w, int h) {
 		super(x,y,w,h+10);
