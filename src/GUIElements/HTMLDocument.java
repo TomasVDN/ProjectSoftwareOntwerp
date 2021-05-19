@@ -59,7 +59,7 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	 */
 	@Override
 	public void resetActiveHTMLDocument() {
-		this.setActiveUnselect(false);
+		this.setActive(false);
 	}
 
 	/**
@@ -197,7 +197,7 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	 * @param active - the new value of this.isActive
 	 */
 	@Override
-	public void setActiveUnselect(boolean active) {
+	public void setActive(boolean active) {
 		this.isActiveHTMLDocument = active;
 	}
 }
