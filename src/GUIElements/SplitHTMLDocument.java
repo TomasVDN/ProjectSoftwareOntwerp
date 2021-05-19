@@ -86,10 +86,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 
 	@Override
 	public HTMLDocument changeActiveHTMLDocument(int x, int y) {
-		int xRel = x - getX();
-		int yRel = y - getY();
-		
-		if(this.containsPoint(xRel, yRel)) {
+		if(this.containsPoint(x, y)) {
+			int xRel = x - getX();
+			int yRel = y - getY();
 			resetActiveHTMLDocument();
 			
 			if (leftPanel.containsPoint(xRel, yRel))
@@ -214,7 +213,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 * The action that has to be performed if this class seperator bar has moved
 	 */
 	@Override
-	public void barMoved() {
+	public void seperatorBarMoved() {
 		if (dir == Direction.VERTICAL) {
 			moveVerticalBar();
 		} else {

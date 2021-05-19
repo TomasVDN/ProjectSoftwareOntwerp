@@ -23,7 +23,7 @@ class TestSeperatorBar {
 		boolean moved = false;
 		
 		@Override
-		public void barMoved() {
+		public void seperatorBarMoved() {
 			this.moved=true;
 		}
 
