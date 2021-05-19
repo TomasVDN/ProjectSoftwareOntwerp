@@ -100,7 +100,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	public int getWidthText() {
 		String text = this.getText();
 		Text textWithWidth= new Text(0, 0, text); // position doesn't matter
-		return Math.max(this.getWidth(), textWithWidth.getWidth()+CONSTANTXOFFSET+CONSTANTXRIGHTGAP);
+		return Math.max(this.getWidth(), textWithWidth.getWidth() + CONSTANTXOFFSET + CONSTANTXRIGHTGAP);
 	}
 
 	/**

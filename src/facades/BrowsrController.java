@@ -3,18 +3,15 @@ package facades;
 import java.util.ArrayList;
 
 import EventListeners.AddBookmarkListener;
-import EventListeners.ChangeDialogListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
 import EventListeners.ReloadListener;
 import EventListeners.SavePageListener;
 import EventListeners.SearchBarListener;
-import GUIElements.BookmarkHyperlink;
 import GUIElements.Form;
 import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
-import GUIElements.Text;
 import domain.HTMLDecoder;
 import domain.HTMLToGUI;
 import domain.InputReader;
@@ -92,7 +89,7 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	
 	/**
 	 * Adds a listener of a given class to all hyperlinks and forms
-	 * @param list
+	 * @param list - list of GUIElements on which the listeners must be appended
 	 */
 	private void addListenersToGUIElements(ArrayList<GUIElement> list) {
 		ArrayList<Hyperlink> hyperlinkArray = new ArrayList<>();
@@ -103,11 +100,11 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 		}
 		
 		for(Hyperlink hyperlink : hyperlinkArray) {
-			hyperlink.addHyperLinkListener(this);
+			hyperlink.addHyperLinkListener(this); //TODO
 		}
 
 		for (Form form: formArray) {
-			form.addFormListener(this);
+			form.addFormListener(this); //TODO
 		}
 	}
 	
@@ -144,7 +141,7 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	 */
 	@Override
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
-		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl, this);
+		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl);
 	}
 }
 
