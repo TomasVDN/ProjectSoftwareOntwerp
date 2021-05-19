@@ -6,7 +6,7 @@ public class ScrollableTextBox extends Container {
 	private TextBox textBox;
 	
 	public ScrollableTextBox(int x, int y, int w, int h) {
-		super(x,y,w,h+10);
+		super(x,y,w,h+DEFAULT_SCROLLBAR_SMALL_SIZE);
 		this.textBox = new TextBox(x, y, w, h);
 		ScrollBar scrollBar = new ScrollBar(Direction.HORIZONTAL, x, textBox.getHeight(), w, DEFAULT_SCROLLBAR_SMALL_SIZE, textBox.getWidth(), textBox.getWidthText());
 		textBox.addAdjustListener(scrollBar);
@@ -17,7 +17,7 @@ public class ScrollableTextBox extends Container {
 	}
 	
 	public ScrollableTextBox(int x, int y,TextBox textBox) {
-		super(x,y,textBox.getWidth(),textBox.getHeight()+10);
+		super(x,y,textBox.getWidth(),textBox.getHeight()+DEFAULT_SCROLLBAR_SMALL_SIZE);
 		this.textBox = textBox;
 		ScrollBar scrollBar = new ScrollBar(Direction.HORIZONTAL, textBox.getX(), textBox.getHeight(), this.getWidth(), DEFAULT_SCROLLBAR_SMALL_SIZE, textBox.getWidth(), textBox.getWidthText());
 		textBox.addAdjustListener(scrollBar);
