@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import GUIElements.Button;
 import GUIElements.GUIElement;
 import GUIElements.SaveDialog;
+import GUIElements.ScrollableTextBox;
 import GUIElements.Text;
 import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
@@ -97,7 +98,7 @@ private MyCanvasWindow mainWindow;
 		assertEquals("Save As", mainWindow.getTitle());
 		
 		// check if all required Elements are contained by the saveDialog
-		TextBox textInputFieldBox = null;
+		ScrollableTextBox textInputFieldBox = null;
 		Button saveButton = null;
 		
 		ArrayList<GUIElement> saveDialogElements = mainWindow.getWindowManager().getActiveDialog().getElements();
@@ -112,9 +113,9 @@ private MyCanvasWindow mainWindow;
 					containsNameLabel = true;
 				} 
 			} 
-			else if (element.getClass().equals(TextBox.class)) {
+			else if (element.getClass().equals(ScrollableTextBox.class)) {
 				if (!containsAtLeastOneTextBox) { // check if there is at least one TextBox
-					textInputFieldBox = (TextBox) element;
+					textInputFieldBox = (ScrollableTextBox) element;
 					containsAtLeastOneTextBox = true;
 				}
 			} else if (element.getClass().equals(Button.class)) {
@@ -181,7 +182,7 @@ private MyCanvasWindow mainWindow;
 		
 		// check the data in the file
 		String fileDataReference = "<table>\r\n"
-				+ "  <tr><td>HTML elements partially supported by BrowsrController:\r\n"
+				+ "  <tr><td>HTML elements partially supported by Browsr:\r\n"
 				+ "  <tr><td>\r\n"
 				+ "    <table>\r\n"
 				+ "      <tr><td><a href=\"a.html\">a</a><td>Hyperlink anchors\r\n"
