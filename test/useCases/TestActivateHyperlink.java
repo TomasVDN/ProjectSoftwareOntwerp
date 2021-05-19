@@ -16,16 +16,17 @@ import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import GUIElements.Container;
+import GUIElements.HTMLDocument;
 
 
 class TestActivateHyperlink {
 
-	private MyCanvasWindow window;
+	private MyCanvasWindow mainWindow;
 	
 	@BeforeEach
 	void setUp() throws InvocationTargetException, InterruptedException {
 		java.awt.EventQueue.invokeAndWait(() -> {
-			window = new MyCanvasWindow("BrowsrController");
+			mainWindow = new MyCanvasWindow("BrowsrController");
 		});
 	}
 	
@@ -34,21 +35,21 @@ class TestActivateHyperlink {
 	public void test() {
 		//load the page for the test
 		//Event event = new RunUrlEvent("https://konikoko.github.io/");
-		window.getWindowManager().getSearchbar().replaceBox("https://konikoko.github.io/");
-		window.getWindowManager().getSearchbar().handleEnter();
+		mainWindow.getWindowManager().getSearchbar().replaceBox("https://konikoko.github.io/");
+		mainWindow.getWindowManager().getSearchbar().handleEnter();
 		//window.getWindowManager().getEventReader().readEvent(event);
 
 		//get the url bar
-		SearchBar mainBar = window.getWindowManager().getSearchbar();
+		SearchBar mainBar = mainWindow.getWindowManager().getSearchbar();
 
 		//click on the hyperlink (manually)
-		window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 76, 155, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 76, 155, 1, MouseEvent.BUTTON1, 0);
-		window.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 76, 155, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 76, 155, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 76, 155, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 76, 155, 1, MouseEvent.BUTTON1, 0);
 
 		//testing GUI elements
-		Container pageContainer = window.getWindowManager().getMainDialog().getDocumentArea();
-		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
+		HTMLDocument htmlDocument = mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument();
+		TableGUI pageTable = (TableGUI) (htmlDocument.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
 				
@@ -67,7 +68,7 @@ class TestActivateHyperlink {
 		Text pageTableRow2TableHyperlink4Text = (Text) (pageTableRow2Table.getGuiRows().get(3).getGuiElements().get(1).getGui());
 
 		//check hyperlink urls
-		assertEquals("HTML elements partially supported by BrowsrController:", pageTableRow1Text.getText());
+		assertEquals("HTML elements partially supported by Browsr:", pageTableRow1Text.getText());
 		assertEquals("a.html", pageTableRow2TableHyperlink1.getUrl());
 		assertEquals("table.html", pageTableRow2TableHyperlink2.getUrl());
 		assertEquals("tr.html", pageTableRow2TableHyperlink3.getUrl());
@@ -86,7 +87,7 @@ class TestActivateHyperlink {
 		assertEquals("Table cells containing table data", pageTableRow2TableHyperlink4Text.getText());
 		
 		//check the current active element is null and check the url
-		assertEquals(null, window.getWindowManager().getElementWithKeyboardFocus());
+		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertEquals("https://konikoko.github.io/goodwork.html", mainBar.getText());
 	}
 }
