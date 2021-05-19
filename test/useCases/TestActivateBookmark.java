@@ -98,8 +98,7 @@ class TestActivateBookmark {
 		assertEquals(mainBarContainerY, referenceBarContainerY);
 
 		//testing GUI elements
-		Pane pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
-		HTMLDocument htmlDocument = (HTMLDocument) (pageContainer.getElements().get(2));
+		HTMLDocument htmlDocument = mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument();
 		TableGUI pageTable = (TableGUI) (htmlDocument.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
