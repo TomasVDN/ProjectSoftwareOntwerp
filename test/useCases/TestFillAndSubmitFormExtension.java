@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.Container;
+import GUIElements.HTMLDocument;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 import helperFunctions.StringTyping;
@@ -49,29 +50,29 @@ class TestFillAndSubmitFormExtension {
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 200, 200, 1, MouseEvent.BUTTON1, 0);
 		
 		// make select first text box
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 180, 150, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 180, 150, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 180, 150, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 349, 163, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 349, 163, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 349, 163, 1, MouseEvent.BUTTON1, 0);
 		
 		//fill the text box
 		StringTyping.generateKeyEventsForString(mainWindow, "t");
 		
 		// make select second text box
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 180, 180, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 180, 180, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 180, 180, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 380, 188, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 380, 188, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 380, 188, 1, MouseEvent.BUTTON1, 0);
 		
 		//fill the text box
 		StringTyping.generateKeyEventsForString(mainWindow, "5");
 		
 		//click submit button
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 55, 200, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 55, 200, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 55, 200, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 41, 229, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 41, 229, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 41, 229, 1, MouseEvent.BUTTON1, 0);
 		
 		//check the error screen
-		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
-		Text pageErrorText = (Text) (pageContainer.getElements().get(0));
+		HTMLDocument htmlDocument = mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument();
+		Text pageErrorText = (Text) (htmlDocument.getElements().get(0));
 				
 		assertEquals("Error occured. Make sure you entered a valid URL.", pageErrorText.getText());
 
