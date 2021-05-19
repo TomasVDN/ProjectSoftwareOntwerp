@@ -1,40 +1,86 @@
 package GUIElements;
 
+/**
+ * Class that implements the scrolling feature for the HTMLDocument. It contains a HTMLDocument and two scrollbars.
+ * All uncommented methods are redirections to the HTMLDocument methods.
+ */
 public class ScrollableHTMLDocument extends LeafPane {
 	
 	private HTMLDocument htmlDocument;
 	private ScrollBar scrollVertical;
 	private ScrollBar scrollHorizontal;
 
-
-	public ScrollableHTMLDocument(int x,int y,HTMLDocument html) {
-		super(x,y,html.getWidth()+10,html.getHeight()+10);
+	/**
+	 * Constructor of the ScrollableHTMLDocument. It creates the two Scrollbars.
+	 * @param x
+	 * @param y
+	 * @param html
+	 */
+	public ScrollableHTMLDocument(int x, int y, HTMLDocument html) {
+		super(x, y, html.getWidth() + 10, html.getHeight() + 10);
 		this.setHtmlDocument(html);
+		
+		initializeHorizontalScrollbar(x, html);
+		initializeVerticalScrollbar(html);
+		
+		this.addElement(htmlDocument);
+	}
+
+	/**
+	 * Initializes the Horizontal Scrollbar.
+	 * @param x
+	 * @param html
+	 */
+	private void initializeHorizontalScrollbar(int x, HTMLDocument html) {
 		ScrollBar scrollBarHorizontal = new ScrollBar(Direction.HORIZONTAL, x, html.getHeight(), html.getWidth(), 10, html.getWidth(), html.maxXCoordinateOfElements());
 		html.addAdjustListener(scrollBarHorizontal);
 		scrollBarHorizontal.addScrollBarListener(html);
+		this.setScrollHorizontal(scrollBarHorizontal);
+		this.addElement(scrollBarHorizontal);
+	}
+
+	/**
+	 * Initializes the vertival Scrollbar.
+	 * @param html
+	 */
+	private void initializeVerticalScrollbar(HTMLDocument html) {
 		ScrollBar scrollBarVertical = new ScrollBar(Direction.VERTICAL, html.getWidth(), 0, 10,html.getHeight(), html.getHeight(), html.maxYCoordinatOfElements());
+		
 		html.addAdjustListener(scrollBarVertical);
 		scrollBarVertical.addScrollBarListener(html);
-		this.setScrollHorizontal(scrollBarHorizontal);
+		
 		this.setScrollVertical(scrollBarVertical);
 		this.addElement(scrollBarVertical);
-		this.addElement(scrollBarHorizontal);
-		this.addElement(htmlDocument);
 	}
 	
-	private ScrollBar getScrollHorizontal() {
+	/**
+	 * Return the horizontal scrollbar of this Scrollable.
+	 * @return this.scrollHorizontal
+	 */
+	public ScrollBar getScrollHorizontal() {
 		return scrollHorizontal;
 	}
 
+	/**
+	 * Sets the horizontal scrollbar to the given scrollbar.
+	 * @param scrollHorizontal
+	 */
 	public void setScrollHorizontal(ScrollBar scrollHorizontal) {
 		this.scrollHorizontal = scrollHorizontal;
 	}
 	
-	private ScrollBar getScrollVertical() {
+	/**
+	 * Return the vertical scrollbar of this Scrollable.
+	 * @return this.scrollHorizontal
+	 */
+	public ScrollBar getScrollVertical() {
 		return scrollVertical;
 	}
 
+	/**
+	 * Sets the horizontal vertical to the given scrollbar.
+	 * @param scrollVertical
+	 */
 	public void setScrollVertical(ScrollBar scrollVertical) {
 		this.scrollVertical = scrollVertical;
 	}
@@ -114,13 +160,17 @@ public class ScrollableHTMLDocument extends LeafPane {
 		this.htmlDocument.updateAllBars();
 	}
 
+	/**
+	 * Creates a copy of this scrollable HTMLDocument. For this, create a copy of the contained HTMLDocument, and make a new 
+	 * ScrollableHTMLDocument with it.
+	 */
 	public ScrollableHTMLDocument copy() {
 		HTMLDocument htmlCopy = this.getHtmlDocument().copy();
 		return new ScrollableHTMLDocument(0, 0, htmlCopy);
 	}
 
 	/**
-	 * Always make scrollbar visible
+	 * Update the width of the scrollbar to keep it visible.
 	 */
 	@Override
 	public void setWidth(int width) {
@@ -137,7 +187,7 @@ public class ScrollableHTMLDocument extends LeafPane {
 	}
 	
 	/**
-	 * Always make scrollbar visible
+	 * Update the height of the scrollbar to keep it visible.
 	 */
 	@Override
 	public void setHeight(int height) {

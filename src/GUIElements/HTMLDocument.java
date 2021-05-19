@@ -113,24 +113,48 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 		return copy;
 	}
 	
+	/**
+	 * Update the x and width. This is used to update when moving/splitting HTMLDocuments.
+	 * @param newXPos
+	 * @param newWidth
+	 */
 	@Override
 	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
 		setX(newXPos);
 		setWidth(newWidth);
 	}
 	
+	/**
+	 * Update the y and height. This is used to update when moving/splitting HTMLDocuments.
+	 * @param newYPos
+	 * @param newHeight
+	 *//**
+	 * Update the y and height. This is used to update when moving/splitting HTMLDocuments.
+	 * @param newYPos
+	 * @param newHeight
+	 */
 	@Override
 	public void updateRightClosestChildHeight(int newYPos, int newHeight) {
 		setY(newYPos);
 		setHeight(newHeight);
 	}
 
+	/**
+	 * Update the x and width. This is used to update when moving/splitting HTMLDocuments.
+	 * @param newXPos
+	 * @param newWidth
+	 */
 	@Override
 	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {
 		setX(newXPos);
 		setWidth(newWidth);
 	}
 
+	/**
+	 * Update the y and height. This is used to update when moving/splitting HTMLDocuments.
+	 * @param newYPos
+	 * @param newHeight
+	 */
 	@Override
 	public void updateLeftClosestChildHeight(int newYPos, int newHeight) {
 		setY(newYPos);
@@ -141,24 +165,38 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	protected void updateAllBars() {
 	}
 	
+	/**
+	 * This will remove the old GUIElements, and add new ones made from this.HTMLCode
+	 */
 	public void loadPage() {
 		this.listenerReload.forEach(l -> l.loadHTML(this,this.getUrl(), this.getHTMLCode()));
 	}
 	
+	/**
+	 * Adds the GUIElements from guiList to this HTMLDocument.
+	 * @param guiList - list with the GUIElements to add
+	 * @param path - URL from the page the GUIElements come from
+	 * @param code - HTML code from the page the GUIElements come from
+	 */
 	public void loadHTML(ArrayList<GUIElement> guiList, String path, String code) {
 		super.resetAllElements(guiList);
 		this.setUrl(path);
 		this.setHTMLCode(code);
 	}
 
-
-	
+	/**
+	 * Add the given ReloadListener to the list of ReloadListeners
+	 * @param listener
+	 */
 	public void addReloadListener(ReloadListener listener) {
 		if(listener!=null) {
 			this.listenerReload.add(listener);
 		}
 	}
 
+	/**
+	 * Removes the given ReloadListener form the list of ReloadListeners
+	 */
 	public  void removeReloadListener(ReloadListener listener) {
 		this.listenerReload.remove(listener);
 	}
