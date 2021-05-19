@@ -2,7 +2,9 @@ package GUIElements;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.Before;
 
 import EventListeners.SearchBarListener;
 
@@ -19,7 +21,12 @@ class TestSearchBar {
 
 	};
 	SearchBarListenerClass searchBarListener = new SearchBarListenerClass();
-	SearchBar testBar = new SearchBar(0, 0, 0, 0,searchBarListener);
+	SearchBar testBar = new SearchBar(0, 0, 0, 0);
+	
+	@BeforeEach
+	void init() {
+		testBar.addSearchBarListener(searchBarListener);
+	}
 	
 	@Test
 	void testHandleUnselect() {
@@ -70,10 +77,12 @@ class TestSearchBar {
 	@Test
 	void testRemoveSearchBarListener() {
 		SearchBarListenerClass searchBarListener2 = new SearchBarListenerClass();
+		SearchBarListenerClass searchBarListener3 = new SearchBarListenerClass();
 		testBar.addSearchBarListener(searchBarListener2);
+		testBar.addSearchBarListener(searchBarListener3);
+		assertEquals(3,testBar.getListeners().size());
+		testBar.removeSearchBarListener(searchBarListener2);
 		assertEquals(2,testBar.getListeners().size());
-		testBar.removeSearchBarListener(searchBarListener);
-		assertEquals(1,testBar.getListeners().size());
 	}
 
 

@@ -33,10 +33,16 @@ public class TableRowGUI extends GUIElement {
 		this.setOffSet(offset);
 	}
 	
+	/**
+	 * Sets the offset between two tableCells (the x coordinate)
+	 */
 	public void setOffSet(int newOffset) {
 		this.offSet = newOffset;
 	}
 	
+	/**
+	 * Returns the offset of this TableRowGUI
+	 */
 	public int getOffSet() {
 		return this.offSet;
 	}
@@ -59,6 +65,10 @@ public class TableRowGUI extends GUIElement {
 		}
 	}
 	
+	/**
+	 * Adds a TableCellGUI to this TableRowGUI
+	 * @param cell - the TableCellGUI to add
+	 */
 	public void addTableCell(TableCellGUI cell) {
 		if (cell!=null) {
 			this.getGuiElements().add(cell);
@@ -179,6 +189,9 @@ public class TableRowGUI extends GUIElement {
 		this.tableCellList = cells;
 	}
 
+	/**
+	 * Returns an array with all the elements in this Container of the given class.
+	 */
 	@Override
 	public  <T> ArrayList<T> getGuiClass(Class<T> cls,ArrayList<T> array) {
 		for(GUIElement element: this.getGuiElements()) {

@@ -91,11 +91,18 @@ public class SaveDialog extends Dialog {
 		return textBox.getTextBox();
 	}
 	
+	/**
+	 * Returns the html document that is currently active
+	 */
 	public HTMLDocument getActiveHtml() {
 		return activeHtml;
 	}
 
-	public void setActiveHtml(HTMLDocument activeHtml) {
+	/**
+	 * Sets the active htmlDocument to the given htmlDocument
+	 * @param activeHtml
+	 */
+	private void setActiveHtml(HTMLDocument activeHtml) {
 		this.activeHtml = activeHtml;
 	}
 

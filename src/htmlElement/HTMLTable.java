@@ -8,11 +8,7 @@ import GUIElements.TableRowGUI;
 
 public class HTMLTable extends ContentSpan {
 
-	/**
-	 * The distance between the guiRows in the table
-	 */
-	private static int YSPACE= 3;
-	
+
 	public HTMLTable() {
 		
 	}

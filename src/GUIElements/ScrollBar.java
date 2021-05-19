@@ -413,14 +413,22 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		return scrollListeners;
 	}
 
+	/**
+	 * Handles the key event of a scrollbar
+	 */
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {}
 
-
+	/**
+	 * Handles the unselection of a scrollbar, this means that the scrollbar was selected
+	 * previously and now the user selected an other object
+	 */
 	@Override
 	protected void handleUnselect() {}
 
-
+	/**
+	 * Handles the click of a scrollbar
+	 */
 	@Override
 	public void handleClick() {}
 }
