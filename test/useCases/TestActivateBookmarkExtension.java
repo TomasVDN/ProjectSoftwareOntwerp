@@ -15,7 +15,9 @@ import org.junit.jupiter.api.Test;
 import GUIElements.BookmarkHyperlink;
 import GUIElements.Container;
 import GUIElements.GUIElement;
+import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
+import GUIElements.Pane;
 import GUIElements.SearchBar;
 import GUIElements.TableCellGUI;
 import GUIElements.TableGUI;
@@ -38,15 +40,11 @@ class TestActivateBookmarkExtension {
 	@DisplayName("Use Case 4.4.2a: Activate Bookmark with malformed url")
 	// Use Case 4.5
 	public void activateBookmarkMalformedUrl() throws InvocationTargetException, InterruptedException {
-		// create new bookmark
+		// add new Hyperlink to BookmarkBar
 		String newBookmarkyperlinkString = "New Bookmark";
-		Text newBookmarkHyperlinkText = new Text(0, 0, newBookmarkyperlinkString);
 		String newBookmarkUrl = "A wrong url";
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, newBookmarkHyperlinkText, newBookmarkUrl);
+		mainWindow.getWindowManager().addBookmark(newBookmarkyperlinkString, newBookmarkUrl);
 		// TODO newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
-		
-		// add it to the bookmarkBar
-		mainWindow.getWindowManager().getMainDialog().addBookmark(newBookmarkHyperlink);
 		
 		// get positions to click TODO misschien een betere manier vinden voor dit?
 		// get Y position
@@ -80,8 +78,8 @@ class TestActivateBookmarkExtension {
 		
 		// Step 4.4.2.a
 		//check the error screen
-		Container pageContainer1 = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
-		Text pageErrorText = (Text) (pageContainer1.getElements().get(0));
+		HTMLDocument htmlDocument = mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument();
+		Text pageErrorText = (Text) (htmlDocument.getElements().get(0));
 				
 		assertEquals("Error occured. Make sure you entered a valid URL.", pageErrorText.getText());
 	}
