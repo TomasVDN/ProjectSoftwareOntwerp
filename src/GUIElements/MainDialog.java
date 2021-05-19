@@ -276,16 +276,16 @@ public class MainDialog extends Dialog  {
 			if (keyCode == 88) {
 				//ctrl + X
 				allContainers.remove(documentArea);
-				//documentArea.resetActiveHTMLDocument();
+				documentArea.resetActiveHTMLDocument();
 				
 				documentArea = documentArea.deleteActiveHTMLDocument();
-				this.setActiveHTMLDocument(documentArea.getActiveHTMLDocument());
 				if (documentArea == null) { //TODO bug & smelly code
 					ScrollableHTMLDocument originalPage = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
 					documentArea = originalPage;
 					documentArea.setActive(true);
 					this.setActiveHTMLDocument(originalPage.getHtmlDocument());
 				}
+				this.setActiveHTMLDocument(documentArea.getActiveHTMLDocument());
 				allContainers.add(documentArea);
 			}
 		}
