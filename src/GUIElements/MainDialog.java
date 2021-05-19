@@ -40,13 +40,11 @@ public class MainDialog extends Dialog  {
 		BookmarkHyperlink hyperlinkTest1 = new BookmarkHyperlink(0, 0, t1, "https://konikoko.github.io/");
 		hyperlinkTest1.addHyperLinkListener(browsrController);
 		this.addBookmark(hyperlinkTest1);
-		
 		// BookmarkHyperlink 2
 		Text t2 = new Text(0, 0, "form");
 		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t2, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
 		hyperlinkTest2.addHyperLinkListener(browsrController);
 		this.addBookmark(hyperlinkTest2);
-		
 		// BookmarkHyperlink 3
 		Text t3 = new Text(0, 0, "bigPage");
 		BookmarkHyperlink hyperlinkTest3 = new BookmarkHyperlink(0, 0, t3, "https://stevenhgs.github.io/");
