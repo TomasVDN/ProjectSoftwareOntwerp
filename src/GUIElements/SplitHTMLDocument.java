@@ -367,6 +367,18 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	public Direction getDir() {
 		return dir;
 	}
+	
+	
+	public Pane getRightPanel() {
+		return this.rightPanel;
+	}
+	
+	
+	public Pane getLeftPanel() {
+		return this.leftPanel;
+	}
+
+
 
 
 
