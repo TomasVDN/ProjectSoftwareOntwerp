@@ -16,7 +16,9 @@ import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
 import GUIElements.Container;
 import GUIElements.GUIElement;
+import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
+import GUIElements.Pane;
 import GUIElements.SearchBar;
 import GUIElements.TableCellGUI;
 import GUIElements.TableGUI;
@@ -39,15 +41,11 @@ class TestActivateBookmark {
 	@DisplayName("Use Case 4.4: Activate Bookmark main success scenario")
 	// Use Case 4.5
 	public void activateBookmarkSuccess() throws InvocationTargetException, InterruptedException {
-		// create new bookmark
-		String newBookmarkyperlinkString = "New Bookmark";
-		Text newBookmarkHyperlinkText = new Text(0, 0, newBookmarkyperlinkString);
-		String newBookmarkUrl = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
-		BookmarkHyperlink newBookmarkHyperlink = new BookmarkHyperlink(0, 0, newBookmarkHyperlinkText, newBookmarkUrl);
-		//TODO newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
 		
-		// add it to the bookmarkBar
-		mainWindow.getWindowManager().getMainDialog().addBookmark(newBookmarkHyperlink);
+		// add new Hyperlink to BookmarkBar
+		String newBookmarkyperlinkString = "New Bookmark";
+		String newBookmarkUrl = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
+		mainWindow.getWindowManager().addBookmark(newBookmarkyperlinkString, newBookmarkUrl);
 		
 		// get positions to click TODO misschien een betere manier vinden voor dit?
 		// get Y position
@@ -100,8 +98,9 @@ class TestActivateBookmark {
 		assertEquals(mainBarContainerY, referenceBarContainerY);
 
 		//testing GUI elements
-		Container pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
-		TableGUI pageTable = (TableGUI) (pageContainer.getElements().get(0));
+		Pane pageContainer = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
+		HTMLDocument htmlDocument = (HTMLDocument) (pageContainer.getElements().get(2));
+		TableGUI pageTable = (TableGUI) (htmlDocument.getElements().get(0));
 		TableRowGUI pageTableRow1 = pageTable.getGuiRows().get(0);
 		TableRowGUI pageTableRow2 = pageTable.getGuiRows().get(1);
 		
@@ -120,7 +119,7 @@ class TestActivateBookmark {
 		Text pageTableRow2TableHyperlink4Text = (Text) (pageTableRow2Table.getGuiRows().get(3).getGuiElements().get(1).getGui());
 
 		//check hyperlink urls
-		assertEquals("HTML elements partially supported by BrowsrController:", pageTableRow1Text.getText());
+		assertEquals("HTML elements partially supported by Browsr:", pageTableRow1Text.getText());
 		assertEquals("a.html", pageTableRow2TableHyperlink1.getUrl());
 		assertEquals("table.html", pageTableRow2TableHyperlink2.getUrl());
 		assertEquals("tr.html", pageTableRow2TableHyperlink3.getUrl());
