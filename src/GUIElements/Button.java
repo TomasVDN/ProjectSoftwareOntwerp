@@ -98,7 +98,7 @@ public class Button extends GUIElement {
 			if (mustDrawBox()) {
 				drawBox(g,getButtonColor());
 			}
-			Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
+			Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
 			drawText(newG);		
 		}
 		
@@ -136,7 +136,7 @@ public class Button extends GUIElement {
 			if (mustDrawBox()) {
 				drawBox(g,getButtonColor().darker());
 			}
-			Graphics newG= g.create(getX(), getY(), getWidth()+100, getHeight()+100);
+			Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
 			drawText(newG);	
 		}
 		

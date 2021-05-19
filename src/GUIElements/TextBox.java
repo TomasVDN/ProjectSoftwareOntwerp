@@ -6,7 +6,9 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-public class TextBox extends GUIElement {
+import EventListeners.ScrollBarListener;
+
+public class TextBox extends GUIElement implements ScrollBarListener {
 
 	private String leftText = "", rightText = "";
 	private String previousText = "";
@@ -14,9 +16,13 @@ public class TextBox extends GUIElement {
 	private Boolean cursorOnTheRightOfSelectedText = false;
 	private Font font = new Font(Font.DIALOG, Font.PLAIN, 20);
 	private String name;
-	private int XOFFSET=10;
-	private int YOFFSET=2;
+	private int xOffset;
+	private int yOffset;
+	private int CONSTANTXOFFSET=10;
+	private int CONSTANTXRIGHTGAP=10;
+	private int CONSTANTYOFFSET = 2;
 	
+
 	/**
 	 * Constructor of the TextBox class
 	 * @param x - x coordinate of the TextBox
@@ -87,6 +93,15 @@ public class TextBox extends GUIElement {
 	public String getText() {
 		return leftText + selectedText + rightText;
 	}
+	
+	/**
+	 * Returns the width of the text
+	 */
+	public int getWidthText() {
+		String text = this.getText();
+		Text textWithWidth= new Text(0, 0, text); // position doesn't matter
+		return Math.max(this.getWidth(), textWithWidth.getWidth()+CONSTANTXOFFSET+CONSTANTXRIGHTGAP);
+	}
 
 	/**
 	 * @return the previousText
@@ -131,9 +146,11 @@ public class TextBox extends GUIElement {
 		switch (keyCode) {
 		case 8: //backspace
 			this.handleBackSpace();
+			this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			break;
 		case 127: //delete
 			this.handleDelete();
+			this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			break;
 		case 27: //escape
 			this.handleEscape();
@@ -156,9 +173,11 @@ public class TextBox extends GUIElement {
 		default:
 			if (keyChar != KeyEvent.CHAR_UNDEFINED) {
 				this.handleUndefined(keyChar);
+				this.notifyAdjustmentListenerIncreased(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 			}
 			break;
 		}
+		
 	}
 	
 	/**
@@ -179,7 +198,6 @@ public class TextBox extends GUIElement {
 		//Text
 		Graphics newG= g.create(getX(), getY(), getWidth(), getHeight());
 		this.drawText(newG, metrics);
-		
 		//cursor
 		if (isActive()) this.drawCursor(newG, metrics);
 	}
@@ -206,16 +224,16 @@ public class TextBox extends GUIElement {
 
 		
 		if (selectedText != "") {
-			int y =((this.getHeight() - metrics.getHeight()) / 2) -YOFFSET;
-			int x = metrics.stringWidth(this.leftText)+XOFFSET;
+			int y =((this.getHeight() - metrics.getHeight()) / 2) - this.getYTotalOffset();
+			int x = metrics.stringWidth(this.leftText) + this.getXTotalOffset();
 			g.setColor(Color.blue);
 			g.fillRect(x, y, metrics.stringWidth(selectedText), metrics.getHeight());
 			g.setColor(Color.black);
 		}
 		
-		int y = ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent()-YOFFSET;
+		int y = ((this.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent()-this.getYTotalOffset();
 		//g.drawString(this.getText(), super.getX(), y);
-		g.drawString(this.getText(), XOFFSET, y);
+		g.drawString(this.getText(), this.getXTotalOffset(), y);
 	}
 	
 	/**
@@ -225,7 +243,7 @@ public class TextBox extends GUIElement {
 	 */
 	private void drawCursor(Graphics g, FontMetrics metrics) {
 		int y = ((this.getHeight() - metrics.getHeight()) / 2);
-		int x = metrics.stringWidth(leftText)+XOFFSET;
+		int x = metrics.stringWidth(leftText)+this.getXTotalOffset();
 		if (cursorOnTheRightOfSelectedText()) {
 			x += metrics.stringWidth(selectedText); 
 		}
@@ -447,6 +465,7 @@ public class TextBox extends GUIElement {
 		this.setLeftText(text);
 		this.setSelectedText("");
 		this.setRigthText("");
+		this.notifyAdjustmentListenerReset(this.getWidth(),this.getWidthText(),this.getHeight(),this.getHeight());
 	}
 	
 	@Override
@@ -483,6 +502,38 @@ public class TextBox extends GUIElement {
 	 */
 	private Boolean cursorOnTheRightOfSelectedText() {
 		return cursorOnTheRightOfSelectedText;
+	}
+
+	@Override
+	public void scrollBarMoved(double ratio,Direction direction) {
+		if(direction== Direction.HORIZONTAL) {
+			int newOffset = (int)( ratio*this.getWidthText());
+			this.setxOffset(-newOffset);
+		}
+	}
+	
+	public int getyOffset() {
+		return yOffset;
+	}
+	
+	public int getYTotalOffset() {
+		return this.getyOffset() + CONSTANTYOFFSET;
+	}
+
+	public void setyOffset(int yOffset) {
+		this.yOffset = yOffset;
+	}
+	
+	public int getxOffset() {
+		return xOffset;
+	}
+
+	public void setxOffset(int xOffset) {
+		this.xOffset = xOffset;
+	}
+	
+	public int getXTotalOffset() {
+		return this.getxOffset() + CONSTANTXOFFSET;
 	}
 	
 }

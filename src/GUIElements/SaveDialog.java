@@ -8,7 +8,7 @@ import EventListeners.SavePageListener;
 
 public class SaveDialog extends Dialog {
 
-	private TextBox textBox;
+	private ScrollableTextBox textBox;
 	private HTMLDocument activeHtml;
 
 
@@ -37,7 +37,7 @@ public class SaveDialog extends Dialog {
 	private void initTextBox(int width) {
 		Text text = new Text(10, 15, "File name:");
 		this.addElement(text);
-		textBox = new TextBox(15 + text.getWidth(), 10, width - 20 - text.getWidth(), 40);
+		textBox = new ScrollableTextBox(15 + text.getWidth(),10,new TextBox(0, 0, width - 20 - text.getWidth(), 40));
 		this.addElement(textBox);
 	}
 	
@@ -85,15 +85,9 @@ public class SaveDialog extends Dialog {
 	 * @return the textBox
 	 */
 	public TextBox getTextBox() {
-		return textBox;
+		return textBox.getTextBox();
 	}
 
-	/**
-	 * @param textBox the textBox to set
-	 */
-	public void setTextBox(TextBox textBox) {
-		this.textBox = textBox;
-	}
 	
 	
 	//LISTENERS

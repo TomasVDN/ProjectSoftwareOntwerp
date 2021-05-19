@@ -59,8 +59,6 @@ public class Text extends GUIElement {
 	public void paint(Graphics g) {
 		g.setFont(font);
 		g.setColor(this.getColor());
-		
-
 		super.drawCenteredText(g, this.getText());
 		
 	}

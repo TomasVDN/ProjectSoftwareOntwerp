@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import EventListeners.ReloadListener;
+import EventListeners.ScrollBarListener;
 
 /**
  * Container type class used as a pane. It keeps track of the loaded URL and the loaded HTML code.
  *
  */
-public class HTMLDocument extends Pane {
+public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	
 	private String url;
 	private String HTMLCode;
@@ -78,6 +79,7 @@ public class HTMLDocument extends Pane {
 		this.isActiveHTMLDocument = active;
 	}
 	
+	@Override
 	public HTMLDocument copy() {
 		HTMLDocument copy = new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
 		copy.listenerReload = this.listenerReload;//copies the listener

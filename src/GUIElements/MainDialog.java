@@ -37,12 +37,17 @@ public class MainDialog extends Dialog  {
 		//Used for testing purpose TODO
 		Text t2 = new Text(0, 0, "link");
 		BookmarkHyperlink hyperlinkTest = new BookmarkHyperlink(0, 0, t2, "https://konikoko.github.io/");
-		hyperlinkTest.addHyperLinkListener(browsrController);
-		this.addBookmark(hyperlinkTest);
 		Text t3 = new Text(0, 0, "form");
 		BookmarkHyperlink hyperlinkTest2 = new BookmarkHyperlink(0, 0, t3, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
+		Text t4 = new Text(0, 0, "bigPage");
+		BookmarkHyperlink hyperlinkTest3 = new BookmarkHyperlink(0, 0, t4, "https://stevenhgs.github.io/");
+		hyperlinkTest.addHyperLinkListener(browsrController);
+		this.addBookmark(hyperlinkTest);
+		hyperlinkTest2.addHyperLinkListener(browsrController);
 		hyperlinkTest2.addHyperLinkListener(browsrController);
 		this.addBookmark(hyperlinkTest2);
+		hyperlinkTest3.addHyperLinkListener(browsrController);
+		this.addBookmark(hyperlinkTest3);
 		
 	}
 	
@@ -56,17 +61,16 @@ public class MainDialog extends Dialog  {
 		//Initialize the searchbar container and bookmark container
 		this.searchBarContainer = new Container(0,0,this.getWidth(),BAR_SIZE);
 		this.bookmarkBarContainer = new Container(0,BAR_SIZE,this.getWidth(),BOOKMARK_SIZE);
-		
-		//Initialize the document area. The newly created HTML document must be set to active.
-		HTMLDocument documentArea = new HTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE, this.getWidth(), this.getHeight() - BAR_SIZE - BOOKMARK_SIZE, "", "Welcome my friend, take a seat and enjoy your surfing.");
-		this.setActiveHTMLDocument(documentArea);
+		ScrollableHTMLDocument documentArea = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,new HTMLDocument(0, 0, this.getWidth()-10, this.getHeight() - BAR_SIZE - BOOKMARK_SIZE-10, "", "Welcome my friend, take a seat and enjoy your surfing."));
+		this.setActiveHTMLDocument(documentArea.getHtmlDocument());
+
 		documentArea.setActive(true);
 
 		// Add a reloadListener to the HTMLDocument, and load the page
-		documentArea.addReloadListener(browsrController);
-		documentArea.loadPage();
+		documentArea.getHtmlDocument().addReloadListener(browsrController);
+		documentArea.getHtmlDocument().loadPage();
 		
-		this.originalDocumentArea = documentArea.copy();
+		this.originalDocumentArea = documentArea.getHtmlDocument().copy();
 		this.documentArea = documentArea;
 		
 		this.allContainers = new ArrayList<Container>();
@@ -80,10 +84,12 @@ public class MainDialog extends Dialog  {
 	 * Initializes the searchBar of this MainDialog.
 	 * @param browsrController
 	 */
+
 	private void initSearchBar(BrowsrController browsrController) {
-		SearchBar searchBar = new SearchBar(10, 10, this.getWidth() - 20, 40, browsrController);
+		SearchBar searchBar = new SearchBar(0, 0, this.getWidth() - 30, 40, browsrController);
 		this.setSearchbar(searchBar);
-		this.getSearchBarContainer().addElement(searchBar);
+		ScrollableTextBox scrollableSearchBar = new ScrollableTextBox(10 ,10 ,searchBar);
+		this.getSearchBarContainer().addElement(scrollableSearchBar);
 	}
 	
 	/**
@@ -223,14 +229,15 @@ public class MainDialog extends Dialog  {
 	
 	@Override
 	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
+		// activate the GUIElement at the given position
+		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
+		
 		//sets the clicked panel to active
 		HTMLDocument newActiveHTML = documentArea.setHTMLDocumentActive(x, y);
 		if(newActiveHTML!=null) {
 			this.setActiveHTMLDocument(newActiveHTML);
 			this.changeSearchBar(newActiveHTML.getUrl());
 		}
-		// activate the GUIElement at the given position
-		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
 	}
 	
 	public void changeSearchBar(String url) {
@@ -248,6 +255,7 @@ public class MainDialog extends Dialog  {
 	@Override
 	public void handleKeyEvent(int keyCode, char keyChar, int modifiersEx) {
 		if (modifiersEx == 128) {
+			// ctrl + H
 			if (keyCode == 72) {
 				allContainers.remove(documentArea); //TODO smelly code
 				documentArea = documentArea.splitActiveHTMLDocumentVertical();
@@ -257,6 +265,7 @@ public class MainDialog extends Dialog  {
 		
 		if (modifiersEx == 128) {
 			if (keyCode == 86) {
+				//ctrl + V
 				allContainers.remove(documentArea); //TODO smelly code
 				documentArea = documentArea.splitActiveHTMLDocumentHorizontal();
 				allContainers.add(documentArea);
@@ -267,14 +276,16 @@ public class MainDialog extends Dialog  {
 			if (keyCode == 88) {
 				//ctrl + X
 				allContainers.remove(documentArea);
-				documentArea.resetActiveHTMLDocument();
+				//documentArea.resetActiveHTMLDocument();
 				
 				documentArea = documentArea.deleteActiveHTMLDocument();
 				if (documentArea == null) { //TODO bug & smelly code
-					documentArea = originalDocumentArea.copy();
+					ScrollableHTMLDocument originalPage = new ScrollableHTMLDocument(0, BAR_SIZE + BOOKMARK_SIZE,originalDocumentArea.copy());
+					documentArea = originalPage;
 					documentArea.setActive(true);
-					this.setActiveHTMLDocument((HTMLDocument) documentArea);
+					this.setActiveHTMLDocument(originalPage.getHtmlDocument());
 				}
+				this.setActiveHTMLDocument(documentArea.getActiveHTMLDocument());
 				allContainers.add(documentArea);
 			}
 		}

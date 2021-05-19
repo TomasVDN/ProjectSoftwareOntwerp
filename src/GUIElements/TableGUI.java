@@ -93,12 +93,14 @@ public class TableGUI extends GUIElement {
 	 */
 	@Override
 	public int getWidth(){
-		int totalWidth=0;
+		int maxWidth=0;
 		for(int i=0; i<this.getGuiRows().size();i++) {
 			int width = this.getGuiRows().get(i).getWidth();
-			totalWidth+=width;
+			if(maxWidth<width) {
+				maxWidth=width;
+			}
 		}
-		return totalWidth;
+		return maxWidth;
 	}
 	
 	/**
