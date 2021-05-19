@@ -46,10 +46,10 @@ public class TestForm {
 	
 	@Test
 	public void testNoAction() {
-		Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
 			Form guiCell = new Form(hyper, 0, 0, null);
 		});
-		assertTrue(exception2.getMessage().contains("not a valid action"));
+		assertTrue(exception.getMessage().contains("not a valid action"));
 	}
 	
 

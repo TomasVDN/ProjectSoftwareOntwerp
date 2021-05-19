@@ -18,6 +18,8 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	private String HTMLCode;
 
 
+	
+	
 
 	protected List<ReloadListener > listenerReload = new ArrayList<ReloadListener>();
 	
@@ -234,8 +236,11 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	/**
 	 * @param hTMLCode the HTMLCode to set
 	 */
-	public void setHTMLCode(String hTMLCode) {
-		HTMLCode = hTMLCode;
+	public void setHTMLCode(String HTMLCode) {
+		if(HTMLCode==null) {
+			throw new IllegalArgumentException("Not a valid HTMLCode");
+		}
+		this.HTMLCode = HTMLCode;
 	}
 	
 }

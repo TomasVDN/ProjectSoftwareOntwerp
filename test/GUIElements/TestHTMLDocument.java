@@ -2,12 +2,36 @@ package GUIElements;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
+import EventListeners.FormListener;
+import EventListeners.ReloadListener;
+import domain.HTMLDecoder;
+import htmlElement.ContentSpan;
+import htmlElement.HTMLButton;
 
 class TestHTMLDocument {
 
 	HTMLDocument htmlTestWithButton = new HTMLDocument(0, 0, 100, 100, "button", "<input type=\"submit\">");
 	
+	
+	public static class LoadPageListenerClass implements ReloadListener {
+
+
+		public String htmlCode;
+		
+		public ArrayList<ContentSpan> htmlElements;
+
+		@Override
+		public void loadHTML(HTMLDocument HTMLDocument, String url, String htmlString) {
+			this.htmlCode=htmlString;
+			HTMLDecoder decoder = new HTMLDecoder(htmlString);
+			htmlElements = decoder.createElements();
+		}
+
+	};
 	
 	
 	@Test
@@ -45,7 +69,7 @@ class TestHTMLDocument {
 
 	@Test
 	void testSplitActiveHTMLDocumentVertical() {
-		Pane split = htmlTestWithButton.splitActiveHTMLDocumentHorizontal();
+		Pane split = htmlTestWithButton.splitActiveHTMLDocumentVertical();
 		assertTrue(split instanceof SplitHTMLDocument);
 		SplitHTMLDocument split2 = (SplitHTMLDocument) split;
 		assertEquals(split2.getActiveHTMLDocument(),htmlTestWithButton);
@@ -87,52 +111,45 @@ class TestHTMLDocument {
 
 	@Test
 	void testHTMLDocument() {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+			HTMLDocument html = new HTMLDocument(0, 0, 0, 0, null, "");
+		});
+		assertTrue(exception.getMessage().contains("Url can't be null"));
 		
+		Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+			HTMLDocument html = new HTMLDocument(0, 0, 0, 0, "", null);
+		});
+		assertTrue(exception2.getMessage().contains("Not a valid HTMLCode"));
 	}
 
 	@Test
 	void testCopy() {
-		fail("Not yet implemented");
+		HTMLDocument htmlCopy = htmlTestWithButton.copy();
+		assertEquals(htmlCopy.getWidth(),htmlTestWithButton.getWidth());
+		assertEquals(htmlCopy.getY(),htmlTestWithButton.getY());
+		assertEquals(htmlCopy.getUrl(),htmlTestWithButton.getUrl());
+		assertEquals(htmlCopy.getHTMLCode(),htmlTestWithButton.getHTMLCode());
+		htmlTestWithButton.setY(20);
+		assertEquals(0,htmlCopy.getY());
 	}
 
 	@Test
 	void testLoadPage() {
-		fail("Not yet implemented");
+		LoadPageListenerClass loadPage = new LoadPageListenerClass();
+		htmlTestWithButton.addReloadListener(loadPage);
+		htmlTestWithButton.loadPage();
+		assertEquals(loadPage.htmlCode, htmlTestWithButton.getHTMLCode());
+		assertTrue(loadPage.htmlElements.get(0) instanceof HTMLButton);
 	}
 
 	@Test
 	void testLoadHTML() {
-		fail("Not yet implemented");
+		Text text = new Text(0, 0, "String");
+		ArrayList<GUIElement> list = new ArrayList<GUIElement>();
+		list.add(text);
+		htmlTestWithButton.loadHTML(list, "", "String");
+		assertEquals(htmlTestWithButton.getElements().get(0),text);
 	}
 
-	@Test
-	void testAddReloadListener() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testRemoveReloadListener() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetUrl() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetUrl() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetHTMLCode() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetHTMLCode() {
-		fail("Not yet implemented");
-	}
 
 }
