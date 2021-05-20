@@ -257,24 +257,25 @@ public class ScrollableHTMLDocument extends LeafPane {
 		super.setHeight(height);
 	}
 
+
 	@Override
-	public int getLeftPanelWidth() {
-		return this.htmlDocument.getLeftPanelWidth();
+	public int getRightClosestSeperatorBarPositionWidth() {
+		return this.getHtmlDocument().getRightClosestSeperatorBarPositionWidth();
 	}
 
 	@Override
-	public int getLeftPanelHeight() {
-		return this.htmlDocument.getLeftPanelHeight();
+	public int getLeftClosestSeperatorBarPositionWidth() {
+		return this.getHtmlDocument().getLeftClosestSeperatorBarPositionWidth();
 	}
 
 	@Override
-	public int getRightPanelWidth() {
-		return this.htmlDocument.getRightPanelWidth();
+	public int getRightClosestSeperatorBarPositionHeight() {
+		return this.getHtmlDocument().getRightClosestSeperatorBarPositionHeight();
 	}
 
 	@Override
-	public int getRightPanelHeight() {
-		return this.htmlDocument.getRightPanelHeight();
+	public int getLeftClosestSeperatorBarPositionHeight() {
+		return this.getHtmlDocument().getLeftClosestSeperatorBarPositionHeight();
 	}
 
 }

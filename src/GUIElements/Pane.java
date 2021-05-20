@@ -84,29 +84,13 @@ public abstract class Pane extends Container {
 	 */
 	public abstract void updateLeftClosestChildHeight(int newYPos, int newHeight);
 	
-	/**
-	 * Returns the width of the left most pane.
-	 * @return width
-	 */
-	public abstract int getLeftPanelWidth();
+	public abstract int getRightClosestSeperatorBarPositionWidth();
 	
-	/**
-	 * Returns the height of the left most pane.
-	 * @return height
-	 */
-	public abstract int getLeftPanelHeight();
+	public abstract int getLeftClosestSeperatorBarPositionWidth();
 	
-	/**
-	 * Returns the width of the right most pane.
-	 * @return width
-	 */
-	public abstract int getRightPanelWidth();
+	public abstract int getRightClosestSeperatorBarPositionHeight();
 	
-	/**
-	 * Returns the height of the right most pane.
-	 * @return height
-	 */
-	public abstract int getRightPanelHeight();
+	public abstract int getLeftClosestSeperatorBarPositionHeight();
 	
 	/**
 	 * Updates all separator bars contained within panes.

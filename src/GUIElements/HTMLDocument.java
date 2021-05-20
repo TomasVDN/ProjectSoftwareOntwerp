@@ -236,24 +236,25 @@ public class HTMLDocument extends LeafPane {
 		this.HTMLCode = HTMLCode;
 	}
 
+
 	@Override
-	public int getLeftPanelWidth() {
-		return getWidth();
+	public int getRightClosestSeperatorBarPositionWidth() {
+		return -1;
 	}
 
 	@Override
-	public int getLeftPanelHeight() {
-		return getHeight();
+	public int getLeftClosestSeperatorBarPositionWidth() {
+		return -1;
 	}
 
 	@Override
-	public int getRightPanelWidth() {
-		return getWidth();
+	public int getRightClosestSeperatorBarPositionHeight() {
+		return -1;
 	}
 
 	@Override
-	public int getRightPanelHeight() {
-		return getHeight();
+	public int getLeftClosestSeperatorBarPositionHeight() {
+		return -1;
 	}
 	
 }
