@@ -34,13 +34,13 @@ public class MainDialog extends Dialog  {
      * @param y - y coordinate of this Container
      * @param w - width of this Container
      * @param h - height of this Container
-     * @param browsrController //TODO verwijderen?
+     * @param browsrController
 	 */
 	public MainDialog(int x, int y, int w, int h, BrowsrController browsrController) {
 		super(x, y, w, h);
 		
-		this.initContainers(browsrController);
-		this.initSearchBar(browsrController);
+		this.initContainers(browsrController::loadHTML);
+		this.initSearchBar(browsrController::runUrl);
 		this.initBookmarkBar();
 		
 		//Used for testing purpose TODO

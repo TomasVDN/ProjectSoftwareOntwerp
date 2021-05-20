@@ -1,8 +1,6 @@
 package GUIElements;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-
 import EventListeners.SeparatorBarMoveListener;
 
 /**
@@ -18,9 +16,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	private boolean activeOnLeft = true;
 	private SeperatorBar bar;
 	private Direction dir;
-
-
-
 
 	/**
 	 * Creates a new splitHTMLDocument
@@ -44,8 +39,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		
 	}
 	
-	
-	
 	/**
 	 *  Initialize the document to be splitted with a horizontal seperator bar
 	 * @param original - the htmlDocument , the left node becomes the original document
@@ -66,17 +59,14 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		tempLeftPanel.setHeight(heightLeftPanel);
 		tempRightPanel.setHeight(heightLeftPanel);
 		
-		//tempLeftPanel.redraw();
-		//tempRightPanel.redraw();
-		
 		this.leftPanel = tempLeftPanel;
 		this.rightPanel = tempRightPanel;
 	}
 
 	/**
 	 *  Initialize the document to be splitted with a vertical seperator bar
-	 * @param original - the htmlDocument , the left node becomes the original document
-	 * 	the right side is a copy of the html that is reloaded
+	 * 	@param original - the htmlDocument , the left node becomes the original document
+	 * 		the right side is a copy of the html that is reloaded
 	 */
 	private void initVerticalPanels(LeafPane original) {
 		LeafPane tempLeftPanel = original;
@@ -92,9 +82,6 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 
 		tempLeftPanel.setWidth(widthPanel);
 		tempRightPanel.setWidth(widthPanel);
-		
-		//tempLeftPanel.redraw();
-		//tempRightPanel.redraw();
 		
 		this.leftPanel = tempLeftPanel;
 		this.rightPanel = tempRightPanel;

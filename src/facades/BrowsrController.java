@@ -2,12 +2,8 @@ package facades;
 
 import java.util.ArrayList;
 
-import EventListeners.AddBookmarkListener;
 import EventListeners.FormListener;
 import EventListeners.HyperLinkListener;
-import EventListeners.ReloadListener;
-import EventListeners.SavePageListener;
-import EventListeners.SearchBarListener;
 import GUIElements.Form;
 import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
@@ -21,8 +17,7 @@ import htmlElement.ContentSpan;
 /**
  * Controller type class. Used to receive Events and handle them.
  */
-//TODO rm listener -> functional interfaces
-public class BrowsrController implements ReloadListener, SearchBarListener, HyperLinkListener, FormListener, AddBookmarkListener, SavePageListener{
+public class BrowsrController implements HyperLinkListener, FormListener {
 	
 	private WindowManager windowManager;
 
@@ -63,7 +58,6 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	 * @param url - the URL to transmit to the given HTMLDocument.
 	 * @param htmlString - HTML code to transform to GUIElements.
 	 */
-	@Override
 	public void loadHTML(HTMLDocument HTMLDocument, String url, String htmlString) {
 		ArrayList<GUIElement> list = decodeToGUIElements(htmlString);
 
@@ -100,11 +94,11 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 		}
 		
 		for(Hyperlink hyperlink : hyperlinkArray) {
-			hyperlink.addHyperLinkListener(this); //TODO
+			hyperlink.addHyperLinkListener(this);
 		}
 
 		for (Form form: formArray) {
-			form.addFormListener(this); //TODO
+			form.addFormListener(this);
 		}
 	}
 	
@@ -126,10 +120,10 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	}
 	
 	/**
-	 * Retrieves the HTML code from the active HTMLDocument, and saves it under the given name. //TODO update
-	 * @param filename - file name under wich to save the HTML code.
+	 * Saves the given HTML code under the given file name.
+	 * @param htmlCode - string with the HTML code
+	 * @param filename - file name under which to save the HTML code.
 	 */
-	@Override
 	public void savePage(String filename,String htmlCode) {
 		new Saver().saveToFile(filename, htmlCode);
 	}
@@ -139,7 +133,6 @@ public class BrowsrController implements ReloadListener, SearchBarListener, Hype
 	 * @param bookmarkHyperlinkName - name to be displayed of the bookmark
 	 * @param bookmarkHyperlinkUrl - corresponding URL
 	 */
-	@Override
 	public void addBookmark(String bookmarkHyperlinkName, String bookmarkHyperlinkUrl) {
 		this.windowManager.addBookmark(bookmarkHyperlinkName, bookmarkHyperlinkUrl);
 	}
