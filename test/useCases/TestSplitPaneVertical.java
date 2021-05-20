@@ -100,7 +100,5 @@ private MyCanvasWindow mainWindow;
 		assertEquals(upperPanel.getHTMLCode(), lowerPanel.getHTMLCode());
 		
 		TestGUI testgui1 = new TestGUI(mainWindow, "TestSplitPaneVertical");
-
 	}
-	
 }

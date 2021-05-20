@@ -101,5 +101,4 @@ private MyCanvasWindow mainWindow;
 		
 		TestGUI testgui1 = new TestGUI(mainWindow, "TestSplitPaneHorizontal");
 	}
-	
 }
