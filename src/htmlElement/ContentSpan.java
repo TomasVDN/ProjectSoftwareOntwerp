@@ -15,7 +15,6 @@ public abstract class ContentSpan {
 	
 	/**
 	 * The method that gives back the correct GUI for given html
-	 * @param eventReader 
 	 * @return
 	 * returns GUIElement given by the htmlElement
 	 */

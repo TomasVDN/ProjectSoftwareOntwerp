@@ -258,7 +258,7 @@ public class WindowManager {
 	 * Creates a saveDialog and set it as the active dialog.
 	 */
 	private void setSaveDialogToActive() {
-		SaveDialog saveDialog = new SaveDialog(0, 0, this.getWidth(), this.getHeight(),this.getMainDialog().getActiveHTMLDocument());
+		SaveDialog saveDialog = new SaveDialog(0, 0, this.getWidth(), this.getHeight(),this.getMainDialog().getActiveHTMLDocument().getHTMLCode());
 		
 		saveDialog.addChangeDialogListener(this::changeDialog);
 		savePageListener.forEach(listener -> saveDialog.addSavePageListener(listener));

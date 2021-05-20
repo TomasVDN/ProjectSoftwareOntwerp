@@ -11,7 +11,6 @@ import EventListeners.ScrollBarListener;
  */
 public class Container extends GUIElement implements ScrollBarListener {
 
-
 	private ArrayList<GUIElement> elements = new ArrayList<GUIElement>();
 	private int xOffset;
 	private int yOffset;
@@ -154,6 +153,8 @@ public class Container extends GUIElement implements ScrollBarListener {
 		return maxHeight;
 	}
 	
+	
+	//TODO remove this shit
 	/**
 	 * Notifies this container that the scrollbar has been moved
 	 */

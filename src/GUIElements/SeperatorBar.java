@@ -13,16 +13,11 @@ import EventListeners.SeparatorBarMoveListener;
  */
 public class SeperatorBar extends GUIElement {
 	
-	Direction direction;
-	
-	Color color=new Color(102,51,0); //Dark brown color
-	
-	int STANDARDSIZE=4;
-	
-	Container rootContainer;
-	
-	private int offsetReference;
-	
+	private Direction direction;	
+	private Color color=new Color(102,51,0); //Dark brown color	
+	private int STANDARDSIZE=4;	
+	private Container rootContainer;	
+	private int offsetReference;	
 	private ArrayList<SeparatorBarMoveListener> separatorBarMoveListeners = new ArrayList<>();
 	
 	/**
@@ -36,7 +31,7 @@ public class SeperatorBar extends GUIElement {
 		super(positionBar(dir,position)[0],positionBar(dir,position)[1]);
 		this.setDirection(dir);
 		this.setRootContainer(cont);
-		int[] heigthAndWidth =dir.adjustWidthAndHeigth(cont, STANDARDSIZE);
+		int[] heigthAndWidth = dir.adjustWidthAndHeigth(cont, STANDARDSIZE);
 		this.setWidth(heigthAndWidth[0]);
 		this.setHeight(heigthAndWidth[1]);
 	}

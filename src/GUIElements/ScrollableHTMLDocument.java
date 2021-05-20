@@ -1,5 +1,7 @@
 package GUIElements;
 
+import java.util.List;
+
 /**
  * Class that implements the scrolling feature for the HTMLDocument. It contains a HTMLDocument and two scrollbars.
  * All uncommented methods are redirections to the HTMLDocument methods.
@@ -253,6 +255,26 @@ public class ScrollableHTMLDocument extends LeafPane {
 			}
 		}
 		super.setHeight(height);
+	}
+
+	@Override
+	public int getLeftPanelWidth() {
+		return this.htmlDocument.getLeftPanelWidth();
+	}
+
+	@Override
+	public int getLeftPanelHeight() {
+		return this.htmlDocument.getLeftPanelHeight();
+	}
+
+	@Override
+	public int getRightPanelWidth() {
+		return this.htmlDocument.getRightPanelWidth();
+	}
+
+	@Override
+	public int getRightPanelHeight() {
+		return this.htmlDocument.getRightPanelHeight();
 	}
 
 }

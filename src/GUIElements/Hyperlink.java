@@ -28,7 +28,6 @@ public class Hyperlink extends Text {
 	 * @param y - y coordinate
 	 * @param text - Text element of the hyperlink
 	 * @param url - URL to which the hyperlink redirects
-	 * @param eventReader - eventReader for the listeners
 	 */
 	public Hyperlink(int x, int y, Text text, String url) {
 		super(x, y,text);

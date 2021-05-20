@@ -1,32 +1,22 @@
 package useCases;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.Button;
-import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
-import GUIElements.SaveDialog;
-import GUIElements.ScrollableTextBox;
-import GUIElements.Text;
-import GUIElements.TextBox;
+import GUIElements.Pane;
+import GUIElements.ScrollableHTMLDocument;
+import GUIElements.SplitHTMLDocument;
 import canvaswindow.MyCanvasWindow;
-import helperFunctions.StringTyping;
+import helperFunctions.UrlRunningWithSearchBar;
 
 class TestCloseFrame {
 
@@ -43,83 +33,122 @@ private MyCanvasWindow mainWindow;
 	@DisplayName("Use Case 4.8: Close Frame")
 	// Use Case 4.8
 	public void TestCloseFrameWithExtension() throws InvocationTargetException, InterruptedException {
-		
 		// check if active dialog is main dialog
 		assertEquals(mainWindow.getWindowManager().getMainDialog(), mainWindow.getWindowManager().getActiveDialog());
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
-				
-		//calculate the click coordinates
-		HTMLDocument originalDocument = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
-		int yHeight = originalDocument.getY() + (originalDocument.getHeight() / 2);
-		int xWidthLeftPane = originalDocument.getX() + (originalDocument.getWidth() / 4);
-		int xWidthRightPane = ((3 * originalDocument.getWidth()) / 4) + originalDocument.getX();
-				
-		//click on control H
+		
+		// run a url to later check if both panels have the correct html file
+		UrlRunningWithSearchBar.runUrlWithSearchBar(mainWindow, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
+		
+		// click on control H
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 72, 'h', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
 		
-		//click on the left pane
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthLeftPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthLeftPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, xWidthLeftPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+		// get panel objects
+		Pane root = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
+		// check if it the documentArea is of SPlitHTMLDocument class
+		assertTrue(root.getClass().equals(SplitHTMLDocument.class));
+		SplitHTMLDocument castedRoot = (SplitHTMLDocument) root;
+		HTMLDocument leftPanel = ((ScrollableHTMLDocument) castedRoot.getLeftPanel()).getHtmlDocument();
+		HTMLDocument rightPanel = ((ScrollableHTMLDocument) castedRoot.getRightPanel()).getHtmlDocument();
 		
-		//save the left pane
-		HTMLDocument leftPane = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
+		// click on the left panel
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 69, 420, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 69, 420, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 69, 420, 1, MouseEvent.BUTTON1, 0);
 		
-		//load custom page
-		mainWindow.getWindowManager().getSearchbar().replaceBox("https://konikoko.github.io/");
-		mainWindow.getWindowManager().getSearchbar().handleEnter();
-
+		// check if the leftPanel is clicked
+		assertEquals(leftPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
+		assertEquals(true, leftPanel.isActive());
+		assertEquals(false, rightPanel.isActive());
 		
-		//click on the right pane
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
+		// click on the right panel
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 420, 420, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 420, 420, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 420, 420, 1, MouseEvent.BUTTON1, 0);
 		
-		//save the right pane
-		HTMLDocument rightPane = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
+		// check if the rightPanel is clicked
+		assertEquals(rightPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
+		assertEquals(true, rightPanel.isActive());
+		assertEquals(false, leftPanel.isActive());
 		
-		//check if the panes are different
-		assertNotEquals(leftPane, rightPane,"The original pane has not been split correctly");
+		// check if the panels are different
+		assertNotEquals(leftPanel, rightPanel,"The original pane has not been split correctly");
 		
+		String expectedHTMLCode = "<form action=\"browsrformactiontest.php\">\n"
+				+ "  <table>\n"
+				+ "    <tr><td>List words from the Woordenlijst Nederlandse Taal\n"
+				+ "    <tr><td>\n"
+				+ "      <table>\n"
+				+ "        <tr><td>Words that start with<td><input type=\"text\" name=\"starts_with\">\n"
+				+ "        <tr><td>Maximum number of words to show<td><input type=\"text\" name=\"max_nb_results\">\n"
+				+ "      </table>\n"
+				+ "    <tr><td><input type=\"submit\">\n"
+				+ "  </table>\n"
+				+ "</form>\n"
+				+ "";
+		
+		// check if both panels have the expected HTML code
+		assertEquals(expectedHTMLCode, leftPanel.getHTMLCode());
+		assertEquals(expectedHTMLCode, rightPanel.getHTMLCode());
+		
+		// check if the panels contain the same HTMLcode
+		assertEquals(leftPanel.getHTMLCode(), rightPanel.getHTMLCode());
+		
+		// Step 4.8.1
 		//click on control X
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 88, 'X', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 88, 'X', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
 		
-		//click on the right pane
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-				
-		//save the right pane
-		rightPane = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
+		// get new panel objects, now the root is not a splitHTMLDocument anymore
+		// get panel objects
+		Pane root2 = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
+		// check if it the documentArea is not of SPlitHTMLDocument class anymore
+		assertFalse(root2.getClass().equals(SplitHTMLDocument.class));
+		assertTrue(root2.getClass().equals(ScrollableHTMLDocument.class));
+		ScrollableHTMLDocument castedRoot2 = (ScrollableHTMLDocument) root2;
+		HTMLDocument endPanel = castedRoot2.getHtmlDocument();
 		
-		//check if the panes are the same
-		assertEquals(leftPane, rightPane,"The new pane has not been closed correctly");
+		// Step 4.8.2
+		// check if the endPanel is active
+		assertEquals(leftPanel, endPanel); // leftPanel became the only panel
+		assertEquals(endPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
+		assertEquals(true, endPanel.isActive());
 		
-		//Use Case 4.8: EXTENSION STARTS HERE
-		//click on control X
+		// check if the endPanel has the expected HTML code
+		assertEquals(expectedHTMLCode, endPanel.getHTMLCode());
+		
+		
+		// Step 4.8.2a (Extension)
+		// click on control X again
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 88, 'X', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 88, 'X', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
 		
-		//click on the right pane
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, xWidthRightPane, yHeight, 1, MouseEvent.BUTTON1, 0);
-						
-		//save the original pane
-		HTMLDocument originalPane = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
-
-		//check if the original home page has been put back
-		assertEquals(originalPane.getHTMLCode(), "Welcome my friend, take a seat and enjoy your surfing.", "The original page has not been restored correctly!");
-
-
+		// get new panel objects, now the root is not a splitHTMLDocument anymore
+		// get panel objects
+		Pane root3 = mainWindow.getWindowManager().getMainDialog().getDocumentArea();
+		assertFalse(root3.getClass().equals(SplitHTMLDocument.class));
+		assertTrue(root3.getClass().equals(ScrollableHTMLDocument.class));
+		ScrollableHTMLDocument castedRoot3 = (ScrollableHTMLDocument) root3;
+		HTMLDocument finalPanel = castedRoot3.getHtmlDocument();
+		
+		// check if finalPanel became different than endPanel
+		assertNotEquals(endPanel, finalPanel);
+		// check if the finalPanel is active
+		assertEquals(finalPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
+		assertEquals(true, finalPanel.isActive());
+		
+		String expectedFinalHTMLCode = "Welcome my friend, take a seat and enjoy your surfing.";
+		
+		// Step 4.8.2a.1 (Extension)
+		// check if the finalPanel has the expected HTML code
+		assertEquals(expectedFinalHTMLCode, finalPanel.getHTMLCode());
 	}
 	
 }

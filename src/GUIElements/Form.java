@@ -28,8 +28,6 @@ public class Form extends GUIElement implements ActionListener {
 	 * 	the y position
 	 * @param action
 	 * 	the action string of the form
-	 * @param listener
-	 * 	the initialized listener, if no listener in the beginning is applied to it use null
 	 */
 	public Form(GUIElement gui, int x, int y,String action){
 		super(x,y);

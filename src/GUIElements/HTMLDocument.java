@@ -6,22 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import EventListeners.ReloadListener;
-import EventListeners.ScrollBarListener;
-
 /**
  * Container type class used as a pane. It keeps track of the loaded URL and the loaded HTML code. 
  * It also implements everything needed for splitting.
  */
-public class HTMLDocument extends LeafPane implements ScrollBarListener {
+public class HTMLDocument extends LeafPane { 
 	
 	private String url;
 	private String HTMLCode;
-
-
-	
-	
-
-	protected List<ReloadListener > listenerReload = new ArrayList<ReloadListener>();
+	private List<ReloadListener > reloadListeners = new ArrayList<ReloadListener>();
 	
 	/**
 	 * Constructor of the HTMLDocument class. It extends the Pane class.
@@ -115,7 +108,7 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	@Override
 	public HTMLDocument copy() {
 		HTMLDocument copy = new HTMLDocument(getX(), getY(), getWidth(), getHeight(), getUrl(), getHTMLCode());
-		copy.listenerReload = this.listenerReload;//copies the listener
+		copy.reloadListeners = this.reloadListeners;//copies the listener
 		copy.loadPage();
 		return copy;
 	}
@@ -176,7 +169,7 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	 * This will remove the old GUIElements, and add new ones made from this.HTMLCode
 	 */
 	public void loadPage() {
-		this.listenerReload.forEach(l -> l.loadHTML(this,this.getUrl(), this.getHTMLCode()));
+		this.reloadListeners.forEach(l -> l.loadHTML(this,this.getUrl(), this.getHTMLCode()));
 	}
 	
 	/**
@@ -197,7 +190,7 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	 */
 	public void addReloadListener(ReloadListener listener) {
 		if(listener!=null) {
-			this.listenerReload.add(listener);
+			this.reloadListeners.add(listener);
 		}
 	}
 
@@ -205,7 +198,7 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	 * Removes the given ReloadListener form the list of ReloadListeners
 	 */
 	public  void removeReloadListener(ReloadListener listener) {
-		this.listenerReload.remove(listener);
+		this.reloadListeners.remove(listener);
 	}
 	
 
@@ -234,13 +227,33 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener {
 	}
 
 	/**
-	 * @param hTMLCode the HTMLCode to set
+	 * @param HTMLCode the HTMLCode to set
 	 */
 	public void setHTMLCode(String HTMLCode) {
 		if(HTMLCode==null) {
 			throw new IllegalArgumentException("Not a valid HTMLCode");
 		}
 		this.HTMLCode = HTMLCode;
+	}
+
+	@Override
+	public int getLeftPanelWidth() {
+		return getWidth();
+	}
+
+	@Override
+	public int getLeftPanelHeight() {
+		return getHeight();
+	}
+
+	@Override
+	public int getRightPanelWidth() {
+		return getWidth();
+	}
+
+	@Override
+	public int getRightPanelHeight() {
+		return getHeight();
 	}
 	
 }

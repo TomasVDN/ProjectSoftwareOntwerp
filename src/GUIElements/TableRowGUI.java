@@ -3,6 +3,10 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+/**
+ * Class that implements the table structure for the HTML table. It contains TableCellGUI's, and is contained by a TableGUI.
+ *
+ */
 public class TableRowGUI extends GUIElement {
 
 	private int xPos, yPos;

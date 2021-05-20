@@ -45,7 +45,7 @@ public class Button extends GUIElement {
      * @param x - x coordinate of this Button
      * @param y - y coordinate of this Button
      * @param text - content of this Button
-     * @param mustDrawBox - boolean: if true, a surrounding box will be drawn
+     * @param box - boolean: if true, a surrounding box will be drawn
      * @param color - Color: color of this Button
      */
 	public Button(int x, int y, Text text, Boolean box, Color color) {

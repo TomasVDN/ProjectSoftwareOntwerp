@@ -2,6 +2,9 @@ package main;
 
 import canvaswindow.MyCanvasWindow;
 
+/**
+ * Class used to start our program.
+ */
 public class System {
 
 	public static void main(String[] args) {

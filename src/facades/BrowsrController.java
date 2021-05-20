@@ -112,7 +112,7 @@ public class BrowsrController implements HyperLinkListener, FormListener {
 	
 	/**
 	 * Handler for the hyperlink.
-	 * @param URLAttribute
+	 * @param URLAttribute - text to append at the end of the already loaded url
 	 */
 	@Override
 	public void runUrlAttribute(String URLAttribute) {

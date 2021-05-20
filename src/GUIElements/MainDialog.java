@@ -34,7 +34,7 @@ public class MainDialog extends Dialog  {
      * @param y - y coordinate of this Container
      * @param w - width of this Container
      * @param h - height of this Container
-     * @param browsrController
+     * @param browsrController - listener
 	 */
 	public MainDialog(int x, int y, int w, int h, BrowsrController browsrController) {
 		super(x, y, w, h);
@@ -173,18 +173,25 @@ public class MainDialog extends Dialog  {
 		this.searchbar = searchbar;
 	}
 	
-
+	/**
+	 * Returns the bookmarkBar
+	 * @return this.bookmarkBar
+	 */
 	public TableGUI getBookmarkBar() {
 		return bookmarkBar;
 	}
 
+	/**
+	 * Sets the bookmarkBar to the new bookmarkBar
+	 * @param bookmarkBar - the new value of this.bookmarkBar
+	 */
 	public void setBookmarkBar(TableGUI bookmarkBar) {
 		this.bookmarkBar = bookmarkBar;
 	}
 	
 	/**
 	 * Adds a bookmark to the BookmarkBar of this MainDialog
-	 * @param newBookmark
+	 * @param newBookmark - the new bookmark to add
 	 */
 	public void addBookmark(BookmarkHyperlink newBookmark) {
 		this.bookmarkBar.addGUITo(newBookmark, 0);
