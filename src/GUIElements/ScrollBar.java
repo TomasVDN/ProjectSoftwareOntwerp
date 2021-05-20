@@ -32,6 +32,8 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
      * @param h - height of this scrollbar
 	 * @param viewableSize - size of the small bar
 	 * @param totalSize - size of the large bar
+	 * @throws IllegalArgumentException when direction == Horizontal && width <= 0
+	 * 			| when direction == Vertical && height <= 0
 	 */
 	public ScrollBar(Direction direction, int x, int y, int w, int h, int viewableSize,int totalSize) {
 		super(x, y, w, h);
@@ -239,6 +241,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	 * Update the size of the small bar. It is equal to: (viewable size of the content) / (total size of all content) * size scrollbar
 	 * @param totalSize
 	 * @param viewableSize
+    * @throws IllegalArgumentException when totalSize <= 0
 	 */
 	public void updateCorrectSmallBarSize(int totalSize, int viewableSize) {
 		if (totalSize <= 0) {
@@ -296,6 +299,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	/**
     * Sets the value width of this class. If the new value is negative, set it to 0 instead.
     * @param width - new value of this.width
+    * @throws IllegalArgumentException when direction == Horizontal && width <= 0
     */
    @Override
    public void setWidth(int width) {
@@ -319,6 +323,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
     * Sets the value height of this class. If the new value is negative, set it to 0 instead.
     * 
     * @param height - new value of this.height
+    * @throws IllegalArgumentException when direction == Vertical && height <= 0
     */
    @Override
    public void setHeight(int height) {
