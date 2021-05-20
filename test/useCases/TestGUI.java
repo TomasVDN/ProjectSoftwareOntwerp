@@ -35,7 +35,7 @@ public class TestGUI {
 		} else if (test == "TestSplitPaneVertical") {
 			fillrectmax = 26;
 			drawRectmax = 8;
-			drawStringmax = 16;
+			drawStringmax = 17;
 		}
 		
 		FontMetrics metrics = mock(FontMetrics.class);
