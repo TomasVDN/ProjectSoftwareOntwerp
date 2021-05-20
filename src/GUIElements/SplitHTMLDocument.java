@@ -264,6 +264,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		int widthRightPanel = this.getWidth() - widthLeftPanel;
 		
 		if (leftPanel.getRightPanelWidth() < MINPANELSIZE) {
+			System.out.print("yes\n\n\n");
 			if (widthLeftPanel < leftPanel.getWidth()) {
 				this.bar.setX(leftPanel.getEndX());
 				return;
@@ -410,7 +411,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 
 	@Override
 	public int getLeftPanelWidth() {
-		if (direction == Direction.VERTICAL) {
+		if (direction == Direction.HORIZONTAL) {
 			return Math.min(leftPanel.getLeftPanelWidth(), rightPanel.getLeftPanelWidth());
 		}
 		return leftPanel.getLeftPanelWidth();
@@ -418,7 +419,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 
 	@Override
 	public int getLeftPanelHeight() {
-		if (direction == Direction.HORIZONTAL) {
+		if (direction == Direction.VERTICAL) {
 			return Math.min(leftPanel.getLeftPanelHeight(), rightPanel.getLeftPanelHeight());
 		}
 		return leftPanel.getLeftPanelHeight();
@@ -426,7 +427,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	
 	@Override
 	public int getRightPanelWidth() {
-		if (direction == Direction.VERTICAL) {
+		if (direction == Direction.HORIZONTAL) {
 			return Math.min(leftPanel.getRightPanelWidth(), rightPanel.getRightPanelWidth());
 		}
 		return rightPanel.getRightPanelWidth();
@@ -434,7 +435,8 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 
 	@Override
 	public int getRightPanelHeight() {
-		if (direction == Direction.HORIZONTAL) {
+		System.out.print(direction);
+		if (direction == Direction.VERTICAL) {
 			return Math.min(leftPanel.getRightPanelHeight(), rightPanel.getRightPanelHeight());
 		}
 		return rightPanel.getRightPanelHeight();
