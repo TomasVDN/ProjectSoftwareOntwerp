@@ -1,5 +1,7 @@
 package GUIElements;
 
+import java.util.List;
+
 /**
  * Superclass for HTMLDocument and SplitHTMLDocument. It defines the needed methods for the tree hierarchy necessary for the splitting
  * and deleting of panes. Our implementation works on the basis of a tree structure.
@@ -22,5 +24,8 @@ public abstract class Pane extends Container {
 	public abstract void updateLeftClosestChildWidth(int newXPos, int newWidth);
 	public abstract void updateRightClosestChildHeight(int newYPos, int newHeight);
 	public abstract void updateLeftClosestChildHeight(int newYPos, int newHeight);
+	
+	public abstract List<Integer> getLeftPanelWH();
+	public abstract List<Integer> getRightPanelWH();
 	protected abstract void updateAllBars();
 }

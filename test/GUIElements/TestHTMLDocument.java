@@ -64,7 +64,7 @@ class TestHTMLDocument {
 		assertTrue(split instanceof SplitHTMLDocument);
 		SplitHTMLDocument split2 = (SplitHTMLDocument) split;
 		assertEquals(split2.getActiveHTMLDocument(),htmlTestWithButton);
-		assertEquals(split2.getDir(),Direction.HORIZONTAL);
+		assertEquals(split2.getDirection(),Direction.HORIZONTAL);
 	}
 
 	@Test
@@ -73,7 +73,7 @@ class TestHTMLDocument {
 		assertTrue(split instanceof SplitHTMLDocument);
 		SplitHTMLDocument split2 = (SplitHTMLDocument) split;
 		assertEquals(split2.getActiveHTMLDocument(),htmlTestWithButton);
-		assertEquals(split2.getDir(),Direction.VERTICAL);
+		assertEquals(split2.getDirection(),Direction.VERTICAL);
 	}
 
 	@Test
