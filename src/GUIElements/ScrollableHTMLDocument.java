@@ -99,7 +99,8 @@ public class ScrollableHTMLDocument extends LeafPane {
 	 */
 	@Override
 	public HTMLDocument changeActiveHTMLDocument(int x, int y) {
-		return this.htmlDocument.changeActiveHTMLDocument(x-this.getX(), y-this.getY());
+		this.htmlDocument.setActive(true);
+		return this.htmlDocument;
 	}
 
 	/**

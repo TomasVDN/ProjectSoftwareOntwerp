@@ -232,23 +232,26 @@ public class MainDialog extends Dialog  {
 		return null;
 	}
 	
+
 	/**
-	 * Handles the left click. This method will check if there is an element at position (x,y), let it handle the necessary  actions.
+	 * Handle the left click press. This will change the pressedElement to the element found at that position,
+	 * and if there is one, call handlePressClick on it.
 	 * Then, update the active HTMLDialog.
+	 * @param x
+	 * @param y
+	 * @param clickCount
+	 * @param modifiers
 	 */
 	@Override
-	public void handleClickLeftMouse(int x, int y, int clickCount, int modifiers)	{
-		// activate the GUIElement at the given position
-		changeElementWithKeyboardFocus(this.getGUIAtPosition(x, y));
-		
-		//sets the clicked panel to active
+	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
 		HTMLDocument newActiveHTML = documentArea.changeActiveHTMLDocument(x, y);
-		
 		if(newActiveHTML!=null) {
 			this.setActiveHTMLDocument(newActiveHTML);
 			this.changeSearchBar(newActiveHTML.getUrl());
 		}
+		super.handlePressLeftMouse(x, y, clickCount, modifiers);
 	}
+	
 	
 	/**
 	 * Update the displayed URL in the searchBar.
