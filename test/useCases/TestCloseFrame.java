@@ -51,7 +51,7 @@ private MyCanvasWindow mainWindow;
 		//calculate the click coordinates
 		HTMLDocument originalDocument = mainWindow.getWindowManager().getMainDialog().getDocumentArea().getActiveHTMLDocument();
 		int yHeight = originalDocument.getY() + (originalDocument.getHeight() / 2);
-		int xWidthLeftPane = originalDocument.getX() + (originalDocument.getWidth() / 2);
+		int xWidthLeftPane = originalDocument.getX() + (originalDocument.getWidth() / 4);
 		int xWidthRightPane = ((3 * originalDocument.getWidth()) / 4) + originalDocument.getX();
 				
 		//click on control H

@@ -23,17 +23,19 @@ public class TestGUI {
 		
 		int fillrectmax = 0;
 		int drawRectmax = 0;
-		int setFontmax = 0;
-		int setColormax = 0;
-		int setClipmax = 0;
 		int drawStringmax = 0;
 		if (test == "TestEnterUrl") {
 			fillrectmax = 7;
 			drawRectmax = 2;
-			setFontmax = 12;
-			setColormax = 18;
-			setClipmax = 12;
 			drawStringmax = 14;
+		} else if (test == "TestSplitPaneHorizontal") {
+			fillrectmax = 26;
+			drawRectmax = 8;
+			drawStringmax = 17;
+		} else if (test == "TestSplitPaneVertical") {
+			fillrectmax = 26;
+			drawRectmax = 8;
+			drawStringmax = 16;
 		}
 		
 		FontMetrics metrics = mock(FontMetrics.class);

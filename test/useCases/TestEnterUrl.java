@@ -254,7 +254,6 @@ public class TestEnterUrl {
 		assertEquals(null, mainWindow.getWindowManager().getElementWithKeyboardFocus());
 		assertEquals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html", mainBar.getText());
 		
-		TestGUI testgui1 = new TestGUI(mainWindow, "TestEnterUrl"); //TODO die mockito test weer fixen
-		
+		TestGUI testgui1 = new TestGUI(mainWindow, "TestEnterUrl");
 	}
 }

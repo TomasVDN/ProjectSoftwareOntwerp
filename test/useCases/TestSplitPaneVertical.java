@@ -108,6 +108,8 @@ private MyCanvasWindow mainWindow;
 		
 		// check if the panels contain the same HTMLcode
 		assertEquals(leftPanel.getHTMLCode(), rightPanel.getHTMLCode());
+		
+		TestGUI testgui1 = new TestGUI(mainWindow, "TestSplitPaneVertical");
 	}
 	
 }
