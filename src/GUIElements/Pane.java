@@ -25,7 +25,10 @@ public abstract class Pane extends Container {
 	public abstract void updateRightClosestChildHeight(int newYPos, int newHeight);
 	public abstract void updateLeftClosestChildHeight(int newYPos, int newHeight);
 	
-	public abstract List<Integer> getLeftPanelWH();
-	public abstract List<Integer> getRightPanelWH();
+	public abstract int getLeftPanelWidth();
+	public abstract int getLeftPanelHeight();
+	public abstract int getRightPanelWidth();
+	public abstract int getRightPanelHeight();
+	
 	protected abstract void updateAllBars();
 }

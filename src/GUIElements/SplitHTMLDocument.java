@@ -263,14 +263,14 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		int widthLeftPanel = this.bar.getX();
 		int widthRightPanel = this.getWidth() - widthLeftPanel;
 		
-		if (leftPanel.getRightPanelWH().get(0) < MINPANELSIZE) {
+		if (leftPanel.getRightPanelWidth() < MINPANELSIZE) {
 			if (widthLeftPanel < leftPanel.getWidth()) {
 				this.bar.setX(leftPanel.getEndX());
 				return;
 			}
 		}
 		
-		if (rightPanel.getLeftPanelWH().get(0) < MINPANELSIZE) {
+		if (rightPanel.getLeftPanelWidth() < MINPANELSIZE) {
 			if (widthLeftPanel > leftPanel.getWidth()) {
 				this.bar.setX(leftPanel.getEndX());
 				return;
@@ -332,12 +332,23 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	private void moveHorizontalBar() {
 		int heightLeftPanel = this.bar.getY();
 		int heightRightPanel = this.getHeight() - heightLeftPanel;
-		if (heightLeftPanel < MINPANELSIZE || heightRightPanel < MINPANELSIZE) {
-			this.bar.setY(leftPanel.getEndY());
-		} else {
-			leftPanel.updateLeftClosestChildHeight(0, heightLeftPanel);
-			rightPanel.updateRightClosestChildHeight(heightLeftPanel, heightRightPanel);
+		
+		if (leftPanel.getRightPanelHeight() < MINPANELSIZE) {
+			if (heightLeftPanel < leftPanel.getHeight()) {
+				this.bar.setY(leftPanel.getEndY());
+				return;
+			}
 		}
+		
+		if (rightPanel.getLeftPanelHeight() < MINPANELSIZE) {
+			if (heightLeftPanel > leftPanel.getHeight()) {
+				this.bar.setY(leftPanel.getEndY());
+				return;
+			}
+		} 
+		
+		leftPanel.updateLeftClosestChildHeight(0, heightLeftPanel);
+		rightPanel.updateRightClosestChildHeight(heightLeftPanel, heightRightPanel);
 	}
 	
 	/**
@@ -398,12 +409,37 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	}
 
 	@Override
-	public List<Integer> getLeftPanelWH() {
-		return leftPanel.getLeftPanelWH();
+	public int getLeftPanelWidth() {
+		if (direction == Direction.VERTICAL) {
+			return Math.min(leftPanel.getLeftPanelWidth(), rightPanel.getLeftPanelWidth());
+		}
+		return leftPanel.getLeftPanelWidth();
 	}
 
 	@Override
-	public List<Integer> getRightPanelWH() {
-		return rightPanel.getRightPanelWH();
+	public int getLeftPanelHeight() {
+		if (direction == Direction.HORIZONTAL) {
+			return Math.min(leftPanel.getLeftPanelHeight(), rightPanel.getLeftPanelHeight());
+		}
+		return leftPanel.getLeftPanelHeight();
 	}
+	
+	@Override
+	public int getRightPanelWidth() {
+		if (direction == Direction.VERTICAL) {
+			return Math.min(leftPanel.getRightPanelWidth(), rightPanel.getRightPanelWidth());
+		}
+		return rightPanel.getRightPanelWidth();
+	}
+
+	@Override
+	public int getRightPanelHeight() {
+		if (direction == Direction.HORIZONTAL) {
+			return Math.min(leftPanel.getRightPanelHeight(), rightPanel.getRightPanelHeight());
+		}
+		return rightPanel.getRightPanelHeight();
+	}
+	
+	
+	
 }

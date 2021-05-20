@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import EventListeners.ReloadListener;
-import EventListeners.ScrollBarListener;
 /**
  * Container type class used as a pane. It keeps track of the loaded URL and the loaded HTML code. 
  * It also implements everything needed for splitting.
  */
-public class HTMLDocument extends LeafPane implements ScrollBarListener { //TODO wtf
+public class HTMLDocument extends LeafPane { 
 	
 	private String url;
 	private String HTMLCode;
@@ -238,19 +237,23 @@ public class HTMLDocument extends LeafPane implements ScrollBarListener { //TODO
 	}
 
 	@Override
-	public List getLeftPanelWH() {
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(getWidth());
-		list.add(getHeight());
-		return list;
+	public int getLeftPanelWidth() {
+		return getWidth();
 	}
 
 	@Override
-	public List getRightPanelWH() {
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(getWidth());
-		list.add(getHeight());
-		return list;
+	public int getLeftPanelHeight() {
+		return getHeight();
+	}
+
+	@Override
+	public int getRightPanelWidth() {
+		return getWidth();
+	}
+
+	@Override
+	public int getRightPanelHeight() {
+		return getHeight();
 	}
 	
 }

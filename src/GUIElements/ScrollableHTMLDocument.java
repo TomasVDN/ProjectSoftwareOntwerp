@@ -258,13 +258,23 @@ public class ScrollableHTMLDocument extends LeafPane {
 	}
 
 	@Override
-	public List<Integer> getLeftPanelWH() {
-		return this.htmlDocument.getLeftPanelWH();
+	public int getLeftPanelWidth() {
+		return this.htmlDocument.getLeftPanelWidth();
 	}
 
 	@Override
-	public List<Integer> getRightPanelWH() {
-		return this.htmlDocument.getRightPanelWH();
+	public int getLeftPanelHeight() {
+		return this.htmlDocument.getLeftPanelHeight();
+	}
+
+	@Override
+	public int getRightPanelWidth() {
+		return this.htmlDocument.getRightPanelWidth();
+	}
+
+	@Override
+	public int getRightPanelHeight() {
+		return this.htmlDocument.getRightPanelHeight();
 	}
 
 }
