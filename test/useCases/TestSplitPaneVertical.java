@@ -41,10 +41,10 @@ private MyCanvasWindow mainWindow;
 		UrlRunningWithSearchBar.runUrlWithSearchBar(mainWindow, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
 		
 		// Step 4.7.1
-		// click on control H
+		// click on control V
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
-		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 72, 'h', 128);
-		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 72, 'h', 128);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 86, 'v', 128);
+		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 86, 'v', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 17, '?', 128);
 		
 		// get panel objects
@@ -52,32 +52,32 @@ private MyCanvasWindow mainWindow;
 		// check if it the documentArea is of SPlitHTMLDocument class
 		assertTrue(root.getClass().equals(SplitHTMLDocument.class));
 		SplitHTMLDocument castedRoot = (SplitHTMLDocument) root;
-		HTMLDocument leftPanel = ((ScrollableHTMLDocument) castedRoot.getLeftPanel()).getHtmlDocument();
-		HTMLDocument rightPanel = ((ScrollableHTMLDocument) castedRoot.getRightPanel()).getHtmlDocument();
+		HTMLDocument upperPanel = ((ScrollableHTMLDocument) castedRoot.getLeftPanel()).getHtmlDocument();
+		HTMLDocument lowerPanel = ((ScrollableHTMLDocument) castedRoot.getRightPanel()).getHtmlDocument();
 		
-		//click on the left panel
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 69, 420, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 69, 420, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 69, 420, 1, MouseEvent.BUTTON1, 0);
+		// click on the upper panel
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 420, 240, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 420, 240, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 420, 240, 1, MouseEvent.BUTTON1, 0);
 		
-		// check if the leftPanel is clicked
-		assertEquals(leftPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
-		assertEquals(true, leftPanel.isActive());
-		assertEquals(false, rightPanel.isActive());
+		// check if the upperPanel is clicked
+		assertEquals(upperPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
+		assertEquals(true, upperPanel.isActive());
+		assertEquals(false, lowerPanel.isActive());
 		
-		// click on the right panel
+		// click on the Lower panel
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 420, 420, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 420, 420, 1, MouseEvent.BUTTON1, 0);
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 420, 420, 1, MouseEvent.BUTTON1, 0);
 		
-		// check if the rightPanel is clicked
-		assertEquals(rightPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
-		assertEquals(true, rightPanel.isActive());
-		assertEquals(false, leftPanel.isActive());
+		// check if the lowerPanel is clicked
+		assertEquals(lowerPanel, mainWindow.getWindowManager().getMainDialog().getActiveHTMLDocument());
+		assertEquals(true, lowerPanel.isActive());
+		assertEquals(false, upperPanel.isActive());
 		
 		// Step 4.7.2
-		//check if the panels are different
-		assertNotEquals(leftPanel, rightPanel,"The original pane has not been split correctly");
+		// check if the panels are different
+		assertNotEquals(upperPanel, lowerPanel,"The original pane has not been split correctly");
 		
 		String expectedHTMLCode = "<form action=\"browsrformactiontest.php\">\n"
 				+ "  <table>\n"
@@ -93,13 +93,14 @@ private MyCanvasWindow mainWindow;
 				+ "";
 		
 		// check if both panels have the expected HTML code
-		assertEquals(expectedHTMLCode, leftPanel.getHTMLCode());
-		assertEquals(expectedHTMLCode, rightPanel.getHTMLCode());
+		assertEquals(expectedHTMLCode, upperPanel.getHTMLCode());
+		assertEquals(expectedHTMLCode, lowerPanel.getHTMLCode());
 		
 		// check if the panels contain the same HTMLcode
-		assertEquals(leftPanel.getHTMLCode(), rightPanel.getHTMLCode());
+		assertEquals(upperPanel.getHTMLCode(), lowerPanel.getHTMLCode());
 		
-		TestGUI testgui1 = new TestGUI(mainWindow, "TestSplitPaneVertical"); // TODO dit slaagt niet meer
+		TestGUI testgui1 = new TestGUI(mainWindow, "TestSplitPaneVertical");
+
 	}
 	
 }
