@@ -39,10 +39,16 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		this.setDirection(direction);
 		
 		if (this.getDirection() == Direction.HORIZONTAL) {
+			if (w <= 0) {
+				throw new IllegalArgumentException("The width of a horizontal scrollbar can't be 0.");
+			}
 			this.bigBarPosition = x;
 			this.bigBarSize = w;
 			this.setSmallBarPosition(x);
 		} else {
+			if (h <= 0) {
+				throw new IllegalArgumentException("The height of a vertical scrollbar can't be 0.");
+			}
 			this.bigBarPosition = y;
 			this.bigBarSize = h;
 			this.setSmallBarPosition(y);
@@ -235,6 +241,9 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	 * @param viewableSize
 	 */
 	public void updateCorrectSmallBarSize(int totalSize, int viewableSize) {
+		if (totalSize <= 0) {
+			throw new IllegalArgumentException("The totalSize in the method updateCorrectSmallBarSize can't be 0 or smaller.");
+		}
 		double ratio = viewableSize / ((double) (totalSize));
 		double correctSize = (this.getBigBarSize() * ratio);
 		this.setSmallBarSize(correctSize);
@@ -293,6 +302,9 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
        super.setWidth(width);
        
        if (this.getDirection() == Direction.HORIZONTAL) {
+			if (width <= 0) {
+				throw new IllegalArgumentException("The width of a horizontal scrollbar can't be 0.");
+			}
            double oldBigBarSize = this.getBigBarSize();
            double oldSmallBarSize = this.getSmallBarSize();
            double oldRatio = this.getScrollBarRatio();
@@ -313,6 +325,9 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
        super.setHeight(height);
 
        if (this.getDirection() == Direction.VERTICAL) {
+			if (height <= 0) {
+				throw new IllegalArgumentException("The height of a vertical scrollbar can't be 0.");
+			}
            double oldBigBarSize = this.getBigBarSize();
            double oldSmallBarSize = this.getSmallBarSize();
            double oldRatio = this.getScrollBarRatio();
