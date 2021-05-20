@@ -244,12 +244,12 @@ public class MainDialog extends Dialog  {
 	 */
 	@Override
 	public void handlePressLeftMouse(int x, int y, int clickCount, int modifiers) {
+		super.handlePressLeftMouse(x, y, clickCount, modifiers);	
 		HTMLDocument newActiveHTML = documentArea.changeActiveHTMLDocument(x, y);
 		if(newActiveHTML!=null) {
 			this.setActiveHTMLDocument(newActiveHTML);
 			this.changeSearchBar(newActiveHTML.getUrl());
 		}
-		super.handlePressLeftMouse(x, y, clickCount, modifiers);
 	}
 	
 	

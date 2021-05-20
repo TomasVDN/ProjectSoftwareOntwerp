@@ -99,6 +99,9 @@ public abstract class Dialog extends Container {
 		if(guiPressed!=null) {
 			guiPressed.handlePressClick(x,y);
 		}
+		if(this.getElementWithKeyBoardFocus()!=null && this.getElementWithKeyBoardFocus()!= this.getPressedElement() ) {
+			this.getElementWithKeyBoardFocus().handleUnselect();
+		}
 	}
 	
 	/**
