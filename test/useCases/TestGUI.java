@@ -40,6 +40,10 @@ public class TestGUI {
 			fillrectmax = 26;
 			drawRectmax = 8;
 			drawStringmax = 17;
+		} else if (test == "TestDragSeperatorVertical") {
+			fillrectmax = 26;
+			drawRectmax = 8;
+			drawStringmax = 17;
 		}
 		
 		FontMetrics metrics = mock(FontMetrics.class);
