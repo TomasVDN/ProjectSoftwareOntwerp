@@ -41,9 +41,8 @@ public class HTMLToGUI {
 	 * @param htmlElements - htmlElements to transform
 	 * @param width - width of the new container
 	 * @param height - height of the new container
-	 * @param relativeX - x coordinate of the new container
-	 * @param relativeY - y coordinate of the new container
-	 * @param eventReader - eventReader of the new container
+	 * @param x - x coordinate of the new container
+	 * @param y - y coordinate of the new container
 	 * @return container with the GUIElements corresponding to the given htmlElements
 	 */
 	public ArrayList<GUIElement> transformToGUI(int x, int y, int width, int height, ArrayList<ContentSpan> htmlElements) {
@@ -66,7 +65,6 @@ public class HTMLToGUI {
 	 * @param height - height of the GUIElement
 	 * @param relativeX - x coordinate of the GUIElement
 	 * @param relativeY - y coordinate of the GUIElement
-	 * @param eventReader - eventReader of the GUIElement
 	 * @return GUIElement corresponding to the given contentSpan
 	 */
 	public GUIElement toGUI(ContentSpan contentSpan, int relativeX, int relativeY, int width, int height) {

@@ -5,6 +5,10 @@ import java.util.List;
 
 import EventListeners.SearchBarListener;
 
+/**
+ * Class that implements a searchbar, a textbox with search functionalities.
+ *
+ */
 public class SearchBar extends TextBox {
 
 	private List<SearchBarListener > listeners = new ArrayList<SearchBarListener>();

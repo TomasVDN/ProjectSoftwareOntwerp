@@ -8,6 +8,10 @@ import java.awt.event.KeyEvent;
 
 import EventListeners.ScrollBarListener;
 
+/**
+ * Class that implements a test input field. It supports all asked text editing features such as text selection, cursor movement,...
+ *
+ */
 public class TextBox extends GUIElement implements ScrollBarListener {
 
 	private String leftText = "", rightText = "";

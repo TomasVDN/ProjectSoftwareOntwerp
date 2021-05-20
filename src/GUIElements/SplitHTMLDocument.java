@@ -1,14 +1,14 @@
 package GUIElements;
 
 import java.awt.Graphics;
-import java.util.List;
 
 import EventListeners.SeparatorBarMoveListener;
 
 /**
  * This class forms the inner nodes of the HTMLDocument tree.
  * It has each time a direction (Horizontal or Vertical) and 
- * a leftPane and a rightPane. Those panes are RootPanes or SplitHtmlDocument their selves
+ * a leftPane and a rightPane. Those panes are either another
+ * SplitHTMLDocument, either a HTMLDocument.
  *
  */
 public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{

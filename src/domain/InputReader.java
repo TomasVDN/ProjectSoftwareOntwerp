@@ -4,6 +4,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import browsrhtml.BrowsrDocumentValidator;
 
+/**
+ * Class used to read the HTML file from an URL. His function is to return this HTML file,
+ * and if an error occurs (illegal URL, non valid Browsr document) to return an error message.
+ *
+ */
 public class InputReader {
 
 	/**

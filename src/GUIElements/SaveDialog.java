@@ -14,7 +14,7 @@ import EventListeners.SavePageListener;
 public class SaveDialog extends Dialog {
 
 	private ScrollableTextBox textBox;
-	private HTMLDocument activeHtml;
+	private String activeHtml;
 
 	/**
 	 * Constructor of the SaveDialog class. It extends the Dialog class and implements the SavePageEventCreator and ChangeDialogEventCreator.
@@ -22,9 +22,9 @@ public class SaveDialog extends Dialog {
      * @param y - y coordinate of this SaveDialog
      * @param w - width of this SaveDialog
      * @param h - height of this SaveDialog
-	 * @param eventReader - eventReader of this SaveDialog
+	 * @param activeHTML - the active HTMLCode of the active HTMLDocument
 	 */
-	public SaveDialog(int x, int y, int w, int h,HTMLDocument activeHTML) {
+	public SaveDialog(int x, int y, int w, int h,String activeHTML) {
 		super(x, y, w, h);
 		
 		this.initTextBox(w);
@@ -73,7 +73,7 @@ public class SaveDialog extends Dialog {
 			String filename = this.getTextBox().getText();
 			
 			for(SavePageListener listener: this.getSavePageListeners()) {
-				listener.savePage(filename,this.getActiveHtml().getHTMLCode());
+				listener.savePage(filename,this.activeHtml);
 			}
 			
 			for(ChangeDialogListener listener: this.getChangeDialogListeners()) {
@@ -92,17 +92,17 @@ public class SaveDialog extends Dialog {
 	}
 	
 	/**
-	 * Returns the html document that is currently active
+	 * Returns the html code.
 	 */
-	public HTMLDocument getActiveHtml() {
+	public String getActiveHtml() {
 		return activeHtml;
 	}
 
 	/**
-	 * Sets the active htmlDocument to the given htmlDocument
+	 * Sets the html code.
 	 * @param activeHtml
 	 */
-	private void setActiveHtml(HTMLDocument activeHtml) {
+	private void setActiveHtml(String activeHtml) {
 		this.activeHtml = activeHtml;
 	}
 

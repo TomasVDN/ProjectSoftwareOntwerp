@@ -3,6 +3,10 @@ package GUIElements;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+/**
+ * Class that implements the table structure for the HTML table. It contains TableRowGUI's.
+ *
+ */
 public class TableGUI extends GUIElement {
 
 	private ArrayList<TableRowGUI> guiRows;
@@ -24,7 +28,7 @@ public class TableGUI extends GUIElement {
 	 * @param guiRows - list of TableRowGUI
 	 * @param x - x coordinate of this class
 	 * @param y - y coordinate of this class
-	 * @param offset - the offset of the y coordinate between TableRowGUI
+	 * @param offSet - the offset of the y coordinate between TableRowGUI
 	 */
 	public TableGUI(ArrayList<TableRowGUI> guiRows, int x, int y, int offSet) {
 		super(x,y);
@@ -217,9 +221,9 @@ public class TableGUI extends GUIElement {
 	}
 	
 	/**
-	 * Put the given GUI in a TableCell
-	 * Then adds this table cell to the tableRow at the given index
-	 * @param cell - the given cell to ad
+	 * Put the given GUI in a TableCell.
+	 * Then adds this table cell to the tableRow at the given index.
+	 * @param gui - the given GUIElement to add
 	 * @param index
 	 */
 	public void addGUITo(GUIElement gui,int index) {

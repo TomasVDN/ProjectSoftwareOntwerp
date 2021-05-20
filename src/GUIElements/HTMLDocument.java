@@ -227,7 +227,7 @@ public class HTMLDocument extends LeafPane {
 	}
 
 	/**
-	 * @param hTMLCode the HTMLCode to set
+	 * @param HTMLCode the HTMLCode to set
 	 */
 	public void setHTMLCode(String HTMLCode) {
 		if(HTMLCode==null) {

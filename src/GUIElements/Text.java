@@ -7,6 +7,10 @@ import java.awt.Graphics;
 import java.awt.Shape;
 import canvaswindow.FontMetricGetter;
 
+/**
+ * Class that implements a Text GUI object.
+ *
+ */
 public class Text extends GUIElement {
 
 	private String text;
