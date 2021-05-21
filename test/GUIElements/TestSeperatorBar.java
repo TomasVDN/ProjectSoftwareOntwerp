@@ -106,7 +106,7 @@ class TestSeperatorBar {
 	@Test
 	void testChangeXPosition() {
 		barVertical.changeXPosition(-10);
-		assertEquals(0, barVertical.getX());
+		assertEquals(barVertical.getWidth(), barVertical.getX());
 		barVertical.changeXPosition(1000);
 		assertEquals(100-barVertical.getWidth(),barVertical.getX());
 	}
@@ -114,7 +114,7 @@ class TestSeperatorBar {
 	@Test
 	void testChangeYPosition() {
 		barHorizontal.changeYPosition(-10);
-		assertEquals(0, barHorizontal.getY());
+		assertEquals(barHorizontal.getHeight(), barHorizontal.getY());
 		barHorizontal.changeYPosition(1000);
 		assertEquals(100-barHorizontal.getHeight(),barHorizontal.getY());
 	}
