@@ -402,13 +402,13 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 */
 	@Override
 	public int getRightClosestSeperatorBarPositionWidth() {
-		int barPosition = this.getX() +bar.getEndX();
+		int barPosition = bar.getEndX();
 		if(direction==Direction.VERTICAL) {
 			int right = rightPanel.getRightClosestSeperatorBarPositionWidth();
-			return Math.max(barPosition, right);
+			return Math.max(barPosition, right)+this.getX();
 		}
 		else {
-			return Math.max(leftPanel.getRightClosestSeperatorBarPositionWidth(), rightPanel.getRightClosestSeperatorBarPositionWidth());
+			return Math.max(leftPanel.getRightClosestSeperatorBarPositionWidth(), rightPanel.getRightClosestSeperatorBarPositionWidth()) + this.getX();
 		}
 	}
 	

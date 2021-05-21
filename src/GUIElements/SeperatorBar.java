@@ -119,6 +119,7 @@ public class SeperatorBar extends GUIElement {
 	 */
 	private boolean inBounds(int value) {
 		if(this.getDirection()==Direction.VERTICAL) {
+			System.out.println("Value is :" +value);
 			return (this.getRootContainer().getWidth()>=value +this.getWidth() && value>=0);
 		}
 		else {
@@ -157,7 +158,7 @@ public class SeperatorBar extends GUIElement {
 	 * @param x - new value of this.xPos
 	 */
 	public void changeXPosition(int x) {
-		this.setX( Math.max(0,Math.min(this.getRootContainer().getWidth()-this.getWidth(), x)));
+		this.setX( Math.max(this.getWidth(),Math.min(this.getRootContainer().getWidth()-this.getWidth(), x)));
 	}
 	
 	/**
@@ -166,7 +167,7 @@ public class SeperatorBar extends GUIElement {
 	 * @param y - new value of this.yPos
 	 */
 	public void  changeYPosition(int y) {
-		this.setY(Math.max(0,Math.min(this.getRootContainer().getHeight()-this.getHeight(), y)));
+		this.setY(Math.max(this.getHeight(),Math.min(this.getRootContainer().getHeight()-this.getHeight(), y)));
 	}
 	
 	/**
