@@ -259,7 +259,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 */
 	private void moveVerticalBar() {
 		
-		int leftBorder = leftPanel.getRightClosestSeperatorBarPositionWidth() +  this.bar.getWidth();
+		int leftBorder = leftPanel.getRightClosestSeperatorBarPositionWidth() ;
 		int rightBorder = rightPanel.getLeftClosestSeperatorBarPositionWidth();
 		if(leftBorder>this.bar.getX()) {
 			this.bar.setX(leftBorder);
@@ -280,7 +280,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 * The rest remains unchanged
 	 */
 	private void moveHorizontalBar() {
-		int leftBorder = leftPanel.getRightClosestSeperatorBarPositionHeight()+ this.bar.getHeight();
+		int leftBorder = leftPanel.getRightClosestSeperatorBarPositionHeight();
 		int rightBorder = rightPanel.getLeftClosestSeperatorBarPositionHeight();
 		if(leftBorder>this.bar.getY()) {
 			this.bar.setY(leftBorder);
@@ -397,9 +397,10 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	
 	@Override
 	public int getRightClosestSeperatorBarPositionWidth() {
+		int barPosition = this.getX() +bar.getEndX();
 		if(direction==Direction.VERTICAL) {
 			int right = rightPanel.getRightClosestSeperatorBarPositionWidth();
-			return Math.max(bar.getX(), right);
+			return Math.max(barPosition, right);
 		}
 		else {
 			return Math.max(leftPanel.getRightClosestSeperatorBarPositionWidth(), rightPanel.getRightClosestSeperatorBarPositionWidth());
@@ -408,13 +409,13 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	
 	@Override
 	public int getLeftClosestSeperatorBarPositionWidth() {
-		int barPosition = this.getX() +bar.getX();
+		int barPosition = bar.getX();
 		if(direction==Direction.VERTICAL) {
-			int left = leftPanel.getLeftClosestSeperatorBarPositionWidth() + this.getX();
+			int left = leftPanel.getLeftClosestSeperatorBarPositionWidth();
 			if(left==-1) {
-				return barPosition;
+				return barPosition + this.getX();
 			}
-			return Math.min(barPosition, left);
+			return Math.min(barPosition, left)+this.getX();
 		}
 		else {
 			int left = leftPanel.getLeftClosestSeperatorBarPositionWidth();
@@ -432,25 +433,25 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	
 	@Override
 	public int getRightClosestSeperatorBarPositionHeight() {
-		int barPosition = this.getY() +bar.getY();
+		int barPosition = bar.getEndY();
 		if(direction==Direction.HORIZONTAL) {
-			int right = rightPanel.getRightClosestSeperatorBarPositionHeight() + this.getY();
-			return Math.max(barPosition, right);
+			int right = rightPanel.getRightClosestSeperatorBarPositionHeight();
+			return Math.max(barPosition, right)+this.getY() ;
 		}
 		else {
-			return Math.max(leftPanel.getRightClosestSeperatorBarPositionHeight(), rightPanel.getRightClosestSeperatorBarPositionHeight());
+			return Math.max(leftPanel.getRightClosestSeperatorBarPositionHeight(), rightPanel.getRightClosestSeperatorBarPositionHeight())+this.getY();
 		}
 	}
 	
 	@Override
 	public int getLeftClosestSeperatorBarPositionHeight() {
-		int barPosition = this.getY() + bar.getY();
+		int barPosition =  bar.getY();
 		if(direction==Direction.HORIZONTAL) {
-			int left = leftPanel.getLeftClosestSeperatorBarPositionHeight()+ this.getY();
+			int left = leftPanel.getLeftClosestSeperatorBarPositionHeight();
 			if(left==-1) {
-				return barPosition;
+				return barPosition + this.getY();
 			}
-			return Math.min(barPosition, left);
+			return Math.min(barPosition, left) + this.getY();
 		}
 		else {
 			int left = leftPanel.getLeftClosestSeperatorBarPositionHeight();
