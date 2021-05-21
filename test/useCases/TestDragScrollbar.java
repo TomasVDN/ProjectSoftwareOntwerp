@@ -128,7 +128,5 @@ class TestDragScrollbar {
 
 		//testGUI
 		TestGUI testgui1 = new TestGUI(mainWindow, "TestDragScrollbar");
-
 	}
-	
 }

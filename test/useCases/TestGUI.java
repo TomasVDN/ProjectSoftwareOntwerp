@@ -67,6 +67,5 @@ public class TestGUI {
 		verify(fakeGraphics, times(fillrectmax)).fillRect(anyInt(), anyInt(), anyInt(), anyInt());
 		verify(fakeGraphics, times(drawRectmax)).drawRect(anyInt(), anyInt(), anyInt(), anyInt());
 		verify(fakeGraphics, times(drawStringmax)).drawString(anyString(), anyInt(), anyInt());
-
 	}
 }

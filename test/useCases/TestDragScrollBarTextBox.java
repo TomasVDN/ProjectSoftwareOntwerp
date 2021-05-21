@@ -74,6 +74,5 @@ class TestDragScrollBarTextBox {
 		assertEquals(searchBarScrollBarSmallBarPosition + displacementSearchbar, searchBarScrollBarSmallBarPositionNew);
 		assertNotEquals(searchbarScrollbarOffsetOriginal, searchbarScrollbarOffsetNew);
 		assertEquals((int) (-1 * searchBarScrollBar.getScrollBarRatio() * searchBar.getWidthText()), searchbarScrollbarOffsetNew);
-		
 	}
 }
