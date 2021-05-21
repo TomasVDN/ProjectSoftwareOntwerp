@@ -52,17 +52,17 @@ class TestFillAndSubmitForm {
 		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 200, 200, 1, MouseEvent.BUTTON1, 0);
 		
 		// make select first text box
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 349, 163, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 349, 163, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 349, 163, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 390, 160, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 390, 160, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 390, 160, 1, MouseEvent.BUTTON1, 0);
 		
 		//fill the text box
 		StringTyping.generateKeyEventsForString(mainWindow, "t");
 		
 		// make select second text box
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 380, 188, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 380, 188, 1, MouseEvent.BUTTON1, 0);
-		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 380, 188, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 390, 190, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 390, 190, 1, MouseEvent.BUTTON1, 0);
+		mainWindow.handleMouseEvent(MouseEvent.MOUSE_CLICKED, 390, 190, 1, MouseEvent.BUTTON1, 0);
 		
 		//fill the text box
 		StringTyping.generateKeyEventsForString(mainWindow, "5");

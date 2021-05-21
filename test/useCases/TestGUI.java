@@ -27,27 +27,27 @@ public class TestGUI {
 		if (test == "TestEnterUrl") {
 			fillrectmax = 7;
 			drawRectmax = 2;
-			drawStringmax = 14;
+			drawStringmax = 11;
 		} else if (test == "TestSplitPaneHorizontal") {
 			fillrectmax = 26;
 			drawRectmax = 8;
-			drawStringmax = 17;
+			drawStringmax = 14;
 		} else if (test == "TestSplitPaneVertical") {
-			fillrectmax = 26;
+			fillrectmax = 27;
 			drawRectmax = 8;
-			drawStringmax = 17;
+			drawStringmax = 14;
 		} else if (test == "TestDragSeperatorHorizontal") {
 			fillrectmax = 26;
 			drawRectmax = 8;
-			drawStringmax = 17;
+			drawStringmax = 14;
 		} else if (test == "TestDragSeperatorVertical") {
 			fillrectmax = 26;
 			drawRectmax = 8;
-			drawStringmax = 17;
+			drawStringmax = 14;
 		} else if (test == "TestDragScrollbar") {
 			fillrectmax = 7;
 			drawRectmax = 2;
-			drawStringmax = 33;
+			drawStringmax = 30;
 		}
 		
 		FontMetrics metrics = mock(FontMetrics.class);

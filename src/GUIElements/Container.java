@@ -153,8 +153,6 @@ public class Container extends GUIElement implements ScrollBarListener {
 		return maxHeight;
 	}
 	
-	
-	//TODO remove this shit
 	/**
 	 * Notifies this container that the scrollbar has been moved
 	 */
