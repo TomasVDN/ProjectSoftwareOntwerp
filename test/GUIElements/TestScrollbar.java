@@ -38,6 +38,10 @@ class TestScrollbar {
 		// check ratios
 		assertEquals(0.0, horizontalScrollBar.getScrollBarRatio());
 		assertEquals(0.0, verticalScrollBar.getScrollBarRatio());
+		
+		// check directions
+		assertEquals(Direction.HORIZONTAL, horizontalScrollBar.getDirection());
+		assertEquals(Direction.VERTICAL, verticalScrollBar.getDirection());
 	}
 	
 	@Test 
@@ -120,6 +124,33 @@ class TestScrollbar {
 	}
 	
 	@Test
+	void testSetBigBarSize() {
+		// test to check if big bar size is updated and the small bar size gets updated accordingly too
+		horizontalScrollBar.setWidth(450); // increase size
+		assertEquals(450, horizontalScrollBar.getWidth());
+		assertEquals(450, horizontalScrollBar.getBigBarSize());
+		assertEquals(225, horizontalScrollBar.getSmallBarSize());
+		verticalScrollBar.setHeight(50); // decrease size
+		assertEquals(50, verticalScrollBar.getHeight());
+		assertEquals(50, verticalScrollBar.getBigBarSize());
+		assertEquals(12.5, verticalScrollBar.getSmallBarSize());
+
+	}
+	
+	@Test
+	void testSetBigBarSizeTooLow() {
+		// test to check if an IllegalArgumentException is thrown when setting the big bar size too low
+		Exception exceptionHorizontal = assertThrows(IllegalArgumentException.class, () -> {
+			horizontalScrollBar.setWidth(-10);
+		});
+		assertTrue(exceptionHorizontal.getMessage().contains("The width of a GUIElement has to be positive."));
+		Exception exceptionVertical = assertThrows(IllegalArgumentException.class, () -> {
+			verticalScrollBar.setHeight(-25);
+		});
+		assertTrue(exceptionVertical.getMessage().contains("The height of a GUIElement has to be positive."));
+	}
+	
+	@Test
 	void testSetBigBarSizeToZero() {
 		// test to check if an IllegalArgumentException is thrown when setting the big bar size to zero
 		Exception exceptionHorizontal = assertThrows(IllegalArgumentException.class, () -> {
@@ -133,6 +164,17 @@ class TestScrollbar {
 	}
 	
 	@Test
+	void testUpdateCorrectSmallBarSize() {
+		// test to check small bar size changes correctly when using the updateCorrectSmallBarSize method
+		horizontalScrollBar.updateCorrectSmallBarSize(15, 5);
+		assertEquals(150, horizontalScrollBar.getBigBarSize());
+		assertEquals(50, horizontalScrollBar.getSmallBarSize());
+		verticalScrollBar.updateCorrectSmallBarSize(100, 10);
+		assertEquals(200, verticalScrollBar.getBigBarSize());
+		assertEquals(20, verticalScrollBar.getSmallBarSize());
+	}
+	
+	@Test
 	void testUpdateCorrectSmallBarSizeWithZeroTotalSize() {
 		// test to check if an IllegalArgumentException is thrown when the totalSize argument is zero in the updateCorrectSmallBarSize method
 		Exception exceptionHorizontal = assertThrows(IllegalArgumentException.class, () -> {
@@ -143,6 +185,31 @@ class TestScrollbar {
 			verticalScrollBar.updateCorrectSmallBarSize(0, 1);
 		});
 		assertTrue(exceptionVertical.getMessage().contains("The totalSize in the method updateCorrectSmallBarSize can't be 0 or smaller."));
+	}
+	
+	@Test
+	void testSmallBarContainsPoint() {
+		// test for the smallBarContainsPoint method
+		// this tests the edges mostly
+		horizontalScrollBar.setSmallBarSize(50);
+		horizontalScrollBar.setSmallBarPosition(80);
+		assertTrue(horizontalScrollBar.smallBarContainsPoint(80, 50));
+		assertFalse(horizontalScrollBar.smallBarContainsPoint(79, 50));
+		assertTrue(horizontalScrollBar.smallBarContainsPoint(130, 50));
+		assertFalse(horizontalScrollBar.smallBarContainsPoint(131, 50));
+		assertTrue(horizontalScrollBar.smallBarContainsPoint(100, 50));
+		assertFalse(horizontalScrollBar.smallBarContainsPoint(100, 49));
+		assertTrue(horizontalScrollBar.smallBarContainsPoint(90, 60));
+		assertFalse(horizontalScrollBar.smallBarContainsPoint(90, 61));
+		
+		assertTrue(verticalScrollBar.smallBarContainsPoint(110, 80));
+		assertFalse(verticalScrollBar.smallBarContainsPoint(110, 79));
+		assertTrue(verticalScrollBar.smallBarContainsPoint(110, 130));
+		assertFalse(verticalScrollBar.smallBarContainsPoint(110, 131));
+		assertTrue(verticalScrollBar.smallBarContainsPoint(110, 100));
+		assertFalse(verticalScrollBar.smallBarContainsPoint(109, 100));
+		assertTrue(verticalScrollBar.smallBarContainsPoint(120, 90));
+		assertFalse(verticalScrollBar.smallBarContainsPoint(121, 90));
 	}
 		
 
