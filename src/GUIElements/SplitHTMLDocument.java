@@ -395,6 +395,11 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		return this.leftPanel;
 	}
 	
+	/**
+	 * Calculates the position of the Seperator bar thats most in the right of the tree.
+	 * If it is vertical it takes the right node, otherwise it takes the maximum of both.
+	 * When the class has no seperatorBar -1 is returned
+	 */
 	@Override
 	public int getRightClosestSeperatorBarPositionWidth() {
 		int barPosition = this.getX() +bar.getEndX();
@@ -407,6 +412,11 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 	}
 	
+	/**
+	 * Calculates the position of the Seperator bar thats most in the left of the tree.
+	 * If it is vertical it takes the left node, otherwise it takes the minimum of both.
+	 * When the class has no seperatorBar -1 is returned
+	 */
 	@Override
 	public int getLeftClosestSeperatorBarPositionWidth() {
 		int barPosition = bar.getX();
@@ -430,7 +440,11 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 	}
 	
-	
+	/**
+	 * Calculates the position of the Seperator bar thats most in the right of the tree.
+	 * If it is horizontal it takes the right node, otherwise it takes the maximum of both.
+	 * When the class has no seperatorBar -1 is returned
+	 */
 	@Override
 	public int getRightClosestSeperatorBarPositionHeight() {
 		int barPosition = bar.getEndY();
@@ -443,6 +457,11 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		}
 	}
 	
+	/**
+	 * Calculates the position of the Seperator bar thats most in the left of the tree.
+	 * If it is horizontal it takes the left node, otherwise it takes the minimum of both.
+	 * When the class has no seperatorBar -1 is returned
+	 */
 	@Override
 	public int getLeftClosestSeperatorBarPositionHeight() {
 		int barPosition =  bar.getY();
