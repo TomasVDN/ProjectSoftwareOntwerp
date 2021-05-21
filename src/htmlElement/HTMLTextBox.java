@@ -16,7 +16,6 @@ public class HTMLTextBox extends HTMLInput {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return "TEXTBOX[" + name + "]";
 	}
 

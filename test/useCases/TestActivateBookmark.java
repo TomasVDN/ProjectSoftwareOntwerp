@@ -12,13 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.BookmarkDialog;
 import GUIElements.BookmarkHyperlink;
-import GUIElements.Container;
 import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
 import GUIElements.Hyperlink;
-import GUIElements.Pane;
 import GUIElements.SearchBar;
 import GUIElements.TableCellGUI;
 import GUIElements.TableGUI;
@@ -47,7 +44,6 @@ class TestActivateBookmark {
 		String newBookmarkUrl = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
 		mainWindow.getWindowManager().addBookmark(newBookmarkyperlinkString, newBookmarkUrl);
 		
-		// get positions to click TODO misschien een betere manier vinden voor dit?
 		// get Y position
 		int yPosOfBookmarkBarContainer = mainWindow.getWindowManager().getMainDialog().getBookmarkBarContainer().getY();
 		int yPosOfBookmarkBar = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getY();

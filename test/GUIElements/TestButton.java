@@ -74,12 +74,6 @@ class TestButton {
 	}
 
 	@Test
-	void testPaint() { //TODO william
-		//fail("Not yet implemented"); 
-	}
-
-
-	@Test
 	void testAddSingleClickListener() {
 		testButton.addSingleClickListener(() ->{
 			for(ActionListener listener: testButton.getListeners()) {

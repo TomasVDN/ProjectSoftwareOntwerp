@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
-import EventListeners.FormListener;
 import EventListeners.SeparatorBarMoveListener;
-import GUIElements.Direction;
 
 class TestSeperatorBar {
 	
@@ -58,10 +56,10 @@ class TestSeperatorBar {
 	
 	@Test
 	public void testPositionBar() {
-		int[] pos = barVertical.positionBar(Direction.VERTICAL, 50);
+		int[] pos = SeperatorBar.positionBar(Direction.VERTICAL, 50);
 		assertEquals(50,pos[0]);
 		assertEquals(0,pos[1]);
-		pos = barVertical.positionBar(Direction.HORIZONTAL, 50);
+		pos = SeperatorBar.positionBar(Direction.HORIZONTAL, 50);
 		assertEquals(0,pos[0]);
 		assertEquals(50,pos[1]);
 		

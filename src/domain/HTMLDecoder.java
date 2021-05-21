@@ -208,7 +208,7 @@ public class HTMLDecoder {
 	 */
 	private ContentSpan createInput() {
 		if(! lexer.getTokenValue().equals("input")) {
-			throw new IllegalArgumentException("not an input"); // TODO veranderen naar de juiste input
+			throw new IllegalArgumentException("not an input");
 		}
 		this.eat(); // removes the start tag
 		String type=null;

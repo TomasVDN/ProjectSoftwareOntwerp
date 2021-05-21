@@ -13,15 +13,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import GUIElements.BookmarkHyperlink;
-import GUIElements.Container;
 import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
-import GUIElements.Hyperlink;
-import GUIElements.Pane;
-import GUIElements.SearchBar;
 import GUIElements.TableCellGUI;
-import GUIElements.TableGUI;
-import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
 
@@ -44,9 +38,7 @@ class TestActivateBookmarkExtension {
 		String newBookmarkyperlinkString = "New Bookmark";
 		String newBookmarkUrl = "A wrong url";
 		mainWindow.getWindowManager().addBookmark(newBookmarkyperlinkString, newBookmarkUrl);
-		// TODO newBookmarkHyperlink.addHyperLinkListener(mainWindow.getWindowManager().getBrowsr());
 		
-		// get positions to click TODO misschien een betere manier vinden voor dit?
 		// get Y position
 		int yPosOfBookmarkBarContainer = mainWindow.getWindowManager().getMainDialog().getBookmarkBarContainer().getY();
 		int yPosOfBookmarkBar = mainWindow.getWindowManager().getMainDialog().getBookmarkBar().getY();

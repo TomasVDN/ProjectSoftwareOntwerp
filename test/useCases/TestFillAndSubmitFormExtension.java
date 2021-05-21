@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.Container;
 import GUIElements.HTMLDocument;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;

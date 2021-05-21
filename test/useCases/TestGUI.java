@@ -33,7 +33,7 @@ public class TestGUI {
 			drawRectmax = 8;
 			drawStringmax = 14;
 		} else if (test == "TestSplitPaneVertical") {
-			fillrectmax = 27;
+			fillrectmax = 26;
 			drawRectmax = 8;
 			drawStringmax = 14;
 		} else if (test == "TestDragSeperatorHorizontal") {

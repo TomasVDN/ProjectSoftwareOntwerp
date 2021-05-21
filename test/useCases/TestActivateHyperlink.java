@@ -15,7 +15,6 @@ import GUIElements.TableGUI;
 import GUIElements.TableRowGUI;
 import GUIElements.Text;
 import canvaswindow.MyCanvasWindow;
-import GUIElements.Container;
 import GUIElements.HTMLDocument;
 
 

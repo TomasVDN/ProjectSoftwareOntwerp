@@ -272,7 +272,7 @@ public class WindowManager {
 	 */
 	private void setBookmarkDialogToActive() {
 		String suggestedUrl = this.getURLFromSearchBar();
-		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), suggestedUrl); //TODO
+		BookmarkDialog newBookmarkDialog = new BookmarkDialog(0, 0, this.getWidth(), this.getHeight(), suggestedUrl);
 		
 		newBookmarkDialog.addChangeDialogListener(this::changeDialog);
 		AddbookmarkListener.forEach(listener -> newBookmarkDialog.addAddBookmarkListener(listener));

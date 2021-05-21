@@ -3,7 +3,6 @@ package GUIElements;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import EventListeners.ActionListener;
 import EventListeners.ChangeDialogListener;
 import EventListeners.SavePageListener;
 

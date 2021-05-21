@@ -15,7 +15,7 @@ class TestHTMLText {
 	Text guiTextReference;
 	
 	void setUpReference() {
-		guiTextReference = new Text(10, 20, textValue); //TODO heb dit aangepast ma ik weet nie of dat da juist is
+		guiTextReference = new Text(10, 20, textValue);
 	}
 	
 	@Test

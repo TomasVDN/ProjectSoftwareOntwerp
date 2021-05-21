@@ -65,8 +65,6 @@ class TestSaver {
 		assertEquals(1, fileCount);
 	}
 	
-	//TODO test when htmlCode is null && add safeguard for it in Saver class
-	
 	//https://stackoverflow.com/questions/7768071/how-to-delete-directory-content-in-java/8632891
 	private static void deleteFolderContent(File folder) {
 	    File[] files = folder.listFiles();

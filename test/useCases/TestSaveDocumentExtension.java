@@ -20,7 +20,6 @@ import GUIElements.GUIElement;
 import GUIElements.SaveDialog;
 import GUIElements.ScrollableTextBox;
 import GUIElements.Text;
-import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
 import helperFunctions.StringTyping;
 
@@ -74,7 +73,6 @@ class TestSaveDocumentExtension {
 		
 		// Step 4.6.1
 		// User presses Ctrl + S
-		// TODO die juiste combinaties vinden voor Ctrl + S
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 83, 's', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 83, 's', 128);

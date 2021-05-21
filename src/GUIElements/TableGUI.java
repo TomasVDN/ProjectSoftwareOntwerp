@@ -75,7 +75,7 @@ public class TableGUI extends GUIElement {
 	 */
 	@Override
 	public void paint(Graphics g) {		
-		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);//TODO dit 52+26 maar waarom dit getal
+		Graphics newG= g.create(getX(), getY(), getWidth()+1, getHeight()+1);
 		for(int i=0; i< this.getGuiRows().size();i++) {
 			this.getGuiRows().get(i).paint(newG);
 		}
@@ -203,7 +203,7 @@ public class TableGUI extends GUIElement {
 	 * 		width is the max width in the column
 	 * Furthermore their relative positions are also updated
 	 */
-	private void updateTableCells() { // TODO terug private maken, even public gemaakt om table van bookmarks juist te tekenen in de MainDialog
+	private void updateTableCells() {
 		ArrayList<Integer> rowHeight =this.getAllRowHeight();
 		ArrayList<Integer> colomnWidth =this.getAllColumnWidth();
 		int yPosition=0;

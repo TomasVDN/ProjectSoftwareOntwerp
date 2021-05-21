@@ -1,38 +1,20 @@
 package useCases;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import GUIElements.Button;
 import GUIElements.Direction;
-import GUIElements.GUIElement;
 import GUIElements.HTMLDocument;
 import GUIElements.Pane;
-import GUIElements.SaveDialog;
 import GUIElements.ScrollBar;
 import GUIElements.ScrollableHTMLDocument;
-import GUIElements.ScrollableTextBox;
-import GUIElements.SearchBar;
-import GUIElements.SplitHTMLDocument;
-import GUIElements.Text;
-import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
-import helperFunctions.StringTyping;
 import helperFunctions.UrlRunningWithSearchBar;
 
 class TestDragScrollbar {

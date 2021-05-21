@@ -19,8 +19,6 @@ import GUIElements.GUIElement;
 import GUIElements.ScrollableTextBox;
 import GUIElements.TableCellGUI;
 import GUIElements.Text;
-import GUIElements.TextBox;
-
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -78,7 +76,6 @@ class TestAddBookmark {
 		
 		// Step 4.5.1
 		// User presses Ctrl + D
-		// TODO die juiste combinaties vinden voor Ctrl + D
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 68, 'd', 128);

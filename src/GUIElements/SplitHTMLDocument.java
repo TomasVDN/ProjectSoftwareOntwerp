@@ -187,7 +187,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		
 		if (leftPanel == null) {			
 			rightPanel.updateRightClosestChildWidth(getX(), getWidth());
-			rightPanel.updateRightClosestChildHeight(getY(), getHeight());//TODO ziet mij er lelijk uit
+			rightPanel.updateRightClosestChildHeight(getY(), getHeight());
 			rightPanel.setActive(true);
 			rightPanel.updateAllBars();
 			return rightPanel;
@@ -299,7 +299,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 * of the other childs must remain the same. The rightpanel x coordinate has to change accordingly
 	 */
 	@Override
-	public void updateRightClosestChildWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
+	public void updateRightClosestChildWidth(int newXPos, int newWidth) {
 		this.setX(newXPos);
 		if (direction == Direction.VERTICAL) {
 			if(newWidth>this.getLeftPanel().getWidth()) {
@@ -321,7 +321,7 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 	 * of the other childs must remain the same. 
 	 */
 	@Override
-	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {//TODO het kan ook zijn dat rechterkant groter wordt
+	public void updateLeftClosestChildWidth(int newXPos, int newWidth) {
 		this.setX(newXPos);
 		if (direction == Direction.VERTICAL) {
 			if(newWidth>this.getRightPanel().getWidth()) {
@@ -430,6 +430,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		else {
 			int left = leftPanel.getLeftClosestSeperatorBarPositionWidth();
 			int right = rightPanel.getLeftClosestSeperatorBarPositionWidth();
+			if(left == -1 && right == -1) {
+				return -1;
+			}
 			if(left==-1) {
 				return right+this.getX();
 			}
@@ -475,10 +478,13 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		else {
 			int left = leftPanel.getLeftClosestSeperatorBarPositionHeight();
 			int right = rightPanel.getLeftClosestSeperatorBarPositionHeight();
-			if(left==-1) {
+			if(left == -1 && right == -1) {
+				return -1;
+			}
+			if(left == -1) {
 				return right+this.getY();
 			}
-			if(right==-1) {
+			if(right == -1) {
 				return left+this.getY();
 			}
 			return Math.min(left, right)+ this.getY();

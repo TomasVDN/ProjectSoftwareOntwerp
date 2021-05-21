@@ -535,7 +535,7 @@ public class TextBox extends GUIElement implements ScrollBarListener {
 	/**
 	 * Sets the y offset to the given offset
 	 */
-	private void setyOffset(int yOffset) {
+	public void setyOffset(int yOffset) {
 		this.yOffset = yOffset;
 	}
 	

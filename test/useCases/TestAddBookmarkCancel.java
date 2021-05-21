@@ -19,7 +19,6 @@ import GUIElements.Button;
 import GUIElements.GUIElement;
 import GUIElements.ScrollableTextBox;
 import GUIElements.Text;
-import GUIElements.TextBox;
 import canvaswindow.MyCanvasWindow;
 
 class TestAddBookmarkCancel {
@@ -49,7 +48,6 @@ private MyCanvasWindow mainWindow;
 		
 		// Step 4.5.1
 		// User presses Ctrl + D
-		// TODO die juiste combinaties vinden voor Ctrl + D
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 17, '?', 128); 
 		mainWindow.handleKeyEvent(KeyEvent.KEY_PRESSED, 68, 'd', 128);
 		mainWindow.handleKeyEvent(KeyEvent.KEY_RELEASED, 68, 'd', 128);

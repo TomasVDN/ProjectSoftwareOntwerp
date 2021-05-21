@@ -32,8 +32,8 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
      * @param h - height of this scrollbar
 	 * @param viewableSize - size of the small bar
 	 * @param totalSize - size of the large bar
-	 * @throws IllegalArgumentException when direction == Horizontal && width <= 0
-	 * 			| when direction == Vertical && height <= 0
+	 * @throws IllegalArgumentException when direction == Horizontal and width less or equal to 0
+	 * 			| when direction == Vertical and height less or equal to 0
 	 */
 	public ScrollBar(Direction direction, int x, int y, int w, int h, int viewableSize,int totalSize) {
 		super(x, y, w, h);
@@ -99,9 +99,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 		double oldSmallBarPosition = this.getSmallBarPosition();
 		this.setSmallBarPosition(oldSmallBarPosition + offset);
 		
-		if (this.getSmallBarPosition() + offset < this.getBigBarPosition() || this.getSmallBarPosition() + offset > this.getBigBarPosition() + this.getBigBarSize() - this.getSmallBarSize()) {
-			// TODO effe fixe me die if en else omwisselen 
-		} else {
+		if (!(this.getSmallBarPosition() + offset < this.getBigBarPosition() || this.getSmallBarPosition() + offset > this.getBigBarPosition() + this.getBigBarSize() - this.getSmallBarSize())) {
 			this.setOffsetReference(newOffset);
 		}
 	}
@@ -241,7 +239,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	 * Update the size of the small bar. It is equal to: (viewable size of the content) / (total size of all content) * size scrollbar
 	 * @param totalSize
 	 * @param viewableSize
-    * @throws IllegalArgumentException when totalSize <= 0
+    * @throws IllegalArgumentException when totalSize less or equal to 0
 	 */
 	public void updateCorrectSmallBarSize(int totalSize, int viewableSize) {
 		if (totalSize <= 0) {
@@ -299,7 +297,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
 	/**
     * Sets the value width of this class. If the new value is negative, set it to 0 instead.
     * @param width - new value of this.width
-    * @throws IllegalArgumentException when direction == Horizontal && width <= 0
+    * @throws IllegalArgumentException when direction == Horizontal and width less or equal to 0
     */
    @Override
    public void setWidth(int width) {
@@ -323,7 +321,7 @@ public class ScrollBar extends GUIElement implements AdjustmentListener{
     * Sets the value height of this class. If the new value is negative, set it to 0 instead.
     * 
     * @param height - new value of this.height
-    * @throws IllegalArgumentException when direction == Vertical && height <= 0
+    * @throws IllegalArgumentException when direction == Vertical and height less or equal to 0
     */
    @Override
    public void setHeight(int height) {

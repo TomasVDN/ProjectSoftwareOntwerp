@@ -4,17 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.lang.reflect.InvocationTargetException;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import GUIElements.Hyperlink;
-import canvaswindow.FontMetricGetter;
-import canvaswindow.MyCanvasWindow;
-
-import facades.BrowsrController;
-import facades.WindowManager;
 
 class TestHTMLHyperlink {
 	
