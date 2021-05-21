@@ -119,7 +119,6 @@ public class SeperatorBar extends GUIElement {
 	 */
 	private boolean inBounds(int value) {
 		if(this.getDirection()==Direction.VERTICAL) {
-			System.out.println("Value is :" +value);
 			return (this.getRootContainer().getWidth()>=value +this.getWidth() && value>=0);
 		}
 		else {
