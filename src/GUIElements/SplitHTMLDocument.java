@@ -430,7 +430,10 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		else {
 			int left = leftPanel.getLeftClosestSeperatorBarPositionWidth();
 			int right = rightPanel.getLeftClosestSeperatorBarPositionWidth();
-			if(left==-1) {
+			if(left==-1 && right == -1) {
+				return -1;
+			}
+			if(left==-1 ) {
 				return right+this.getX();
 			}
 			if(right==-1) {
@@ -475,6 +478,9 @@ public class SplitHTMLDocument extends Pane implements SeparatorBarMoveListener{
 		else {
 			int left = leftPanel.getLeftClosestSeperatorBarPositionHeight();
 			int right = rightPanel.getLeftClosestSeperatorBarPositionHeight();
+			if(left==-1 && right == -1) {
+				return -1;
+			}
 			if(left==-1) {
 				return right+this.getY();
 			}
