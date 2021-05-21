@@ -47,7 +47,7 @@ public class TestGUI {
 		} else if (test == "TestDragScrollbar") {
 			fillrectmax = 7;
 			drawRectmax = 2;
-			drawStringmax = 6;
+			drawStringmax = 33;
 		}
 		
 		FontMetrics metrics = mock(FontMetrics.class);
